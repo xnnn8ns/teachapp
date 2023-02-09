@@ -52,20 +52,24 @@ public class QuestionInitializer : MonoBehaviour
     {
         FillTestQuestionList();
 
+        int indexQuestion = 0;
         foreach (Question question in _questions)
         {
             GameObject questionPrefab = Instantiate(_questionPrefab);
             QuestionSurface questionSurface = questionPrefab.GetComponent<QuestionSurface>();
-            questionSurface.SetTitle(question.Title);
+            questionSurface.SetTitle(question.Title, indexQuestion);
             List<Answer> answers = question.GetAnswerList();
             Vector3 vectorPosition = new Vector3(-answers.Count/2, -1,0);
+            int indexAnswer = 0;
             foreach (var answer in answers)
             {
                 GameObject answerPrefab = Instantiate(_answerPrefab, vectorPosition, Quaternion.identity);
                 AnswerSurface answerSurface = answerPrefab.GetComponent<AnswerSurface>();
-                answerSurface.SetTitle(answer.Title);
+                answerSurface.SetTitle(answer.Title, indexAnswer);
                 vectorPosition += new Vector3(1.5f, 0, 0);
+                indexAnswer++;
             }
+            indexQuestion++;
         }
     }
 
@@ -73,4 +77,5 @@ public class QuestionInitializer : MonoBehaviour
     {
         InitQuestions();
     }
+
 }

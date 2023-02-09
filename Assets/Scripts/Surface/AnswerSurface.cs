@@ -3,13 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class AnswerSurface : MonoBehaviour
+public class AnswerSurface : Surface
 {
-    [SerializeField]
-    private TextMeshPro _titleText;
 
-    public void SetTitle(string title)
-    {
-        _titleText.text = title;
-    }
 }

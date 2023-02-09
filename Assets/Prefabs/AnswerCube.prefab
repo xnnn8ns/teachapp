@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 2200933521651468304}
   - component: {fileID: 2200933521651468305}
   - component: {fileID: 4757527832625515060}
+  - component: {fileID: 3474874239581703713}
   m_Layer: 0
   m_Name: AnswerCube
   m_TagString: Untagged
@@ -316,3 +317,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _titleText: {fileID: 2200933521262336360}
+--- !u!114 &3474874239581703713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200933521651468310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba063227eda1349fba44c77ba99c588b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
