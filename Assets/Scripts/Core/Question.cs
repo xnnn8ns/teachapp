@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 
-public abstract class Question
+public abstract class Question: Information
 {
-    private string _questionTitle = "";
     private List<Answer> _answerList = new List<Answer>();
 
     public int GetAnswerCount()
@@ -28,18 +27,6 @@ public abstract class Question
     public void SetAnswerList(List<Answer> answerList)
     {
         _answerList = answerList;
-    }
-
-    public string Title
-    {
-        get
-        {
-            return _questionTitle;
-        }
-        set
-        {
-            _questionTitle = value;
-        }
     }
 
     public List<Answer> GetAnswerList()

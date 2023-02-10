@@ -10,6 +10,7 @@ public class QuestionInitializer : MonoBehaviour
     private GameObject _answerPrefab;
 
     private List<Question> _questions = new List<Question>();
+    private List<GameObject> _answers = new List<GameObject>();
 
     private void FillTestQuestionList()
     {
@@ -57,17 +58,19 @@ public class QuestionInitializer : MonoBehaviour
         {
             GameObject questionPrefab = Instantiate(_questionPrefab);
             QuestionSurface questionSurface = questionPrefab.GetComponent<QuestionSurface>();
-            questionSurface.SetTitle(question.Title, indexQuestion);
+            questionSurface.SetTitle(question.Title);
             List<Answer> answers = question.GetAnswerList();
-            Vector3 vectorPosition = new Vector3(-answers.Count/2, -1,0);
+            Vector3 vectorPosition = new Vector3(-_answers.Count/2, -1,0);
             int indexAnswer = 0;
             foreach (var answer in answers)
             {
                 GameObject answerPrefab = Instantiate(_answerPrefab, vectorPosition, Quaternion.identity);
                 AnswerSurface answerSurface = answerPrefab.GetComponent<AnswerSurface>();
-                answerSurface.SetTitle(answer.Title, indexAnswer);
+                answerSurface.SetTitle(answer.Title);
+                answerSurface.SetActionCallback(answer, answerPrefab.transform, AnswerCheck);
                 vectorPosition += new Vector3(1.5f, 0, 0);
                 indexAnswer++;
+                _answers.Add(answerPrefab);
             }
             indexQuestion++;
         }
@@ -76,6 +79,15 @@ public class QuestionInitializer : MonoBehaviour
     private void Start()
     {
         InitQuestions();
+    }
+
+    private void AnswerCheck(Information information, Transform transformClicked)
+    {
+        if(((Answer)information).IsRight)
+            transformClicked.GetComponent<AnimationExecuter>()?.StartUpDownTurn();
+        else
+            transformClicked.GetComponent<AnimationExecuter>()?.StartLeftRightTurn();
+
     }
 
 }

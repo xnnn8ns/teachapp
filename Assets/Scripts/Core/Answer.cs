@@ -1,22 +1,9 @@
 using System.Collections.Generic;
 
-public class Answer
+public class Answer: Information
 {
-    private string _answerTitle = "";
     private bool _isRight = false;
     private int _score = 0;
-
-    public string Title
-    {
-        get
-        {
-            return _answerTitle;
-        }
-        set
-        {
-            _answerTitle = value;
-        }
-    }
 
     public bool IsRight
     {
