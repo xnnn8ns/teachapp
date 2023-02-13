@@ -46,14 +46,19 @@ public class Surface : MonoBehaviour, IPointerClickHandler, IPointerDownHandler,
 
     public void SetActionDownCallback(Information parentObject,
                         AnimationExecuter parentTransform,
-                        Action<AnimationExecuter, Vector2> actionDownSurface,
-                        Action<AnimationExecuter, Vector2> actionMoveSurface,
-                        Action<AnimationExecuter, Vector2> actionUpSurface)
+                        Action<AnimationExecuter, Vector2> actionDownSurface)
     {
         _parentObject = parentObject;
         _parentAnimationExecutor = parentTransform;
         _actionDownSurface = actionDownSurface;
-        _actionMoveSurface = actionMoveSurface;
+    }
+
+    public void SetActionUpCallback(Information parentObject,
+                        AnimationExecuter parentTransform,
+                        Action<AnimationExecuter, Vector2> actionUpSurface)
+    {
+        _parentObject = parentObject;
+        _parentAnimationExecutor = parentTransform;
         _actionUpSurface = actionUpSurface;
     }
 

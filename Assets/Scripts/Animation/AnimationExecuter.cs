@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(Transform))] 
 public class AnimationExecuter : MonoBehaviour
 {
-    private const float MULTY_DRAG_COEF = 8f;
+    private const float MULTY_DRAG_COEF = 16f;
     private Vector3 _offsetOnStartDragging;
     private Transform _transform;
     private bool _isStartTouch = false;
@@ -123,11 +123,15 @@ public class AnimationExecuter : MonoBehaviour
         _isStartTouch = true;
         vector *= MULTY_DRAG_COEF;
         Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(vector.x, vector.y, Camera.main.nearClipPlane));
+        //Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(vector.x, vector.y, 0));
+
         _offsetOnStartDragging = transform.localPosition - point;
     }
 
     public void Drag(Vector2 vector)
     {
+        if (!_isStartTouch)
+            return;
         vector *= MULTY_DRAG_COEF;
         Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(vector.x, vector.y, Camera.main.nearClipPlane));
         Vector3 newPosition = point + _offsetOnStartDragging;

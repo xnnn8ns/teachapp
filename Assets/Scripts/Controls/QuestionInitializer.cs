@@ -60,7 +60,7 @@ public class QuestionInitializer : MonoBehaviour
             QuestionSurface questionSurface = questionPrefab.GetComponent<QuestionSurface>();
             questionSurface.SetTitle(question.Title);
             List<Answer> answers = question.GetAnswerList();
-            Vector3 vectorPosition = new Vector3(-_answers.Count/2, -1,0);
+            Vector3 vectorPosition = new Vector3(-_answers.Count, -1,0);
             int indexAnswer = 0;
             foreach (var answer in answers)
             {
@@ -91,6 +91,12 @@ public class QuestionInitializer : MonoBehaviour
         AnswerSurface answerSurface = answerPrefab.GetComponent<AnswerSurface>();
 
         answerSurface.SetTitle(answer.Title);
+        answerSurface.SetActionDownCallback(answer,
+            animationExecuter,
+            AnswerTouchDown);
+        answerSurface.SetActionUpCallback(answer,
+            animationExecuter,
+            AnswerTouchUp);
         answerSurface.SetActionDragCallback(answer,
             animationExecuter,
             AnswerTouchMove);
@@ -112,6 +118,11 @@ public class QuestionInitializer : MonoBehaviour
     private void AnswerTouchDown(AnimationExecuter transformTouchDown, Vector2 position)
     {
         transformTouchDown?.StartDrag(position);
+    }
+
+    private void AnswerTouchUp(AnimationExecuter transformTouchDown, Vector2 position)
+    {
+        transformTouchDown?.StopDrag(position);
     }
 
     private void AnswerTouchMove(AnimationExecuter transformTouchMove, Vector2 position)
