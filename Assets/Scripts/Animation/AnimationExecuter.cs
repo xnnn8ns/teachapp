@@ -4,7 +4,10 @@ using System.Collections;
 [RequireComponent(typeof(Transform))] 
 public class AnimationExecuter : MonoBehaviour
 {
+    private const float MULTY_DRAG_COEF = 8f;
+    private Vector3 _offsetOnStartDragging;
     private Transform _transform;
+    private bool _isStartTouch = false;
 
     private void Start()
     {
@@ -113,5 +116,28 @@ public class AnimationExecuter : MonoBehaviour
                 break;
         }
         _transform.rotation = startQuaternion;
+    }
+
+    public void StartDrag(Vector2 vector)
+    {
+        _isStartTouch = true;
+        vector *= MULTY_DRAG_COEF;
+        Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(vector.x, vector.y, Camera.main.nearClipPlane));
+        _offsetOnStartDragging = transform.localPosition - point;
+    }
+
+    public void Drag(Vector2 vector)
+    {
+        vector *= MULTY_DRAG_COEF;
+        Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(vector.x, vector.y, Camera.main.nearClipPlane));
+        Vector3 newPosition = point + _offsetOnStartDragging;
+        transform.localPosition = newPosition;
+    }
+
+    public void StopDrag(Vector2 vector)
+    {
+        if (!_isStartTouch)
+            return;
+        _isStartTouch = false;
     }
 }

@@ -65,10 +65,10 @@ public class QuestionInitializer : MonoBehaviour
             foreach (var answer in answers)
             {
                 GameObject answerPrefab = Instantiate(_answerPrefab, vectorPosition, Quaternion.identity);
-                AnswerSurface answerSurface = answerPrefab.GetComponent<AnswerSurface>();
-                answerSurface.SetTitle(answer.Title);
-                answerSurface.SetActionCallback(answer, answerPrefab.transform, AnswerCheck);
-                vectorPosition += new Vector3(1.5f, 0, 0);
+
+                SetAnswerDrag(answerPrefab, answer, answerPrefab.GetComponent<AnimationExecuter>());
+
+                 vectorPosition += new Vector3(1.5f, 0, 0);
                 indexAnswer++;
                 _answers.Add(answerPrefab);
             }
@@ -76,18 +76,47 @@ public class QuestionInitializer : MonoBehaviour
         }
     }
 
+    private void SetAnswerSingleCheck(GameObject answerPrefab, Answer answer, AnimationExecuter animationExecuter)
+    {
+        AnswerSurface answerSurface = answerPrefab.GetComponent<AnswerSurface>();
+
+        answerSurface.SetTitle(answer.Title);
+        answerSurface.SetActionClickCallback(answer,
+            animationExecuter,
+            AnswerCheck);
+    }
+
+    private void SetAnswerDrag(GameObject answerPrefab, Answer answer, AnimationExecuter animationExecuter)
+    {
+        AnswerSurface answerSurface = answerPrefab.GetComponent<AnswerSurface>();
+
+        answerSurface.SetTitle(answer.Title);
+        answerSurface.SetActionDragCallback(answer,
+            animationExecuter,
+            AnswerTouchMove);
+    }
+
     private void Start()
     {
         InitQuestions();
     }
 
-    private void AnswerCheck(Information information, Transform transformClicked)
+    private void AnswerCheck(Information information, AnimationExecuter transformClicked)
     {
         if(((Answer)information).IsRight)
-            transformClicked.GetComponent<AnimationExecuter>()?.StartUpDownTurn();
+            transformClicked?.StartUpDownTurn();
         else
-            transformClicked.GetComponent<AnimationExecuter>()?.StartLeftRightTurn();
+            transformClicked?.StartLeftRightTurn();
+    }
 
+    private void AnswerTouchDown(AnimationExecuter transformTouchDown, Vector2 position)
+    {
+        transformTouchDown?.StartDrag(position);
+    }
+
+    private void AnswerTouchMove(AnimationExecuter transformTouchMove, Vector2 position)
+    {
+        transformTouchMove?.Drag(position);
     }
 
 }
