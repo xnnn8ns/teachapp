@@ -8,6 +8,9 @@ public class QuestionInitializer : MonoBehaviour
     private GameObject _questionPrefab;
     [SerializeField]
     private GameObject _answerPrefab;
+    [SerializeField]
+    private Shelf _shelf;
+
 
     private List<Question> _questions = new List<Question>();
     private List<GameObject> _answers = new List<GameObject>();
@@ -83,7 +86,7 @@ public class QuestionInitializer : MonoBehaviour
         answerSurface.SetTitle(answer.Title);
         answerSurface.SetActionClickCallback(answer,
             animationExecuter,
-            AnswerCheck);
+            AnswerCheckByClick);
     }
 
     private void SetAnswerDrag(GameObject answerPrefab, Answer answer, AnimationExecuter animationExecuter)
@@ -107,7 +110,7 @@ public class QuestionInitializer : MonoBehaviour
         InitQuestions();
     }
 
-    private void AnswerCheck(Information information, AnimationExecuter transformClicked)
+    private void AnswerCheckByClick(Information information, AnimationExecuter transformClicked)
     {
         if(((Answer)information).IsRight)
             transformClicked?.StartUpDownTurn();
@@ -117,12 +120,18 @@ public class QuestionInitializer : MonoBehaviour
 
     private void AnswerTouchDown(AnimationExecuter transformTouchDown, Vector2 position)
     {
+        AnswerSurface answerSurface = transformTouchDown?.GetComponent<AnswerSurface>();
+        if (answerSurface != null)
+            StartCoroutine(RemoveAnswerFromShelfAfterDelay(answerSurface)); 
         transformTouchDown?.StartDrag(position);
     }
 
-    private void AnswerTouchUp(AnimationExecuter transformTouchDown, Vector2 position)
+    private void AnswerTouchUp(AnimationExecuter transformTouchUp, Vector2 position)
     {
-        transformTouchDown?.StopDrag(position);
+        transformTouchUp?.StopDrag(position);
+        AnswerSurface answerSurface = transformTouchUp.GetComponent<AnswerSurface>();
+        if(answerSurface != null)
+            CheckAnswerAfterDrop(answerSurface);
     }
 
     private void AnswerTouchMove(AnimationExecuter transformTouchMove, Vector2 position)
@@ -130,4 +139,18 @@ public class QuestionInitializer : MonoBehaviour
         transformTouchMove?.Drag(position);
     }
 
+    private void CheckAnswerAfterDrop(AnswerSurface answerSurface)
+    {
+        if (!_shelf.IsAnswerInsideShelfBorders(answerSurface))
+            return;
+
+        _shelf.AddAnswerToShelf(answerSurface);
+    }
+
+    private IEnumerator RemoveAnswerFromShelfAfterDelay(AnswerSurface answerSurface)
+    {
+        yield return new WaitForSeconds(0.5f);
+        _shelf?.RemoveAnswerFromShelf(answerSurface);
+        yield break;
+    }
 }

@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(Transform))] 
 public class AnimationExecuter : MonoBehaviour
 {
-    private const float MULTY_DRAG_COEF = 16f;
+    private const float MULTY_DRAG_COEF = 32f;
     private Vector3 _offsetOnStartDragging;
     private Transform _transform;
     private bool _isStartTouch = false;
@@ -144,4 +144,6 @@ public class AnimationExecuter : MonoBehaviour
             return;
         _isStartTouch = false;
     }
+
+    
 }
