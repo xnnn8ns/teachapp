@@ -64,17 +64,17 @@ public class Surface : MonoBehaviour, IPointerClickHandler, IPointerDownHandler,
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _actionDownSurface?.Invoke(_parentAnimationExecutor, eventData.position);
+        //_actionDownSurface?.Invoke(_parentAnimationExecutor, eventData.position);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        _actionUpSurface?.Invoke(_parentAnimationExecutor, eventData.position);
+        //_actionUpSurface?.Invoke(_parentAnimationExecutor, eventData.position);
     }
 
     public void OnPointerMove(PointerEventData eventData)
     {
-        _actionMoveSurface?.Invoke(_parentAnimationExecutor, eventData.position);
+        //_actionMoveSurface?.Invoke(_parentAnimationExecutor, eventData.position);
     }
 
 }

@@ -11,9 +11,13 @@ public class QuestionInitializer : MonoBehaviour
     [SerializeField]
     private Shelf _shelf;
 
-
     private List<Question> _questions = new List<Question>();
     private List<GameObject> _answers = new List<GameObject>();
+
+    public List<GameObject> GetAnswersList()
+    {
+        return _answers;
+    }
 
     private void FillTestQuestionList()
     {
@@ -108,6 +112,21 @@ public class QuestionInitializer : MonoBehaviour
     private void Start()
     {
         InitQuestions();
+        //InitTouchDetector();
+    }
+
+    //private void InitTouchDetector()
+    //{
+    //    _touchDetector.StartTouchArise += StartTouch;
+    //}
+
+    private void StartTouch(Vector2 vector)
+    {
+        //var touchPosition = Input.GetTouch(0).position;
+        //_firstTouchPosition = _holdTouchPosition = touchPosition;
+        //StartTouchArise?.Invoke(touchPosition);
+        //LastUserActionTime = Time.timeSinceLevelLoad;
+        Debug.Log("touch");
     }
 
     private void AnswerCheckByClick(Information information, AnimationExecuter transformClicked)
@@ -126,6 +145,13 @@ public class QuestionInitializer : MonoBehaviour
         transformTouchDown?.StartDrag(position);
     }
 
+    public void RemeveFromShelf(Transform transformTouchDown)
+    {
+        AnswerSurface answerSurface = transformTouchDown?.GetComponent<AnswerSurface>();
+        if (answerSurface != null)
+            StartCoroutine(RemoveAnswerFromShelfAfterDelay(answerSurface));
+    }
+
     private void AnswerTouchUp(AnimationExecuter transformTouchUp, Vector2 position)
     {
         transformTouchUp?.StopDrag(position);
@@ -142,6 +168,15 @@ public class QuestionInitializer : MonoBehaviour
     private void CheckAnswerAfterDrop(AnswerSurface answerSurface)
     {
         if (!_shelf.IsAnswerInsideShelfBorders(answerSurface))
+            return;
+
+        _shelf.AddAnswerToShelf(answerSurface);
+    }
+
+    public void CheckAnswerAfterDrop(Transform transform)
+    {
+        AnswerSurface answerSurface = transform.GetComponent<AnswerSurface>();
+        if (answerSurface == null || !_shelf.IsAnswerInsideShelfBorders(answerSurface))
             return;
 
         _shelf.AddAnswerToShelf(answerSurface);
