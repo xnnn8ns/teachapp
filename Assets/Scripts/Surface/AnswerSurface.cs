@@ -5,5 +5,5 @@ using UnityEngine;
 
 public class AnswerSurface : Surface
 {
-
+    public Answer Answer;
 }

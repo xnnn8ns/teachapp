@@ -11,7 +11,13 @@ public abstract class Question: Information
 
     public int GetCountRigthAnswers()
     {
-        return 0;
+        int count = 0;
+        foreach (var item in _answerList)
+        {
+            if (item.IsRight)
+                count++;
+        }
+        return count;
     }
 
     public List<int> GetRigthAnswers()
@@ -32,5 +38,20 @@ public abstract class Question: Information
     public List<Answer> GetAnswerList()
     {
         return _answerList;
+    }
+
+    public bool IsRightAnswerForQuestion(List<Answer> answers)
+    {
+        if (answers.Count != GetCountRigthAnswers())
+            return false;
+
+        foreach (var item in answers)
+        {
+            if (item.IsRight)
+                continue;
+            else
+                return false;
+        }
+        return true;
     }
 }

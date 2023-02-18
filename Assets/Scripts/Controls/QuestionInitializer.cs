@@ -9,10 +9,14 @@ public class QuestionInitializer : MonoBehaviour
     [SerializeField]
     private GameObject _answerPrefab;
     [SerializeField]
-    private Shelf _shelf;
+    private GameObject _shelfPrefab;
+
+    private Shelf _shelfQuestion;
+    private Shelf _shelfAnswer;
 
     private List<Question> _questions = new List<Question>();
     private List<GameObject> _answers = new List<GameObject>();
+    private Question _currentQuestion;
 
     public List<GameObject> GetAnswersList()
     {
@@ -56,7 +60,20 @@ public class QuestionInitializer : MonoBehaviour
         _questions.Add(question);
     }
 
-    public void InitQuestions()
+    private void InitShelves()
+    {
+        GameObject shelfQuestionPrefab = Instantiate(_shelfPrefab);
+        shelfQuestionPrefab.transform.position = new Vector3(0,4,0);
+        shelfQuestionPrefab.transform.localScale = new Vector3(5, 2, 1);
+        _shelfQuestion = shelfQuestionPrefab?.GetComponent<Shelf>();
+
+        GameObject shelfAnswerPrefab = Instantiate(_shelfPrefab);
+        shelfAnswerPrefab.transform.position = new Vector3(0, -1, 0);
+        shelfAnswerPrefab.transform.localScale = new Vector3(5, 2, 1);
+        _shelfAnswer = shelfAnswerPrefab?.GetComponent<Shelf>();
+    }
+
+    private void InitQuestions()
     {
         FillTestQuestionList();
 
@@ -67,17 +84,22 @@ public class QuestionInitializer : MonoBehaviour
             QuestionSurface questionSurface = questionPrefab.GetComponent<QuestionSurface>();
             questionSurface.SetTitle(question.Title);
             List<Answer> answers = question.GetAnswerList();
-            Vector3 vectorPosition = new Vector3(-_answers.Count, -1,0);
+            Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1,0);
             int indexAnswer = 0;
+            _currentQuestion = question;
             foreach (var answer in answers)
             {
                 GameObject answerPrefab = Instantiate(_answerPrefab, vectorPosition, Quaternion.identity);
 
                 SetAnswerDrag(answerPrefab, answer, answerPrefab.GetComponent<AnimationExecuter>());
 
-                 vectorPosition += new Vector3(1.5f, 0, 0);
+                 vectorPosition += new Vector3(1.15f, 0, 0);
                 indexAnswer++;
                 _answers.Add(answerPrefab);
+                AnswerSurface answerSurface = answerPrefab?.GetComponent<AnswerSurface>();
+                answerSurface.Answer = answer;
+                if (answerSurface != null)
+                    _shelfAnswer.AddAnswerToShelf(answerSurface);
             }
             indexQuestion++;
         }
@@ -98,19 +120,20 @@ public class QuestionInitializer : MonoBehaviour
         AnswerSurface answerSurface = answerPrefab.GetComponent<AnswerSurface>();
 
         answerSurface.SetTitle(answer.Title);
-        answerSurface.SetActionDownCallback(answer,
-            animationExecuter,
-            AnswerTouchDown);
-        answerSurface.SetActionUpCallback(answer,
-            animationExecuter,
-            AnswerTouchUp);
-        answerSurface.SetActionDragCallback(answer,
-            animationExecuter,
-            AnswerTouchMove);
+        //answerSurface.SetActionDownCallback(answer,
+        //    animationExecuter,
+        //    AnswerTouchDown);
+        //answerSurface.SetActionUpCallback(answer,
+        //    animationExecuter,
+        //    AnswerTouchUp);
+        //answerSurface.SetActionDragCallback(answer,
+        //    animationExecuter,
+        //    AnswerTouchMove);
     }
 
     private void Start()
     {
+        InitShelves();
         InitQuestions();
         //InitTouchDetector();
     }
@@ -139,10 +162,10 @@ public class QuestionInitializer : MonoBehaviour
 
     private void AnswerTouchDown(AnimationExecuter transformTouchDown, Vector2 position)
     {
-        AnswerSurface answerSurface = transformTouchDown?.GetComponent<AnswerSurface>();
-        if (answerSurface != null)
-            StartCoroutine(RemoveAnswerFromShelfAfterDelay(answerSurface)); 
-        transformTouchDown?.StartDrag(position);
+        //AnswerSurface answerSurface = transformTouchDown?.GetComponent<AnswerSurface>();
+        //if (answerSurface != null)
+        //    StartCoroutine(RemoveAnswerFromShelfAfterDelay(answerSurface)); 
+        //transformTouchDown?.StartDrag(position);
     }
 
     public void RemeveFromShelf(Transform transformTouchDown)
@@ -152,40 +175,54 @@ public class QuestionInitializer : MonoBehaviour
             StartCoroutine(RemoveAnswerFromShelfAfterDelay(answerSurface));
     }
 
-    private void AnswerTouchUp(AnimationExecuter transformTouchUp, Vector2 position)
-    {
-        transformTouchUp?.StopDrag(position);
-        AnswerSurface answerSurface = transformTouchUp.GetComponent<AnswerSurface>();
-        if(answerSurface != null)
-            CheckAnswerAfterDrop(answerSurface);
-    }
+    //private void AnswerTouchUp(AnimationExecuter transformTouchUp, Vector2 position)
+    //{
+    //    transformTouchUp?.StopDrag(position);
+    //    AnswerSurface answerSurface = transformTouchUp.GetComponent<AnswerSurface>();
+    //    if(answerSurface != null)
+    //        CheckAnswerAfterDrop(answerSurface);
+    //}
 
-    private void AnswerTouchMove(AnimationExecuter transformTouchMove, Vector2 position)
-    {
-        transformTouchMove?.Drag(position);
-    }
+    //private void AnswerTouchMove(AnimationExecuter transformTouchMove, Vector2 position)
+    //{
+    //    transformTouchMove?.Drag(position);
+    //}
 
-    private void CheckAnswerAfterDrop(AnswerSurface answerSurface)
-    {
-        if (!_shelf.IsAnswerInsideShelfBorders(answerSurface))
-            return;
-
-        _shelf.AddAnswerToShelf(answerSurface);
-    }
+    //private void CheckAnswerAfterDrop(AnswerSurface answerSurface)
+    //{
+    //    if (_shelfQuestion.IsAnswerInsideShelfBorders(answerSurface))
+    //        _shelfQuestion.AddAnswerToShelf(answerSurface);
+    //    else
+    //        _shelfAnswer.AddAnswerToShelf(answerSurface);
+    //}
 
     public void CheckAnswerAfterDrop(Transform transform)
     {
         AnswerSurface answerSurface = transform.GetComponent<AnswerSurface>();
-        if (answerSurface == null || !_shelf.IsAnswerInsideShelfBorders(answerSurface))
+        if (answerSurface == null)
             return;
 
-        _shelf.AddAnswerToShelf(answerSurface);
+        if (_shelfQuestion.IsAnswerInsideShelfBorders(answerSurface))
+            _shelfQuestion.AddAnswerToShelf(answerSurface);
+        else
+            _shelfAnswer.AddAnswerToShelf(answerSurface);
     }
 
     private IEnumerator RemoveAnswerFromShelfAfterDelay(AnswerSurface answerSurface)
     {
-        yield return new WaitForSeconds(0.5f);
-        _shelf?.RemoveAnswerFromShelf(answerSurface);
+        yield return new WaitForSeconds(0.25f);
+        _shelfQuestion?.RemoveAnswerFromShelf(answerSurface);
+        _shelfAnswer?.RemoveAnswerFromShelf(answerSurface);
         yield break;
+    }
+
+    public void ClickCheckAnswerForQuestion()
+    {
+        List<Answer> answers = new List<Answer>();
+        foreach (var item in _shelfQuestion.GetAnswerList())
+            answers.Add(item.Answer);
+        
+        bool isRight = _currentQuestion.IsRightAnswerForQuestion(answers);
+        Debug.Log(isRight);
     }
 }

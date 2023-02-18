@@ -58,4 +58,9 @@ public class Shelf : MonoBehaviour
         else
             return false;
     }
+
+    public List<AnswerSurface> GetAnswerList()
+    {
+        return _questionsShelved;
+    }
 }
