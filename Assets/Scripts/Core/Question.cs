@@ -48,10 +48,13 @@ public abstract class Question: Information
         foreach (var item in answers)
         {
             if (item.IsRight)
+            {
                 continue;
+            }
             else
                 return false;
         }
         return true;
     }
+
 }

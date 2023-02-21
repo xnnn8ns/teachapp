@@ -32,26 +32,38 @@ public class QuestionInitializer : MonoBehaviour
 
         Answer answer = new Answer();
         answer.Title = "one coin";
-        answer.IsRight = false;
+        answer.IsRight = true;
         answer.Score = 0;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 0;
+        answer.PositionCellIndex = 0;
         answers.Add(answer);
 
         answer = new Answer();
         answer.Title = "two coins";
-        answer.IsRight = false;
+        answer.IsRight = true;
         answer.Score = 0;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 0;
+        answer.PositionCellIndex = 1;
         answers.Add(answer);
 
         answer = new Answer();
         answer.Title = "three coins";
-        answer.IsRight = false;
+        answer.IsRight = true;
         answer.Score = 0;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 0;
+        answer.PositionCellIndex = 2;
         answers.Add(answer);
 
         answer = new Answer();
         answer.Title = "four coins";
         answer.IsRight = true;
         answer.Score = 100;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 0;
+        answer.PositionCellIndex = 3;
         answers.Add(answer);
 
         question.SetAnswerList(answers);
@@ -105,16 +117,6 @@ public class QuestionInitializer : MonoBehaviour
         }
     }
 
-    private void SetAnswerSingleCheck(GameObject answerPrefab, Answer answer, AnimationExecuter animationExecuter)
-    {
-        AnswerSurface answerSurface = answerPrefab.GetComponent<AnswerSurface>();
-
-        answerSurface.SetTitle(answer.Title);
-        answerSurface.SetActionClickCallback(answer,
-            animationExecuter,
-            AnswerCheckByClick);
-    }
-
     private void SetAnswerDrag(GameObject answerPrefab, Answer answer, AnimationExecuter animationExecuter)
     {
         AnswerSurface answerSurface = answerPrefab.GetComponent<AnswerSurface>();
@@ -138,63 +140,12 @@ public class QuestionInitializer : MonoBehaviour
         //InitTouchDetector();
     }
 
-    //private void InitTouchDetector()
-    //{
-    //    _touchDetector.StartTouchArise += StartTouch;
-    //}
-
-    private void StartTouch(Vector2 vector)
-    {
-        //var touchPosition = Input.GetTouch(0).position;
-        //_firstTouchPosition = _holdTouchPosition = touchPosition;
-        //StartTouchArise?.Invoke(touchPosition);
-        //LastUserActionTime = Time.timeSinceLevelLoad;
-        Debug.Log("touch");
-    }
-
-    private void AnswerCheckByClick(Information information, AnimationExecuter transformClicked)
-    {
-        if(((Answer)information).IsRight)
-            transformClicked?.StartUpDownTurn();
-        else
-            transformClicked?.StartLeftRightTurn();
-    }
-
-    private void AnswerTouchDown(AnimationExecuter transformTouchDown, Vector2 position)
-    {
-        //AnswerSurface answerSurface = transformTouchDown?.GetComponent<AnswerSurface>();
-        //if (answerSurface != null)
-        //    StartCoroutine(RemoveAnswerFromShelfAfterDelay(answerSurface)); 
-        //transformTouchDown?.StartDrag(position);
-    }
-
     public void RemeveFromShelf(Transform transformTouchDown)
     {
         AnswerSurface answerSurface = transformTouchDown?.GetComponent<AnswerSurface>();
         if (answerSurface != null)
             StartCoroutine(RemoveAnswerFromShelfAfterDelay(answerSurface));
     }
-
-    //private void AnswerTouchUp(AnimationExecuter transformTouchUp, Vector2 position)
-    //{
-    //    transformTouchUp?.StopDrag(position);
-    //    AnswerSurface answerSurface = transformTouchUp.GetComponent<AnswerSurface>();
-    //    if(answerSurface != null)
-    //        CheckAnswerAfterDrop(answerSurface);
-    //}
-
-    //private void AnswerTouchMove(AnimationExecuter transformTouchMove, Vector2 position)
-    //{
-    //    transformTouchMove?.Drag(position);
-    //}
-
-    //private void CheckAnswerAfterDrop(AnswerSurface answerSurface)
-    //{
-    //    if (_shelfQuestion.IsAnswerInsideShelfBorders(answerSurface))
-    //        _shelfQuestion.AddAnswerToShelf(answerSurface);
-    //    else
-    //        _shelfAnswer.AddAnswerToShelf(answerSurface);
-    //}
 
     public void CheckAnswerAfterDrop(Transform transform)
     {
@@ -218,11 +169,7 @@ public class QuestionInitializer : MonoBehaviour
 
     public void ClickCheckAnswerForQuestion()
     {
-        List<Answer> answers = new List<Answer>();
-        foreach (var item in _shelfQuestion.GetAnswerList())
-            answers.Add(item.Answer);
-        
-        bool isRight = _currentQuestion.IsRightAnswerForQuestion(answers);
+        bool isRight = _shelfQuestion.IsRightAnswersInShelf(_currentQuestion);
         Debug.Log(isRight);
     }
 }

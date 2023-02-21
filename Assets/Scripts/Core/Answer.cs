@@ -4,6 +4,9 @@ public class Answer: Information
 {
     private bool _isRight = false;
     private int _score = 0;
+    private bool _isPositionDependent = false;
+    private int _positionRowIndex = 0;
+    private int _positionCellIndex = 0;
 
     public bool IsRight
     {
@@ -27,5 +30,49 @@ public class Answer: Information
         {
             _score = value;
         }
+    }
+
+    public bool IsPositionDependent
+    {
+        get
+        {
+            return _isPositionDependent;
+        }
+        set
+        {
+            _isPositionDependent = value;
+        }
+    }
+
+    public int PositionRowIndex
+    {
+        get
+        {
+            return _positionRowIndex;
+        }
+        set
+        {
+            _positionRowIndex = value;
+        }
+    }
+
+    public int PositionCellIndex
+    {
+        get
+        {
+            return _positionCellIndex;
+        }
+        set
+        {
+            _positionCellIndex = value;
+        }
+    }
+
+    public bool IsRightInputValues(int cellIndex)
+    {
+        if (!_isPositionDependent)
+            return _isRight;
+        else
+            return _isRight && cellIndex == _positionCellIndex;
     }
 }
