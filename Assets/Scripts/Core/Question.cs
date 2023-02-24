@@ -20,6 +20,17 @@ public abstract class Question: Information
         return count;
     }
 
+    public int GetCountRigthAnswersForRowIndex(int rowIndex)
+    {
+        int count = 0;
+        foreach (var item in _answerList)
+        {
+            if (item.PositionRowIndex == rowIndex && item.IsRight)
+                count++;
+        }
+        return count;
+    }
+
     public List<int> GetRigthAnswers()
     {
         return new List<int>();

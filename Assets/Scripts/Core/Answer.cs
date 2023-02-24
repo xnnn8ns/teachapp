@@ -68,11 +68,13 @@ public class Answer: Information
         }
     }
 
-    public bool IsRightInputValues(int cellIndex)
+    public bool IsRightInputValues(int rowIndex, int cellIndex)
     {
         if (!_isPositionDependent)
             return _isRight;
         else
-            return _isRight && cellIndex == _positionCellIndex;
+            return _isRight
+                && rowIndex == _positionRowIndex
+                && cellIndex == _positionCellIndex;
     }
 }

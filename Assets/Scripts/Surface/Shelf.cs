@@ -64,14 +64,14 @@ public class Shelf : MonoBehaviour
         return _questionsShelved;
     }
 
-    public bool IsRightAnswersInShelf(Question question)
+    public bool IsRightAnswersInShelf(Question question, int shelfIndex)
     {
-        if (_questionsShelved.Count != question.GetCountRigthAnswers())
+        if (_questionsShelved.Count != question.GetCountRigthAnswersForRowIndex(shelfIndex))
             return false;
 
         for (int i = 0; i < _questionsShelved.Count; i++)
         {
-            if (_questionsShelved[i].Answer.IsRightInputValues(i))
+            if (_questionsShelved[i].Answer.IsRightInputValues(shelfIndex, i))
                 continue;
             else
                 return false;
