@@ -9,7 +9,7 @@ public class Shelf : MonoBehaviour
 
     private List<AnswerSurface> _questionsShelved = new List<AnswerSurface>();
 
-    public void AddAnswerToShelf(AnswerSurface transformChild)
+    public void AddAnswerToShelfByDrag(AnswerSurface transformChild)
     {
         float currentX = transformChild.transform.position.x;
         int currentIndex = 0;
@@ -20,6 +20,13 @@ public class Shelf : MonoBehaviour
             currentIndex++;
         }
         _questionsShelved.Insert(currentIndex, transformChild);
+
+        SetAnswersOnShelf();
+    }
+
+    public void AddAnswerToShelf(AnswerSurface transformChild)
+    {
+        _questionsShelved.Add(transformChild);
 
         SetAnswersOnShelf();
     }
@@ -77,5 +84,14 @@ public class Shelf : MonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    public void DestroyAllObjectsOnShelf()
+    {
+        for (int i = _questionsShelved.Count - 1; i >= 0; i--)
+        {
+            Destroy(_questionsShelved[i].gameObject);
+        }
+        _questionsShelved.Clear();
     }
 }

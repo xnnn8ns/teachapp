@@ -17,7 +17,8 @@ public class QuestionInitializer : MonoBehaviour
 
     private List<Question> _questions = new List<Question>();
     private List<GameObject> _answers = new List<GameObject>();
-    private Question _currentQuestion;
+    private QuestionSurface _currentQuestionSurface;
+    private static int _currentQuestionIndex = 0;
 
     float heightQuizText = 4.5f;
     float heightUpperShelf = 2.5f;
@@ -31,6 +32,9 @@ public class QuestionInitializer : MonoBehaviour
 
     private void FillTestQuestionList()
     {
+        _questions.Clear();
+        _answers.Clear();
+
         Question question = new QuestionText();
         question.Title = "How much is the fish?";
 
@@ -92,13 +96,149 @@ public class QuestionInitializer : MonoBehaviour
 
         question.SetAnswerList(answers);
 
-        _questions.Clear();
+        
+        _questions.Add(question);
+
+        /////////////////
+        ///1
+
+
+        question = new QuestionText();
+        question.Title = "How much is the dog?";
+
+        answers = new List<Answer>();
+
+        answer = new Answer();
+        answer.Title = "one gold coin";
+        answer.IsRight = true;
+        answer.Score = 0;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 0;
+        answer.PositionCellIndex = 0;
+        answers.Add(answer);
+
+        answer = new Answer();
+        answer.Title = "two gold coins";
+        answer.IsRight = true;
+        answer.Score = 0;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 0;
+        answer.PositionCellIndex = 1;
+        answers.Add(answer);
+
+        answer = new Answer();
+        answer.Title = "three gold coins";
+        answer.IsRight = true;
+        answer.Score = 0;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 0;
+        answer.PositionCellIndex = 2;
+        answers.Add(answer);
+
+        answer = new Answer();
+        answer.Title = "four gold coins";
+        answer.IsRight = true;
+        answer.Score = 100;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 0;
+        answer.PositionCellIndex = 3;
+        answers.Add(answer);
+
+        answer = new Answer();
+        answer.Title = "five gold coins";
+        answer.IsRight = true;
+        answer.Score = 100;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 1;
+        answer.PositionCellIndex = 0;
+        answers.Add(answer);
+
+        answer = new Answer();
+        answer.Title = "six gold coins";
+        answer.IsRight = true;
+        answer.Score = 100;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 1;
+        answer.PositionCellIndex = 1;
+        answers.Add(answer);
+
+        question.SetAnswerList(answers);
+
+        _questions.Add(question);
+
+        /////////////////
+        ///2
+
+
+        question = new QuestionText();
+        question.Title = "How much is the cat?";
+
+        answers = new List<Answer>();
+
+        answer = new Answer();
+        answer.Title = "one silver coin";
+        answer.IsRight = true;
+        answer.Score = 0;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 0;
+        answer.PositionCellIndex = 0;
+        answers.Add(answer);
+
+        answer = new Answer();
+        answer.Title = "two silver coins";
+        answer.IsRight = true;
+        answer.Score = 0;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 0;
+        answer.PositionCellIndex = 1;
+        answers.Add(answer);
+
+        answer = new Answer();
+        answer.Title = "three silver coins";
+        answer.IsRight = true;
+        answer.Score = 0;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 1;
+        answer.PositionCellIndex = 0;
+        answers.Add(answer);
+
+        answer = new Answer();
+        answer.Title = "four silver coins";
+        answer.IsRight = true;
+        answer.Score = 100;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 1;
+        answer.PositionCellIndex = 1;
+        answers.Add(answer);
+
+        answer = new Answer();
+        answer.Title = "five silver coins";
+        answer.IsRight = true;
+        answer.Score = 100;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 2;
+        answer.PositionCellIndex = 0;
+        answers.Add(answer);
+
+        answer = new Answer();
+        answer.Title = "six silver coins";
+        answer.IsRight = true;
+        answer.Score = 100;
+        answer.IsPositionDependent = true;
+        answer.PositionRowIndex = 2;
+        answer.PositionCellIndex = 1;
+        answers.Add(answer);
+
+        question.SetAnswerList(answers);
+
         _questions.Add(question);
     }
 
     private void InitShelves()
     {
         int countShelves = 4;
+        _answers.Clear();
+        _shelvesForCheck.Clear();
 
         for (int i = 0; i < countShelves; i++)
         {
@@ -112,40 +252,43 @@ public class QuestionInitializer : MonoBehaviour
         shelfAnswerPrefab.transform.position = new Vector3(0, heightBelowShelf, 0);
         shelfAnswerPrefab.transform.localScale = new Vector3(5, 2, 1);
         _shelfRawAnswers = shelfAnswerPrefab?.GetComponent<Shelf>();
+
+        InitQuestions();
     }
 
     private void InitQuestions()
     {
-        FillTestQuestionList();
+        //int indexQuestion = 0;
+        //_currentQuestionSurface.Question = _questions[_currentQuestionIndex];
+        //foreach (Question question in _questions)
+        //{
+        GameObject questionPrefab = Instantiate(_questionPrefab);
+        questionPrefab.transform.position = new Vector3(0, heightQuizText, 0);
 
-        int indexQuestion = 0;
-        foreach (Question question in _questions)
+        QuestionSurface questionSurface = questionPrefab.GetComponent<QuestionSurface>();
+        questionSurface.Question = _questions[_currentQuestionIndex];;
+        questionSurface.SetTitle(_questions[_currentQuestionIndex].Title);
+        _currentQuestionSurface = questionSurface;
+        List<Answer> answers = _currentQuestionSurface.Question.GetAnswerList();
+        Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, 0);
+        //int indexAnswer = 0;
+        //_currentQuestion = question;
+        foreach (var answer in answers)
         {
-            GameObject questionPrefab = Instantiate(_questionPrefab);
-            questionPrefab.transform.position = new Vector3(0, heightQuizText, 0);
+            GameObject answerPrefab = Instantiate(_answerPrefab, vectorPosition, Quaternion.identity);
 
-            QuestionSurface questionSurface = questionPrefab.GetComponent<QuestionSurface>();
-            questionSurface.SetTitle(question.Title);
-            List<Answer> answers = question.GetAnswerList();
-            Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, 0);
-            int indexAnswer = 0;
-            _currentQuestion = question;
-            foreach (var answer in answers)
-            {
-                GameObject answerPrefab = Instantiate(_answerPrefab, vectorPosition, Quaternion.identity);
+            SetAnswerDrag(answerPrefab, answer, answerPrefab.GetComponent<AnimationExecuter>());
 
-                SetAnswerDrag(answerPrefab, answer, answerPrefab.GetComponent<AnimationExecuter>());
-
-                vectorPosition += new Vector3(1.15f, 0, 0);
-                indexAnswer++;
-                _answers.Add(answerPrefab);
-                AnswerSurface answerSurface = answerPrefab?.GetComponent<AnswerSurface>();
-                answerSurface.Answer = answer;
-                if (answerSurface != null)
-                    _shelfRawAnswers.AddAnswerToShelf(answerSurface);
-            }
-            indexQuestion++;
+            vectorPosition += new Vector3(1.15f, 0, 0);
+            //indexAnswer++;
+            _answers.Add(answerPrefab);
+            AnswerSurface answerSurface = answerPrefab?.GetComponent<AnswerSurface>();
+            answerSurface.Answer = answer;
+            if (answerSurface != null)
+                _shelfRawAnswers.AddAnswerToShelf(answerSurface);
         }
+        //indexQuestion++;
+        //}
     }
 
     private void SetAnswerDrag(GameObject answerPrefab, Answer answer, AnimationExecuter animationExecuter)
@@ -166,8 +309,8 @@ public class QuestionInitializer : MonoBehaviour
 
     private void Start()
     {
+        FillTestQuestionList();
         InitShelves();
-        InitQuestions();
         //InitTouchDetector();
     }
 
@@ -188,14 +331,14 @@ public class QuestionInitializer : MonoBehaviour
         {
             if (shelf.IsAnswerInsideShelfBorders(answerSurface))
             {
-                shelf.AddAnswerToShelf(answerSurface);
+                shelf.AddAnswerToShelfByDrag(answerSurface);
                 isInsideAnyShelf = true;
                 break;
             }
         }
         
         if(!isInsideAnyShelf)
-            _shelfRawAnswers.AddAnswerToShelf(answerSurface);
+            _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
     }
 
     private IEnumerator RemoveAnswerFromShelfAfterDelay(AnswerSurface answerSurface)
@@ -218,10 +361,25 @@ public class QuestionInitializer : MonoBehaviour
         bool isRight = false;
         for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
-            isRight = _shelvesForCheck[i].IsRightAnswersInShelf(_currentQuestion,i);
+            isRight = _shelvesForCheck[i].IsRightAnswersInShelf(_currentQuestionSurface.Question, i);
             if (!isRight)
                 break;
         }
         Debug.Log(isRight);
+        _currentQuestionIndex++;
+        DestroyQuestionObjects();
+        InitShelves();
+    }
+
+    private void DestroyQuestionObjects()
+    {
+        for (int i = _shelvesForCheck.Count - 1; i >= 0; i--)
+        {
+            _shelvesForCheck[i].DestroyAllObjectsOnShelf();
+            Destroy(_shelvesForCheck[i].gameObject);
+        }
+        _shelfRawAnswers.DestroyAllObjectsOnShelf();
+        Destroy(_shelfRawAnswers.gameObject);
+        Destroy(_currentQuestionSurface.gameObject);
     }
 }

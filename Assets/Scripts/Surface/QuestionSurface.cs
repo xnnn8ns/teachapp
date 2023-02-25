@@ -6,6 +6,6 @@ using UnityEngine.EventSystems;
 
 public class QuestionSurface : Surface
 {
-
+    public Question Question;
 
 }
