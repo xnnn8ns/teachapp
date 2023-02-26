@@ -33,7 +33,7 @@ public class TransformPhisics : MonoBehaviour
         {
             _offsetOnStartDragging = pointTouch - _draggingTransform.position;
             _isStartTouch = true;
-            _questionInitializer.RemeveFromShelf(_draggingTransform);
+            _questionInitializer.RemoveFromShelf(_draggingTransform);
         }
     }
 
@@ -69,6 +69,9 @@ public class TransformPhisics : MonoBehaviour
     {
         List<GameObject> _answers = _questionInitializer.GetAnswersList();
         List<GameObject> _answersInTouchArea = new List<GameObject>();
+        if (_answers == null || _answers.Count == 0)
+            return null;
+
         foreach (var item in _answers)
         {
             float widthHalf = item.transform.localScale.x / 2;

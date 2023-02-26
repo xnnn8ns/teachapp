@@ -37,6 +37,8 @@ public class QuestionInitializer : MonoBehaviour
 
         Question question = new QuestionText();
         question.Title = "How much is the fish?";
+        question.CountShelves = 2;
+        question.IsSingleRightAnswer = false;
 
         List<Answer> answers = new List<Answer>();
 
@@ -72,8 +74,8 @@ public class QuestionInitializer : MonoBehaviour
         answer.IsRight = true;
         answer.Score = 100;
         answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 0;
-        answer.PositionCellIndex = 3;
+        answer.PositionRowIndex = 1;
+        answer.PositionCellIndex = 0;
         answers.Add(answer);
 
         answer = new Answer();
@@ -82,7 +84,7 @@ public class QuestionInitializer : MonoBehaviour
         answer.Score = 100;
         answer.IsPositionDependent = true;
         answer.PositionRowIndex = 1;
-        answer.PositionCellIndex = 0;
+        answer.PositionCellIndex = 1;
         answers.Add(answer);
 
         answer = new Answer();
@@ -90,13 +92,13 @@ public class QuestionInitializer : MonoBehaviour
         answer.IsRight = true;
         answer.Score = 100;
         answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 2;
-        answer.PositionCellIndex = 0;
+        answer.PositionRowIndex = 1;
+        answer.PositionCellIndex = 2;
         answers.Add(answer);
 
         question.SetAnswerList(answers);
 
-        
+
         _questions.Add(question);
 
         /////////////////
@@ -105,6 +107,8 @@ public class QuestionInitializer : MonoBehaviour
 
         question = new QuestionText();
         question.Title = "How much is the dog?";
+        question.CountShelves = 2;
+        question.IsSingleRightAnswer = false;
 
         answers = new List<Answer>();
 
@@ -172,6 +176,8 @@ public class QuestionInitializer : MonoBehaviour
 
         question = new QuestionText();
         question.Title = "How much is the cat?";
+        question.CountShelves = 3;
+        question.IsSingleRightAnswer = false;
 
         answers = new List<Answer>();
 
@@ -232,11 +238,57 @@ public class QuestionInitializer : MonoBehaviour
         question.SetAnswerList(answers);
 
         _questions.Add(question);
+
+
+        /////////////
+        ///3
+        ///
+
+        question = new QuestionText();
+        question.Title = "How much is the bear?";
+        question.CountShelves = 1;
+        question.IsSingleRightAnswer = true;
+
+        answers = new List<Answer>();
+
+        answer = new Answer();
+        answer.Title = "one brilliant coin";
+        answer.IsRight = false;
+        answer.Score = 0;
+        answer.IsPositionDependent = false;
+        answers.Add(answer);
+
+        answer = new Answer();
+        answer.Title = "two brilliant coins";
+        answer.IsRight = false;
+        answer.Score = 0;
+        answer.IsPositionDependent = false;
+        answer.PositionRowIndex = 0;
+        answer.PositionCellIndex = 0;
+        answers.Add(answer);
+
+        answer = new Answer();
+        answer.Title = "three brilliant coins";
+        answer.IsRight = false;
+        answer.Score = 0;
+        answer.IsPositionDependent = false;
+        answers.Add(answer);
+
+        answer = new Answer();
+        answer.Title = "four brilliant coins";
+        answer.IsRight = true;
+        answer.Score = 100;
+        answer.IsPositionDependent = false;
+        answers.Add(answer);
+
+        question.SetAnswerList(answers);
+
+        _questions.Add(question);
     }
 
     private void InitShelves()
     {
-        int countShelves = 4;
+        int countShelves = _questions[_currentQuestionIndex].CountShelves;
         _answers.Clear();
         _shelvesForCheck.Clear();
 
@@ -266,7 +318,7 @@ public class QuestionInitializer : MonoBehaviour
         questionPrefab.transform.position = new Vector3(0, heightQuizText, 0);
 
         QuestionSurface questionSurface = questionPrefab.GetComponent<QuestionSurface>();
-        questionSurface.Question = _questions[_currentQuestionIndex];;
+        questionSurface.Question = _questions[_currentQuestionIndex]; ;
         questionSurface.SetTitle(_questions[_currentQuestionIndex].Title);
         _currentQuestionSurface = questionSurface;
         List<Answer> answers = _currentQuestionSurface.Question.GetAnswerList();
@@ -314,7 +366,7 @@ public class QuestionInitializer : MonoBehaviour
         //InitTouchDetector();
     }
 
-    public void RemeveFromShelf(Transform transformTouchDown)
+    public void RemoveFromShelf(Transform transformTouchDown)
     {
         AnswerSurface answerSurface = transformTouchDown?.GetComponent<AnswerSurface>();
         if (answerSurface != null)
@@ -326,6 +378,14 @@ public class QuestionInitializer : MonoBehaviour
         AnswerSurface answerSurface = transform.GetComponent<AnswerSurface>();
         if (answerSurface == null)
             return;
+        if (_currentQuestionSurface.Question.IsSingleRightAnswer)
+            CheckSingleAnswerAfterDrop(answerSurface);
+        else
+            CheckMultiAnswerAfterDrop(answerSurface);
+    }
+
+    private void CheckMultiAnswerAfterDrop(AnswerSurface answerSurface)
+    {
         bool isInsideAnyShelf = false;
         foreach (Shelf shelf in _shelvesForCheck)
         {
@@ -339,6 +399,35 @@ public class QuestionInitializer : MonoBehaviour
         
         if(!isInsideAnyShelf)
             _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
+    }
+
+    private void CheckSingleAnswerAfterDrop(AnswerSurface answerSurface)
+    {
+        
+        bool isInsideAnyShelf = false;
+        foreach (Shelf shelf in _shelvesForCheck)
+        {
+            if (shelf.IsAnswerInsideShelfBorders(answerSurface)
+                && !shelf.Equals(_shelfRawAnswers))
+            {
+                MoveAllAnswersToOtherShelf(shelf, _shelfRawAnswers);
+                shelf.AddAnswerToShelfByDrag(answerSurface);
+                isInsideAnyShelf = true;
+                break;
+            }
+        }
+
+        if (!isInsideAnyShelf)
+            _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
+    }
+
+    private void MoveAllAnswersToOtherShelf(Shelf source, Shelf destination)
+    {
+        foreach (AnswerSurface answerSurface in source.GetAnswerList())
+        {
+            destination.AddAnswerToShelf(answerSurface);
+        }
+        source.GetAnswerList().Clear();
     }
 
     private IEnumerator RemoveAnswerFromShelfAfterDelay(AnswerSurface answerSurface)
@@ -358,6 +447,9 @@ public class QuestionInitializer : MonoBehaviour
 
     public void ClickCheckAnswerForQuestion()
     {
+        if (_shelvesForCheck.Count <= 0)
+            return;
+        
         bool isRight = false;
         for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
@@ -368,7 +460,11 @@ public class QuestionInitializer : MonoBehaviour
         Debug.Log(isRight);
         _currentQuestionIndex++;
         DestroyQuestionObjects();
-        InitShelves();
+        if (_currentQuestionIndex < _questions.Count)
+        {
+            InitShelves();
+        }
+        
     }
 
     private void DestroyQuestionObjects()
@@ -381,5 +477,7 @@ public class QuestionInitializer : MonoBehaviour
         _shelfRawAnswers.DestroyAllObjectsOnShelf();
         Destroy(_shelfRawAnswers.gameObject);
         Destroy(_currentQuestionSurface.gameObject);
+        _shelvesForCheck.Clear();
+        _answers.Clear();
     }
 }

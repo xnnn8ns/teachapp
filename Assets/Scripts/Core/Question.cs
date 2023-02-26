@@ -2,6 +2,10 @@ using System.Collections.Generic;
 
 public abstract class Question: Information
 {
+    private int _countShelves = 1;
+
+    private bool _isSingleRightAnswer = false;
+
     private List<Answer> _answerList = new List<Answer>();
 
     public int GetAnswerCount()
@@ -68,4 +72,27 @@ public abstract class Question: Information
         return true;
     }
 
+    public int CountShelves
+    {
+        get
+        {
+            return _countShelves;
+        }
+        set
+        {
+            _countShelves = value;
+        }
+    }
+
+    public bool IsSingleRightAnswer
+    {
+        get
+        {
+            return _isSingleRightAnswer;
+        }
+        set
+        {
+            _isSingleRightAnswer = value;
+        }
+    }
 }
