@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
+using System;
 
 public class QuestionInitializer : MonoBehaviour
 {
@@ -23,6 +25,48 @@ public class QuestionInitializer : MonoBehaviour
     float heightQuizText = 4.5f;
     float heightUpperShelf = 2.5f;
     float heightBelowShelf = -3.5f;
+
+    public static JsonSerializerSettings JsonSettings = new JsonSerializerSettings
+    {
+        NullValueHandling = NullValueHandling.Ignore,
+        MissingMemberHandling = MissingMemberHandling.Ignore
+    };
+
+    private void GetFromJSON()
+    {
+        string strJSON = "";
+        strJSON = Resources.Load<TextAsset>("TA_data").text;
+        RawDataQuestion questionFromJSON = null;
+        try
+        {
+            questionFromJSON = JsonConvert.DeserializeObject<RawDataQuestion>(strJSON, JsonSettings);
+            foreach (var item in questionFromJSON.RawQuestions)
+            {
+                Question question = new QuestionText();
+                question.Title = item.Title;
+                question.CountShelves = item.CountShelves;
+                question.IsSingleRightAnswer = item.IsSingleRightAnswer;
+                List<Answer> answers = new List<Answer>();
+                foreach (var itemSub in item.RawAnswers)
+                {
+                    Answer answer = new Answer();
+                    answer.Title = itemSub.Title;
+                    answer.IsRight = itemSub.IsRight;
+                    answer.Score = itemSub.Score;
+                    answer.IsPositionDependent = itemSub.IsPositionDependent;
+                    answer.PositionRowIndex = itemSub.PositionRowIndex;
+                    answer.PositionCellIndex = itemSub.PositionCellIndex;
+                    answers.Add(answer);
+                }
+                question.SetAnswerList(answers);
+                _questions.Add(question);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(ex.Message);
+        }
+    }
 
 
     public List<GameObject> GetAnswersList()
@@ -361,7 +405,8 @@ public class QuestionInitializer : MonoBehaviour
 
     private void Start()
     {
-        FillTestQuestionList();
+        //FillTestQuestionList();
+        GetFromJSON();
         InitShelves();
         //InitTouchDetector();
     }
