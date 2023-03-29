@@ -60,7 +60,7 @@ public class Shelf : MonoBehaviour
 
     public bool IsAnswerInsideShelfBorders(AnswerSurface answerForCheck)
     {
-        if (Mathf.Abs(answerForCheck.transform.position.y - _shelfArea.position.y) <= 0.65f)
+        if (Mathf.Abs(answerForCheck.transform.position.y - _shelfArea.position.y) <= 0.3f)
             return true;
         else
             return false;

@@ -12,6 +12,8 @@ public class QuestionInitializer : MonoBehaviour
     private GameObject _answerPrefab;
     [SerializeField]
     private GameObject _shelfPrefab;
+    [SerializeField]
+    private CanvasController _canvasController;
 
     //private Shelf _shelfQuestion;
     private List<Shelf> _shelvesForCheck = new List<Shelf>();
@@ -21,6 +23,8 @@ public class QuestionInitializer : MonoBehaviour
     private List<GameObject> _answers = new List<GameObject>();
     private QuestionSurface _currentQuestionSurface;
     private static int _currentQuestionIndex = 0;
+    private static int _rightAnsweredCount = 0;
+    private static float _shelfHeightScale = 0.56f;
 
     float heightQuizText = 4.5f;
     float heightUpperShelf = 2.5f;
@@ -339,14 +343,14 @@ public class QuestionInitializer : MonoBehaviour
         for (int i = 0; i < countShelves; i++)
         {
             GameObject shelfQuestionPrefab = Instantiate(_shelfPrefab);
-            shelfQuestionPrefab.transform.position = new Vector3(0, heightUpperShelf - i * 1.05f, 0);
-            shelfQuestionPrefab.transform.localScale = new Vector3(5, 1, 1);
+            shelfQuestionPrefab.transform.position = new Vector3(0, heightUpperShelf - i * _shelfHeightScale * 1.05f, 0);
+            shelfQuestionPrefab.transform.localScale = new Vector3(5, _shelfHeightScale, 1);
             _shelvesForCheck.Add(shelfQuestionPrefab?.GetComponent<Shelf>());
         }
 
         GameObject shelfAnswerPrefab = Instantiate(_shelfPrefab);
         shelfAnswerPrefab.transform.position = new Vector3(0, heightBelowShelf, 0);
-        shelfAnswerPrefab.transform.localScale = new Vector3(5, 2, 1);
+        shelfAnswerPrefab.transform.localScale = new Vector3(5, _shelfHeightScale, 1);
         _shelfRawAnswers = shelfAnswerPrefab?.GetComponent<Shelf>();
 
         InitQuestions();
@@ -503,13 +507,15 @@ public class QuestionInitializer : MonoBehaviour
                 break;
         }
         Debug.Log(isRight);
+        if (isRight)
+            _rightAnsweredCount++;
         _currentQuestionIndex++;
         DestroyQuestionObjects();
         if (_currentQuestionIndex < _questions.Count)
         {
             InitShelves();
         }
-        
+        SetLevelEarnedPoints(_rightAnsweredCount, _questions.Count);
     }
 
     private void DestroyQuestionObjects()
@@ -524,5 +530,13 @@ public class QuestionInitializer : MonoBehaviour
         Destroy(_currentQuestionSurface.gameObject);
         _shelvesForCheck.Clear();
         _answers.Clear();
+    }
+
+    private void SetLevelEarnedPoints(int rightAnsweredQuestion, int totalQuestionCount)
+    {
+        if (totalQuestionCount == 0)
+            return;
+
+        _canvasController.SetLevelProgress((float)rightAnsweredQuestion / totalQuestionCount);
     }
 }
