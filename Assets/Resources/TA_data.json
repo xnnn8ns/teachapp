@@ -1,184 +1,268 @@
 {
-  "questions": [
-    {
-      "title": "How much is the fish?",
-      "isSingleRightAnswer": false,
-      "countShelves": 2,
-      "rawAnswers": [
+    "questions": [
         {
-          "title": "one coin",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
+            "title": "How much is the fish?",
+            "isSingleRightAnswer": false,
+            "type": 0,
+            "countShelves": 2,
+            "rawAnswers": [
+                {
+                    "title": "one coin",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "two coins",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 1
+                },
+                {
+                    "title": "three coins",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 2
+                },
+                {
+                    "title": "four coins",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 1,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "five coins",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 1,
+                    "positionCellIndex": 1
+                }
+            ]
         },
         {
-          "title": "two coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 1
+            "title": "How much is the dog?",
+            "isSingleRightAnswer": false,
+            "type": 0,
+            "countShelves": 2,
+            "rawAnswers": [
+                {
+                    "title": "one gold coin",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "two gold coins",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 1
+                },
+                {
+                    "title": "three gold coins",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 1,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "four gold coins",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 1,
+                    "positionCellIndex": 1
+                }
+            ]
         },
         {
-          "title": "three coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 2
+            "title": "How much is the cat?",
+            "isSingleRightAnswer": false,
+            "type": 0,
+            "countShelves": 3,
+            "rawAnswers": [
+                {
+                    "title": "one silver coin",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "two silver coins",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 1
+                },
+                {
+                    "title": "three silver coins",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 1,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "four silver coins",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 1,
+                    "positionCellIndex": 1
+                },
+                {
+                    "title": "five silver coins",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 2,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "six silver coins",
+                    "isRight": true,
+                    "score": 0,
+                    "isPositionDependent": true,
+                    "positionRowIndex": 2,
+                    "positionCellIndex": 1
+                }
+            ]
         },
         {
-          "title": "four coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 1,
-          "positionCellIndex": 0
+            "title": "How much is the bear?",
+            "isSingleRightAnswer": true,
+            "type": 0,
+            "countShelves": 1,
+            "rawAnswers": [
+                {
+                    "title": "one diamond coin",
+                    "isRight": false,
+                    "score": 0,
+                    "isPositionDependent": false,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "two diamond coins",
+                    "isRight": false,
+                    "score": 0,
+                    "isPositionDependent": false,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "three diamond coins",
+                    "isRight": false,
+                    "score": 0,
+                    "isPositionDependent": false,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "four diamond coins",
+                    "isRight": true,
+                    "score": 100,
+                    "isPositionDependent": false,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                }
+            ]
         },
         {
-          "title": "five coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 1,
-          "positionCellIndex": 1
+            "title": "How much is the lion?",
+            "isSingleRightAnswer": true,
+            "type": 1,
+            "countShelves": 1,
+            "rawAnswers": [
+                {
+                    "title": "one diamond coin",
+                    "isRight": false,
+                    "score": 0,
+                    "isPositionDependent": false,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "two diamond coins",
+                    "isRight": false,
+                    "score": 0,
+                    "isPositionDependent": false,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "three diamond coins",
+                    "isRight": false,
+                    "score": 0,
+                    "isPositionDependent": false,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "four diamond coins",
+                    "isRight": true,
+                    "score": 100,
+                    "isPositionDependent": false,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                }
+            ]
+        },
+        {
+            "title": "How much is the tiger?",
+            "isSingleRightAnswer": false,
+            "type": 1,
+            "countShelves": 1,
+            "rawAnswers": [
+                {
+                    "title": "one diamond coin",
+                    "isRight": true,
+                    "score": 50,
+                    "isPositionDependent": false,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "two diamond coins",
+                    "isRight": false,
+                    "score": 0,
+                    "isPositionDependent": false,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "three diamond coins",
+                    "isRight": false,
+                    "score": 0,
+                    "isPositionDependent": false,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                },
+                {
+                    "title": "four diamond coins",
+                    "isRight": true,
+                    "score": 50,
+                    "isPositionDependent": false,
+                    "positionRowIndex": 0,
+                    "positionCellIndex": 0
+                }
+            ]
         }
-      ]
-    },
-    {
-      "title": "How much is the dog?",
-      "isSingleRightAnswer": false,
-      "countShelves": 2,
-      "rawAnswers": [
-        {
-          "title": "one gold coin",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "two gold coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 1
-        },
-        {
-          "title": "three gold coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 1,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "four gold coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 1,
-          "positionCellIndex": 1
-        }
-      ]
-    },
-    {
-      "title": "How much is the cat?",
-      "isSingleRightAnswer": false,
-      "countShelves": 3,
-      "rawAnswers": [
-        {
-          "title": "one silver coin",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "two silver coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 1
-        },
-        {
-          "title": "three silver coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 1,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "four silver coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 1,
-          "positionCellIndex": 1
-        },
-        {
-          "title": "five silver coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 2,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "six silver coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 2,
-          "positionCellIndex": 1
-        }
-      ]
-    },
-    {
-      "title": "How much is the bear?",
-      "isSingleRightAnswer": true,
-      "countShelves": 1,
-      "rawAnswers": [
-        {
-          "title": "one diamond coin",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "two diamond coins",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "three diamond coins",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "four diamond coins",
-          "isRight": true,
-          "score": 100,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        }
-      ]
-    }
-  ]
+    ]
 }

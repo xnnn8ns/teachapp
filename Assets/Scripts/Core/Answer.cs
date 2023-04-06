@@ -68,7 +68,7 @@ public class Answer: Information
         }
     }
 
-    public bool IsRightInputValues(int rowIndex, int cellIndex)
+    public bool IsRightInputValuesForShelf(int rowIndex, int cellIndex)
     {
         if (!_isPositionDependent)
             return _isRight;
@@ -76,5 +76,10 @@ public class Answer: Information
             return _isRight
                 && rowIndex == _positionRowIndex
                 && cellIndex == _positionCellIndex;
+    }
+
+    public bool IsRightInputValuesForTest(bool checkValue)
+    {
+        return _isRight == checkValue;
     }
 }

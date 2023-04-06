@@ -1,11 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Shelf : MonoBehaviour
+public class Shelf : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
     private Transform _shelfArea;
+
+    [SerializeField]
+    private  GameObject _shelfChecker;
+
+    public event Action<bool, Shelf> ClickShelf;
 
     private List<AnswerSurface> _questionsShelved = new List<AnswerSurface>();
 
@@ -34,6 +41,7 @@ public class Shelf : MonoBehaviour
     private void SetAnswersOnShelf()
     {
         float widthRaw = 0f;
+        SetTestShelfChecker(false);
 
         foreach (var item in _questionsShelved)
         {
@@ -78,7 +86,7 @@ public class Shelf : MonoBehaviour
 
         for (int i = 0; i < _questionsShelved.Count; i++)
         {
-            if (_questionsShelved[i].Answer.IsRightInputValues(shelfIndex, i))
+            if(_questionsShelved[i].Answer.IsRightInputValuesForShelf(shelfIndex, i))
                 continue;
             else
                 return false;
@@ -93,5 +101,25 @@ public class Shelf : MonoBehaviour
             Destroy(_questionsShelved[i].gameObject);
         }
         _questionsShelved.Clear();
+    }
+
+    public void SetTestShelfChecker(bool value)
+    {
+        _shelfChecker.SetActive(value);
+    }
+
+    public bool GetTestShelfChecker()
+    {
+        return _shelfChecker.activeSelf;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!Settings.IsTurnOnClickPointerListener)
+            return;
+
+        Debug.Log("OnPointerClick");
+        SetTestShelfChecker(!_shelfChecker.activeSelf);
+        ClickShelf.Invoke(_shelfChecker.activeSelf, this);
     }
 }

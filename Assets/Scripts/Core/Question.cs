@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
-public abstract class Question: Information
+public abstract class Question : Information
 {
     private int _countShelves = 1;
 
     private bool _isSingleRightAnswer = false;
+
+    private QuestionType _questionType = QuestionType.Shelf;
 
     private List<Answer> _answerList = new List<Answer>();
 
@@ -94,5 +96,11 @@ public abstract class Question: Information
         {
             _isSingleRightAnswer = value;
         }
+    }
+
+    public QuestionType QuestionType
+    {
+        get => _questionType;
+        set => _questionType = value;
     }
 }

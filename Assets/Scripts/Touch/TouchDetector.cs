@@ -13,7 +13,7 @@ public class TouchDetector : MonoBehaviour
     public event Action<Vector2> StopTouchArise;
     public event Action<Vector2> HoldTouchArise;
 
-    void Update()
+    private void Update()
     {
         if(Input.touchCount > 0)
         {
@@ -43,7 +43,7 @@ public class TouchDetector : MonoBehaviour
 
     }
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
         var touchPosition = Input.mousePosition;
         _firstTouchPosition = _holdTouchPosition = touchPosition;
@@ -57,7 +57,7 @@ public class TouchDetector : MonoBehaviour
         StopTouchArise?.Invoke(Input.GetTouch(0).position);
     }
 
-    void OnMouseUp()
+    private void OnMouseUp()
     {
         StopTouchArise?.Invoke(Input.mousePosition);
     }
@@ -75,7 +75,7 @@ public class TouchDetector : MonoBehaviour
         LastUserActionTime = Time.timeSinceLevelLoad;
     }
 
-    void OnMouseDrag()
+    private void OnMouseDrag()
     {
         _holdTouchPosition = Input.mousePosition;
         var touchOffset = Vector2.ClampMagnitude(_holdTouchPosition - _firstTouchPosition, 700f);

@@ -16,7 +16,7 @@ public class TransformPhisics : MonoBehaviour
 
     private void Drag(Vector2 vector)
     {
-        if (!_isStartTouch || _draggingTransform == null)
+        if (!_isStartTouch || _draggingTransform == null || !Settings.IsNeedDragDropTouchDetector)
             return;
         Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(vector.x, vector.y, _distanceFromCameraToQuestionPlane));
         point -= _offsetDraggingZ;
@@ -25,7 +25,7 @@ public class TransformPhisics : MonoBehaviour
 
     private void StartDrag(Vector2 vector)
     {
-        if (_isStartTouch)
+        if (_isStartTouch || !Settings.IsNeedDragDropTouchDetector)
             return;
         Vector3 pointTouch = GetWorldPointFromScreenTouch(vector);
         _draggingTransform = IsTouchDownAnswerSurface(pointTouch);
@@ -39,7 +39,7 @@ public class TransformPhisics : MonoBehaviour
 
     private void StopDrag(Vector2 vector)
     {
-        if (!_isStartTouch || _draggingTransform == null)
+        if (!_isStartTouch || _draggingTransform == null || !Settings.IsNeedDragDropTouchDetector)
             return;
         _isStartTouch = false;
         _draggingTransform.position += _offsetDraggingZ;
@@ -48,14 +48,19 @@ public class TransformPhisics : MonoBehaviour
         _draggingTransform = null;
     }
 
-    void Start()
+    private void Start()
+    {
+        SignListeners();
+    }
+
+    private void SignListeners()
     {
         _touchDetector.StartTouchArise += StartDrag;
         _touchDetector.StopTouchArise += StopDrag;
         _touchDetector.HoldTouchArise += Drag;
     }
 
-    ~TransformPhisics()
+    private void UnSignListeners()
     {
         if (_touchDetector == null)
             return;
@@ -63,6 +68,11 @@ public class TransformPhisics : MonoBehaviour
         _touchDetector.StartTouchArise -= StartDrag;
         _touchDetector.StopTouchArise -= StopDrag;
         _touchDetector.HoldTouchArise -= Drag;
+    }
+
+    ~TransformPhisics()
+    {
+        UnSignListeners();
     }
 
     private Transform IsTouchDownAnswerSurface(Vector3 pointTouch)
