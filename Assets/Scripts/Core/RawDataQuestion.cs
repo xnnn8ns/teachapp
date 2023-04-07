@@ -17,6 +17,7 @@ public class RawQuestion
     [JsonProperty("rawAnswers")] public List<RawAnswer> RawAnswers = new List<RawAnswer>();
     [JsonProperty("type")] public int QuestionType;
     [JsonProperty("countShelves")] public int CountShelves = 1;
+    [JsonProperty("score")] public int Score = 0;
     [JsonProperty("isSingleRightAnswer")] public bool IsSingleRightAnswer = false;
 }
 

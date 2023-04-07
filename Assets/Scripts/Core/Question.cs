@@ -3,11 +3,9 @@ using System.Collections.Generic;
 public abstract class Question : Information
 {
     private int _countShelves = 1;
-
     private bool _isSingleRightAnswer = false;
-
+    private int _score = 0;
     private QuestionType _questionType = QuestionType.Shelf;
-
     private List<Answer> _answerList = new List<Answer>();
 
     public int GetAnswerCount()
@@ -102,5 +100,17 @@ public abstract class Question : Information
     {
         get => _questionType;
         set => _questionType = value;
+    }
+
+    public int Score
+    {
+        get
+        {
+            return _score;
+        }
+        set
+        {
+            _score = value;
+        }
     }
 }

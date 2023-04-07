@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System;
+using UnityEngine.UI;
 
 public class QuestionInitializer : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class QuestionInitializer : MonoBehaviour
     private GameObject _shelfPrefab;
     [SerializeField]
     private CanvasController _canvasController;
+    [SerializeField]
+    private Text _scoreValueText;
 
     //private Shelf _shelfQuestion;
     private List<Shelf> _shelvesForCheck = new List<Shelf>();
@@ -24,6 +27,7 @@ public class QuestionInitializer : MonoBehaviour
     private QuestionSurface _currentQuestionSurface;
     private static int _currentQuestionIndex = 0;
     private static int _rightAnsweredCount = 0;
+    private static int _scoreValue = 0;
     private static float _shelfHeightScale = 0.56f;
 
     float heightQuizText = 4.5f;
@@ -50,6 +54,7 @@ public class QuestionInitializer : MonoBehaviour
                 question.Title = item.Title;
                 question.CountShelves = item.CountShelves;
                 question.QuestionType = (QuestionType)item.QuestionType;
+                question.Score = item.Score;
                 //Debug.Log(question.QuestionType);
                 question.IsSingleRightAnswer = item.IsSingleRightAnswer;
                 List<Answer> answers = new List<Answer>();
@@ -562,7 +567,10 @@ public class QuestionInitializer : MonoBehaviour
         }
         Debug.Log(isRight);
         if (isRight)
+        {
             _rightAnsweredCount++;
+            AddEarnedPoints(_questions[_currentQuestionIndex].Score);
+        }
         _currentQuestionIndex++;
         DestroyQuestionObjects();
         if (_currentQuestionIndex < _questions.Count)
@@ -593,6 +601,12 @@ public class QuestionInitializer : MonoBehaviour
             return;
 
         _canvasController.SetLevelProgress((float)rightAnsweredQuestion / totalQuestionCount);
+    }
+
+    private void AddEarnedPoints(int valuePoints)
+    {
+        _scoreValue += valuePoints;
+        _scoreValueText.text = _scoreValue.ToString();
     }
 
     private void ClickTestShelf(bool value, Shelf shelf)
