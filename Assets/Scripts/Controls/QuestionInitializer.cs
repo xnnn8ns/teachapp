@@ -34,11 +34,7 @@ public class QuestionInitializer : MonoBehaviour
     float heightUpperShelf = 2.5f;
     float heightBelowShelf = -3.5f;
 
-    public static JsonSerializerSettings JsonSettings = new JsonSerializerSettings
-    {
-        NullValueHandling = NullValueHandling.Ignore,
-        MissingMemberHandling = MissingMemberHandling.Ignore
-    };
+    
 
     private void GetFromJSON()
     {
@@ -47,7 +43,7 @@ public class QuestionInitializer : MonoBehaviour
         RawDataQuestion questionFromJSON = null;
         try
         {
-            questionFromJSON = JsonConvert.DeserializeObject<RawDataQuestion>(strJSON, JsonSettings);
+            questionFromJSON = JsonConvert.DeserializeObject<RawDataQuestion>(strJSON, Settings.JsonSettings);
             foreach (var item in questionFromJSON.RawQuestions)
             {
                 Question question = new QuestionText();
