@@ -37,10 +37,18 @@ public class TextController : MonoBehaviour
 
     private void InitTextType()
     {
-        GameObject newTextItem = Instantiate(textItemPrefab, scrollParent);
-        TextAnimation textCurrentForType = newTextItem.GetComponentInChildren<TextAnimation>();
-        string strFull = _theories[indexCurrentTheory].GetTextList()[indexCurrentText].ToString();
-        textCurrentForType.StartType(strFull, NextType);
+        //try
+        //{
+            GameObject newTextItem = Instantiate(textItemPrefab, scrollParent);
+            TextAnimation textCurrentForType = newTextItem.GetComponentInChildren<TextAnimation>();
+            string strFull = _theories[indexCurrentTheory].GetTextList()[indexCurrentText].ToString();
+            textCurrentForType.StartType(strFull, NextType);
+        //}
+        //catch (Exception ex)
+        //{
+        //    Debug.Log(ex.Message);
+        //}
+        
     }
 
     private void InitButtonFinish()

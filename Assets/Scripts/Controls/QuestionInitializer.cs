@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class QuestionInitializer : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _questionPrefab;
+    private Text _questionText;
     [SerializeField]
     private GameObject _answerPrefab;
     [SerializeField]
@@ -393,15 +393,16 @@ public class QuestionInitializer : MonoBehaviour
 
     private void InitQuestionTitleAndAnswers()
     {
-        GameObject questionPrefab = Instantiate(_questionPrefab);
-        questionPrefab.transform.position = new Vector3(0, heightQuizText, 0);
+        //GameObject questionPrefab = Instantiate(_questionPrefab);
+        //questionPrefab.transform.position = new Vector3(0, heightQuizText, 0);
 
-        QuestionSurface questionSurface = questionPrefab.GetComponent<QuestionSurface>();
-        questionSurface.Question = _questions[_currentQuestionIndex];
-        questionSurface.SetTitle(_questions[_currentQuestionIndex].Title);
-        _currentQuestionSurface = questionSurface;
+        //QuestionSurface questionSurface = questionPrefab.GetComponent<QuestionSurface>();
+        //questionSurface.Question = _questions[_currentQuestionIndex];
+        //questionSurface.SetTitle(_questions[_currentQuestionIndex].Title);
+        _questionText.text = _questions[_currentQuestionIndex].Title;
+        //_currentQuestionSurface = questionSurface;
 
-        if(questionSurface.Question.QuestionType == QuestionType.Shelf)
+        if (_questions[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
             InitAnswersForShelf();
         else
             InitAnswersForTest();
@@ -409,7 +410,7 @@ public class QuestionInitializer : MonoBehaviour
 
     private void InitAnswersForTest()
     {
-        List<Answer> answers = _currentQuestionSurface.Question.GetAnswerList();
+        List<Answer> answers = _questions[_currentQuestionIndex].GetAnswerList();
         //Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, 0);
 
         if (answers.Count != _shelvesForCheck.Count)
@@ -435,7 +436,7 @@ public class QuestionInitializer : MonoBehaviour
 
     private void InitAnswersForShelf()
     {
-        List<Answer> answers = _currentQuestionSurface.Question.GetAnswerList();
+        List<Answer> answers = _questions[_currentQuestionIndex].GetAnswerList();
         Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, 0);
 
         foreach (var answer in answers)
@@ -479,7 +480,7 @@ public class QuestionInitializer : MonoBehaviour
         AnswerSurface answerSurface = transform.GetComponent<AnswerSurface>();
         if (answerSurface == null)
             return;
-        if (_currentQuestionSurface.Question.IsSingleRightAnswer)
+        if (_questions[_currentQuestionIndex].IsSingleRightAnswer)
             CheckSingleAnswerAfterDrop(answerSurface);
         else
             CheckMultiAnswerAfterDrop(answerSurface);
@@ -555,7 +556,7 @@ public class QuestionInitializer : MonoBehaviour
         for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
             if (_questions[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
-                isRight = _shelvesForCheck[i].IsRightAnswersInShelf(_currentQuestionSurface.Question, i);
+                isRight = _shelvesForCheck[i].IsRightAnswersInShelf(_questions[_currentQuestionIndex], i);
             else
                 isRight = _questions[_currentQuestionIndex].GetAnswerList()[i].IsRight == _shelvesForCheck[i].GetTestShelfChecker();
             if (!isRight)
@@ -586,7 +587,7 @@ public class QuestionInitializer : MonoBehaviour
         _shelfRawAnswers.DestroyAllObjectsOnShelf();
         if(_shelfRawAnswers && _shelfRawAnswers.gameObject)
             Destroy(_shelfRawAnswers.gameObject);
-        Destroy(_currentQuestionSurface.gameObject);
+        //Destroy(_currentQuestionSurface.gameObject);
         _shelvesForCheck.Clear();
         _answers.Clear();
     }
