@@ -40,7 +40,7 @@ public class TextAnimation : MonoBehaviour
             yield return new WaitForSeconds(0.0725f);
         }
         _resultCurrentType?.Invoke();
-        _clickFinishButton.gameObject.SetActive(false);
+        _clickFinishButton?.gameObject.SetActive(false);
     }
 
     public void ClickButtonFinishReadindByUser()

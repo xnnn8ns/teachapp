@@ -43,12 +43,19 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
         float widthRaw = 0f;
         SetTestShelfChecker(false);
 
+        int countRows = 0;        
+
         foreach (var item in _questionsShelved)
         {
             Vector3 startPoint = _shelfArea.position;
+
+            float yPosition = startPoint.y - 0.55f * countRows + _shelfArea.transform.localScale.y/2 - 0.28f;
+
             startPoint.x -= _shelfArea.localScale.x / 2;
 
             startPoint.x += widthRaw;
+
+            startPoint.y = yPosition;
 
             Vector3 offsetPoint = Vector3.zero;
             offsetPoint.x += item.transform.localScale.x / 2;
@@ -56,7 +63,13 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
             Vector3 targetPoint = startPoint + offsetPoint;
             item.transform.position = targetPoint;
 
-            widthRaw += item.transform.localScale.x + 0.1f;
+            widthRaw += item.transform.localScale.x + 0.05f;
+
+            if (widthRaw > 4)
+            {
+                countRows++;
+                widthRaw = 0;
+            }
         }
     }
 
