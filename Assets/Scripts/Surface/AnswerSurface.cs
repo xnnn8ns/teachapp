@@ -7,4 +7,5 @@ public class AnswerSurface : Surface
 {
     public Answer Answer;
 
+    public Vector3 BasePosition = Vector3.zero;
 }

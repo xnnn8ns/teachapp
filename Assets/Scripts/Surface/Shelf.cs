@@ -8,12 +8,11 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
     private Transform _shelfArea;
-
     [SerializeField]
     private  GameObject _shelfChecker;
-
+    public bool IsRawAnswersShelf = false;
     public event Action<bool, Shelf> ClickShelf;
-
+    private bool _isShelfFirstCompleted = false;
     private List<AnswerSurface> _questionsShelved = new List<AnswerSurface>();
 
     public void AddAnswerToShelfByDrag(AnswerSurface transformChild)
@@ -34,22 +33,41 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     public void AddAnswerToShelf(AnswerSurface transformChild)
     {
         _questionsShelved.Add(transformChild);
-
+        
         SetAnswersOnShelf();
+    }
+
+    public void SetFirstAnswerForRarShelfCompleted()
+    {
+        _isShelfFirstCompleted = true;
     }
 
     private void SetAnswersOnShelf()
     {
+        if (!IsRawAnswersShelf || !_isShelfFirstCompleted)
+            SetAnswersOnAnswerShelf();
+        else
+            SetAnswersByBasePositoinShelf();
+    }
+
+    private void SetAnswersByBasePositoinShelf()
+    {
+        foreach (var item in _questionsShelved)
+            item.transform.position = item.BasePosition;
+    }
+
+    private void SetAnswersOnAnswerShelf()
+    {
         float widthRaw = 0f;
         SetTestShelfChecker(false);
 
-        int countRows = 0;        
+        int countRows = 0;
 
         foreach (var item in _questionsShelved)
         {
             Vector3 startPoint = _shelfArea.position;
 
-            float yPosition = startPoint.y - 0.55f * countRows + _shelfArea.transform.localScale.y/2 - 0.28f;
+            float yPosition = startPoint.y - 0.55f * countRows + _shelfArea.transform.localScale.y / 2 - 0.28f;
 
             startPoint.x -= _shelfArea.localScale.x / 2;
 
@@ -70,13 +88,18 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
                 countRows++;
                 widthRaw = 0;
             }
+
+            if (IsRawAnswersShelf)
+                item.BasePosition = targetPoint;
         }
     }
 
     public void RemoveAnswerFromShelf(AnswerSurface transformChild)
     {   
         _questionsShelved?.Remove(transformChild);
-        SetAnswersOnShelf();
+        if (!IsRawAnswersShelf) {
+            SetAnswersOnShelf();
+        }
     }
 
     public bool IsAnswerInsideShelfBorders(AnswerSurface answerForCheck)

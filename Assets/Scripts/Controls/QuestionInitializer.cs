@@ -12,6 +12,8 @@ public class QuestionInitializer : MonoBehaviour
     [SerializeField]
     private GameObject _answerPrefab;
     [SerializeField]
+    private GameObject _answerMockPrefab;
+    [SerializeField]
     private GameObject _shelfPrefab;
     [SerializeField]
     private CanvasController _canvasController;
@@ -26,15 +28,15 @@ public class QuestionInitializer : MonoBehaviour
 
     private List<Question> _questions = new List<Question>();
     private List<GameObject> _answers = new List<GameObject>();
-    private QuestionSurface _currentQuestionSurface;
+    private List<GameObject> _answersMock = new List<GameObject>();
     private static int _currentQuestionIndex = 0;
     private static int _rightAnsweredCount = 0;
     private static int _scoreValue = 0;
     private static float _shelfHeightScale = 0.56f;
 
-    float heightQuizText = 4.5f;
-    float heightUpperShelf = 2.5f;
-    float heightBelowShelf = -3f;
+    private float heightQuizText = 4.5f;
+    private float heightUpperShelf = 2.5f;
+    private float heightBelowShelf = -3f;
 
     
 
@@ -367,6 +369,7 @@ public class QuestionInitializer : MonoBehaviour
         shelfAnswerPrefab.transform.position = new Vector3(0, heightBelowShelf, 0);
         shelfAnswerPrefab.transform.localScale = new Vector3(5, 3, 1);
         _shelfRawAnswers = shelfAnswerPrefab?.GetComponent<Shelf>();
+        _shelfRawAnswers.IsRawAnswersShelf = true;
 
         InitQuestionTitleAndAnswers();
         Settings.SetDragDropQuestionSettings();
@@ -448,21 +451,19 @@ public class QuestionInitializer : MonoBehaviour
         Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, 0);
 
         foreach (var answer in answers)
-        {
+        { 
             GameObject answerPrefab = Instantiate(_answerPrefab, vectorPosition, Quaternion.identity);
-
             SetAnswerDrag(answerPrefab, answer, answerPrefab.GetComponent<AnimationExecuter>());
-            //float yMult = countRows * 1.15f;
-            //vectorPosition += new Vector3(1.15f, 0, 0);
             _answers.Add(answerPrefab);
             AnswerSurface answerSurface = answerPrefab?.GetComponent<AnswerSurface>();
             answerSurface.Answer = answer;
             if (answerSurface != null) 
                 _shelfRawAnswers.AddAnswerToShelf(answerSurface);
-            //if(vectorPosition.x + 1f > 3f)
-            //    countRows++;
-            //Debug.Log(countRows);
+
+            Vector3 vectorMockPosition = answerPrefab.transform.position + new Vector3(0, 0, 0.01f);
+            _answersMock.Add(Instantiate(_answerMockPrefab, vectorMockPosition, Quaternion.identity));
         }
+        _shelfRawAnswers.SetFirstAnswerForRarShelfCompleted();
     }
 
     private void SetAnswerDrag(GameObject answerPrefab, Answer answer, AnimationExecuter animationExecuter)
@@ -606,9 +607,15 @@ public class QuestionInitializer : MonoBehaviour
         _shelfRawAnswers.DestroyAllObjectsOnShelf();
         if(_shelfRawAnswers && _shelfRawAnswers.gameObject)
             Destroy(_shelfRawAnswers.gameObject);
+
+        for (int i = _answersMock.Count - 1; i >= 0; i--)
+        {
+            Destroy(_answersMock[i].gameObject);
+        }
         //Destroy(_currentQuestionSurface.gameObject);
         _shelvesForCheck.Clear();
         _answers.Clear();
+        _answersMock.Clear();
     }
 
     private void SetLevelEarnedPoints(int rightAnsweredQuestion, int totalQuestionCount)

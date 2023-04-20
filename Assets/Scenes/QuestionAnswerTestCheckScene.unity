@@ -2435,6 +2435,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 657983197}
     - target: {fileID: 2723863697941086194, guid: a2e105c4958484f1e9ab6bfd733b05b5, type: 3}
+      propertyPath: _answerMockPrefab
+      value: 
+      objectReference: {fileID: 2200933521651468310, guid: 8ad670e5a301c46b1b1b832f5c2d5a0a, type: 3}
+    - target: {fileID: 2723863697941086194, guid: a2e105c4958484f1e9ab6bfd733b05b5, type: 3}
       propertyPath: _canvasController
       value: 
       objectReference: {fileID: 2040055838}
