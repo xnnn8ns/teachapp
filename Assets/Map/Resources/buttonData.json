@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "score": 1000,
+    "isActive": true,
+    "activeStarsCount": 3,
+    "isPassed": true
+  },
+  {
+    "id": 2,
+    "score": 1000,
+    "isActive": true,
+    "activeStarsCount": 3,
+    "isPassed": true
+  },
+  {
+    "id": 3,
+    "score": 0,
+    "isActive": false,
+    "activeStarsCount": 0,
+    "isPassed": false
+  },
+  {
+    "id": 4,
+    "score": 0,
+    "isActive": false,
+    "activeStarsCount": 0,
+    "isPassed": false
+  },
+  {
+    "id": 5,
+    "score": 0,
+    "isActive": false,
+    "activeStarsCount": 0,
+    "isPassed": false
+  },
+  {
+    "id": 6,
+    "score": 0,
+    "isActive": false,
+    "activeStarsCount": 0,
+    "isPassed": false
+  },
+  {
+    "id": 7,
+    "score": 0,
+    "isActive": false,
+    "activeStarsCount": 0,
+    "isPassed": false
+  },
+  {
+    "id": 8,
+    "score": 0,
+    "isActive": false,
+    "activeStarsCount": 0,
+    "isPassed": false
+  },
+  {
+    "id": 9,
+    "score": 0,
+    "isActive": false,
+    "activeStarsCount": 0,
+    "isPassed": false
+  },
+  {
+    "id": 10,
+    "score": 0,
+    "isActive": false,
+    "activeStarsCount": 0,
+    "isPassed": false
+  },
+  {
+    "id": 11,
+    "score": 0,
+    "isActive": false,
+    "activeStarsCount": 0,
+    "isPassed": false
+  }
+]
