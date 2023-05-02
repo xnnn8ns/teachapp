@@ -4,6 +4,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System;
 using UnityEngine.UI;
+using Mkey;
 
 public class QuestionInitializer : MonoBehaviour
 {
@@ -42,8 +43,8 @@ public class QuestionInitializer : MonoBehaviour
 
     private void GetFromJSON()
     {
-        string strJSON = "";
-        strJSON = Resources.Load<TextAsset>("TA_data").text;
+        string strJSON;
+        strJSON = Resources.Load<TextAsset>("TA_data_test").text;
         RawDataQuestion questionFromJSON = null;
         try
         {
@@ -82,262 +83,6 @@ public class QuestionInitializer : MonoBehaviour
     public List<GameObject> GetAnswersList()
     {
         return _answers;
-    }
-
-    private void FillTestQuestionList()
-    {
-        _questions.Clear();
-        _answers.Clear();
-
-        Question question = new QuestionText();
-        question.Title = "How much is the fish?";
-        question.CountShelves = 2;
-        question.IsSingleRightAnswer = false;
-
-        List<Answer> answers = new List<Answer>();
-
-        Answer answer = new Answer();
-        answer.Title = "one coin";
-        answer.IsRight = true;
-        answer.Score = 0;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 0;
-        answer.PositionCellIndex = 0;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "two coins";
-        answer.IsRight = true;
-        answer.Score = 0;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 0;
-        answer.PositionCellIndex = 1;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "three coins";
-        answer.IsRight = true;
-        answer.Score = 0;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 0;
-        answer.PositionCellIndex = 2;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "four coins";
-        answer.IsRight = true;
-        answer.Score = 100;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 1;
-        answer.PositionCellIndex = 0;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "five coins";
-        answer.IsRight = true;
-        answer.Score = 100;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 1;
-        answer.PositionCellIndex = 1;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "six coins";
-        answer.IsRight = true;
-        answer.Score = 100;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 1;
-        answer.PositionCellIndex = 2;
-        answers.Add(answer);
-
-        question.SetAnswerList(answers);
-
-
-        _questions.Add(question);
-
-        /////////////////
-        ///1
-
-
-        question = new QuestionText();
-        question.Title = "How much is the dog?";
-        question.CountShelves = 2;
-        question.IsSingleRightAnswer = false;
-
-        answers = new List<Answer>();
-
-        answer = new Answer();
-        answer.Title = "one gold coin";
-        answer.IsRight = true;
-        answer.Score = 0;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 0;
-        answer.PositionCellIndex = 0;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "two gold coins";
-        answer.IsRight = true;
-        answer.Score = 0;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 0;
-        answer.PositionCellIndex = 1;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "three gold coins";
-        answer.IsRight = true;
-        answer.Score = 0;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 0;
-        answer.PositionCellIndex = 2;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "four gold coins";
-        answer.IsRight = true;
-        answer.Score = 100;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 0;
-        answer.PositionCellIndex = 3;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "five gold coins";
-        answer.IsRight = true;
-        answer.Score = 100;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 1;
-        answer.PositionCellIndex = 0;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "six gold coins";
-        answer.IsRight = true;
-        answer.Score = 100;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 1;
-        answer.PositionCellIndex = 1;
-        answers.Add(answer);
-
-        question.SetAnswerList(answers);
-
-        _questions.Add(question);
-
-        /////////////////
-        ///2
-
-
-        question = new QuestionText();
-        question.Title = "How much is the cat?";
-        question.CountShelves = 3;
-        question.IsSingleRightAnswer = false;
-
-        answers = new List<Answer>();
-
-        answer = new Answer();
-        answer.Title = "one silver coin";
-        answer.IsRight = true;
-        answer.Score = 0;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 0;
-        answer.PositionCellIndex = 0;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "two silver coins";
-        answer.IsRight = true;
-        answer.Score = 0;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 0;
-        answer.PositionCellIndex = 1;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "three silver coins";
-        answer.IsRight = true;
-        answer.Score = 0;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 1;
-        answer.PositionCellIndex = 0;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "four silver coins";
-        answer.IsRight = true;
-        answer.Score = 100;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 1;
-        answer.PositionCellIndex = 1;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "five silver coins";
-        answer.IsRight = true;
-        answer.Score = 100;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 2;
-        answer.PositionCellIndex = 0;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "six silver coins";
-        answer.IsRight = true;
-        answer.Score = 100;
-        answer.IsPositionDependent = true;
-        answer.PositionRowIndex = 2;
-        answer.PositionCellIndex = 1;
-        answers.Add(answer);
-
-        question.SetAnswerList(answers);
-
-        _questions.Add(question);
-
-
-        /////////////
-        ///3
-        ///
-
-        question = new QuestionText();
-        question.Title = "How much is the bear?";
-        question.CountShelves = 1;
-        question.IsSingleRightAnswer = true;
-
-        answers = new List<Answer>();
-
-        answer = new Answer();
-        answer.Title = "one brilliant coin";
-        answer.IsRight = false;
-        answer.Score = 0;
-        answer.IsPositionDependent = false;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "two brilliant coins";
-        answer.IsRight = false;
-        answer.Score = 0;
-        answer.IsPositionDependent = false;
-        answer.PositionRowIndex = 0;
-        answer.PositionCellIndex = 0;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "three brilliant coins";
-        answer.IsRight = false;
-        answer.Score = 0;
-        answer.IsPositionDependent = false;
-        answers.Add(answer);
-
-        answer = new Answer();
-        answer.Title = "four brilliant coins";
-        answer.IsRight = true;
-        answer.Score = 100;
-        answer.IsPositionDependent = false;
-        answers.Add(answer);
-
-        question.SetAnswerList(answers);
-
-        _questions.Add(question);
     }
 
     private void InitQuestion()
@@ -440,7 +185,7 @@ public class QuestionInitializer : MonoBehaviour
 
             _answers.Add(answerPrefab);
             AnswerSurface answerSurface = answerPrefab?.GetComponent<AnswerSurface>();
-            answerSurface.Answer = answer;
+            answerSurface.SetAnswer(answer, true);
             shelf.AddAnswerToShelf(answerSurface);
         }
     }
@@ -456,12 +201,14 @@ public class QuestionInitializer : MonoBehaviour
             SetAnswerDrag(answerPrefab, answer, answerPrefab.GetComponent<AnimationExecuter>());
             _answers.Add(answerPrefab);
             AnswerSurface answerSurface = answerPrefab?.GetComponent<AnswerSurface>();
-            answerSurface.Answer = answer;
+            answerSurface.SetAnswer(answer, true);
             if (answerSurface != null) 
                 _shelfRawAnswers.AddAnswerToShelf(answerSurface);
 
             Vector3 vectorMockPosition = answerPrefab.transform.position + new Vector3(0, 0, 0.01f);
-            _answersMock.Add(Instantiate(_answerMockPrefab, vectorMockPosition, Quaternion.identity));
+            GameObject mock = Instantiate(_answerMockPrefab, vectorMockPosition, Quaternion.identity);
+            mock.transform.localScale = answerSurface.transform.localScale;
+            _answersMock.Add(mock);
         }
         _shelfRawAnswers.SetFirstAnswerForRarShelfCompleted();
     }
@@ -472,8 +219,9 @@ public class QuestionInitializer : MonoBehaviour
         answerSurface.SetTitle(answer.Title);
     }
 
-    private void Start()
+    private void Awake()
     {
+        Debug.Log(Settings.Current_Level);
         //FillTestQuestionList();
         _imageChecker.gameObject.SetActive(false);
         GetFromJSON();
@@ -565,6 +313,8 @@ public class QuestionInitializer : MonoBehaviour
         if (_currentQuestionIndex >= _questions.Count)
             return;
 
+        StopAnimationTextType();
+
         bool isRight = false;
         for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
@@ -648,5 +398,10 @@ public class QuestionInitializer : MonoBehaviour
                     shl.SetTestShelfChecker(false);
             }
         }
+    }
+
+    private void StopAnimationTextType()
+    {
+        _questionText?.GetComponent<TextAnimation>()?.ClickButtonFinishReadingByUser();
     }
 }

@@ -1,6 +1,79 @@
 {
   "questions": [
     {
+      "title": "What code need for show on screen: Hello, world!",
+      "isSingleRightAnswer": false,
+      "type": 0,
+      "countShelves": 1,
+      "score": 30,
+      "rawAnswers": [
+        {
+          "title": "print",
+          "isRight": true,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 0
+        },
+        {
+          "title": "(",
+          "isRight": true,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 1
+        },
+        {
+          "title": "'Hello, world!'",
+          "isRight": true,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 2
+        },
+        {
+          "title": ")",
+          "isRight": true,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 3
+        },
+        {
+          "title": "{",
+          "isRight": false,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 3
+        },
+        {
+          "title": "}",
+          "isRight": false,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 3
+        },
+        {
+          "title": "write",
+          "isRight": false,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 3
+        },
+        {
+          "title": "console",
+          "isRight": false,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 3
+        }
+      ]
+    },
+    {
       "title": "How much is the fish?",
       "isSingleRightAnswer": false,
       "type": 0,

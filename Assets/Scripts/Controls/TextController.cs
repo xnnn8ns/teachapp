@@ -113,7 +113,7 @@ public class TextController : MonoBehaviour
     private void GetFromJSON()
     {
         string strJSON = "";
-        strJSON = Resources.Load<TextAsset>("TA_data_quiz").text;
+        strJSON = Resources.Load<TextAsset>("TA_data_theory").text;
         RawDataTheory treoryFromJSON = null;
         try
         {

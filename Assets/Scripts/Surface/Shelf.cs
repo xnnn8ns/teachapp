@@ -122,7 +122,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
         for (int i = 0; i < _questionsShelved.Count; i++)
         {
-            if(_questionsShelved[i].Answer.IsRightInputValuesForShelf(shelfIndex, i))
+            if(_questionsShelved[i].GetAnswer().IsRightInputValuesForShelf(shelfIndex, i))
                 continue;
             else
                 return false;

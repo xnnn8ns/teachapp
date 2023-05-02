@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace Mkey
 {
@@ -96,6 +97,7 @@ namespace Mkey
                     currentLevel = scene;
                     if (MSound) MSound.SoundPlayClick(0, null);
                     Debug.Log("load scene : " + scene);
+                    ClickLevelButton(scene);
                     ButtonsManager.SetData(scene, 1000, true, true, 3);
 
                 // uncomment for load game scene 
@@ -214,6 +216,13 @@ namespace Mkey
             Debug.Log(content.sizeDelta.y + " : " + content.InverseTransformPoint(ActiveButton.transform.position).y);
             Debug.Log("sRect.verticalNormalizedPosition: " + sRect.verticalNormalizedPosition);
             Debug.Log("sRect.verticalNormalizedPosition: " + sRect.horizontalNormalizedPosition);
+        }
+
+        private void ClickLevelButton(int clickIndex)
+        {
+            Settings.Current_Level = clickIndex;
+            SceneManager.LoadScene("QuestionAnswerTestCheckScene", LoadSceneMode.Single);
+            //QuestionAnswerTestCheckScene
         }
     }
 }

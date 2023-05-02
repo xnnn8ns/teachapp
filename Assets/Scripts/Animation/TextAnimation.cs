@@ -43,7 +43,7 @@ public class TextAnimation : MonoBehaviour
         _clickFinishButton?.gameObject.SetActive(false);
     }
 
-    public void ClickButtonFinishReadindByUser()
+    public void ClickButtonFinishReadingByUser()
     {
         try
         {
@@ -56,6 +56,6 @@ public class TextAnimation : MonoBehaviour
         }
         _textType.text = _textCash;
         _resultCurrentType?.Invoke();
-        _clickFinishButton.gameObject.SetActive(false);
+        _clickFinishButton?.gameObject?.SetActive(false);
     }
 }
