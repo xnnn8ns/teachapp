@@ -1,6 +1,7 @@
 {
   "questions": [
     {
+      "level": 1,
       "title": "What code need for show on screen: Hello, world!",
       "isSingleRightAnswer": false,
       "type": 0,
@@ -74,6 +75,7 @@
       ]
     },
     {
+      "level": 1,
       "title": "How much is the fish?",
       "isSingleRightAnswer": false,
       "type": 0,
@@ -123,6 +125,7 @@
       ]
     },
     {
+      "level": 1,
       "title": "How much is the dog?",
       "isSingleRightAnswer": false,
       "type": 0,
@@ -164,6 +167,7 @@
       ]
     },
     {
+      "level": 1,
       "title": "How much is the cat?",
       "isSingleRightAnswer": false,
       "type": 0,
@@ -221,6 +225,7 @@
       ]
     },
     {
+      "level": 1,
       "title": "How much is the bear?",
       "isSingleRightAnswer": true,
       "type": 0,
@@ -262,6 +267,7 @@
       ]
     },
     {
+      "level": 1,
       "title": "How much is the lion?",
       "isSingleRightAnswer": true,
       "type": 1,
@@ -303,6 +309,7 @@
       ]
     },
     {
+      "level": 1,
       "title": "How much is the tiger?",
       "isSingleRightAnswer": false,
       "type": 1,
@@ -344,6 +351,7 @@
       ]
     },
     {
+      "level": 1,
       "title": "Where is best bear?",
       "isSingleRightAnswer": false,
       "type": 2,
@@ -381,6 +389,130 @@
           "isPositionDependent": false,
           "positionRowIndex": 0,
           "positionCellIndex": 0
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "title": "Where is white bear?",
+      "isSingleRightAnswer": false,
+      "type": 2,
+      "countShelves": 1,
+      "score": 100,
+      "rawAnswers": [
+        {
+          "title": "1",
+          "isRight": true,
+          "score": 100,
+          "isPositionDependent": false,
+          "positionRowIndex": 0,
+          "positionCellIndex": 0
+        },
+        {
+          "title": "2",
+          "isRight": false,
+          "score": 0,
+          "isPositionDependent": false,
+          "positionRowIndex": 0,
+          "positionCellIndex": 0
+        },
+        {
+          "title": "3",
+          "isRight": false,
+          "score": 0,
+          "isPositionDependent": false,
+          "positionRowIndex": 0,
+          "positionCellIndex": 0
+        },
+        {
+          "title": "4",
+          "isRight": false,
+          "score": 0,
+          "isPositionDependent": false,
+          "positionRowIndex": 0,
+          "positionCellIndex": 0
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "title": "What code need for show on screen: Hello, water world!",
+      "isSingleRightAnswer": false,
+      "type": 0,
+      "countShelves": 1,
+      "score": 30,
+      "rawAnswers": [
+        {
+          "title": "print",
+          "isRight": true,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 0
+        },
+        {
+          "title": "(",
+          "isRight": true,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 1
+        },
+        {
+          "title": "'Hello, water world!'",
+          "isRight": true,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 2
+        },
+        {
+          "title": ")",
+          "isRight": true,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 3
+        },
+        {
+          "title": "{",
+          "isRight": false,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 3
+        },
+        {
+          "title": "}",
+          "isRight": false,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 3
+        },
+        {
+          "title": "write",
+          "isRight": false,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 3
+        },
+        {
+          "title": "console",
+          "isRight": false,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 3
+        },
+        {
+          "title": "'Hello, world!'",
+          "isRight": false,
+          "score": 0,
+          "isPositionDependent": true,
+          "positionRowIndex": 0,
+          "positionCellIndex": 2
         }
       ]
     }

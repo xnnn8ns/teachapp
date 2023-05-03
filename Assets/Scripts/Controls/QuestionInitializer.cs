@@ -8,6 +8,8 @@ using Mkey;
 
 public class QuestionInitializer : MonoBehaviour
 {
+    public event Action ActionLevelCompleted;
+
     [SerializeField]
     private Text _questionText;
     [SerializeField]
@@ -27,7 +29,8 @@ public class QuestionInitializer : MonoBehaviour
     private List<Shelf> _shelvesForCheck = new List<Shelf>();
     private Shelf _shelfRawAnswers;
 
-    private List<Question> _questions = new List<Question>();
+    private List<Question> _questionsTotal = new List<Question>();
+    private List<Question> _questionsCurrentLevel = new List<Question>();
     private List<GameObject> _answers = new List<GameObject>();
     private List<GameObject> _answersMock = new List<GameObject>();
     private static int _currentQuestionIndex = 0;
@@ -56,6 +59,7 @@ public class QuestionInitializer : MonoBehaviour
                 question.CountShelves = item.CountShelves;
                 question.QuestionType = (QuestionType)item.QuestionType;
                 question.Score = item.Score;
+                question.Level = item.Level;
                 //Debug.Log(question.QuestionType);
                 question.IsSingleRightAnswer = item.IsSingleRightAnswer;
                 List<Answer> answers = new List<Answer>();
@@ -71,12 +75,23 @@ public class QuestionInitializer : MonoBehaviour
                     answers.Add(answer);
                 }
                 question.SetAnswerList(answers);
-                _questions.Add(question);
+                _questionsTotal.Add(question);
             }
         }
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
+        }
+    }
+
+    private void FillQuestionsForCurrentLevel()
+    {
+        _questionsCurrentLevel.Clear();
+        _currentQuestionIndex = 0;
+        foreach (var question in _questionsTotal)
+        {
+            if (question.Level == Settings.Current_Level)
+                _questionsCurrentLevel.Add(question);
         }
     }
 
@@ -88,9 +103,9 @@ public class QuestionInitializer : MonoBehaviour
     private void InitQuestion()
     {
         _imageChecker.gameObject.SetActive(false);
-        if (_questions[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
+        if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
             InitShelves();
-        else if (_questions[_currentQuestionIndex].QuestionType == QuestionType.Test)
+        else if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Test)
             InitTest();
         else
             InitImageTest();
@@ -98,7 +113,7 @@ public class QuestionInitializer : MonoBehaviour
 
     private void InitShelves()
     {
-        int countShelves = _questions[_currentQuestionIndex].CountShelves;
+        int countShelves = _questionsCurrentLevel[_currentQuestionIndex].CountShelves;
         _answers.Clear();
         _shelvesForCheck.Clear();
 
@@ -122,7 +137,7 @@ public class QuestionInitializer : MonoBehaviour
 
     private void InitTest()
     {
-        int countTestShelves = _questions[_currentQuestionIndex].GetAnswerCount();
+        int countTestShelves = _questionsCurrentLevel[_currentQuestionIndex].GetAnswerCount();
         _answers.Clear();
         _shelvesForCheck.Clear();
 
@@ -149,7 +164,7 @@ public class QuestionInitializer : MonoBehaviour
         _answers.Clear();
         _shelvesForCheck.Clear();
 
-        _imageChecker.SetImagesFromAnswers(_questions[_currentQuestionIndex].GetAnswerList());
+        _imageChecker.SetImagesFromAnswers(_questionsCurrentLevel[_currentQuestionIndex].GetAnswerList());
 
         Settings.SetClickQuestionSettings();
     }
@@ -157,8 +172,8 @@ public class QuestionInitializer : MonoBehaviour
     private void InitQuestionTitleAndAnswers()
     {
         TextAnimation txtAnim = _questionText.GetComponent<TextAnimation>();
-        txtAnim.StartType(_questions[_currentQuestionIndex].Title, null);
-        if (_questions[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
+        txtAnim.StartType(_questionsCurrentLevel[_currentQuestionIndex].Title, null);
+        if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
             InitAnswersForShelf();
         else
             InitAnswersForTest();
@@ -166,7 +181,7 @@ public class QuestionInitializer : MonoBehaviour
 
     private void InitAnswersForTest()
     {
-        List<Answer> answers = _questions[_currentQuestionIndex].GetAnswerList();
+        List<Answer> answers = _questionsCurrentLevel[_currentQuestionIndex].GetAnswerList();
         //Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, 0);
 
         if (answers.Count != _shelvesForCheck.Count)
@@ -192,7 +207,7 @@ public class QuestionInitializer : MonoBehaviour
 
     private void InitAnswersForShelf()
     {
-        List<Answer> answers = _questions[_currentQuestionIndex].GetAnswerList();
+        List<Answer> answers = _questionsCurrentLevel[_currentQuestionIndex].GetAnswerList();
         Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, 0);
 
         foreach (var answer in answers)
@@ -225,6 +240,7 @@ public class QuestionInitializer : MonoBehaviour
         //FillTestQuestionList();
         _imageChecker.gameObject.SetActive(false);
         GetFromJSON();
+        FillQuestionsForCurrentLevel();
         InitQuestion();
         //InitTouchDetector();
     }
@@ -241,7 +257,7 @@ public class QuestionInitializer : MonoBehaviour
         AnswerSurface answerSurface = transform.GetComponent<AnswerSurface>();
         if (answerSurface == null)
             return;
-        if (_questions[_currentQuestionIndex].IsSingleRightAnswer)
+        if (_questionsCurrentLevel[_currentQuestionIndex].IsSingleRightAnswer)
             CheckSingleAnswerAfterDrop(answerSurface);
         else
             CheckMultiAnswerAfterDrop(answerSurface);
@@ -265,8 +281,7 @@ public class QuestionInitializer : MonoBehaviour
     }
 
     private void CheckSingleAnswerAfterDrop(AnswerSurface answerSurface)
-    {
-        
+    {   
         bool isInsideAnyShelf = false;
         foreach (Shelf shelf in _shelvesForCheck)
         {
@@ -310,33 +325,36 @@ public class QuestionInitializer : MonoBehaviour
 
     public void ClickCheckAnswerForQuestion()
     {
-        if (_currentQuestionIndex >= _questions.Count)
+        if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
+        {
+            CheckIsLevelCompleted();
             return;
+        }
 
         StopAnimationTextType();
 
         bool isRight = false;
         for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
-            if (_questions[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
-                isRight = _shelvesForCheck[i].IsRightAnswersInShelf(_questions[_currentQuestionIndex], i);
-            else if (_questions[_currentQuestionIndex].QuestionType == QuestionType.Test)
-                isRight = _questions[_currentQuestionIndex].GetAnswerList()[i].IsRight == _shelvesForCheck[i].GetTestShelfChecker();
+            if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
+                isRight = _shelvesForCheck[i].IsRightAnswersInShelf(_questionsCurrentLevel[_currentQuestionIndex], i);
+            else if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Test)
+                isRight = _questionsCurrentLevel[_currentQuestionIndex].GetAnswerList()[i].IsRight == _shelvesForCheck[i].GetTestShelfChecker();
             if (!isRight)
                 break;
         }
-        if (_questions[_currentQuestionIndex].QuestionType == QuestionType.Image)
+        if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Image)
             isRight = _imageChecker.GetIsRight();
 
         Debug.Log(isRight);
         if (isRight)
         {
             _rightAnsweredCount++;
-            AddEarnedPoints(_questions[_currentQuestionIndex].Score);
+            AddEarnedPoints(_questionsCurrentLevel[_currentQuestionIndex].Score);
         }
         _currentQuestionIndex++;
         DestroyQuestionObjects();
-        if (_currentQuestionIndex < _questions.Count)
+        if (_currentQuestionIndex < _questionsCurrentLevel.Count)
         {
             InitQuestion();
         }
@@ -344,7 +362,9 @@ public class QuestionInitializer : MonoBehaviour
         {
             _imageChecker.gameObject.SetActive(false);
         }
-        SetLevelEarnedPoints(_rightAnsweredCount, _questions.Count);
+        SetLevelEarnedPoints(_rightAnsweredCount, _questionsCurrentLevel.Count);
+
+        CheckIsLevelCompleted();
     }
 
     private void DestroyQuestionObjects()
@@ -354,7 +374,7 @@ public class QuestionInitializer : MonoBehaviour
             _shelvesForCheck[i].DestroyAllObjectsOnShelf();
             Destroy(_shelvesForCheck[i].gameObject);
         }
-        _shelfRawAnswers.DestroyAllObjectsOnShelf();
+        _shelfRawAnswers?.DestroyAllObjectsOnShelf();
         if(_shelfRawAnswers && _shelfRawAnswers.gameObject)
             Destroy(_shelfRawAnswers.gameObject);
 
@@ -385,7 +405,7 @@ public class QuestionInitializer : MonoBehaviour
     private void ClickTestShelf(bool value, Shelf shelf)
     {
         //Debug.Log("Click: " + value);
-        if (_questions[_currentQuestionIndex].IsSingleRightAnswer)
+        if (_questionsCurrentLevel[_currentQuestionIndex].IsSingleRightAnswer)
         {
             foreach (Shelf shl in _shelvesForCheck)
             {
@@ -403,5 +423,11 @@ public class QuestionInitializer : MonoBehaviour
     private void StopAnimationTextType()
     {
         _questionText?.GetComponent<TextAnimation>()?.ClickButtonFinishReadingByUser();
+    }
+
+    private void CheckIsLevelCompleted()
+    {
+        if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
+            ActionLevelCompleted.Invoke();
     }
 }

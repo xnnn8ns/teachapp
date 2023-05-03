@@ -13,6 +13,7 @@ public class RawDataQuestion
 [Serializable]
 public class RawQuestion
 {
+    [JsonProperty("level")] public int Level = 1;
     [JsonProperty("title")] public string Title;
     [JsonProperty("rawAnswers")] public List<RawAnswer> RawAnswers = new List<RawAnswer>();
     [JsonProperty("type")] public int QuestionType;

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 public abstract class Question : Information
 {
+    private int _level = 1;
     private int _countShelves = 1;
     private bool _isSingleRightAnswer = false;
     private int _score = 0;
@@ -111,6 +112,18 @@ public abstract class Question : Information
         set
         {
             _score = value;
+        }
+    }
+
+    public int Level
+    {
+        get
+        {
+            return _level;
+        }
+        set
+        {
+            _level = value;
         }
     }
 }
