@@ -83,9 +83,12 @@ namespace Mkey
 
             if (mapMaker.mapType == MapType.Vertical) bList.Reverse();
             MapLevelButtons = new List<LevelButton>();
+            int theoryCount = 0;
             foreach (var b in bList)
             {
+                b.ID = theoryCount;
                 MapLevelButtons.AddRange(b.levelButtons);
+                theoryCount++;
             }
 
             topPassedLevel = Mathf.Clamp(topPassedLevel, 0, MapLevelButtons.Count - 1);

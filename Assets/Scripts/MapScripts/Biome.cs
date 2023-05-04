@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
-    using UnityEditor;
+using UnityEditor;
 #endif
 
 namespace Mkey
 {
     public class Biome : MonoBehaviour
     {
+        public int ID = 0;
+
         [SerializeField]
         public GameObject levelButtonPrefab;
         public int count;
@@ -123,6 +126,13 @@ namespace Mkey
                     }
                 }
             }
+        }
+
+        public void ClickLevelHeadButton()
+        {
+            Debug.Log("Click Theory " + ID.ToString());
+            Settings.Current_Theme = ID;
+            SceneManager.LoadScene("TypeTextScene", LoadSceneMode.Single);
         }
     }
 

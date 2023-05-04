@@ -10,6 +10,7 @@ public class Settings : MonoBehaviour
     public static bool IsNeedDragDropTouchDetector = false;
     public static bool IsTurnOnClickPointerListener = false;
     public static int Current_Level = 1;
+    public static int Current_Theme = 0;
 
     public static void SetClickQuestionSettings()
     {
