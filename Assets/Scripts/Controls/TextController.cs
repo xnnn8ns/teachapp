@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TextController : MonoBehaviour
@@ -13,6 +14,8 @@ public class TextController : MonoBehaviour
     private GameObject buttonFinishPrefab;
     [SerializeField]
     private GameObject headerPrefab;
+    [SerializeField]
+    private UniWebView webView;
 
     [SerializeField]
     private Transform scrollParent;
@@ -26,12 +29,14 @@ public class TextController : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine(StartInitTextType());
-        GetFromJSON();
-        countTheories = _theories.Count;
-        countText = _theories[indexCurrentTheory].GetTextList().Count;
-        indexCurrentTheory = -1;// cause in next code will be increase by 1
-        NextTheory();
+        ////StartCoroutine(StartInitTextType());
+        //AddTestText();
+        //GetFromJSON();
+        //countTheories = _theories.Count;
+        //countText = _theories[indexCurrentTheory].GetTextList().Count;
+        //indexCurrentTheory = -1;// cause in next code will be increase by 1
+        //NextTheory();
+        ShowWebView();
         //InitTextType();
     }
 
@@ -42,13 +47,14 @@ public class TextController : MonoBehaviour
             GameObject newTextItem = Instantiate(textItemPrefab, scrollParent);
             TextAnimation textCurrentForType = newTextItem.GetComponentInChildren<TextAnimation>();
             string strFull = _theories[indexCurrentTheory].GetTextList()[indexCurrentText].ToString();
-            textCurrentForType.StartType(strFull, NextType);
+            //textCurrentForType.StartType(strFull, NextType);
+            textCurrentForType.GetComponentInChildren<Text>().text = strFull;
         //}
         //catch (Exception ex)
         //{
         //    Debug.Log(ex.Message);
         //}
-        
+
     }
 
     private void InitButtonFinish()
@@ -134,5 +140,39 @@ public class TextController : MonoBehaviour
         {
             Debug.Log(ex.Message);
         }
+    }
+
+    private void AddTestText()
+    {
+        string testText = "This is some <b><size=50><color=#ff0000ff>Text</color></size></b>";
+        Theory theory = new Theory();
+        theory.Title = "Test";
+        List<string> texts = new List<string>();
+        texts.Add(testText);
+
+        theory.SetTextList(texts);
+        _theories.Add(theory);
+    }
+
+    private void ShowWebView()
+    {
+        TextAsset mytxtData = (TextAsset)Resources.Load("HTML_Theory/th_1");
+        string txt = mytxtData.text;
+        webView.gameObject.SetActive(true);
+
+        webView.Frame = new Rect(0, 0, Screen.width, Screen.height*0.9f);
+
+        //// Make the web view center in the screen with size 500x500:
+        //var side = 500;
+        //var x = (Screen.width - side) / 2.0f;
+        //var y = (Screen.height - side) / 2.0f;
+        //webView.Frame = new Rect(x, y, side, side);
+        //webView.Load("https://vz.ru/");
+        webView.LoadHTMLString(txt, "", false);
+    }
+
+    public void ClickReturnFromTheory()
+    {
+        SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
     }
 }

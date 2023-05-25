@@ -1,518 +1,531 @@
 {
-  "questions": [
+  "levels": [
     {
       "level": 1,
-      "title": "What code need for show on screen: Hello, world!",
-      "isSingleRightAnswer": false,
-      "type": 0,
-      "countShelves": 1,
-      "score": 30,
-      "rawAnswers": [
+      "totalTime": 5,
+      "totalScore": 100,
+      "questions": [
         {
-          "title": "print",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
+          "title": "What code need for show on screen: Hello, world!",
+          "isSingleRightAnswer": false,
+          "type": 0,
+          "countShelves": 1,
+          "score": 30,
+          "rawAnswers": [
+            {
+              "title": "print",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "(",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 1
+            },
+            {
+              "title": "'Hello, world!'",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 2
+            },
+            {
+              "title": ")",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 3
+            },
+            {
+              "title": "{",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 3
+            },
+            {
+              "title": "}",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 3
+            },
+            {
+              "title": "write",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 3
+            },
+            {
+              "title": "console",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 3
+            }
+          ]
         },
         {
-          "title": "(",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 1
+          "level": 1,
+          "title": "How much is the fish?",
+          "isSingleRightAnswer": false,
+          "type": 0,
+          "countShelves": 2,
+          "score": 30,
+          "rawAnswers": [
+            {
+              "title": "one coin",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "two coins",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 1
+            },
+            {
+              "title": "three coins",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 2
+            },
+            {
+              "title": "four coins",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 1,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "five coins",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 1,
+              "positionCellIndex": 1
+            }
+          ]
         },
         {
-          "title": "'Hello, world!'",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 2
+          "level": 1,
+          "title": "How much is the dog?",
+          "isSingleRightAnswer": false,
+          "type": 0,
+          "countShelves": 2,
+          "score": 30,
+          "rawAnswers": [
+            {
+              "title": "one gold coin",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "two gold coins",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 1
+            },
+            {
+              "title": "three gold coins",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 1,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "four gold coins",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 1,
+              "positionCellIndex": 1
+            }
+          ]
         },
         {
-          "title": ")",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 3
+          "level": 1,
+          "title": "How much is the cat?",
+          "isSingleRightAnswer": false,
+          "type": 0,
+          "countShelves": 3,
+          "score": 30,
+          "rawAnswers": [
+            {
+              "title": "one silver coin",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "two silver coins",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 1
+            },
+            {
+              "title": "three silver coins",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 1,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "four silver coins",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 1,
+              "positionCellIndex": 1
+            },
+            {
+              "title": "five silver coins",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 2,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "six silver coins",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 2,
+              "positionCellIndex": 1
+            }
+          ]
         },
         {
-          "title": "{",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 3
+          "level": 1,
+          "title": "How much is the bear?",
+          "isSingleRightAnswer": true,
+          "type": 0,
+          "countShelves": 1,
+          "score": 30,
+          "rawAnswers": [
+            {
+              "title": "one diamond coin",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "two diamond coins",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "three diamond coins",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "four diamond coins",
+              "isRight": true,
+              "score": 100,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            }
+          ]
         },
         {
-          "title": "}",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 3
+          "level": 1,
+          "title": "How much is the lion?",
+          "isSingleRightAnswer": true,
+          "type": 1,
+          "countShelves": 1,
+          "score": 10,
+          "rawAnswers": [
+            {
+              "title": "one diamond coin",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "two diamond coins",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "three diamond coins",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "four diamond coins",
+              "isRight": true,
+              "score": 100,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            }
+          ]
         },
         {
-          "title": "write",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 3
+          "level": 1,
+          "title": "How much is the tiger?",
+          "isSingleRightAnswer": false,
+          "type": 1,
+          "countShelves": 1,
+          "score": 15,
+          "rawAnswers": [
+            {
+              "title": "one diamond coin",
+              "isRight": true,
+              "score": 50,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "two diamond coins",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "three diamond coins",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "four diamond coins",
+              "isRight": true,
+              "score": 50,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            }
+          ]
         },
         {
-          "title": "console",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 3
-        }
-      ]
-    },
-    {
-      "level": 1,
-      "title": "How much is the fish?",
-      "isSingleRightAnswer": false,
-      "type": 0,
-      "countShelves": 2,
-      "score": 30,
-      "rawAnswers": [
-        {
-          "title": "one coin",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "two coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 1
-        },
-        {
-          "title": "three coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 2
-        },
-        {
-          "title": "four coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 1,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "five coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 1,
-          "positionCellIndex": 1
-        }
-      ]
-    },
-    {
-      "level": 1,
-      "title": "How much is the dog?",
-      "isSingleRightAnswer": false,
-      "type": 0,
-      "countShelves": 2,
-      "score": 30,
-      "rawAnswers": [
-        {
-          "title": "one gold coin",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "two gold coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 1
-        },
-        {
-          "title": "three gold coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 1,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "four gold coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 1,
-          "positionCellIndex": 1
-        }
-      ]
-    },
-    {
-      "level": 1,
-      "title": "How much is the cat?",
-      "isSingleRightAnswer": false,
-      "type": 0,
-      "countShelves": 3,
-      "score": 30,
-      "rawAnswers": [
-        {
-          "title": "one silver coin",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "two silver coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 1
-        },
-        {
-          "title": "three silver coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 1,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "four silver coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 1,
-          "positionCellIndex": 1
-        },
-        {
-          "title": "five silver coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 2,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "six silver coins",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 2,
-          "positionCellIndex": 1
-        }
-      ]
-    },
-    {
-      "level": 1,
-      "title": "How much is the bear?",
-      "isSingleRightAnswer": true,
-      "type": 0,
-      "countShelves": 1,
-      "score": 30,
-      "rawAnswers": [
-        {
-          "title": "one diamond coin",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "two diamond coins",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "three diamond coins",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "four diamond coins",
-          "isRight": true,
+          "level": 1,
+          "title": "Where is best bear?",
+          "isSingleRightAnswer": false,
+          "type": 2,
+          "countShelves": 1,
           "score": 100,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        }
-      ]
-    },
-    {
-      "level": 1,
-      "title": "How much is the lion?",
-      "isSingleRightAnswer": true,
-      "type": 1,
-      "countShelves": 1,
-      "score": 10,
-      "rawAnswers": [
-        {
-          "title": "one diamond coin",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "two diamond coins",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "three diamond coins",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "four diamond coins",
-          "isRight": true,
-          "score": 100,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        }
-      ]
-    },
-    {
-      "level": 1,
-      "title": "How much is the tiger?",
-      "isSingleRightAnswer": false,
-      "type": 1,
-      "countShelves": 1,
-      "score": 15,
-      "rawAnswers": [
-        {
-          "title": "one diamond coin",
-          "isRight": true,
-          "score": 50,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "two diamond coins",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "three diamond coins",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "four diamond coins",
-          "isRight": true,
-          "score": 50,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        }
-      ]
-    },
-    {
-      "level": 1,
-      "title": "Where is best bear?",
-      "isSingleRightAnswer": false,
-      "type": 2,
-      "countShelves": 1,
-      "score": 100,
-      "rawAnswers": [
-        {
-          "title": "1",
-          "isRight": true,
-          "score": 100,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "2",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "3",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "4",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
+          "rawAnswers": [
+            {
+              "title": "1",
+              "isRight": true,
+              "score": 100,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "2",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "3",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "4",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            }
+          ]
         }
       ]
     },
     {
       "level": 2,
-      "title": "Where is white bear?",
-      "isSingleRightAnswer": false,
-      "type": 2,
-      "countShelves": 1,
-      "score": 100,
-      "rawAnswers": [
+      "totalTime": 5,
+      "totalScore": 100,
+      "questions": [
         {
-          "title": "1",
-          "isRight": true,
+          "level": 2,
+          "title": "Where is white bear?",
+          "isSingleRightAnswer": false,
+          "type": 2,
+          "countShelves": 1,
           "score": 100,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
+          "rawAnswers": [
+            {
+              "title": "1",
+              "isRight": true,
+              "score": 100,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "2",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "3",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "4",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": false,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            }
+          ]
         },
         {
-          "title": "2",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "3",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "4",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": false,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        }
-      ]
-    },
-    {
-      "level": 2,
-      "title": "What code need for show on screen: Hello, water world!",
-      "isSingleRightAnswer": false,
-      "type": 0,
-      "countShelves": 1,
-      "score": 30,
-      "rawAnswers": [
-        {
-          "title": "print",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 0
-        },
-        {
-          "title": "(",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 1
-        },
-        {
-          "title": "'Hello, water world!'",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 2
-        },
-        {
-          "title": ")",
-          "isRight": true,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 3
-        },
-        {
-          "title": "{",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 3
-        },
-        {
-          "title": "}",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 3
-        },
-        {
-          "title": "write",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 3
-        },
-        {
-          "title": "console",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 3
-        },
-        {
-          "title": "'Hello, world!'",
-          "isRight": false,
-          "score": 0,
-          "isPositionDependent": true,
-          "positionRowIndex": 0,
-          "positionCellIndex": 2
+          "level": 2,
+          "title": "What code need for show on screen: Hello, water world!",
+          "isSingleRightAnswer": false,
+          "type": 0,
+          "countShelves": 1,
+          "score": 30,
+          "rawAnswers": [
+            {
+              "title": "print",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 0
+            },
+            {
+              "title": "(",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 1
+            },
+            {
+              "title": "'Hello, water world!'",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 2
+            },
+            {
+              "title": ")",
+              "isRight": true,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 3
+            },
+            {
+              "title": "{",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 3
+            },
+            {
+              "title": "}",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 3
+            },
+            {
+              "title": "write",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 3
+            },
+            {
+              "title": "console",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 3
+            },
+            {
+              "title": "'Hello, world!'",
+              "isRight": false,
+              "score": 0,
+              "isPositionDependent": true,
+              "positionRowIndex": 0,
+              "positionCellIndex": 2
+            }
+          ]
         }
       ]
     }

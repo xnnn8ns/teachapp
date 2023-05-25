@@ -4,16 +4,25 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 [Serializable]
-public class RawDataQuestion
+public class RawDataLevelList
 {
     //https://jsonblob.com/1079849597828087808
+    //http://jsonblob.com/1110974511666446336
+    [JsonProperty("levels")] public List<RawDataLevel> RawLevels = new List<RawDataLevel>();
+}
+
+[Serializable]
+public class RawDataLevel
+{
+    [JsonProperty("level")] public int Level = 1;
+    [JsonProperty("totalTime")] public int TotalTime;
+    [JsonProperty("totalScore")] public int TotalScore;
     [JsonProperty("questions")] public List<RawQuestion> RawQuestions = new List<RawQuestion>();
 }
 
 [Serializable]
 public class RawQuestion
 {
-    [JsonProperty("level")] public int Level = 1;
     [JsonProperty("title")] public string Title;
     [JsonProperty("rawAnswers")] public List<RawAnswer> RawAnswers = new List<RawAnswer>();
     [JsonProperty("type")] public int QuestionType;

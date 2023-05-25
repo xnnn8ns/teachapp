@@ -158,7 +158,7 @@ namespace Mkey
             }
         }
 
- IEnumerator SetMapPositionToAciveButton()
+        private IEnumerator SetMapPositionToAciveButton()
         {
             yield return new WaitForSeconds(0.1f);
             if (sRect)
@@ -214,7 +214,7 @@ namespace Mkey
             }
         }
 
-        void Update_rem()
+        private void Update_rem()
         {
             Debug.Log(content.sizeDelta.y + " : " + content.InverseTransformPoint(ActiveButton.transform.position).y);
             Debug.Log("sRect.verticalNormalizedPosition: " + sRect.verticalNormalizedPosition);
@@ -223,9 +223,15 @@ namespace Mkey
 
         private void ClickLevelButton(int clickIndex)
         {
+            Scene scene = SceneManager.GetSceneByName("WindowScene");
+            if (scene.isLoaded)
+                return;
+            
             Settings.Current_Level = clickIndex;
-            SceneManager.LoadScene("QuestionAnswerTestCheckScene", LoadSceneMode.Single);
-            //QuestionAnswerTestCheckScene
+            PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
+            SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
+
+            //SceneManager.LoadScene("QuestionAnswerTestCheckScene", LoadSceneMode.Single);
         }
     }
 }

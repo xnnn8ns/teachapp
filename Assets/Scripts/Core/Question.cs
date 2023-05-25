@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 public abstract class Question : Information
 {
+    public static List<Question> QuestionsList = new List<Question>();
+
     private int _level = 1;
     private int _countShelves = 1;
     private bool _isSingleRightAnswer = false;

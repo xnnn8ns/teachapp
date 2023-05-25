@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Newtonsoft.Json;
+
 using System;
 using UnityEngine.UI;
 using Mkey;
@@ -29,8 +29,9 @@ public class QuestionInitializer : MonoBehaviour
     private List<Shelf> _shelvesForCheck = new List<Shelf>();
     private Shelf _shelfRawAnswers;
 
-    private List<Question> _questionsTotal = new List<Question>();
+    
     private List<Question> _questionsCurrentLevel = new List<Question>();
+    //private static List<Level> _levels = new List<Level>();
     private List<GameObject> _answers = new List<GameObject>();
     private List<GameObject> _answersMock = new List<GameObject>();
     private static int _currentQuestionIndex = 0;
@@ -44,51 +45,60 @@ public class QuestionInitializer : MonoBehaviour
 
     
 
-    private void GetFromJSON()
-    {
-        string strJSON;
-        strJSON = Resources.Load<TextAsset>("TA_data_test").text;
-        RawDataQuestion questionFromJSON = null;
-        try
-        {
-            questionFromJSON = JsonConvert.DeserializeObject<RawDataQuestion>(strJSON, Settings.JsonSettings);
-            foreach (var item in questionFromJSON.RawQuestions)
-            {
-                Question question = new QuestionText();
-                question.Title = item.Title;
-                question.CountShelves = item.CountShelves;
-                question.QuestionType = (QuestionType)item.QuestionType;
-                question.Score = item.Score;
-                question.Level = item.Level;
-                //Debug.Log(question.QuestionType);
-                question.IsSingleRightAnswer = item.IsSingleRightAnswer;
-                List<Answer> answers = new List<Answer>();
-                foreach (var itemSub in item.RawAnswers)
-                {
-                    Answer answer = new Answer();
-                    answer.Title = itemSub.Title;
-                    answer.IsRight = itemSub.IsRight;
-                    answer.Score = itemSub.Score;
-                    answer.IsPositionDependent = itemSub.IsPositionDependent;
-                    answer.PositionRowIndex = itemSub.PositionRowIndex;
-                    answer.PositionCellIndex = itemSub.PositionCellIndex;
-                    answers.Add(answer);
-                }
-                question.SetAnswerList(answers);
-                _questionsTotal.Add(question);
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.Log(ex.Message);
-        }
-    }
+    //private void GetFromJSON()
+    //{
+    //    string strJSON;
+    //    strJSON = Resources.Load<TextAsset>("TA_data_test").text;
+    //    RawDataLevelList levelsFromJSON = null;
+    //    try
+    //    {
+    //        levelsFromJSON = JsonConvert.DeserializeObject<RawDataLevelList>(strJSON, Settings.JsonSettings);
+    //        foreach (var level in levelsFromJSON.RawLevels)
+    //        {
+    //            Level newLevel = new Level();
+    //            newLevel.LevelNumber = level.Level;
+    //            newLevel.TotalTime = level.TotalTime;
+    //            newLevel.TotalScore = level.TotalScore;
+    //            newLevel.TotalCount = level.RawQuestions.Count;
+    //            foreach (var item in level.RawQuestions)
+    //            {
+    //                Question question = new QuestionText();
+    //                question.Title = item.Title;
+    //                question.CountShelves = item.CountShelves;
+    //                question.QuestionType = (QuestionType)item.QuestionType;
+    //                question.Score = item.Score;
+    //                question.Level = level.Level;
+    //                //Debug.Log(question.QuestionType);
+    //                question.IsSingleRightAnswer = item.IsSingleRightAnswer;
+    //                List<Answer> answers = new List<Answer>();
+    //                foreach (var itemSub in item.RawAnswers)
+    //                {
+    //                    Answer answer = new Answer();
+    //                    answer.Title = itemSub.Title;
+    //                    answer.IsRight = itemSub.IsRight;
+    //                    answer.Score = itemSub.Score;
+    //                    answer.IsPositionDependent = itemSub.IsPositionDependent;
+    //                    answer.PositionRowIndex = itemSub.PositionRowIndex;
+    //                    answer.PositionCellIndex = itemSub.PositionCellIndex;
+    //                    answers.Add(answer);
+    //                }
+    //                question.SetAnswerList(answers);
+    //                _questionsTotal.Add(question);
+    //            }
+    //            Level.Levels.Add(newLevel);
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.Log(ex.Message);
+    //    }
+    //}
 
     private void FillQuestionsForCurrentLevel()
     {
         _questionsCurrentLevel.Clear();
         _currentQuestionIndex = 0;
-        foreach (var question in _questionsTotal)
+        foreach (var question in Question.QuestionsList)
         {
             if (question.Level == Settings.Current_Level)
                 _questionsCurrentLevel.Add(question);
@@ -99,6 +109,11 @@ public class QuestionInitializer : MonoBehaviour
     {
         return _answers;
     }
+
+    //public static List<Level> GetLevelList()
+    //{
+    //    return _levels;
+    //}
 
     private void InitQuestion()
     {
@@ -236,10 +251,10 @@ public class QuestionInitializer : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log(Settings.Current_Level);
+        //Debug.Log(Settings.Current_Level);
         //FillTestQuestionList();
         _imageChecker.gameObject.SetActive(false);
-        GetFromJSON();
+        //GetFromJSON();
         FillQuestionsForCurrentLevel();
         InitQuestion();
         //InitTouchDetector();

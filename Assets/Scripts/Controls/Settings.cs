@@ -29,4 +29,5 @@ public class Settings : MonoBehaviour
         NullValueHandling = NullValueHandling.Ignore,
         MissingMemberHandling = MissingMemberHandling.Ignore
     };
+
 }
