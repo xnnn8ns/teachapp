@@ -15,6 +15,14 @@ public class QuizController : MonoBehaviour
 
     public void ClickReturnFromQuiz()
     {
-        SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
+        Scene scene = SceneManager.GetSceneByName("WindowMessageScene");
+        if (scene.isLoaded)
+            return;
+
+        //Settings.Current_Level = clickIndex;
+        PlayerPrefs.SetString("SceneToLoad", "MapScene");
+        SceneManager.LoadScene("WindowMessageScene", LoadSceneMode.Single);
+
+        //SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
     }
 }

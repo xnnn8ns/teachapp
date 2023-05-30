@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BottomMenuScript : MonoBehaviour
 {
@@ -22,6 +23,11 @@ public class BottomMenuScript : MonoBehaviour
 
     private void ReloadScenes(int numberScenes, int previousScene) 
     {
+        if(numberScenes == 0)
+        {
+            SceneManager.LoadScene("LoginForm", LoadSceneMode.Single);
+            return;
+        }
         _scenes[previousScene].SetActive(false);
 
         _scenes[numberScenes].SetActive(true);

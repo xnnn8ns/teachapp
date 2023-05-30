@@ -1,11 +1,52 @@
+<!doctype html>
 <html>
-  <head>
-    <title>Href Attribute Example</title>
-  </head>
-  <body>
-    <h1>Href Attribute Example</h1>
-    <p>
-      <a href="https://www.freecodecamp.org/contribute/">The freeCodeCamp Contribution Page</a> shows you how and where you can contribute to freeCodeCamp's community and growth.
-    </p>
-  </body>
+ <head>
+  <meta charset="utf-8">
+  <title>Доступ к ВК</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script>
+ </head>
+ <body>
+  <section id="serverApi">Серверный API</section>
+  <section id="clientApi">Клиентский API</section>
+
+var vk = {
+ data: {},
+ api: "//vk.com/js/api/openapi.js",
+ appID: YOUR_APP_ID,
+ appPermissions: YOUR_APP_PERMISSIONS,
+ init: function(){
+  $.js(vk.api);
+  window.vkAsyncInit = function(){
+   VK.init({apiId: vk.appID});
+   load();
+  }
+
+  function load(){
+   VK.Auth.login(authInfo, vk.appPermissions);
+
+   function authInfo(response){
+    if(response.session){ // Авторизация успешна
+     vk.data.user = response.session.user;
+     vk.getFriends();
+    }else alert("Авторизоваться не удалось!");
+   }
+  }
+ },
+ getFriends: function(){
+  VK.Api.call('friends.get', {fields: ['uid', 'first_name', 'last_name'], order: 'name'}, function(r){
+   if(r.response){
+    r = r.response;
+    var ol = $('#clientApi').add('ol');
+    for(var i = 0; i < r.length; ++i){
+     var li = ol.add('li').html(r[i].first_name+' '+r[i].last_name+' ('+r[i].uid+')')
+    }
+   }else alert("Не удалось получить список ваших друзей");
+  })
+ }
+}
+
+$.ready(vk.init);
+
+ </body>
 </html>

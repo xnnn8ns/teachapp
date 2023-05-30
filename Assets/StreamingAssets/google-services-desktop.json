@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "162802603329",
+    "firebase_url": "https://teachapp-f5921-default-rtdb.firebaseio.com",
+    "project_id": "teachapp-f5921",
+    "storage_bucket": "teachapp-f5921.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162802603329:android:13b9e6fd10fc96c83a7dc0",
+        "android_client_info": {
+          "package_name": "com.teachapp.py"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmLeFwXtMWHrBcJCa0z_0mbVPer9VJdY8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

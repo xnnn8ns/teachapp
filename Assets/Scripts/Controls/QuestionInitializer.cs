@@ -443,6 +443,9 @@ public class QuestionInitializer : MonoBehaviour
     private void CheckIsLevelCompleted()
     {
         if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
+        {
+            PlayerPrefs.SetInt("AddedScore", _scoreValue);
             ActionLevelCompleted.Invoke();
+        }
     }
 }
