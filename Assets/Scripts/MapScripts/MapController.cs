@@ -49,8 +49,12 @@ namespace Mkey
             {
                 Instance = this;
             }
-            
-          
+
+            //GridLayoutGroup gridLayout = GetComponent<GridLayoutGroup>();
+            //if(gridLayout != null)
+            //{
+            //    gridLayout.cellSize = new Vector2(Screen.width, Screen.height);
+            //}
             
         }
 
