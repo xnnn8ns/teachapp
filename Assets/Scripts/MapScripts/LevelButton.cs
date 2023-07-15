@@ -35,7 +35,7 @@ namespace Mkey
 
             if(Lock) Lock.SetActive(!isPassed && !active);
             
-            if(LockText) LockText.SetActive(isPassed);
+            if(LockText) LockText.SetActive(!isPassed);
         }
     }
 }

@@ -9,6 +9,8 @@ public class TransformPhisics : MonoBehaviour
     [SerializeField]
     private QuestionInitializer _questionInitializer;
     private Vector3 _offsetOnStartDragging;
+    private Vector3 _startDraggingPosition;
+    private float timeStart = 0f;
     private bool _isStartTouch = false;
     private Transform _draggingTransform;
     private readonly Vector3 _offsetDraggingZ = new Vector3(0f,0f,0.15f);
@@ -32,8 +34,10 @@ public class TransformPhisics : MonoBehaviour
         if (_draggingTransform != null)
         {
             _offsetOnStartDragging = pointTouch - _draggingTransform.position;
+            _startDraggingPosition = _draggingTransform.position;
             _isStartTouch = true;
             _questionInitializer.RemoveFromShelf(_draggingTransform);
+            timeStart = Time.time;
         }
     }
 
@@ -42,9 +46,15 @@ public class TransformPhisics : MonoBehaviour
         if (!_isStartTouch || _draggingTransform == null || !Settings.IsNeedDragDropTouchDetector)
             return;
         _isStartTouch = false;
+        float dist = Vector3.Distance(_draggingTransform.position, _startDraggingPosition);
+        //Debug.Log(dist);
         _draggingTransform.position += _offsetDraggingZ;
-        
-        _questionInitializer.CheckAnswerAfterDrop(_draggingTransform);
+
+        bool isClick = false;
+        if (dist < 0.2f && timeStart + 0.25f > Time.time)
+            isClick = true;
+        Debug.Log(isClick);
+        _questionInitializer.CheckAnswerAfterDrop(_draggingTransform, isClick);
         _draggingTransform = null;
     }
 

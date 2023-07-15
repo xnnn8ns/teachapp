@@ -2,27 +2,14 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 8
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: roundedSquare_Material1
+  m_Name: roundedSquare_MaterialWhite
   m_Shader: {fileID: 4800000, guid: 43304dd54d0154650926114f512807bb, type: 3}
-  m_ValidKeywords: []
-  m_InvalidKeywords:
-  - ETC1_EXTERNAL_ALPHA
-  - _BLB_ON
-  - _BL_ON
-  - _BRB_ON
-  - _BRC_ON
-  - _BR_ON
-  - _EMISSION
-  - _TLB_ON
-  - _TL_ON
-  - _TRB_ON
-  - _TRC_ON
-  - _TR_ON
+  m_ShaderKeywords: 
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0

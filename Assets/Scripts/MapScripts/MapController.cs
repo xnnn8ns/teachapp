@@ -28,7 +28,7 @@ namespace Mkey
         private RectTransform content;
         //private int biomesCount = 6;
 
-        public static int currentLevel = 1; // set from this script by clicking on button. Use this variable to load appropriate level.
+        public static int currentLevel = 0; // set from this script by clicking on button. Use this variable to load appropriate level.
         public static int topPassedLevel = 30; // set from game MapController.topPassedLevel = 2; 
 
         [Header("If true, then the map will scroll to the Active Level Button", order = 1)]
@@ -85,7 +85,7 @@ namespace Mkey
             List<Biome> bList = new List<Biome>(mapMaker.biomes);
             bList.RemoveAll((b) => { return b == null; });
 
-            if (mapMaker.mapType == MapType.Vertical) bList.Reverse();
+            //if (mapMaker.mapType == MapType.Vertical) bList.Reverse();
             MapLevelButtons = new List<LevelButton>();
             int theoryCount = 0;
             foreach (var b in bList)
@@ -105,7 +105,7 @@ namespace Mkey
                     if (MSound) MSound.SoundPlayClick(0, null);
                     Debug.Log("load scene : " + scene);
                     ClickLevelButton(scene);
-                    ButtonsManager.SetData(scene, 1000, true, true, 3);
+                    //ButtonsManager.SetData(scene, 1000, true, true, 3);
 
                 // uncomment for load game scene 
                     /* 

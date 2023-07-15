@@ -264,10 +264,13 @@ public class QuestionInitializer : MonoBehaviour
     {
         AnswerSurface answerSurface = transformTouchDown?.GetComponent<AnswerSurface>();
         if (answerSurface != null)
-            StartCoroutine(RemoveAnswerFromShelfAfterDelay(answerSurface));
+        {
+            RemoveAnswerFromShelf(answerSurface);
+            //StartCoroutine(RemoveAnswerFromShelfAfterDelay(answerSurface));
+        }
     }
 
-    public void CheckAnswerAfterDrop(Transform transform)
+    public void CheckAnswerAfterDrop(Transform transform, bool isClick)
     {
         AnswerSurface answerSurface = transform.GetComponent<AnswerSurface>();
         if (answerSurface == null)
@@ -275,24 +278,49 @@ public class QuestionInitializer : MonoBehaviour
         if (_questionsCurrentLevel[_currentQuestionIndex].IsSingleRightAnswer)
             CheckSingleAnswerAfterDrop(answerSurface);
         else
-            CheckMultiAnswerAfterDrop(answerSurface);
+            CheckMultiAnswerAfterDrop(answerSurface, isClick);
     }
 
-    private void CheckMultiAnswerAfterDrop(AnswerSurface answerSurface)
+    private void CheckMultiAnswerAfterDrop(AnswerSurface answerSurface, bool isClick)
     {
         bool isInsideAnyShelf = false;
         foreach (Shelf shelf in _shelvesForCheck)
         {
             if (shelf.IsAnswerInsideShelfBorders(answerSurface))
             {
-                shelf.AddAnswerToShelfByDrag(answerSurface);
+                if (isClick)
+                    _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
+                else
+                    shelf.AddAnswerToShelfByDrag(answerSurface);
                 isInsideAnyShelf = true;
                 break;
             }
         }
-        
-        if(!isInsideAnyShelf)
-            _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
+
+        if (!isInsideAnyShelf)
+        {
+            if (isClick)
+                AddAnswerToDefaultShelfAfterClick(answerSurface);
+            else
+                _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
+        }
+    }
+
+    private bool IsClickOnAnswerInRawAnswerShelf()
+    {
+        return true;
+    }
+
+    private void AddAnswerToDefaultShelfAfterClick(AnswerSurface answerSurface)
+    {
+        Vector3 pos = answerSurface.transform.position;
+        pos.x = Screen.width;
+        answerSurface.transform.position = pos;
+        foreach (Shelf shelf in _shelvesForCheck)
+        {
+            shelf.AddAnswerToShelfByDrag(answerSurface);
+            break;
+        }
     }
 
     private void CheckSingleAnswerAfterDrop(AnswerSurface answerSurface)
@@ -336,6 +364,19 @@ public class QuestionInitializer : MonoBehaviour
         }
         _shelfRawAnswers?.RemoveAnswerFromShelf(answerSurface);
         yield break;
+    }
+
+    private void RemoveAnswerFromShelf(AnswerSurface answerSurface)
+    {
+        foreach (Shelf shelf in _shelvesForCheck)
+        {
+            if (shelf.GetAnswerList().Contains(answerSurface))
+            {
+                shelf.RemoveAnswerFromShelf(answerSurface);
+                break;
+            }
+        }
+        _shelfRawAnswers?.RemoveAnswerFromShelf(answerSurface);
     }
 
     public void ClickCheckAnswerForQuestion()

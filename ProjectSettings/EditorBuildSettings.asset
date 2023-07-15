@@ -10,7 +10,7 @@ EditorBuildSettings:
     guid: 4a125879907a14939a06c835628610dd
   - enabled: 1
     path: Assets/Scenes/MapScene.unity
-    guid: 8adb494c85bb145ad97d2cd3d6b6bb13
+    guid: cd7929abfff4447fbaca51b9739e36b3
   - enabled: 1
     path: Assets/Scenes/QuestionAnswerTestCheckScene.unity
     guid: 1f88d32e9113b435185ce97a611270e5

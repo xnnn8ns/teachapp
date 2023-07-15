@@ -4,14 +4,14 @@
     "score": 1000,
     "isActive": true,
     "activeStarsCount": 3,
-    "isPassed": true
+    "isPassed": false
   },
   {
     "id": 2,
     "score": 1000,
     "isActive": true,
     "activeStarsCount": 3,
-    "isPassed": true
+    "isPassed": false
   },
   {
     "id": 3,
