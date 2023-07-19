@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class Shelf : MonoBehaviour, IPointerClickHandler
 {
@@ -10,12 +11,14 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     private Transform _shelfArea;
     [SerializeField]
     private  GameObject _shelfChecker;
+
     public bool IsRawAnswersShelf = false;
     public event Action<bool, Shelf> ClickShelf;
     private bool _isShelfFirstCompleted = false;
     private List<AnswerSurface> _questionsShelved = new List<AnswerSurface>();
 
-    public void AddAnswerToShelfByDrag(AnswerSurface transformChild)
+
+    public void AddAnswerToShelfByDrag(AnswerSurface transformChild, bool isToEnd = false)
     {
         float currentX = transformChild.transform.position.x;
         int currentIndex = 0;
@@ -25,7 +28,18 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
                 break;
             currentIndex++;
         }
-        _questionsShelved.Insert(currentIndex, transformChild);
+        if(isToEnd)
+            _questionsShelved.Add(transformChild);
+        else
+            _questionsShelved.Insert(currentIndex, transformChild);
+
+        SetAnswersOnShelf();
+    }
+
+    public void AddAnswerToShelfOnRightPlace(List<AnswerSurface> transformList)
+    {
+        _questionsShelved.Clear();
+        _questionsShelved.AddRange(transformList);
 
         SetAnswersOnShelf();
     }
@@ -37,7 +51,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
         SetAnswersOnShelf();
     }
 
-    public void SetFirstAnswerForRarShelfCompleted()
+    public void SetFirstAnswerForRawShelfCompleted()
     {
         _isShelfFirstCompleted = true;
     }
@@ -53,7 +67,52 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     private void SetAnswersByBasePositoinShelf()
     {
         foreach (var item in _questionsShelved)
-            item.transform.position = item.BasePosition;
+            item.transform.DOMove(item.BasePosition, 0.25f);
+        //item.transform.position = item.BasePosition;
+    }
+
+    private void SetAnswersOnAnswerShelf2()
+    {
+        float widthRaw = 0f;
+        SetTestShelfChecker(false);
+
+        int countRows = 0;
+
+        foreach (var item in _questionsShelved)
+        {
+            Vector3 startPoint = _shelfArea.position;
+
+            startPoint.x += 0.075f;
+
+
+            startPoint.x -= _shelfArea.localScale.x / 2;
+
+            startPoint.x += widthRaw;
+
+            widthRaw += item.transform.localScale.x + 0.05f;
+
+            
+
+            float yPosition = startPoint.y - 0.55f * countRows + _shelfArea.transform.localScale.y / 2 - 0.28f;
+
+            startPoint.y = yPosition;
+
+            Vector3 offsetPoint = Vector3.zero;
+            offsetPoint.x += item.transform.localScale.x / 2;
+
+            Vector3 targetPoint = startPoint + offsetPoint;
+            //item.transform.position = targetPoint;
+            item.transform.DOMove(targetPoint, 0.25f);
+
+            if (widthRaw > 4f)
+            {
+                countRows++;
+                widthRaw = 0;
+            }
+
+            if (IsRawAnswersShelf)
+                item.BasePosition = targetPoint;
+        }
     }
 
     private void SetAnswersOnAnswerShelf()
@@ -67,11 +126,29 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
         {
             Vector3 startPoint = _shelfArea.position;
 
-            float yPosition = startPoint.y - 0.55f * countRows + _shelfArea.transform.localScale.y / 2 - 0.28f;
+            startPoint.x += 0.075f;
+
 
             startPoint.x -= _shelfArea.localScale.x / 2;
 
             startPoint.x += widthRaw;
+
+            widthRaw += item.transform.localScale.x + 0.05f;
+
+            if (widthRaw > 4.9f)
+            {
+                countRows++;
+                widthRaw = 0;
+                startPoint = _shelfArea.position;
+                startPoint.x += 0.075f;
+                startPoint.x -= _shelfArea.localScale.x / 2;
+                startPoint.x += widthRaw;
+                widthRaw += item.transform.localScale.x + 0.05f;
+            }
+
+
+
+            float yPosition = startPoint.y - 0.55f * countRows + _shelfArea.transform.localScale.y / 2 - 0.28f;
 
             startPoint.y = yPosition;
 
@@ -79,15 +156,10 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
             offsetPoint.x += item.transform.localScale.x / 2;
 
             Vector3 targetPoint = startPoint + offsetPoint;
-            item.transform.position = targetPoint;
+            //item.transform.position = targetPoint;
+            item.transform.DOMove(targetPoint, 0.25f);
 
-            widthRaw += item.transform.localScale.x + 0.05f;
-
-            if (widthRaw > 4)
-            {
-                countRows++;
-                widthRaw = 0;
-            }
+            
 
             if (IsRawAnswersShelf)
                 item.BasePosition = targetPoint;

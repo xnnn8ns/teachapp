@@ -24,75 +24,22 @@ public class QuestionInitializer : MonoBehaviour
     private Text _scoreValueText;
     [SerializeField]
     private ImageChecker _imageChecker;
+    private AudioSource _setInShelfAudio;
+    private AudioSource _typeAudio;
 
-    //private Shelf _shelfQuestion;
     private List<Shelf> _shelvesForCheck = new List<Shelf>();
     private Shelf _shelfRawAnswers;
 
     
     private List<Question> _questionsCurrentLevel = new List<Question>();
-    //private static List<Level> _levels = new List<Level>();
     private List<GameObject> _answers = new List<GameObject>();
-    private List<GameObject> _answersMock = new List<GameObject>();
     private static int _currentQuestionIndex = 0;
     private static int _rightAnsweredCount = 0;
     private static int _scoreValue = 0;
     private static float _shelfHeightScale = 0.56f;
 
-    private float heightQuizText = 4.5f;
     private float heightUpperShelf = 2.5f;
     private float heightBelowShelf = -3f;
-
-    
-
-    //private void GetFromJSON()
-    //{
-    //    string strJSON;
-    //    strJSON = Resources.Load<TextAsset>("TA_data_test").text;
-    //    RawDataLevelList levelsFromJSON = null;
-    //    try
-    //    {
-    //        levelsFromJSON = JsonConvert.DeserializeObject<RawDataLevelList>(strJSON, Settings.JsonSettings);
-    //        foreach (var level in levelsFromJSON.RawLevels)
-    //        {
-    //            Level newLevel = new Level();
-    //            newLevel.LevelNumber = level.Level;
-    //            newLevel.TotalTime = level.TotalTime;
-    //            newLevel.TotalScore = level.TotalScore;
-    //            newLevel.TotalCount = level.RawQuestions.Count;
-    //            foreach (var item in level.RawQuestions)
-    //            {
-    //                Question question = new QuestionText();
-    //                question.Title = item.Title;
-    //                question.CountShelves = item.CountShelves;
-    //                question.QuestionType = (QuestionType)item.QuestionType;
-    //                question.Score = item.Score;
-    //                question.Level = level.Level;
-    //                //Debug.Log(question.QuestionType);
-    //                question.IsSingleRightAnswer = item.IsSingleRightAnswer;
-    //                List<Answer> answers = new List<Answer>();
-    //                foreach (var itemSub in item.RawAnswers)
-    //                {
-    //                    Answer answer = new Answer();
-    //                    answer.Title = itemSub.Title;
-    //                    answer.IsRight = itemSub.IsRight;
-    //                    answer.Score = itemSub.Score;
-    //                    answer.IsPositionDependent = itemSub.IsPositionDependent;
-    //                    answer.PositionRowIndex = itemSub.PositionRowIndex;
-    //                    answer.PositionCellIndex = itemSub.PositionCellIndex;
-    //                    answers.Add(answer);
-    //                }
-    //                question.SetAnswerList(answers);
-    //                _questionsTotal.Add(question);
-    //            }
-    //            Level.Levels.Add(newLevel);
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        Debug.Log(ex.Message);
-    //    }
-    //}
 
     private void FillQuestionsForCurrentLevel()
     {
@@ -109,11 +56,6 @@ public class QuestionInitializer : MonoBehaviour
     {
         return _answers;
     }
-
-    //public static List<Level> GetLevelList()
-    //{
-    //    return _levels;
-    //}
 
     private void InitQuestion()
     {
@@ -187,11 +129,19 @@ public class QuestionInitializer : MonoBehaviour
     private void InitQuestionTitleAndAnswers()
     {
         TextAnimation txtAnim = _questionText.GetComponent<TextAnimation>();
-        txtAnim.StartType(_questionsCurrentLevel[_currentQuestionIndex].Title, null);
+        txtAnim.StartType(_questionsCurrentLevel[_currentQuestionIndex].Title, FinishTypeTextCallBack);
         if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
             InitAnswersForShelf();
         else
             InitAnswersForTest();
+        _typeAudio?.Play();
+        Debug.Log("_typeAudio Play");
+    }
+
+    private void FinishTypeTextCallBack()
+    {
+        _typeAudio?.Stop();
+        Debug.Log("_typeAudio Stop");
     }
 
     private void InitAnswersForTest()
@@ -235,12 +185,12 @@ public class QuestionInitializer : MonoBehaviour
             if (answerSurface != null) 
                 _shelfRawAnswers.AddAnswerToShelf(answerSurface);
 
-            Vector3 vectorMockPosition = answerPrefab.transform.position + new Vector3(0, 0, 0.01f);
-            GameObject mock = Instantiate(_answerMockPrefab, vectorMockPosition, Quaternion.identity);
-            mock.transform.localScale = answerSurface.transform.localScale;
-            _answersMock.Add(mock);
+            //Vector3 vectorMockPosition = answerPrefab.transform.position + new Vector3(0, 0, 0.01f);
+            //GameObject mock = Instantiate(_answerMockPrefab, vectorMockPosition, Quaternion.identity);
+            //mock.transform.localScale = answerSurface.transform.localScale;
+            //_answersMock.Add(mock);
         }
-        _shelfRawAnswers.SetFirstAnswerForRarShelfCompleted();
+        _shelfRawAnswers.SetFirstAnswerForRawShelfCompleted();
     }
 
     private void SetAnswerDrag(GameObject answerPrefab, Answer answer, AnimationExecuter animationExecuter)
@@ -251,6 +201,8 @@ public class QuestionInitializer : MonoBehaviour
 
     private void Awake()
     {
+        _setInShelfAudio = GetComponents<AudioSource>()[0];
+        _typeAudio = GetComponents<AudioSource>()[1];
         //Debug.Log(Settings.Current_Level);
         //FillTestQuestionList();
         _imageChecker.gameObject.SetActive(false);
@@ -258,6 +210,8 @@ public class QuestionInitializer : MonoBehaviour
         FillQuestionsForCurrentLevel();
         InitQuestion();
         //InitTouchDetector();
+        
+
     }
 
     public void RemoveFromShelf(Transform transformTouchDown)
@@ -276,7 +230,7 @@ public class QuestionInitializer : MonoBehaviour
         if (answerSurface == null)
             return;
         if (_questionsCurrentLevel[_currentQuestionIndex].IsSingleRightAnswer)
-            CheckSingleAnswerAfterDrop(answerSurface);
+            CheckSingleAnswerAfterDrop(answerSurface, isClick);
         else
             CheckMultiAnswerAfterDrop(answerSurface, isClick);
     }
@@ -313,17 +267,14 @@ public class QuestionInitializer : MonoBehaviour
 
     private void AddAnswerToDefaultShelfAfterClick(AnswerSurface answerSurface)
     {
-        Vector3 pos = answerSurface.transform.position;
-        pos.x = Screen.width;
-        answerSurface.transform.position = pos;
         foreach (Shelf shelf in _shelvesForCheck)
         {
-            shelf.AddAnswerToShelfByDrag(answerSurface);
+            shelf.AddAnswerToShelfByDrag(answerSurface, true);
             break;
         }
     }
 
-    private void CheckSingleAnswerAfterDrop(AnswerSurface answerSurface)
+    private void CheckSingleAnswerAfterDrop(AnswerSurface answerSurface, bool isClick)
     {   
         bool isInsideAnyShelf = false;
         foreach (Shelf shelf in _shelvesForCheck)
@@ -332,14 +283,30 @@ public class QuestionInitializer : MonoBehaviour
                 && !shelf.Equals(_shelfRawAnswers))
             {
                 MoveAllAnswersToOtherShelf(shelf, _shelfRawAnswers);
-                shelf.AddAnswerToShelfByDrag(answerSurface);
+
+                if (isClick)
+                    _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
+                else
+                    shelf.AddAnswerToShelfByDrag(answerSurface);
+
+
                 isInsideAnyShelf = true;
                 break;
             }
         }
 
         if (!isInsideAnyShelf)
-            _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
+        {
+            foreach (Shelf shelf in _shelvesForCheck)
+            {
+                MoveAllAnswersToOtherShelf(shelf, _shelfRawAnswers);
+                break;
+            }
+            if (isClick)
+                AddAnswerToDefaultShelfAfterClick(answerSurface);
+            else
+                _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
+        }
     }
 
     private void MoveAllAnswersToOtherShelf(Shelf source, Shelf destination)
@@ -381,6 +348,8 @@ public class QuestionInitializer : MonoBehaviour
 
     public void ClickCheckAnswerForQuestion()
     {
+        
+        _setInShelfAudio?.Play();
         if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
         {
             CheckIsLevelCompleted();
@@ -409,18 +378,64 @@ public class QuestionInitializer : MonoBehaviour
             AddEarnedPoints(_questionsCurrentLevel[_currentQuestionIndex].Score);
         }
         _currentQuestionIndex++;
+
+        StartCoroutine(SetRightAnswerOnScreen());
+        return;
+
         DestroyQuestionObjects();
         if (_currentQuestionIndex < _questionsCurrentLevel.Count)
-        {
             InitQuestion();
-        }
         else
-        {
             _imageChecker.gameObject.SetActive(false);
-        }
+        
         SetLevelEarnedPoints(_rightAnsweredCount, _questionsCurrentLevel.Count);
 
         CheckIsLevelCompleted();
+    }
+
+    private IEnumerator SetRightAnswerOnScreen()
+    {
+        if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType != QuestionType.Shelf)
+            yield break;
+
+        foreach (Shelf shelf in _shelvesForCheck)
+        {
+            foreach (AnswerSurface answerSurface in shelf.GetAnswerList())
+            {
+                _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
+            }
+            
+        }
+        yield return new WaitForSeconds(0.5f);
+
+        for (int i = 0; i < _shelvesForCheck.Count; i++)
+        {
+            List<AnswerSurface> answerSurfacesUpdated = new List<AnswerSurface>();
+            foreach (AnswerSurface answerSurface in _shelfRawAnswers.GetAnswerList())
+            {
+                if (answerSurface.GetAnswer().IsRight && answerSurface.GetAnswer().PositionRowIndex == i)
+                {
+                    if (answerSurface.GetAnswer().PositionCellIndex >= answerSurfacesUpdated.Count)
+                        answerSurfacesUpdated.Add(answerSurface);
+                    else
+                        answerSurfacesUpdated.Insert(answerSurface.GetAnswer().PositionCellIndex, answerSurface);
+                    //Debug.Log("row: " + answer.PositionRowIndex.ToString() + ", cell: " + answer.PositionCellIndex);
+                    
+                }
+            }
+            _shelvesForCheck[i].AddAnswerToShelfOnRightPlace(answerSurfacesUpdated);
+            //foreach (Answer answer in answersList)
+            //{
+            //    if (answer.IsRight && answer.PositionRowIndex == i)
+            //    {
+            //        Debug.Log("row: " + answer.PositionRowIndex.ToString() + ", cell: " + answer.PositionCellIndex);
+            //        _shelvesForCheck[i].AddAnswerToShelfOnRightPlace();
+            //    }
+
+            //}
+
+        }
+        yield return new WaitForSeconds(0.5f);
     }
 
     private void DestroyQuestionObjects()
@@ -434,14 +449,14 @@ public class QuestionInitializer : MonoBehaviour
         if(_shelfRawAnswers && _shelfRawAnswers.gameObject)
             Destroy(_shelfRawAnswers.gameObject);
 
-        for (int i = _answersMock.Count - 1; i >= 0; i--)
-        {
-            Destroy(_answersMock[i].gameObject);
-        }
-        //Destroy(_currentQuestionSurface.gameObject);
+        //for (int i = _answersMock.Count - 1; i >= 0; i--)
+        //{
+        //    Destroy(_answersMock[i].gameObject);
+        //}
+        ////Destroy(_currentQuestionSurface.gameObject);
         _shelvesForCheck.Clear();
         _answers.Clear();
-        _answersMock.Clear();
+        //_answersMock.Clear();
     }
 
     private void SetLevelEarnedPoints(int rightAnsweredQuestion, int totalQuestionCount)
@@ -479,6 +494,7 @@ public class QuestionInitializer : MonoBehaviour
     private void StopAnimationTextType()
     {
         _questionText?.GetComponent<TextAnimation>()?.ClickButtonFinishReadingByUser();
+        _typeAudio?.Stop();
     }
 
     private void CheckIsLevelCompleted()

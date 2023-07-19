@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ControllerVibration;
 
 public class TransformPhisics : MonoBehaviour
 {
+    public VibrateController vibrateController;
+    public VibrationSequence vibSequence;
     [SerializeField]
     private TouchDetector _touchDetector;
     [SerializeField]
@@ -38,6 +41,7 @@ public class TransformPhisics : MonoBehaviour
             _isStartTouch = true;
             _questionInitializer.RemoveFromShelf(_draggingTransform);
             timeStart = Time.time;
+            Vibration.VibratePop();
         }
     }
 
@@ -56,11 +60,13 @@ public class TransformPhisics : MonoBehaviour
         Debug.Log(isClick);
         _questionInitializer.CheckAnswerAfterDrop(_draggingTransform, isClick);
         _draggingTransform = null;
+        //Vibration.VibratePeek();
     }
 
     private void Start()
     {
         SignListeners();
+        Vibration.Init();
     }
 
     private void SignListeners()
