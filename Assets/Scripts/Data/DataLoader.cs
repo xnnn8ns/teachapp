@@ -4,6 +4,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class DataLoader : MonoBehaviour
 {
@@ -59,6 +60,42 @@ public class DataLoader : MonoBehaviour
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
+        }
+    }
+
+    public static void SaveLevelResults(int id, int _score, bool _isActive, bool _isPassed, int _activeStarsCount)
+    {
+        List<ButtonData> buttonDataList = new List<ButtonData>();
+
+        string json = File.ReadAllText(Application.dataPath + Settings.jsonFilePath);
+
+
+        buttonDataList = JsonConvert.DeserializeObject<List<ButtonData>>(json);
+
+
+        ButtonData buttonData = buttonDataList.Find(item => item.id == id);
+
+        if (buttonData != null)
+        {
+
+            buttonData.score = _score;
+            buttonData.isActive = _isActive;
+            buttonData.isPassed = _isPassed;
+            buttonData.activeStarsCount = _activeStarsCount;
+
+
+
+
+            json = JsonConvert.SerializeObject(buttonDataList, Formatting.Indented);
+
+
+            File.WriteAllText(Application.dataPath + Settings.jsonFilePath, json);
+
+            //Debug.Log("Button data updated and saved to buttonData.json");
+        }
+        else
+        {
+            Debug.LogError("Button data with id " + id + " not found!");
         }
     }
 }

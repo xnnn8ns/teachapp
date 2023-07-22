@@ -11,6 +11,7 @@ public class Settings : MonoBehaviour
     public static bool IsTurnOnClickPointerListener = false;
     public static int Current_Level = 1;
     public static int Current_Theme = 0;
+    public const string jsonFilePath = "/Map/Resources/buttonData.json";
 
     public static void SetClickQuestionSettings()
     {

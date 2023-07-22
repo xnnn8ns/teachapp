@@ -38,8 +38,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
     public void AddAnswerToShelfOnRightPlace(List<AnswerSurface> transformList)
     {
-        _questionsShelved.Clear();
-        _questionsShelved.AddRange(transformList);
+        _questionsShelved = transformList;
 
         SetAnswersOnShelf();
     }
@@ -146,8 +145,6 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
                 widthRaw += item.transform.localScale.x + 0.05f;
             }
 
-
-
             float yPosition = startPoint.y - 0.55f * countRows + _shelfArea.transform.localScale.y / 2 - 0.28f;
 
             startPoint.y = yPosition;
@@ -229,5 +226,29 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
         Debug.Log("OnPointerClick");
         SetTestShelfChecker(!_shelfChecker.activeSelf);
         ClickShelf.Invoke(_shelfChecker.activeSelf, this);
+    }
+
+    public bool GetIsShelfFull(AnswerSurface additionalAnswerSurface)
+    {
+        float widthRaw = 0f;
+        foreach (var item in _questionsShelved)
+        {
+            Vector3 startPoint = _shelfArea.position;
+
+            startPoint.x += 0.075f;
+
+
+            startPoint.x -= _shelfArea.localScale.x / 2;
+
+            startPoint.x += widthRaw;
+
+            widthRaw += item.transform.localScale.x + 0.05f;
+
+            if (widthRaw + additionalAnswerSurface.transform.localScale.x > 4.9f)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

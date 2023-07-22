@@ -22,7 +22,7 @@ public class ButtonsManager : MonoBehaviour
     string json;
     string jsonFilePath = "/Map/Resources/buttonData.json";
 
-    List<ButtonData> buttonDataList = new List<ButtonData>(); // Создаем список для хранения данных о кнопках
+    List<ButtonData> buttonDataList = new List<ButtonData>(); // ??????? ?????? ??? ???????? ?????? ? ???????
 
     public int rx = 2;
     void CreateDefaultButtons(int id)

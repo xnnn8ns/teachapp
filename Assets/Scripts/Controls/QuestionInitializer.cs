@@ -24,8 +24,17 @@ public class QuestionInitializer : MonoBehaviour
     private Text _scoreValueText;
     [SerializeField]
     private ImageChecker _imageChecker;
+    [SerializeField]
+    private GameObject _resultPanelScript;
+    [SerializeField]
+    private GameObject _buttonCheck;
+    [SerializeField]
+    private GameObject _buttonCheckDisabled;
+
     private AudioSource _setInShelfAudio;
     private AudioSource _typeAudio;
+    private AudioSource _wrongAnswerAudio;
+    private AudioSource _OKAnswerAudio;
 
     private List<Shelf> _shelvesForCheck = new List<Shelf>();
     private Shelf _shelfRawAnswers;
@@ -59,6 +68,8 @@ public class QuestionInitializer : MonoBehaviour
 
     private void InitQuestion()
     {
+        _resultPanelScript.SetActive(false);
+        Debug.Log(_resultPanelScript.activeSelf);
         _imageChecker.gameObject.SetActive(false);
         if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
             InitShelves();
@@ -66,6 +77,9 @@ public class QuestionInitializer : MonoBehaviour
             InitTest();
         else
             InitImageTest();
+
+        _buttonCheck.SetActive(false);
+        _buttonCheckDisabled.SetActive(true);
     }
 
     private void InitShelves()
@@ -203,6 +217,8 @@ public class QuestionInitializer : MonoBehaviour
     {
         _setInShelfAudio = GetComponents<AudioSource>()[0];
         _typeAudio = GetComponents<AudioSource>()[1];
+        _wrongAnswerAudio = GetComponents<AudioSource>()[2];
+        _OKAnswerAudio = GetComponents<AudioSource>()[3];
         //Debug.Log(Settings.Current_Level);
         //FillTestQuestionList();
         _imageChecker.gameObject.SetActive(false);
@@ -210,7 +226,7 @@ public class QuestionInitializer : MonoBehaviour
         FillQuestionsForCurrentLevel();
         InitQuestion();
         //InitTouchDetector();
-        
+        _resultPanelScript.SetActive(false);
 
     }
 
@@ -233,6 +249,8 @@ public class QuestionInitializer : MonoBehaviour
             CheckSingleAnswerAfterDrop(answerSurface, isClick);
         else
             CheckMultiAnswerAfterDrop(answerSurface, isClick);
+        _buttonCheck.SetActive(true);
+        _buttonCheckDisabled.SetActive(false);
     }
 
     private void CheckMultiAnswerAfterDrop(AnswerSurface answerSurface, bool isClick)
@@ -269,8 +287,11 @@ public class QuestionInitializer : MonoBehaviour
     {
         foreach (Shelf shelf in _shelvesForCheck)
         {
-            shelf.AddAnswerToShelfByDrag(answerSurface, true);
-            break;
+            if (!shelf.GetIsShelfFull(answerSurface))
+            {
+                shelf.AddAnswerToShelfByDrag(answerSurface, true);
+                break;
+            }
         }
     }
 
@@ -348,7 +369,6 @@ public class QuestionInitializer : MonoBehaviour
 
     public void ClickCheckAnswerForQuestion()
     {
-        
         _setInShelfAudio?.Play();
         if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
         {
@@ -379,39 +399,49 @@ public class QuestionInitializer : MonoBehaviour
         }
         _currentQuestionIndex++;
 
-        StartCoroutine(SetRightAnswerOnScreen());
-        return;
-
-        DestroyQuestionObjects();
-        if (_currentQuestionIndex < _questionsCurrentLevel.Count)
-            InitQuestion();
-        else
-            _imageChecker.gameObject.SetActive(false);
-        
-        SetLevelEarnedPoints(_rightAnsweredCount, _questionsCurrentLevel.Count);
-
-        CheckIsLevelCompleted();
+        StartCoroutine(SetRightAnswerOnScreen(isRight));
     }
 
-    private IEnumerator SetRightAnswerOnScreen()
+    private IEnumerator SetRightAnswerOnScreen(bool isRight)
     {
+        string strTitle;
+        if (isRight)
+        {
+            _OKAnswerAudio.Play();
+            strTitle = LangAsset.GetValueByKey("PerfectDone");
+        }
+        else
+        {
+            _wrongAnswerAudio.Play();
+            strTitle = LangAsset.GetValueByKey("DoneErrors");
+        }
+        _resultPanelScript.SetActive(true);
+        _resultPanelScript.GetComponent<ResultPanel>().ShowPanel(isRight, strTitle, CallBackFromResultPanel);
+        yield return new WaitForSeconds(0.5f);
         if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType != QuestionType.Shelf)
             yield break;
 
-        foreach (Shelf shelf in _shelvesForCheck)
+        for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
-            foreach (AnswerSurface answerSurface in shelf.GetAnswerList())
+            List<AnswerSurface> answerSurfacesListForRemove = _shelvesForCheck[i].GetAnswerList();
+            for (int j = answerSurfacesListForRemove.Count - 1; j >= 0; j--)
             {
-                _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
-            }
-            
+                Answer answer = answerSurfacesListForRemove[j].GetAnswer();
+                if (!answer.IsRight || answer.PositionRowIndex != i || answer.PositionCellIndex != j)
+                {
+                    var movingAnswerSurface = answerSurfacesListForRemove[j];
+                    RemoveAnswerFromShelf(answerSurfacesListForRemove[j]);
+                    _shelfRawAnswers.AddAnswerToShelfByDrag(movingAnswerSurface);
+                }
+            }            
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.35f);
 
         for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
-            List<AnswerSurface> answerSurfacesUpdated = new List<AnswerSurface>();
-            foreach (AnswerSurface answerSurface in _shelfRawAnswers.GetAnswerList())
+            List<AnswerSurface> answerSurfacesUpdated = _shelvesForCheck[i].GetAnswerList();
+            List<AnswerSurface> answerSurfacesList = _shelfRawAnswers.GetAnswerList();
+            foreach (AnswerSurface answerSurface in answerSurfacesList)
             {
                 if (answerSurface.GetAnswer().IsRight && answerSurface.GetAnswer().PositionRowIndex == i)
                 {
@@ -419,23 +449,26 @@ public class QuestionInitializer : MonoBehaviour
                         answerSurfacesUpdated.Add(answerSurface);
                     else
                         answerSurfacesUpdated.Insert(answerSurface.GetAnswer().PositionCellIndex, answerSurface);
-                    //Debug.Log("row: " + answer.PositionRowIndex.ToString() + ", cell: " + answer.PositionCellIndex);
-                    
                 }
             }
             _shelvesForCheck[i].AddAnswerToShelfOnRightPlace(answerSurfacesUpdated);
-            //foreach (Answer answer in answersList)
-            //{
-            //    if (answer.IsRight && answer.PositionRowIndex == i)
-            //    {
-            //        Debug.Log("row: " + answer.PositionRowIndex.ToString() + ", cell: " + answer.PositionCellIndex);
-            //        _shelvesForCheck[i].AddAnswerToShelfOnRightPlace();
-            //    }
-
-            //}
-
         }
         yield return new WaitForSeconds(0.5f);
+    }
+
+    private void CallBackFromResultPanel()
+    {
+        //_resultPanelScript?.gameObject?.SetActive(false);
+        StopAllCoroutines();
+        DestroyQuestionObjects();
+        if (_currentQuestionIndex < _questionsCurrentLevel.Count)
+            InitQuestion();
+        else
+            _imageChecker.gameObject.SetActive(false);
+
+        SetLevelEarnedPoints(_rightAnsweredCount, _questionsCurrentLevel.Count);
+
+        CheckIsLevelCompleted();
     }
 
     private void DestroyQuestionObjects()
@@ -502,6 +535,7 @@ public class QuestionInitializer : MonoBehaviour
         if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
         {
             PlayerPrefs.SetInt("AddedScore", _scoreValue);
+
             ActionLevelCompleted.Invoke();
         }
     }
