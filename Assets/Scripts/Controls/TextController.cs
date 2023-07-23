@@ -29,15 +29,7 @@ public class TextController : MonoBehaviour
 
     private void Start()
     {
-        ////StartCoroutine(StartInitTextType());
-        //AddTestText();
-        //GetFromJSON();
-        //countTheories = _theories.Count;
-        //countText = _theories[indexCurrentTheory].GetTextList().Count;
-        //indexCurrentTheory = -1;// cause in next code will be increase by 1
-        //NextTheory();
         ShowWebView();
-        //InitTextType();
     }
 
     private void InitTextType()

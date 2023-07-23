@@ -16,6 +16,7 @@ public class DataLoader : MonoBehaviour
 
     private void GetFromJSON()
     {
+        Settings.Current_Level = DataLoader.GetCurrentLevel();
         string strJSON;
         strJSON = Resources.Load<TextAsset>("TA_data_test").text;
         RawDataLevelList levelsFromJSON = null;
@@ -63,6 +64,36 @@ public class DataLoader : MonoBehaviour
         }
     }
 
+    public static void SaveCurrentLevel()
+    {
+        PlayerPrefs.SetInt("Current_Level", Settings.Current_Level);
+    }
+
+    public static int GetCurrentLevel()
+    {
+        return PlayerPrefs.GetInt("Current_Level", 0);
+    }
+
+    //public static void SaveCurrentButtonID()
+    //{
+    //    PlayerPrefs.SetInt("Current_ButtonID", Settings.Current_ButtonID);
+    //}
+
+    //public static int GetCurrentButtonID()
+    //{
+    //    return PlayerPrefs.GetInt("Current_ButtonID", 0);
+    //}
+
+    public static void SaveCurrentTheme()
+    {
+        PlayerPrefs.SetInt("Current_Theme", Settings.Current_Theme);
+    }
+
+    public static int GetCurrentTheme()
+    {
+        return PlayerPrefs.GetInt("Current_Theme", 0);
+    }
+
     public static void SaveLevelResults(int id, int _score, bool _isActive, bool _isPassed, int _activeStarsCount)
     {
         List<ButtonData> buttonDataList = new List<ButtonData>();
@@ -83,11 +114,7 @@ public class DataLoader : MonoBehaviour
             buttonData.isPassed = _isPassed;
             buttonData.activeStarsCount = _activeStarsCount;
 
-
-
-
             json = JsonConvert.SerializeObject(buttonDataList, Formatting.Indented);
-
 
             File.WriteAllText(Application.dataPath + Settings.jsonFilePath, json);
 
@@ -96,6 +123,23 @@ public class DataLoader : MonoBehaviour
         else
         {
             Debug.LogError("Button data with id " + id + " not found!");
+        }
+    }
+
+    public static ButtonData GetData(int id)
+    {
+        List<ButtonData> buttonDataList = new List<ButtonData>();
+        string json = File.ReadAllText(Application.dataPath + Settings.jsonFilePath);
+        buttonDataList = JsonConvert.DeserializeObject<List<ButtonData>>(json);
+
+        ButtonData buttonData = buttonDataList.Find(item => item.id == id);
+
+        if (buttonData != null)
+            return buttonData;
+        else
+        {
+            Debug.LogError("Button data with id " + id + " not found!");
+            return null;
         }
     }
 }

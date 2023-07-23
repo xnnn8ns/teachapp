@@ -1,16 +1,16 @@
 [
   {
     "id": 1,
-    "score": 1000,
+    "score": 100,
     "isActive": true,
-    "activeStarsCount": 3,
+    "activeStarsCount": 2,
     "isPassed": false
   },
   {
     "id": 2,
     "score": 1000,
-    "isActive": true,
-    "activeStarsCount": 3,
+    "isActive": false,
+    "activeStarsCount": 0,
     "isPassed": false
   },
   {

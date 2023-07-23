@@ -54,9 +54,11 @@ public class QuestionInitializer : MonoBehaviour
     {
         _questionsCurrentLevel.Clear();
         _currentQuestionIndex = 0;
+        ButtonData buttonData = DataLoader.GetData(Settings.Current_Level);
+        int levelWithStars = Settings.Current_Level + buttonData.activeStarsCount;
         foreach (var question in Question.QuestionsList)
         {
-            if (question.Level == Settings.Current_Level)
+            if (question.Level == levelWithStars)
                 _questionsCurrentLevel.Add(question);
         }
     }
@@ -135,7 +137,7 @@ public class QuestionInitializer : MonoBehaviour
         _answers.Clear();
         _shelvesForCheck.Clear();
 
-        _imageChecker.SetImagesFromAnswers(_questionsCurrentLevel[_currentQuestionIndex].GetAnswerList());
+        _imageChecker.SetImagesFromAnswers(_questionsCurrentLevel[_currentQuestionIndex].GetAnswerList(), ClickImageTest);
 
         Settings.SetClickQuestionSettings();
     }
@@ -404,6 +406,9 @@ public class QuestionInitializer : MonoBehaviour
 
     private IEnumerator SetRightAnswerOnScreen(bool isRight)
     {
+        if (_questionsCurrentLevel == null || _currentQuestionIndex >= _questionsCurrentLevel.Count)
+            yield break;
+        
         string strTitle;
         if (isRight)
         {
@@ -522,6 +527,14 @@ public class QuestionInitializer : MonoBehaviour
                     shl.SetTestShelfChecker(false);
             }
         }
+        _buttonCheck.SetActive(true);
+        _buttonCheckDisabled.SetActive(false);
+    }
+
+    private void ClickImageTest()
+    {
+        _buttonCheck.SetActive(true);
+        _buttonCheckDisabled.SetActive(false);
     }
 
     private void StopAnimationTextType()
@@ -535,7 +548,17 @@ public class QuestionInitializer : MonoBehaviour
         if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
         {
             PlayerPrefs.SetInt("AddedScore", _scoreValue);
-
+            ButtonData buttonData = DataLoader.GetData(Settings.Current_ButtonID);
+            buttonData.activeStarsCount++;
+            bool isPassed = false;
+            int currentLevel = Settings.Current_Level;
+            if (buttonData.activeStarsCount > 2)
+            {
+                Settings.Current_Level++;
+                DataLoader.SaveCurrentLevel();
+                isPassed = true;
+            }
+            DataLoader.SaveLevelResults(currentLevel, _scoreValue, !isPassed, isPassed, buttonData.activeStarsCount);
             ActionLevelCompleted.Invoke();
         }
     }

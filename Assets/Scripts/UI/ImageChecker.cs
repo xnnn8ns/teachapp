@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class ImageChecker : MonoBehaviour
     private Color _colorSelected = Color.green;
     private Color _colorUnSelected = Color.gray;
     private List<Answer> _answers = new List<Answer>();
+    private Action _actionCallBack;
 
     const string Path = "ImagesTest/";
 
@@ -18,8 +20,9 @@ public class ImageChecker : MonoBehaviour
         return Resources.Load<Sprite>(Path + resourceName);
     }
 
-    public void SetImagesFromAnswers(List<Answer> answers)
+    public void SetImagesFromAnswers(List<Answer> answers, Action action)
     {
+        _actionCallBack = action;
         _answers = answers;
         for (int i = 0; i < _answers.Count; i++)
         {
@@ -42,6 +45,7 @@ public class ImageChecker : MonoBehaviour
                 _imageItems[i].SetBackColor(_colorUnSelected);
 
         }
+        _actionCallBack?.Invoke();
     }
 
     public void SetSelectedImage(int indexImageForSelect)

@@ -146,7 +146,7 @@ namespace Mkey
             {
 
                 
-                ButtonData buttonData = ButtonsManager.GetData(i + 1);
+                ButtonData buttonData = DataLoader.GetData(i + 1);
                 if (buttonData != null)
                 {
                     SetButtonActive(buttonData.id, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount);
