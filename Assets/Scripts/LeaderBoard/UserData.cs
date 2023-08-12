@@ -36,16 +36,11 @@ public class UserData : MonoBehaviour
 
         string jsonData = JsonConvert.SerializeObject(UserDataJson, Formatting.Indented);
         File.WriteAllText(Application.dataPath + jsonFilePath, jsonData);
-
-        Debug.Log("Данные сохранены в файл userData.json");
     }
 
 
     private void UpdateUI()
     {
-        Debug.Log( "Имя пользователя: " + UserDataJson.username);
-        Debug.Log("Пройденные уровни: " + UserDataJson.levelsCompleted);
-        Debug.Log("Очки: " + UserDataJson.score);
-        Debug.Log("Ранг: " + UserDataJson.rank);
+        
     }
 }

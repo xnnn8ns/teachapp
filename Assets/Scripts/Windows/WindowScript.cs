@@ -24,7 +24,9 @@ public class WindowScript : MonoBehaviour
         //List<Level> levels = QuestionInitializer.GetLevelList();
         foreach (var item in Level.Levels)
         {
-            if (item.LevelNumber == Settings.Current_Level)
+            ButtonData buttonData = DataLoader.GetData(Settings.Current_Level);
+            int currentLevelWithStarCount = Settings.Current_Level + buttonData.activeStarsCount;
+            if (item.LevelNumber == currentLevelWithStarCount)
             {
                 _textTime.text = item.TotalTime.ToString();
                 _textScore.text = item.TotalScore.ToString();

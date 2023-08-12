@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class AuthForm : MonoBehaviour
 {
+    [SerializeField] private TMP_InputField _nameField;
     [SerializeField] private TMP_InputField _emailField;
     [SerializeField] private TMP_InputField _passField;
     [SerializeField] private TMP_InputField _passRepeatField;
@@ -35,6 +37,16 @@ public class AuthForm : MonoBehaviour
 
     private IEnumerator SignInUser()
     {
+        string name = "";
+        if (!_isLogForm)
+        {
+            name = _nameField.text;
+            if (_nameField.text.Length < 1)
+            {
+                Debug.LogError("Input name is with errors");
+                yield break;
+            }
+        }
         if (_emailField.text.Length < 7)
         {
             Debug.LogError("Input email is with errors");
@@ -51,13 +63,13 @@ public class AuthForm : MonoBehaviour
             yield break;
         }
 
+         
         string email = _emailField.text;
         string password = _passField.text;
-        string passwordRepeat = _passRepeatField.text;
         if (_isLogForm)
-            SignInUser(email, password);
+            StartCoroutine(LoginUser(email, password));
         else
-            CreateNewUser(email, password);
+            StartCoroutine(CreateNewUser(name, email, password));
         yield break;
     }
 
@@ -82,26 +94,44 @@ public class AuthForm : MonoBehaviour
         //});
     }
 
-    private void CreateNewUser(string email, string password)
+    private IEnumerator CreateNewUser(string name, string email, string password)
     {
-        //AuthInit.GetInstance().CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(task =>
-        //{
-        //    if (task.IsCanceled)
-        //    {
-        //        Debug.LogError("CreateUserWithEmailAndPasswordAsync was canceled.");
-        //        return;
-        //    }
-        //    if (task.IsFaulted)
-        //    {
-        //        Debug.LogError("CreateUserWithEmailAndPasswordAsync encountered an error: " + task.Exception);
-        //        return;
-        //    }
+        WWWForm form = new WWWForm();
+        form.AddField("fullName", name);
+        form.AddField("userEmail", email);
+        form.AddField("password", password);
 
-        //    // Firebase user has been created.
-        //    Firebase.Auth.AuthResult result = task.Result;
-        //    Debug.LogFormat("Firebase user created successfully: {0} ({1})",
-        //        result.User.DisplayName, result.User.UserId);
-        //});
+        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/insert_user.php", form);
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("Form upload complete!");
+            Debug.Log(www.downloadHandler.text);
+        }
     }
 
+
+    private IEnumerator LoginUser(string email, string password)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("userEmail", email);
+        form.AddField("password", password);
+
+        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/login_user.php", form);
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log(www.downloadHandler.text);
+        }
+    }
 }

@@ -201,8 +201,7 @@ namespace Mkey
         }
 
         private void SetButtonActive(int sceneNumber, bool active, bool isPassed,int _activeStarsCount)
-        {
-                      
+        {         
             MapLevelButtons[sceneNumber - 1].SetActive(active, _activeStarsCount, isPassed);
         }
 

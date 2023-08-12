@@ -32,6 +32,10 @@ public class TouchDetector : MonoBehaviour
                 HoldTouch();
             }
         }
+        //if (Input.touchCount > 1)
+        //{
+        //    Debug.Log(Vector2.Distance(Input.GetTouch(0).position, Input.GetTouch(1).position));
+        //}
     }
 
     private void StartTouch()

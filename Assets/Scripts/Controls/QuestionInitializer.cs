@@ -52,6 +52,7 @@ public class QuestionInitializer : MonoBehaviour
 
     private void FillQuestionsForCurrentLevel()
     {
+        _scoreValue = PlayerPrefs.GetInt("AddedScore", 0);
         _questionsCurrentLevel.Clear();
         _currentQuestionIndex = 0;
         ButtonData buttonData = DataLoader.GetData(Settings.Current_Level);
@@ -157,7 +158,6 @@ public class QuestionInitializer : MonoBehaviour
     private void FinishTypeTextCallBack()
     {
         _typeAudio?.Stop();
-        Debug.Log("_typeAudio Stop");
     }
 
     private void InitAnswersForTest()
@@ -372,11 +372,11 @@ public class QuestionInitializer : MonoBehaviour
     public void ClickCheckAnswerForQuestion()
     {
         _setInShelfAudio?.Play();
-        if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
-        {
-            CheckIsLevelCompleted();
-            return;
-        }
+        //if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
+        //{
+        //    CheckIsLevelCompleted();
+        //    return;
+        //}
 
         StopAnimationTextType();
 
@@ -399,7 +399,6 @@ public class QuestionInitializer : MonoBehaviour
             _rightAnsweredCount++;
             AddEarnedPoints(_questionsCurrentLevel[_currentQuestionIndex].Score);
         }
-        _currentQuestionIndex++;
 
         StartCoroutine(SetRightAnswerOnScreen(isRight));
     }
@@ -466,13 +465,14 @@ public class QuestionInitializer : MonoBehaviour
         //_resultPanelScript?.gameObject?.SetActive(false);
         StopAllCoroutines();
         DestroyQuestionObjects();
+        _currentQuestionIndex++;
         if (_currentQuestionIndex < _questionsCurrentLevel.Count)
             InitQuestion();
         else
             _imageChecker.gameObject.SetActive(false);
 
         SetLevelEarnedPoints(_rightAnsweredCount, _questionsCurrentLevel.Count);
-
+        
         CheckIsLevelCompleted();
     }
 
@@ -548,7 +548,7 @@ public class QuestionInitializer : MonoBehaviour
         if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
         {
             PlayerPrefs.SetInt("AddedScore", _scoreValue);
-            ButtonData buttonData = DataLoader.GetData(Settings.Current_ButtonID);
+            ButtonData buttonData = DataLoader.GetData(Settings.Current_Level);
             buttonData.activeStarsCount++;
             bool isPassed = false;
             int currentLevel = Settings.Current_Level;
@@ -559,6 +559,9 @@ public class QuestionInitializer : MonoBehaviour
                 isPassed = true;
             }
             DataLoader.SaveLevelResults(currentLevel, _scoreValue, !isPassed, isPassed, buttonData.activeStarsCount);
+            if(isPassed)
+                DataLoader.SaveLevelResults(Settings.Current_Level, _scoreValue, true, false, 0);
+
             ActionLevelCompleted.Invoke();
         }
     }
