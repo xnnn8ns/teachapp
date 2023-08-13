@@ -16,7 +16,7 @@ public class AuthController : MonoBehaviour
 
     void Start()
     {
-        ExecuteAuth();
+        //ExecuteAuth();
     }
 
     public void ExecuteAuth()
@@ -161,6 +161,7 @@ public class AuthController : MonoBehaviour
         {
             Debug.Log(www.error);
         }
+        CloseWebForm();
     }
 
     public IEnumerator GetVKLogout(string userID, string accessToken)
@@ -187,5 +188,10 @@ public class AuthController : MonoBehaviour
         {
             Debug.Log(www.error);
         }
+    }
+
+    public void ClickAuthByVK()
+    {
+        ExecuteAuth();
     }
 }

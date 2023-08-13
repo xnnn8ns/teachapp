@@ -23,12 +23,25 @@ public class BottomMenuScript : MonoBehaviour
 
     private void ReloadScenes(int numberScenes, int previousScene) 
     {
-        if(numberScenes == 0)
+        if(numberScenes == 2)
         {
-            SceneManager.LoadScene("UserForm", LoadSceneMode.Single);
+            if (UserData.IsHaveLoginUserData())
+                SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
+            else
+                SceneManager.LoadScene("LoginForm", LoadSceneMode.Additive);
+
             return;
         }
-        _scenes[previousScene].SetActive(false);
+        foreach (var item in SceneManager.GetAllScenes())
+        {
+            if(item.name != "MapScene")
+                SceneManager.UnloadSceneAsync(item);
+        }
+        _scenes[0].SetActive(false);
+        _scenes[1].SetActive(false);
+        _scenes[2].SetActive(false);
+
+        //_scenes[previousScene].SetActive(false);
 
         _scenes[numberScenes].SetActive(true);
     }

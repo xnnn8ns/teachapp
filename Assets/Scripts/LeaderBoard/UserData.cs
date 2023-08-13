@@ -35,4 +35,12 @@ public class UserData : MonoBehaviour
         UserPassword = PlayerPrefs.GetString("UserPassword", "");
         UserAvatarID = PlayerPrefs.GetInt("UserAvatarID", 0);
     }
+
+    public static bool IsHaveLoginUserData()
+    {
+        LoadUserData();
+        if (UserID > 0)
+            return true;
+        return false;
+    }
 }

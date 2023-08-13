@@ -21,25 +21,38 @@ public class AuthForm : MonoBehaviour
     private void Start()
     {
         UserData.LoadUserData();
-        _nameField.text = UserData.UserName;
+        if(_nameField)
+            _nameField.text = UserData.UserName;
         _emailField.text = UserData.UserEmail;
         _passField.text = UserData.UserPassword;
-        LoadAvatarFromResourceByID(UserData.UserAvatarID);
-        _textButtonEditSave.text = LangAsset.GetValueByKey("Edit");
-        _buttonSelectAvatar.SetActive(false);
+        if(_imageAvatar)
+            LoadAvatarFromResourceByID(UserData.UserAvatarID);
+        if(_textButtonEditSave)
+            _textButtonEditSave.text = LangAsset.GetValueByKey("Edit");
+        if(_buttonSelectAvatar)
+            _buttonSelectAvatar.SetActive(false);
     }
 
     private void LoadAvatarFromResourceByID(int avatarID)
     {
+        
+        if (avatarID == 0)
+        {
+            _imageAvatar.sprite = null;
+            return;
+        }
         _imageAvatar.sprite = Resources.Load<Sprite>("Avatars/" + avatarID.ToString());
     }
 
     public void ClickOK()
     {
-        if(_isLogForm)
+        if (_isLogForm)
             StartCoroutine(CheckDataForUser());
         else
-            SceneManager.LoadScene("LoginForm", LoadSceneMode.Single);
+        {
+            CloseAuthScenes();
+            SceneManager.LoadScene("LoginForm", LoadSceneMode.Additive);
+        }
     }
 
     public void ClickCancel()
@@ -49,9 +62,9 @@ public class AuthForm : MonoBehaviour
 
     public void ClickRegistry()
     {
-        if(_isLogForm)
-            SceneManager.LoadScene("LoginRegForm", LoadSceneMode.Single);
-        else  
+        if (_isLogForm)
+            SceneManager.LoadScene("LoginRegForm", LoadSceneMode.Additive);
+        else
             StartCoroutine(CheckDataForUser());
     }
 
@@ -83,14 +96,14 @@ public class AuthForm : MonoBehaviour
             yield break;
         }
 
-         
+
         string email = _emailField.text;
         string password = _passField.text;
         if (_isLogForm)
             StartCoroutine(LoginUser(email, password));
         else
         {
-            if(UserData.UserID == 0)
+            if (UserData.UserID == 0)
                 StartCoroutine(CreateNewUser(name, email, password, 0));
             else
                 StartCoroutine(UpdateUser(UserData.UserID, name, email, password, UserData.UserAvatarID));
@@ -182,14 +195,14 @@ public class AuthForm : MonoBehaviour
         {
             Debug.Log(www.downloadHandler.text);
             NativeResponseAuth nativeResponse = NativeResponseAuth.FromJson(www.downloadHandler.text);
-            if(nativeResponse != null && nativeResponse.ResponseCode == 1)
+            if (nativeResponse != null && nativeResponse.ResponseCode == 1)
             {
                 UserData.SetUserData(nativeResponse.ResponseAuth[0].UserID,
                     nativeResponse.ResponseAuth[0].UserFullName,
                     nativeResponse.ResponseAuth[0].UserEmail,
                     nativeResponse.ResponseAuth[0].UserPassword,
                     nativeResponse.ResponseAuth[0].UserAvatarID);
-                SceneManager.LoadScene("UserForm", LoadSceneMode.Single);
+                SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
             }
 
 
@@ -217,4 +230,26 @@ public class AuthForm : MonoBehaviour
         UserData.UserAvatarID = avatarID;
         LoadAvatarFromResourceByID(UserData.UserAvatarID);
     }
+
+    public void ClickLogOut()
+    {
+        UserData.SetUserData(0,
+                   "",
+                   "",
+                   "",
+                   0);
+        LoadAvatarFromResourceByID(UserData.UserAvatarID);
+        CloseAuthScenes();
+        SceneManager.LoadScene("LoginForm", LoadSceneMode.Additive);
+    }
+
+    private void CloseAuthScenes()
+    {
+        foreach (var item in SceneManager.GetAllScenes())
+        {
+            if (item.name != "MapScene")
+                SceneManager.UnloadSceneAsync(item);
+        }
+    }
+
 }
