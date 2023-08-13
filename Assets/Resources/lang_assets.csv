@@ -1,7 +1,7 @@
 Key;Ru;En
 Enter;Вход;Log in
 Exit;Выйти;Log out
-Change;Изменить;
+Edit;Изменить;
 Buy;Купить;
 Saved;Сохранено;
 Select;Выбрать;
@@ -14,3 +14,4 @@ Unselect;Убрать выделение;
 Back;Назад;Back
 PerfectDone;Все верно!;Perfect done!
 DoneErrors;Есть ошибки!;Done with errors!
+Save;Сохранить;

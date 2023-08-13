@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/WindowMessageScene.unity
     guid: 545096b5f96564787b568920e40c99a2
   - enabled: 1
+    path: Assets/Scenes/UserForm.unity
+    guid: daa305e6017d145529f65ecccd4036a7
+  - enabled: 1
     path: Assets/Scenes/LoginForm.unity
     guid: 57889d096e3a74406883a0273fec8519
   - enabled: 1

@@ -5,42 +5,34 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-[Serializable]
-public class UserDataJson
-{
-    public int id;
-    public string username;
-    public string password;
-    public int levelsCompleted;
-    public int score;
-    public int rank;
-}
-
 public class UserData : MonoBehaviour
 {
-    string jsonFilePath = "/Resources/userData.json";
-    public TMP_InputField inputFieldUsername;
-    public TMP_InputField inputFieldPassword;
+    public static int UserID = 0;
+    public static string UserName = "";
+    public static string UserEmail = "";
+    public static string UserPassword = "";
+    public static int UserAvatarID = 0;
 
-    private UserDataJson UserDataJson = new UserDataJson();
-
-
-    public void RegisterUserSaveData()
+    public static void SetUserData(int userID, string userName, string userEmail, string userPassword, int userAvatarID)
     {
-        UserDataJson.username = inputFieldUsername.text;
-        UserDataJson.password = inputFieldPassword.text;
-        UserDataJson.id = 1;
-        UserDataJson.levelsCompleted = 0;
-        UserDataJson.score = 0;
-        UserDataJson.rank = 0;
-
-        string jsonData = JsonConvert.SerializeObject(UserDataJson, Formatting.Indented);
-        File.WriteAllText(Application.dataPath + jsonFilePath, jsonData);
+        UserID = userID;
+        UserName = userName;
+        UserEmail = userEmail;
+        UserPassword = userPassword;
+        UserAvatarID = userAvatarID;
+        PlayerPrefs.SetInt("UserID", UserID);
+        PlayerPrefs.SetString("UserName", UserName);
+        PlayerPrefs.SetString("UserEmail", UserEmail);
+        PlayerPrefs.SetString("UserPassword", UserPassword);
+        PlayerPrefs.SetInt("UserAvatarID", UserAvatarID);
     }
 
-
-    private void UpdateUI()
+    public static void LoadUserData()
     {
-        
+        UserID = PlayerPrefs.GetInt("UserID", 0);
+        UserName = PlayerPrefs.GetString("UserName", "");
+        UserEmail = PlayerPrefs.GetString("UserEmail", "");
+        UserPassword = PlayerPrefs.GetString("UserPassword", "");
+        UserAvatarID = PlayerPrefs.GetInt("UserAvatarID", 0);
     }
 }

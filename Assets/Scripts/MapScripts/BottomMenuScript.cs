@@ -25,7 +25,7 @@ public class BottomMenuScript : MonoBehaviour
     {
         if(numberScenes == 0)
         {
-            SceneManager.LoadScene("LoginForm", LoadSceneMode.Single);
+            SceneManager.LoadScene("UserForm", LoadSceneMode.Single);
             return;
         }
         _scenes[previousScene].SetActive(false);
