@@ -46,25 +46,27 @@ public class LeaderBoardScript : MonoBehaviour
         {
             TextAsset leaderboardJsonFile = leaderboardJsonFiles[leaderboardJsonFiles.Length - 1];
             List<LeaderboardData> leaderboardData = JsonConvert.DeserializeObject<List<LeaderboardData>>(leaderboardJsonFile.text);
-            TextAsset[] userJsonFiles = Resources.LoadAll<TextAsset>("userdata");
-            if (userJsonFiles != null && userJsonFiles.Length > 0)
-            {
-                TextAsset userJsonFile = userJsonFiles[userJsonFiles.Length - 1];
+            //TextAsset[] userJsonFiles = Resources.LoadAll<TextAsset>("userdata");
+            //if (userJsonFiles != null && userJsonFiles.Length > 0)
+            //{
+            //TextAsset userJsonFile = userJsonFiles[userJsonFiles.Length - 1];
 
-                UserDataList userData = JsonConvert.DeserializeObject<UserDataList>(userJsonFile.text);
-                userName = userData.username;
+            //UserDataList userData = JsonConvert.DeserializeObject<UserDataList>(userJsonFile.text);
+            UserData.LoadUserData();
+                //userName = userData.username;
                 LeaderboardData userLeaderboardData = new LeaderboardData
                 {
-                    name = userData.username,
-                    score = scoreUser// userData.score
+                    id = UserData.UserID,
+                    name = UserData.UserName,
+                    score = 0// userData.score
                 };
 
                 leaderboardData.Add(userLeaderboardData);
-            }
-            else
-            {
-                Debug.LogError("User JSON file not found in Resources folder.");
-            }
+            //}
+            //else
+            //{
+            //    Debug.LogError("User JSON file not found in Resources folder.");
+            //}
             leaderboardData.Sort((a, b) => b.score.CompareTo(a.score));
 
             obj.Clear();
@@ -79,15 +81,17 @@ public class LeaderBoardScript : MonoBehaviour
                 Image gold = leaderboardItem.transform.Find("gold").GetComponent<Image>();
                 Image silver = leaderboardItem.transform.Find("silver").GetComponent<Image>();
                 Image bronze = leaderboardItem.transform.Find("bronze").GetComponent<Image>();
+                Image avatar = leaderboardItem.transform.Find("avatar").GetComponent<Image>();
 
                 UserName.text = data.name;
                 UserScore.text = data.score.ToString()+" XP";
                 Position.text = position.ToString();
 
-                if (data.name != userName)                    
-                { 
+                if (data.id != UserData.UserID)                    
                     back.enabled = false;
-                }
+                else
+                    ComonFunctions.LoadAvatarFromResourceByID(avatar, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID);
+                
                 if (position != 1)
                 {
                     gold.enabled = false;

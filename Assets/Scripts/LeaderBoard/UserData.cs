@@ -12,19 +12,25 @@ public class UserData : MonoBehaviour
     public static string UserEmail = "";
     public static string UserPassword = "";
     public static int UserAvatarID = 0;
+    public static int IsByVK = 0;
+    public static int VKID = 0;
 
-    public static void SetUserData(int userID, string userName, string userEmail, string userPassword, int userAvatarID)
+    public static void SetUserData(int userID, string userName, string userEmail, string userPassword, int userAvatarID, int isByVK, int vkID)
     {
         UserID = userID;
         UserName = userName;
         UserEmail = userEmail;
         UserPassword = userPassword;
         UserAvatarID = userAvatarID;
+        IsByVK = isByVK;
+        VKID = vkID;
         PlayerPrefs.SetInt("UserID", UserID);
         PlayerPrefs.SetString("UserName", UserName);
         PlayerPrefs.SetString("UserEmail", UserEmail);
         PlayerPrefs.SetString("UserPassword", UserPassword);
         PlayerPrefs.SetInt("UserAvatarID", UserAvatarID);
+        PlayerPrefs.SetInt("IsByVK", IsByVK);
+        PlayerPrefs.SetInt("VKID", VKID);
     }
 
     public static void LoadUserData()
@@ -34,6 +40,8 @@ public class UserData : MonoBehaviour
         UserEmail = PlayerPrefs.GetString("UserEmail", "");
         UserPassword = PlayerPrefs.GetString("UserPassword", "");
         UserAvatarID = PlayerPrefs.GetInt("UserAvatarID", 0);
+        IsByVK = PlayerPrefs.GetInt("IsByVK", 0);
+        VKID = PlayerPrefs.GetInt("VKID", 0);
     }
 
     public static bool IsHaveLoginUserData()

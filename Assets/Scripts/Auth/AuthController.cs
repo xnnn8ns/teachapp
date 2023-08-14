@@ -2,8 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Web;
+using AuthJson;
+using ResponseJson;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using VKJson;
 
@@ -154,8 +157,19 @@ public class AuthController : MonoBehaviour
         {
             Debug.Log(www.downloadHandler.text);
             VKResponse vkResponse = VKResponse.FromJson(www.downloadHandler.text);
-            if(vkResponse.ResponseList != null && vkResponse.ResponseList.Count > 0)
+            if (vkResponse.ResponseList != null && vkResponse.ResponseList.Count > 0)
+            {
+                string fullName = vkResponse.ResponseList[0].UserFirstName;
+                if (vkResponse.ResponseList[0].UserLastName.Length > 0)
+                {
+                    if (fullName.Length > 0)
+                        fullName += " ";
+                    fullName += vkResponse.ResponseList[0].UserLastName;
+                }
+                UserData.SetUserData(0, fullName, "", "", 0, 1, int.Parse(vkResponse.ResponseList[0].UserID));
+                StartCoroutine(LogByVK(fullName, "", "", 0, UserData.IsByVK, UserData.VKID));
                 StartCoroutine(ComonFunctions.Instance.GetIconFromURLByUserID(vkResponse.ResponseList[0].UserID, vkResponse.ResponseList[0].UserPhoto, imagePerson));
+            }
         }
         else
         {
@@ -193,5 +207,53 @@ public class AuthController : MonoBehaviour
     public void ClickAuthByVK()
     {
         ExecuteAuth();
+    }
+
+    private IEnumerator LogByVK(string name, string email, string password, int avatarID, int isByVK, int VKID)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("fullName", name);
+        form.AddField("userEmail", email);
+        form.AddField("password", password);
+        form.AddField("avatarID", avatarID);
+        form.AddField("isByVK", isByVK);
+        form.AddField("VKID", VKID);
+
+        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/login_by_vk.php", form);
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("Form upload complete!");
+            ResponseCode response = ResponseCode.FromJson(www.downloadHandler.text);
+            if (response != null && response.ResponseCodeValue == 1)
+            {
+                if (int.TryParse(response.ResponseData, out int resultID))
+                {
+                    UserData.UserID = resultID;
+                    UserData.SetUserData(UserData.UserID, name, email, password, avatarID, isByVK, VKID);
+                    SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
+                }
+            }else if (response == null || response.ResponseCodeValue == 2)
+            {
+                NativeResponseAuth nativeResponse = NativeResponseAuth.FromJson(www.downloadHandler.text);
+                if (nativeResponse != null)
+                {
+                    UserData.SetUserData(nativeResponse.ResponseAuth[0].UserID,
+                        nativeResponse.ResponseAuth[0].UserFullName,
+                        nativeResponse.ResponseAuth[0].UserEmail,
+                        nativeResponse.ResponseAuth[0].UserPassword,
+                        nativeResponse.ResponseAuth[0].UserAvatarID,
+                        nativeResponse.ResponseAuth[0].IsByVK,
+                        nativeResponse.ResponseAuth[0].VKID);
+                    SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
+                }
+            }
+
+        }
     }
 }

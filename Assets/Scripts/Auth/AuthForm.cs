@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using AuthJson;
+using ResponseJson;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -26,23 +28,35 @@ public class AuthForm : MonoBehaviour
         _emailField.text = UserData.UserEmail;
         _passField.text = UserData.UserPassword;
         if(_imageAvatar)
-            LoadAvatarFromResourceByID(UserData.UserAvatarID);
+            ComonFunctions.LoadAvatarFromResourceByID(_imageAvatar, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID);
         if(_textButtonEditSave)
             _textButtonEditSave.text = LangAsset.GetValueByKey("Edit");
         if(_buttonSelectAvatar)
             _buttonSelectAvatar.SetActive(false);
     }
 
-    private void LoadAvatarFromResourceByID(int avatarID)
-    {
+    //private void LoadAvatarFromResourceByID(int avatarID, int isByVK = 0, int VKID = 0)
+    //{
         
-        if (avatarID == 0)
-        {
-            _imageAvatar.sprite = null;
-            return;
-        }
-        _imageAvatar.sprite = Resources.Load<Sprite>("Avatars/" + avatarID.ToString());
-    }
+    //    if (avatarID == 0)
+    //    {
+    //        if (isByVK == 0)
+    //            _imageAvatar.sprite = null;
+    //        else
+    //        {
+    //            string link = Application.persistentDataPath + "/" + VKID + "_" + 50 + ".png";
+    //            if (File.Exists(link))
+    //            {
+    //                byte[] textureBytes = File.ReadAllBytes(link);
+    //                Texture2D loadedTexture = new Texture2D(0, 0);
+    //                loadedTexture.LoadImage(textureBytes);
+    //                _imageAvatar.sprite = Sprite.Create(loadedTexture, new Rect(0f, 0f, loadedTexture.width, loadedTexture.height), Vector2.zero);
+    //            }
+    //        }
+    //        return;
+    //    }
+    //    _imageAvatar.sprite = Resources.Load<Sprite>("Avatars/" + avatarID.ToString());
+    //}
 
     public void ClickOK()
     {
@@ -80,12 +94,12 @@ public class AuthForm : MonoBehaviour
                 yield break;
             }
         }
-        if (_emailField.text.Length < 7)
+        if (UserData.IsByVK == 0 && _emailField.text.Length < 7)
         {
             Debug.LogError("Input email is with errors");
             yield break;
         }
-        if (_passField.text.Length < 7)
+        if (UserData.IsByVK == 0 && _passField.text.Length < 7)
         {
             Debug.LogError("Input pass is with errors");
             yield break;
@@ -104,9 +118,9 @@ public class AuthForm : MonoBehaviour
         else
         {
             if (UserData.UserID == 0)
-                StartCoroutine(CreateNewUser(name, email, password, 0));
+                StartCoroutine(CreateNewUser(name, email, password, 0, 0, 0));
             else
-                StartCoroutine(UpdateUser(UserData.UserID, name, email, password, UserData.UserAvatarID));
+                StartCoroutine(UpdateUser(UserData.UserID, name, email, password, UserData.UserAvatarID, 0, 0));
         }
         yield break;
     }
@@ -132,13 +146,15 @@ public class AuthForm : MonoBehaviour
         //});
     }
 
-    private IEnumerator CreateNewUser(string name, string email, string password, int avatarID)
+    private IEnumerator CreateNewUser(string name, string email, string password, int avatarID, int isByVK, int VKID)
     {
         WWWForm form = new WWWForm();
         form.AddField("fullName", name);
         form.AddField("userEmail", email);
         form.AddField("password", password);
         form.AddField("avatarID", avatarID);
+        form.AddField("isByVK", isByVK);
+        form.AddField("VKID", VKID);
 
         UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/insert_user.php", form);
         yield return www.SendWebRequest();
@@ -150,11 +166,22 @@ public class AuthForm : MonoBehaviour
         else
         {
             Debug.Log("Form upload complete!");
-            Debug.Log(www.downloadHandler.text);
+            ResponseCode nativeResponse = ResponseCode.FromJson(www.downloadHandler.text);
+            if (nativeResponse.ResponseCodeValue == 1)
+            {
+                if (int.TryParse(nativeResponse.ResponseData, out int resultID))
+                {
+                    UserData.UserID = resultID;
+                    UserData.SetUserData(UserData.UserID, name, email, password, avatarID, isByVK, VKID);
+                    CloseAuthScenes();
+                    SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
+                }
+            }
+
         }
     }
 
-    private IEnumerator UpdateUser(int userID, string name, string email, string password, int avatarID)
+    private IEnumerator UpdateUser(int userID, string name, string email, string password, int avatarID, int isByVK, int VKID)
     {
         WWWForm form = new WWWForm();
         form.AddField("id", userID);
@@ -162,6 +189,8 @@ public class AuthForm : MonoBehaviour
         form.AddField("userEmail", email);
         form.AddField("password", password);
         form.AddField("avatarID", avatarID);
+        form.AddField("isByVK", isByVK);
+        form.AddField("VKID", VKID);
 
         UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/update_user.php", form);
         yield return www.SendWebRequest();
@@ -174,7 +203,7 @@ public class AuthForm : MonoBehaviour
         {
             Debug.Log("Form upload complete!");
             Debug.Log(www.downloadHandler.text);
-            UserData.SetUserData(userID, name, email, password, avatarID);
+            UserData.SetUserData(userID, name, email, password, avatarID, isByVK, VKID);
         }
     }
 
@@ -201,7 +230,9 @@ public class AuthForm : MonoBehaviour
                     nativeResponse.ResponseAuth[0].UserFullName,
                     nativeResponse.ResponseAuth[0].UserEmail,
                     nativeResponse.ResponseAuth[0].UserPassword,
-                    nativeResponse.ResponseAuth[0].UserAvatarID);
+                    nativeResponse.ResponseAuth[0].UserAvatarID,
+                    nativeResponse.ResponseAuth[0].IsByVK,
+                    nativeResponse.ResponseAuth[0].VKID);
                 SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
             }
 
@@ -228,7 +259,7 @@ public class AuthForm : MonoBehaviour
     public void SetAvatarImageByID(int avatarID)
     {
         UserData.UserAvatarID = avatarID;
-        LoadAvatarFromResourceByID(UserData.UserAvatarID);
+        ComonFunctions.LoadAvatarFromResourceByID(_imageAvatar, UserData.UserAvatarID);
     }
 
     public void ClickLogOut()
@@ -237,8 +268,10 @@ public class AuthForm : MonoBehaviour
                    "",
                    "",
                    "",
+                   0,
+                   0,
                    0);
-        LoadAvatarFromResourceByID(UserData.UserAvatarID);
+        ComonFunctions.LoadAvatarFromResourceByID(_imageAvatar, UserData.UserAvatarID);
         CloseAuthScenes();
         SceneManager.LoadScene("LoginForm", LoadSceneMode.Additive);
     }

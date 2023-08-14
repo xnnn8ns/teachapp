@@ -21,4 +21,10 @@ public class ResponseAuth
 
     [JsonProperty("UserAvatarID")]
     public int UserAvatarID { get; set; }
+
+    [JsonProperty("IsByVK")]
+    public int IsByVK { get; set; }
+
+    [JsonProperty("VKID")]
+    public int VKID { get; set; }
 }
