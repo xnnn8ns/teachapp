@@ -11,6 +11,7 @@ public class DataLoader : MonoBehaviour
     private void Awake()
     {
         GetFromJSON();
+        UserData.LoadUserData();
         SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
     }
 

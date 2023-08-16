@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,13 @@ public class AvatarSelect : MonoBehaviour
         Sprite[] sprites = Resources.LoadAll<Sprite>("Avatars/");
         //Debug.Log(sprites.Length);
         //ClearImagesInScroll();
+        if (UserData.VKID > 0)
+        {
+            Sprite spriteVK = ComonFunctions.GetSpriteFromResourceByVKID(UserData.VKID);
+            if(spriteVK)
+                sprites = sprites.Concat(new Sprite[] { spriteVK }).ToArray();
+            //sprites.
+        }
         foreach (var sprite in sprites)
         {
             GameObject iconObject = Instantiate(_iconAvatar, _contentView);
@@ -30,6 +38,9 @@ public class AvatarSelect : MonoBehaviour
             bool result = int.TryParse(sprite.name, out int avatarID);
             if(result)
                 iconObject.GetComponent<Avatar>().SetID(avatarID, ClickAvatarCallBack);
+            else if (UserData.VKID > 0)
+                iconObject.GetComponent<Avatar>().SetID(0, ClickAvatarCallBack);
+
         }
     }
 
@@ -43,9 +54,6 @@ public class AvatarSelect : MonoBehaviour
 
     private void ClickAvatarCallBack(int avatarID)
     {
-        if (avatarID > 0)
-        {
-            _actionSelectAvatarID?.Invoke(avatarID);
-        }
+        _actionSelectAvatarID?.Invoke(avatarID);
     }
 }

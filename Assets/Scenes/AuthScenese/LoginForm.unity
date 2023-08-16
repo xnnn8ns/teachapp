@@ -3198,7 +3198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4, type: 3}
       propertyPath: frame.width
-      value: 2000
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4, type: 3}
       propertyPath: showOnStart
@@ -3206,7 +3206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4, type: 3}
       propertyPath: frame.height
-      value: 1000
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4, type: 3}
       propertyPath: toolbarPosition

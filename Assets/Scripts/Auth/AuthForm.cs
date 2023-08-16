@@ -35,29 +35,6 @@ public class AuthForm : MonoBehaviour
             _buttonSelectAvatar.SetActive(false);
     }
 
-    //private void LoadAvatarFromResourceByID(int avatarID, int isByVK = 0, int VKID = 0)
-    //{
-        
-    //    if (avatarID == 0)
-    //    {
-    //        if (isByVK == 0)
-    //            _imageAvatar.sprite = null;
-    //        else
-    //        {
-    //            string link = Application.persistentDataPath + "/" + VKID + "_" + 50 + ".png";
-    //            if (File.Exists(link))
-    //            {
-    //                byte[] textureBytes = File.ReadAllBytes(link);
-    //                Texture2D loadedTexture = new Texture2D(0, 0);
-    //                loadedTexture.LoadImage(textureBytes);
-    //                _imageAvatar.sprite = Sprite.Create(loadedTexture, new Rect(0f, 0f, loadedTexture.width, loadedTexture.height), Vector2.zero);
-    //            }
-    //        }
-    //        return;
-    //    }
-    //    _imageAvatar.sprite = Resources.Load<Sprite>("Avatars/" + avatarID.ToString());
-    //}
-
     public void ClickOK()
     {
         if (_isLogForm)
@@ -120,7 +97,7 @@ public class AuthForm : MonoBehaviour
             if (UserData.UserID == 0)
                 StartCoroutine(CreateNewUser(name, email, password, 0, 0, 0));
             else
-                StartCoroutine(UpdateUser(UserData.UserID, name, email, password, UserData.UserAvatarID, 0, 0));
+                StartCoroutine(UpdateUser(UserData.UserID, name, email, password, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID));
         }
         yield break;
     }
@@ -259,7 +236,10 @@ public class AuthForm : MonoBehaviour
     public void SetAvatarImageByID(int avatarID)
     {
         UserData.UserAvatarID = avatarID;
-        ComonFunctions.LoadAvatarFromResourceByID(_imageAvatar, UserData.UserAvatarID);
+        if(avatarID == 0 && UserData.VKID > 0)
+            ComonFunctions.LoadAvatarFromResourceByID(_imageAvatar, UserData.UserAvatarID, UserData.VKID, UserData.VKID);
+        else
+            ComonFunctions.LoadAvatarFromResourceByID(_imageAvatar, UserData.UserAvatarID);
     }
 
     public void ClickLogOut()

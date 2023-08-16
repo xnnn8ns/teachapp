@@ -75,17 +75,28 @@ public class ComonFunctions : MonoBehaviour
                 imageAvatar.sprite = null;
             else
             {
-                string link = Application.persistentDataPath + "/" + VKID + "_" + 50 + ".png";
-                if (File.Exists(link))
-                {
-                    byte[] textureBytes = File.ReadAllBytes(link);
-                    Texture2D loadedTexture = new Texture2D(0, 0);
-                    loadedTexture.LoadImage(textureBytes);
-                    imageAvatar.sprite = Sprite.Create(loadedTexture, new Rect(0f, 0f, loadedTexture.width, loadedTexture.height), Vector2.zero);
-                }
+                Sprite sprite = GetSpriteFromResourceByVKID(VKID);
+                if(sprite)
+                    imageAvatar.sprite = sprite;
             }
             return;
         }
         imageAvatar.sprite = Resources.Load<Sprite>("Avatars/" + avatarID.ToString());
     }
+
+    public static Sprite GetSpriteFromResourceByVKID(int VKID)
+    {
+        Sprite sprite = null;
+        string link = Application.persistentDataPath + "/" + VKID + "_" + 50 + ".png";
+        if (File.Exists(link))
+        {
+            byte[] textureBytes = File.ReadAllBytes(link);
+            Texture2D loadedTexture = new Texture2D(0, 0);
+            loadedTexture.LoadImage(textureBytes);
+            sprite = Sprite.Create(loadedTexture, new Rect(0f, 0f, loadedTexture.width, loadedTexture.height), Vector2.zero);
+        }
+
+        return sprite;
+    }
+
 }
