@@ -95,9 +95,9 @@ public class AuthForm : MonoBehaviour
         else
         {
             if (UserData.UserID == 0)
-                StartCoroutine(CreateNewUser(name, email, password, 0, 0, 0));
+                StartCoroutine(CreateNewUser(name, email, password, 0, 0, 0, UserData.Score));
             else
-                StartCoroutine(UpdateUser(UserData.UserID, name, email, password, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID));
+                StartCoroutine(UpdateUser(UserData.UserID, name, email, password, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID, UserData.Score));
         }
         yield break;
     }
@@ -123,7 +123,7 @@ public class AuthForm : MonoBehaviour
         //});
     }
 
-    private IEnumerator CreateNewUser(string name, string email, string password, int avatarID, int isByVK, int VKID)
+    private IEnumerator CreateNewUser(string name, string email, string password, int avatarID, int isByVK, int VKID, int score)
     {
         WWWForm form = new WWWForm();
         form.AddField("fullName", name);
@@ -132,6 +132,7 @@ public class AuthForm : MonoBehaviour
         form.AddField("avatarID", avatarID);
         form.AddField("isByVK", isByVK);
         form.AddField("VKID", VKID);
+        form.AddField("score", score);
 
         UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/insert_user.php", form);
         yield return www.SendWebRequest();
@@ -149,7 +150,7 @@ public class AuthForm : MonoBehaviour
                 if (int.TryParse(nativeResponse.ResponseData, out int resultID))
                 {
                     UserData.UserID = resultID;
-                    UserData.SetUserData(UserData.UserID, name, email, password, avatarID, isByVK, VKID);
+                    UserData.SetUserData(UserData.UserID, name, email, password, avatarID, isByVK, VKID, score);
                     CloseAuthScenes();
                     SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
                 }
@@ -158,7 +159,7 @@ public class AuthForm : MonoBehaviour
         }
     }
 
-    private IEnumerator UpdateUser(int userID, string name, string email, string password, int avatarID, int isByVK, int VKID)
+    private IEnumerator UpdateUser(int userID, string name, string email, string password, int avatarID, int isByVK, int VKID, int score)
     {
         WWWForm form = new WWWForm();
         form.AddField("id", userID);
@@ -168,6 +169,7 @@ public class AuthForm : MonoBehaviour
         form.AddField("avatarID", avatarID);
         form.AddField("isByVK", isByVK);
         form.AddField("VKID", VKID);
+        form.AddField("score", score);
 
         UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/update_user.php", form);
         yield return www.SendWebRequest();
@@ -180,7 +182,7 @@ public class AuthForm : MonoBehaviour
         {
             Debug.Log("Form upload complete!");
             Debug.Log(www.downloadHandler.text);
-            UserData.SetUserData(userID, name, email, password, avatarID, isByVK, VKID);
+            UserData.SetUserData(userID, name, email, password, avatarID, isByVK, VKID, score);
         }
     }
 
@@ -209,7 +211,9 @@ public class AuthForm : MonoBehaviour
                     nativeResponse.ResponseAuth[0].UserPassword,
                     nativeResponse.ResponseAuth[0].UserAvatarID,
                     nativeResponse.ResponseAuth[0].IsByVK,
-                    nativeResponse.ResponseAuth[0].VKID);
+                    nativeResponse.ResponseAuth[0].VKID,
+                    nativeResponse.ResponseAuth[0].Score);
+                StartCoroutine(ComonFunctions.Instance.GetUserGroupID(nativeResponse.ResponseAuth[0].UserID));
                 SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
             }
 
@@ -248,6 +252,7 @@ public class AuthForm : MonoBehaviour
                    "",
                    "",
                    "",
+                   0,
                    0,
                    0,
                    0);

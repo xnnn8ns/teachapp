@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using ResponseGroupJson;
+using ResponseJson;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -9,7 +11,7 @@ public class ComonFunctions : MonoBehaviour
 {
     public static ComonFunctions Instance;
 
-    private void Start()
+    private void Awake()
     {
         if (Instance == null)
             Instance = this;
@@ -44,8 +46,9 @@ public class ComonFunctions : MonoBehaviour
                 {
                     byte[] textureBytes = mySprite.texture.EncodeToPNG();
                     File.WriteAllBytes(link, textureBytes);
+                    StartCoroutine(UploadIconVKToServer(userID.ToString(), textureBytes));
                 }
-                Debug.Log(mySprite.border);
+                //Debug.Log(mySprite.border);
                 image.sprite = mySprite;
                 image.enabled = true;
             }
@@ -55,6 +58,29 @@ public class ComonFunctions : MonoBehaviour
             Sprite mySprite = LoadSpriteFromMemory(link);
             image.sprite = mySprite;
             image.enabled = true;
+        }
+    }
+
+    private IEnumerator UploadIconVKToServer(string userID, byte[] textureBytes)
+    {
+        WWWForm form = new WWWForm();
+        string fileName = userID + ".png";
+        //form.AddBinaryData(fileName, textureBytes);
+        form.AddBinaryData("userImage", textureBytes, fileName, "image/png");
+
+        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/upload_vk_icon.php", form);
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {  
+            ResponseCode nativeResponse = ResponseCode.FromJson(www.downloadHandler.text);
+            Debug.Log("Form upload complete! " + nativeResponse.ResponseCodeValue);
+            Debug.Log("Form upload complete! " + nativeResponse.ResponseData);
+
         }
     }
 
@@ -99,4 +125,31 @@ public class ComonFunctions : MonoBehaviour
         return sprite;
     }
 
+    public IEnumerator GetUserGroupID(int userID)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("userID", userID);
+        
+        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/get_user_group_id.php", form);
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log(www.downloadHandler.text);
+            ResponseGroup nativeResponse = ResponseGroup.FromJson(www.downloadHandler.text);
+            if (nativeResponse != null && nativeResponse.ResponseCode == 1)
+            {
+                if (nativeResponse.GroupIDList != null && nativeResponse.GroupIDList.Count > 0)
+                {
+                    UserData.SetCurrentGroup(nativeResponse.GroupIDList[0].GroupID);
+                    //UserData.CurrentGroupID = nativeResponse.GroupIDList[0];
+                    Debug.Log("Current group ID: " + UserData.CurrentGroupID);
+                }
+            }
+        }
+    }
 }

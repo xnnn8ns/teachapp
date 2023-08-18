@@ -1,20 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
-public class ResponseAuth
+public class ResponseUserInGroupItem
 {
     [JsonProperty("UserID")]
     public int UserID { get; set; }
 
     [JsonProperty("UserFullName")]
     public string UserFullName { get; set; }
-
-    [JsonProperty("DateRegistry")]
-    public string DateRegistry { get; set; }
-
-    [JsonProperty("Password")]
-    public string UserPassword { get; set; }
 
     [JsonProperty("UserEmail")]
     public string UserEmail { get; set; }

@@ -149,7 +149,7 @@ public class AuthController : MonoBehaviour
             yield break;
 
         UnityWebRequest www = UnityWebRequest.Get(url);
-        Debug.Log(www.url);
+        //Debug.Log(www.url);
         www.timeout = 5;
         yield return www.SendWebRequest();
 
@@ -166,8 +166,8 @@ public class AuthController : MonoBehaviour
                         fullName += " ";
                     fullName += vkResponse.ResponseList[0].UserLastName;
                 }
-                UserData.SetUserData(0, fullName, "", "", 0, 1, int.Parse(vkResponse.ResponseList[0].UserID));
-                StartCoroutine(LogByVK(fullName, "", "", 0, UserData.IsByVK, UserData.VKID));
+                UserData.SetUserData(0, fullName, "", "", 0, 1, int.Parse(vkResponse.ResponseList[0].UserID), UserData.Score);
+                StartCoroutine(LogByVK(fullName, "", "", 0, UserData.IsByVK, UserData.VKID, UserData.Score));
                 StartCoroutine(ComonFunctions.Instance.GetIconFromURLByUserID(vkResponse.ResponseList[0].UserID, vkResponse.ResponseList[0].UserPhoto, imagePerson));
             }
         }
@@ -209,7 +209,7 @@ public class AuthController : MonoBehaviour
         ExecuteAuth();
     }
 
-    private IEnumerator LogByVK(string name, string email, string password, int avatarID, int isByVK, int VKID)
+    private IEnumerator LogByVK(string name, string email, string password, int avatarID, int isByVK, int VKID, int score)
     {
         WWWForm form = new WWWForm();
         form.AddField("fullName", name);
@@ -218,6 +218,7 @@ public class AuthController : MonoBehaviour
         form.AddField("avatarID", avatarID);
         form.AddField("isByVK", isByVK);
         form.AddField("VKID", VKID);
+        form.AddField("score", score);
 
         UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/login_by_vk.php", form);
         yield return www.SendWebRequest();
@@ -228,14 +229,17 @@ public class AuthController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Form upload complete!");
+            Debug.Log("LogByVK complete!");
             ResponseCode response = ResponseCode.FromJson(www.downloadHandler.text);
+
             if (response != null && response.ResponseCodeValue == 1)
             {
                 if (int.TryParse(response.ResponseData, out int resultID))
                 {
                     UserData.UserID = resultID;
-                    UserData.SetUserData(UserData.UserID, name, email, password, avatarID, isByVK, VKID);
+                    UserData.SetUserData(UserData.UserID, name, email, password, avatarID, isByVK, VKID, score);
+                    StartCoroutine(ComonFunctions.Instance.GetUserGroupID(UserData.UserID));
+
                     SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
                 }
             }else if (response == null || response.ResponseCodeValue == 2)
@@ -249,7 +253,9 @@ public class AuthController : MonoBehaviour
                         nativeResponse.ResponseAuth[0].UserPassword,
                         nativeResponse.ResponseAuth[0].UserAvatarID,
                         nativeResponse.ResponseAuth[0].IsByVK,
-                        nativeResponse.ResponseAuth[0].VKID);
+                        nativeResponse.ResponseAuth[0].VKID,
+                        nativeResponse.ResponseAuth[0].Score);
+                    StartCoroutine(ComonFunctions.Instance.GetUserGroupID(UserData.UserID));
                     SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
                 }
             }

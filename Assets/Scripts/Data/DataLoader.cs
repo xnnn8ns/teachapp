@@ -8,11 +8,12 @@ using System.IO;
 
 public class DataLoader : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
         GetFromJSON();
         UserData.LoadUserData();
         SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
+        StartCoroutine(ComonFunctions.Instance.GetUserGroupID(UserData.UserID));
     }
 
     private void GetFromJSON()

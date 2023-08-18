@@ -16,11 +16,8 @@ public class ProcessDeepLinkManager : MonoBehaviour
             Application.deepLinkActivated += onDeepLinkActivated;
             if (!string.IsNullOrEmpty(Application.absoluteURL))
             {
-                // Cold start and Application.absoluteURL not null so process Deep Link.
                 onDeepLinkActivated(Application.absoluteURL);
             }
-            // Initialize DeepLink Manager global variable.
-            //else deeplinkURL = "[none]";
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -31,10 +28,10 @@ public class ProcessDeepLinkManager : MonoBehaviour
 
     private void onDeepLinkActivated(string url)
     {
-        Debug.Log(url);
+        //Debug.Log(url);
         //deeplinkURL = url;
         string group = url.Split('?')[1];
-        Debug.Log("Group: " + group);
+        //Debug.Log("Group: " + group);
         OpenShareLink(group);
     }
 
@@ -45,21 +42,22 @@ public class ProcessDeepLinkManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("CurrentGroupID", result);
             UserData.LoadUserData();
-            Debug.Log("UserID: " + UserData.UserID);
+            //Debug.Log("UserID: " + UserData.UserID);
             if (UserData.UserID > 0)
             {
-                StartCoroutine(CreateNewUser(UserData.UserID, result));
+                StartCoroutine(AddUserToGroup(UserData.UserID, result));
             }
         }
         
     }
 
-    private IEnumerator CreateNewUser(int userID, int groupID)
+    private IEnumerator AddUserToGroup(int userID, int groupID)
     {
         Debug.Log("CreateNewUser: start");
         WWWForm form = new WWWForm();
         form.AddField("userID", userID);
         form.AddField("groupID", groupID);
+        UserData.SetCurrentGroup(groupID);
 
         UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/add_user_to_group.php", form);
         yield return www.SendWebRequest();
