@@ -13,9 +13,10 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     private  GameObject _shelfChecker;
 
     public bool IsRawAnswersShelf = false;
+    public bool IsEnabled = true;
     public event Action<bool, Shelf> ClickShelf;
     private bool _isShelfFirstCompleted = false;
-    private List<AnswerSurface> _questionsShelved = new List<AnswerSurface>();
+    public List<AnswerSurface> _questionsShelved = new List<AnswerSurface>();
 
 
     public void AddAnswerToShelfByDrag(AnswerSurface transformChild, bool isToEnd = false)
@@ -45,6 +46,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
     public void AddAnswerToShelf(AnswerSurface transformChild)
     {
+        Debug.Log("AddAnswerToShelf");
         _questionsShelved.Add(transformChild);
         
         SetAnswersOnShelf();
@@ -57,10 +59,10 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
     private void SetAnswersOnShelf()
     {
-        if (!IsRawAnswersShelf || !_isShelfFirstCompleted)
+        //if (!IsRawAnswersShelf || !_isShelfFirstCompleted)
             SetAnswersOnAnswerShelf();
-        else
-            SetAnswersByBasePositoinShelf();
+        //else
+        //    SetAnswersByBasePositoinShelf();
     }
 
     private void SetAnswersByBasePositoinShelf()
@@ -125,7 +127,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
         {
             Vector3 startPoint = _shelfArea.position;
 
-            startPoint.x += 0.075f;
+            startPoint.x += 0.05f;
 
 
             startPoint.x -= _shelfArea.localScale.x / 2;
@@ -139,7 +141,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
                 countRows++;
                 widthRaw = 0;
                 startPoint = _shelfArea.position;
-                startPoint.x += 0.075f;
+                startPoint.x += 0.05f;
                 startPoint.x -= _shelfArea.localScale.x / 2;
                 startPoint.x += widthRaw;
                 widthRaw += item.transform.localScale.x + 0.05f;
@@ -186,6 +188,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
     public bool IsRightAnswersInShelf(Question question, int shelfIndex)
     {
+        //Debug.Log(_questionsShelved.Count);
         if (_questionsShelved.Count != question.GetCountRigthAnswersForRowIndex(shelfIndex))
             return false;
 

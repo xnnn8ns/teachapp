@@ -38,8 +38,9 @@ public class QuestionInitializer : MonoBehaviour
 
     private List<Shelf> _shelvesForCheck = new List<Shelf>();
     private Shelf _shelfRawAnswers;
+    private Shelf _shelfDefault;
 
-    
+
     private List<Question> _questionsCurrentLevel = new List<Question>();
     private List<GameObject> _answers = new List<GameObject>();
     private static int _currentQuestionIndex = 0;
@@ -52,10 +53,10 @@ public class QuestionInitializer : MonoBehaviour
 
     private void FillQuestionsForCurrentLevel()
     {
-        _scoreValue = PlayerPrefs.GetInt("AddedScore", 0);
+        _scoreValue = 0;
         _questionsCurrentLevel.Clear();
         _currentQuestionIndex = 0;
-        ButtonData buttonData = DataLoader.GetData(Settings.Current_Level);
+        ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_Level);
         int levelWithStars = Settings.Current_Level + buttonData.activeStarsCount;
         foreach (var question in Question.QuestionsList)
         {
@@ -68,6 +69,8 @@ public class QuestionInitializer : MonoBehaviour
     {
         return _answers;
     }
+
+    #region Init
 
     private void InitQuestion()
     {
@@ -155,6 +158,7 @@ public class QuestionInitializer : MonoBehaviour
         Debug.Log("_typeAudio Play");
     }
 
+
     private void FinishTypeTextCallBack()
     {
         _typeAudio?.Stop();
@@ -207,7 +211,10 @@ public class QuestionInitializer : MonoBehaviour
             //_answersMock.Add(mock);
         }
         _shelfRawAnswers.SetFirstAnswerForRawShelfCompleted();
+        StartCoroutine(SetOpenOnStartRightAnswer());
     }
+
+    #endregion
 
     private void SetAnswerDrag(GameObject answerPrefab, Answer answer, AnimationExecuter animationExecuter)
     {
@@ -260,12 +267,15 @@ public class QuestionInitializer : MonoBehaviour
         bool isInsideAnyShelf = false;
         foreach (Shelf shelf in _shelvesForCheck)
         {
-            if (shelf.IsAnswerInsideShelfBorders(answerSurface))
+            if (shelf.IsAnswerInsideShelfBorders(answerSurface) && shelf.IsEnabled)
             {
                 if (isClick)
                     _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
                 else
+                {
                     shelf.AddAnswerToShelfByDrag(answerSurface);
+                    _shelfDefault = shelf;
+                }
                 isInsideAnyShelf = true;
                 break;
             }
@@ -289,7 +299,16 @@ public class QuestionInitializer : MonoBehaviour
     {
         foreach (Shelf shelf in _shelvesForCheck)
         {
-            if (!shelf.GetIsShelfFull(answerSurface))
+            if (!shelf.GetIsShelfFull(answerSurface) && shelf.IsEnabled && shelf.Equals(_shelfDefault))
+            {
+                shelf.AddAnswerToShelfByDrag(answerSurface, true);
+                return;
+            }
+        }
+
+        foreach (Shelf shelf in _shelvesForCheck)
+        {
+            if (!shelf.GetIsShelfFull(answerSurface) && shelf.IsEnabled)
             {
                 shelf.AddAnswerToShelfByDrag(answerSurface, true);
                 break;
@@ -403,6 +422,41 @@ public class QuestionInitializer : MonoBehaviour
         StartCoroutine(SetRightAnswerOnScreen(isRight));
     }
 
+    private IEnumerator SetOpenOnStartRightAnswer()
+    {
+        if (_questionsCurrentLevel == null || _currentQuestionIndex >= _questionsCurrentLevel.Count)
+            yield break;
+
+        if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType != QuestionType.Shelf)
+            yield break;
+
+        for (int i = 0; i < _shelvesForCheck.Count; i++)
+        {
+            List<AnswerSurface> answerSurfacesUpdated = _shelvesForCheck[i].GetAnswerList();
+            List<AnswerSurface> answerSurfacesList = _shelfRawAnswers.GetAnswerList();
+            foreach (AnswerSurface answerSurface in answerSurfacesList)
+            {
+                if (answerSurface.GetAnswer().IsOpenOnStart && answerSurface.GetAnswer().PositionRowIndex == i)
+                {
+                    if (answerSurface.GetAnswer().PositionCellIndex >= answerSurfacesUpdated.Count)
+                        answerSurfacesUpdated.Add(answerSurface);
+                    else
+                        answerSurfacesUpdated.Insert(answerSurface.GetAnswer().PositionCellIndex, answerSurface);
+                }
+            }
+            if (answerSurfacesUpdated.Count > 0)
+            {
+                _shelvesForCheck[i].AddAnswerToShelfOnRightPlace(answerSurfacesUpdated);
+                foreach (var item in answerSurfacesUpdated)
+                {
+                    _shelfRawAnswers.RemoveAnswerFromShelf(item);
+                }
+                _shelvesForCheck[i].IsEnabled = false;
+            }
+        }
+        yield return new WaitForSeconds(0.25f);
+    }
+
     private IEnumerator SetRightAnswerOnScreen(bool isRight)
     {
         if (_questionsCurrentLevel == null || _currentQuestionIndex >= _questionsCurrentLevel.Count)
@@ -431,7 +485,7 @@ public class QuestionInitializer : MonoBehaviour
             for (int j = answerSurfacesListForRemove.Count - 1; j >= 0; j--)
             {
                 Answer answer = answerSurfacesListForRemove[j].GetAnswer();
-                if (!answer.IsRight || answer.PositionRowIndex != i || answer.PositionCellIndex != j)
+                if (!answer.IsOpenOnStart && (!answer.IsRight || answer.PositionRowIndex != i || answer.PositionCellIndex != j))
                 {
                     var movingAnswerSurface = answerSurfacesListForRemove[j];
                     RemoveAnswerFromShelf(answerSurfacesListForRemove[j]);
@@ -447,7 +501,7 @@ public class QuestionInitializer : MonoBehaviour
             List<AnswerSurface> answerSurfacesList = _shelfRawAnswers.GetAnswerList();
             foreach (AnswerSurface answerSurface in answerSurfacesList)
             {
-                if (answerSurface.GetAnswer().IsRight && answerSurface.GetAnswer().PositionRowIndex == i)
+                if (answerSurface.GetAnswer().IsRight && answerSurface.GetAnswer().PositionRowIndex == i && !answerSurface.GetAnswer().IsOpenOnStart)
                 {
                     if (answerSurface.GetAnswer().PositionCellIndex >= answerSurfacesUpdated.Count)
                         answerSurfacesUpdated.Add(answerSurface);
@@ -548,7 +602,9 @@ public class QuestionInitializer : MonoBehaviour
         if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
         {
             PlayerPrefs.SetInt("AddedScore", _scoreValue);
-            ButtonData buttonData = DataLoader.GetData(Settings.Current_Level);
+            int totalScore = UserData.Score + _scoreValue;
+            UserData.SetScore(totalScore);
+            ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_Level);
             buttonData.activeStarsCount++;
             bool isPassed = false;
             int currentLevel = Settings.Current_Level;
@@ -561,7 +617,9 @@ public class QuestionInitializer : MonoBehaviour
             DataLoader.SaveLevelResults(currentLevel, _scoreValue, !isPassed, isPassed, buttonData.activeStarsCount);
             if(isPassed)
                 DataLoader.SaveLevelResults(Settings.Current_Level, _scoreValue, true, false, 0);
-
+            Debug.Log("UpdateUser: " + UserData.Score);
+            if (UserData.UserID > 0)
+                StartCoroutine(ComonFunctions.Instance.UpdateUser(UserData.UserID, UserData.UserName, UserData.UserEmail, UserData.UserPassword, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID, UserData.Score));
             ActionLevelCompleted.Invoke();
         }
     }

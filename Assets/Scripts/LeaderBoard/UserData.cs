@@ -14,7 +14,9 @@ public class UserData : MonoBehaviour
     public static int UserAvatarID = 0;
     public static int IsByVK = 0;
     public static int VKID = 0;
-    public static int CurrentGroupID = 0;
+    public static int CurrentTeamID = 0;
+    public static string CurrentTeamName = "";
+    public static int CurrentTeamUserAdminID = 0;
     public static int Score = 0;
 
     public static void SetUserData(int userID, string userName, string userEmail, string userPassword, int userAvatarID, int isByVK, int vkID, int score)
@@ -46,8 +48,11 @@ public class UserData : MonoBehaviour
         UserAvatarID = PlayerPrefs.GetInt("UserAvatarID", 0);
         IsByVK = PlayerPrefs.GetInt("IsByVK", 0);
         VKID = PlayerPrefs.GetInt("VKID", 0);
-        CurrentGroupID = PlayerPrefs.GetInt("CurrentGroupID", 0);
+        CurrentTeamID = PlayerPrefs.GetInt("CurrentTeamID", 0);
+        CurrentTeamName = PlayerPrefs.GetString("CurrentTeamName", "");
+        CurrentTeamUserAdminID = PlayerPrefs.GetInt("CurrentTeamUserAdminID", 0);
         Score = PlayerPrefs.GetInt("Score", 0);
+        Debug.Log("1 Score: " + Score);
     }
 
     public static bool IsHaveLoginUserData()
@@ -58,9 +63,19 @@ public class UserData : MonoBehaviour
         return false;
     }
 
-    public static void SetCurrentGroup(int groupID)
+    public static void SetCurrentTeam(int teamID, string teamName, int userAdminID)
     {
-        CurrentGroupID = groupID;
-        PlayerPrefs.SetInt("CurrentGroupID", CurrentGroupID);
+        CurrentTeamID = teamID;
+        CurrentTeamName = teamName;
+        CurrentTeamUserAdminID = userAdminID;
+        PlayerPrefs.SetInt("CurrentTeamID", CurrentTeamID);
+        PlayerPrefs.SetString("CurrentTeamName", CurrentTeamName);
+        PlayerPrefs.SetInt("CurrentTeamUserAdminID", CurrentTeamUserAdminID);
+    }
+
+    public static void SetScore(int score)
+    {
+        Score = score;
+        PlayerPrefs.SetInt("Score", Score);
     }
 }

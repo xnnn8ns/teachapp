@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Networking;
-using ResponseUserInGroupJson;
+using ResponseUserInTeamJson;
 
 public class UserDataList
 {
@@ -23,30 +23,28 @@ public class LeaderboardData
 
 public class LeaderBoardScript : MonoBehaviour
 {
-    [SerializeField] private int id;
-    [SerializeField] private int score;
-    private bool buttonPressed = false;
-    [SerializeField] private List<GameObject> obj = new List<GameObject>();
-    [SerializeField] private GameObject leaderboardItemPrefab;
+    [SerializeField]
+    private List<GameObject> obj = new List<GameObject>();
+    [SerializeField]
+    private GameObject leaderboardItemPrefab;
 
-    private string TempCurrentUserName = "";
-
-    private string userName;
+    [SerializeField]
+    private TextMeshProUGUI teamNameText;
 
     void Start()
     {
-        if (UserData.CurrentGroupID == 0)
+        if (UserData.CurrentTeamID == 0)
             UpdateFakeLeaderboardData();
         else
-            StartCoroutine(GetUsersInGroup(UserData.CurrentGroupID));
+            StartCoroutine(GetUsersInTeam(UserData.CurrentTeamID));
     }
 
-    private IEnumerator GetUsersInGroup(int groupID)
+    private IEnumerator GetUsersInTeam(int teamID)
     {
         WWWForm form = new WWWForm();
-        form.AddField("groupID", groupID);
+        form.AddField("teamID", teamID);
 
-        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/get_user_list_in_group.php", form);
+        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/get_user_list_in_team.php", form);
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
@@ -56,7 +54,7 @@ public class LeaderBoardScript : MonoBehaviour
         else
         {
             Debug.Log(www.downloadHandler.text);
-            ResponseUserInGroup nativeResponse = ResponseUserInGroup.FromJson(www.downloadHandler.text);
+            ResponseUserInTeam nativeResponse = ResponseUserInTeam.FromJson(www.downloadHandler.text);
             if (nativeResponse != null && nativeResponse.ResponseCode == 1)
             {
                 if (nativeResponse.UserList != null && nativeResponse.UserList.Count > 0)
@@ -131,6 +129,8 @@ public class LeaderBoardScript : MonoBehaviour
                         obj.Add(leaderboardItem);
                         position++;
                     }
+
+                    teamNameText.text = UserData.CurrentTeamName;
                 }
             }
         }
@@ -222,8 +222,18 @@ public class LeaderBoardScript : MonoBehaviour
 
     public void SaveEnemyScore(int _id, int _score)
     {
-        string jsonFilePath = "/Resources/leaderboard.json";
-        string json = File.ReadAllText(Application.dataPath + jsonFilePath);
+        string jsonLeaderBoardPath = "/leaderboard.json";
+
+        if (!File.Exists(Application.persistentDataPath + jsonLeaderBoardPath))
+        {
+            FileStream fs = File.Create(Application.persistentDataPath + jsonLeaderBoardPath);
+            fs.Dispose();
+            TextAsset txt = (TextAsset)Resources.Load("leaderboard", typeof(TextAsset));
+            string jsonTemp = txt.text;
+            File.WriteAllText(Application.persistentDataPath + jsonLeaderBoardPath, jsonTemp);
+        }
+
+        string json = File.ReadAllText(Application.persistentDataPath + jsonLeaderBoardPath);
         List<LeaderboardData> LeaderboardDataList = new List<LeaderboardData>();
 
         LeaderboardDataList = JsonConvert.DeserializeObject<List<LeaderboardData>>(json);
@@ -238,7 +248,7 @@ public class LeaderBoardScript : MonoBehaviour
             leaderboardData.id = _id;
             json = JsonConvert.SerializeObject(LeaderboardDataList, Formatting.Indented);
 
-            File.WriteAllText(Application.dataPath + jsonFilePath, json);
+            File.WriteAllText(Application.persistentDataPath + jsonLeaderBoardPath, json);
         }
         else
         {

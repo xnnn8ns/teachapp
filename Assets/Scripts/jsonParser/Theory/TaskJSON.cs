@@ -1,23 +1,19 @@
-namespace ResponseUserInGroupJson
+namespace ResponseTaskJSON
 {
-    using System.Collections;
     using System.Collections.Generic;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
     using Newtonsoft.Json.Converters;
     using System.Globalization;
 
-    public partial class ResponseUserInGroup
+    public partial class TaskJSON : List<TaskJSONItem>
     {
-        [JsonProperty("response")]
-        public int ResponseCode { get; set; }
-        [JsonProperty("data")]
-        public List<ResponseUserInGroupItem> UserList { get; set; }
+        
     }
 
-    public partial class ResponseUserInGroup
+    public partial class TaskJSON
     {
-        public static ResponseUserInGroup FromJson(string json) => JsonConvert.DeserializeObject<ResponseUserInGroup>(json, ResponseUserInGroupJson.Converter.Settings);
+        public static TaskJSON FromJson(string json) => JsonConvert.DeserializeObject<TaskJSON>(json, ResponseTaskJSON.Converter.Settings);
     }
 
     internal static class Converter
@@ -41,4 +37,5 @@ namespace ResponseUserInGroupJson
             },
         };
     }
+
 }

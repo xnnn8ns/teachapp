@@ -49,12 +49,6 @@ namespace Mkey
             {
                 Instance = this;
             }
-
-            //GridLayoutGroup gridLayout = GetComponent<GridLayoutGroup>();
-            //if(gridLayout != null)
-            //{
-            //    gridLayout.cellSize = new Vector2(Screen.width, Screen.height);
-            //}
             
         }
 
@@ -146,7 +140,7 @@ namespace Mkey
             {
 
                 
-                ButtonData buttonData = DataLoader.GetData(i + 1);
+                ButtonData buttonData = DataLoader.GetLevelData(i + 1);
                 if (buttonData != null)
                 {
                     SetButtonActive(buttonData.id, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount);

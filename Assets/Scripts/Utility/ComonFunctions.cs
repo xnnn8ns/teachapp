@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using ResponseGroupJson;
+using ResponseTeamJson;
 using ResponseJson;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -125,12 +125,12 @@ public class ComonFunctions : MonoBehaviour
         return sprite;
     }
 
-    public IEnumerator GetUserGroupID(int userID)
+    public IEnumerator GetUserTeamID(int userID)
     {
         WWWForm form = new WWWForm();
         form.AddField("userID", userID);
         
-        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/get_user_group_id.php", form);
+        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/get_user_team_id.php", form);
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
@@ -139,17 +139,69 @@ public class ComonFunctions : MonoBehaviour
         }
         else
         {
+            Debug.Log(userID);
             Debug.Log(www.downloadHandler.text);
-            ResponseGroup nativeResponse = ResponseGroup.FromJson(www.downloadHandler.text);
+            ResponseTeam nativeResponse = ResponseTeam.FromJson(www.downloadHandler.text);
+            Debug.Log(nativeResponse);
             if (nativeResponse != null && nativeResponse.ResponseCode == 1)
             {
-                if (nativeResponse.GroupIDList != null && nativeResponse.GroupIDList.Count > 0)
+                if (nativeResponse.TeamIDList != null && nativeResponse.TeamIDList.Count > 0)
                 {
-                    UserData.SetCurrentGroup(nativeResponse.GroupIDList[0].GroupID);
-                    //UserData.CurrentGroupID = nativeResponse.GroupIDList[0];
-                    Debug.Log("Current group ID: " + UserData.CurrentGroupID);
+                    UserData.SetCurrentTeam(nativeResponse.TeamIDList[0].TeamID, nativeResponse.TeamIDList[0].TeamName, nativeResponse.TeamIDList[0].UserIDAdmin);
+                    Debug.Log("Team ID: " + UserData.CurrentTeamID);
+                    Debug.Log("Team ID: " + UserData.CurrentTeamName);
                 }
             }
         }
     }
+
+    public IEnumerator UpdateUser(int userID, string name, string email, string password, int avatarID, int isByVK, int VKID, int score)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("id", userID);
+        form.AddField("fullName", name);
+        form.AddField("userEmail", email);
+        form.AddField("password", password);
+        form.AddField("avatarID", avatarID);
+        form.AddField("isByVK", isByVK);
+        form.AddField("VKID", VKID);
+        form.AddField("score", score);
+
+        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/update_user.php", form);
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("Form upload complete!");
+            Debug.Log(www.downloadHandler.text);
+            UserData.SetUserData(userID, name, email, password, avatarID, isByVK, VKID, score);
+        }
+    }
+
+    //public IEnumerator AddUserToTeam(int userID, int teamID)
+    //{
+    //    Debug.Log("CreateNewUser: start");
+    //    WWWForm form = new WWWForm();
+    //    form.AddField("userID", userID);
+    //    form.AddField("teamID", teamID);
+
+    //    UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/add_user_to_team.php", form);
+    //    yield return www.SendWebRequest();
+
+    //    if (www.result != UnityWebRequest.Result.Success)
+    //    {
+    //        Debug.Log(www.error);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Form upload complete!");
+    //        ResponseCode nativeResponse = ResponseCode.FromJson(www.downloadHandler.text);
+    //        if (nativeResponse.ResponseCodeValue >= 1)
+    //            SceneManager.LoadScene(0);
+    //    }
+    //}
 }

@@ -38,9 +38,14 @@ namespace Mkey
             if (active)
                 MapController.Instance.ActiveButton = this;
 
-            if(Lock) Lock.SetActive(!isPassed && !active);
+            if (Lock)
+            {
+                Lock.SetActive(!isPassed && !active);
+                
+            }
             
             if(LockText) LockText.SetActive(active || isPassed);
+            numberText.gameObject.SetActive(active || isPassed);
         }
     }
 }

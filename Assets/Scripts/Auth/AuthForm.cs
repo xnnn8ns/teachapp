@@ -97,7 +97,7 @@ public class AuthForm : MonoBehaviour
             if (UserData.UserID == 0)
                 StartCoroutine(CreateNewUser(name, email, password, 0, 0, 0, UserData.Score));
             else
-                StartCoroutine(UpdateUser(UserData.UserID, name, email, password, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID, UserData.Score));
+                StartCoroutine(ComonFunctions.Instance.UpdateUser(UserData.UserID, name, email, password, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID, UserData.Score));
         }
         yield break;
     }
@@ -159,32 +159,32 @@ public class AuthForm : MonoBehaviour
         }
     }
 
-    private IEnumerator UpdateUser(int userID, string name, string email, string password, int avatarID, int isByVK, int VKID, int score)
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("id", userID);
-        form.AddField("fullName", name);
-        form.AddField("userEmail", email);
-        form.AddField("password", password);
-        form.AddField("avatarID", avatarID);
-        form.AddField("isByVK", isByVK);
-        form.AddField("VKID", VKID);
-        form.AddField("score", score);
+    //private IEnumerator UpdateUser(int userID, string name, string email, string password, int avatarID, int isByVK, int VKID, int score)
+    //{
+    //    WWWForm form = new WWWForm();
+    //    form.AddField("id", userID);
+    //    form.AddField("fullName", name);
+    //    form.AddField("userEmail", email);
+    //    form.AddField("password", password);
+    //    form.AddField("avatarID", avatarID);
+    //    form.AddField("isByVK", isByVK);
+    //    form.AddField("VKID", VKID);
+    //    form.AddField("score", score);
 
-        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/update_user.php", form);
-        yield return www.SendWebRequest();
+    //    UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/update_user.php", form);
+    //    yield return www.SendWebRequest();
 
-        if (www.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            Debug.Log("Form upload complete!");
-            Debug.Log(www.downloadHandler.text);
-            UserData.SetUserData(userID, name, email, password, avatarID, isByVK, VKID, score);
-        }
-    }
+    //    if (www.result != UnityWebRequest.Result.Success)
+    //    {
+    //        Debug.Log(www.error);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Form upload complete!");
+    //        Debug.Log(www.downloadHandler.text);
+    //        UserData.SetUserData(userID, name, email, password, avatarID, isByVK, VKID, score);
+    //    }
+    //}
 
     private IEnumerator LoginUser(string email, string password)
     {
@@ -213,7 +213,7 @@ public class AuthForm : MonoBehaviour
                     nativeResponse.ResponseAuth[0].IsByVK,
                     nativeResponse.ResponseAuth[0].VKID,
                     nativeResponse.ResponseAuth[0].Score);
-                StartCoroutine(ComonFunctions.Instance.GetUserGroupID(nativeResponse.ResponseAuth[0].UserID));
+                StartCoroutine(ComonFunctions.Instance.GetUserTeamID(nativeResponse.ResponseAuth[0].UserID));
                 SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
             }
 

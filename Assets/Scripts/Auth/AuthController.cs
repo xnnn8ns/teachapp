@@ -238,7 +238,7 @@ public class AuthController : MonoBehaviour
                 {
                     UserData.UserID = resultID;
                     UserData.SetUserData(UserData.UserID, name, email, password, avatarID, isByVK, VKID, score);
-                    StartCoroutine(ComonFunctions.Instance.GetUserGroupID(UserData.UserID));
+                    StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
 
                     SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
                 }
@@ -255,7 +255,7 @@ public class AuthController : MonoBehaviour
                         nativeResponse.ResponseAuth[0].IsByVK,
                         nativeResponse.ResponseAuth[0].VKID,
                         nativeResponse.ResponseAuth[0].Score);
-                    StartCoroutine(ComonFunctions.Instance.GetUserGroupID(UserData.UserID));
+                    StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
                     SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
                 }
             }

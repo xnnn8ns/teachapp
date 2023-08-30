@@ -45,4 +45,10 @@ public class BottomMenuScript : MonoBehaviour
 
         _scenes[numberScenes].SetActive(true);
     }
+
+    public void JoinTeamButtonClick()
+    {
+        SceneManager.LoadScene("SelectTeam", LoadSceneMode.Additive);
+    }
+
 }

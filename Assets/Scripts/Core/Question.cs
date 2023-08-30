@@ -32,7 +32,7 @@ public abstract class Question : Information
         int count = 0;
         foreach (var item in _answerList)
         {
-            if (item.PositionRowIndex == rowIndex && item.IsRight)
+            if ((item.PositionRowIndex == rowIndex || !item.IsPositionRowDependent ) && item.IsRight)
                 count++;
         }
         return count;

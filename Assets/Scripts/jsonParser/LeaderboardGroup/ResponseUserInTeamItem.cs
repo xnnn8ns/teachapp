@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-public class ResponseUserInGroupItem
+public class ResponseUserInTeamItem
 {
     [JsonProperty("UserID")]
     public int UserID { get; set; }

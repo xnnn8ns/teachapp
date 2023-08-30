@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AuthScenese/LoginRegForm.unity
     guid: 493e9dd8a0ba244bb880cf5ad6ceffaa
+  - enabled: 1
+    path: Assets/Scenes/LeaderBoardScenes/SelectTeam.unity
+    guid: 259d3611f246d4ad1be5a24c782f53ec
   m_configObjects: {}

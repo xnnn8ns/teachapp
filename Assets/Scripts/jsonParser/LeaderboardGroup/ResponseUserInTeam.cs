@@ -1,4 +1,4 @@
-namespace ResponseGroupJson
+namespace ResponseUserInTeamJson
 {
     using System.Collections;
     using System.Collections.Generic;
@@ -7,17 +7,17 @@ namespace ResponseGroupJson
     using Newtonsoft.Json.Converters;
     using System.Globalization;
 
-    public partial class ResponseGroup
+    public partial class ResponseUserInTeam
     {
         [JsonProperty("response")]
         public int ResponseCode { get; set; }
         [JsonProperty("data")]
-        public List<ResponseGroupItem> GroupIDList { get; set; }
+        public List<ResponseUserInTeamItem> UserList { get; set; }
     }
 
-    public partial class ResponseGroup
+    public partial class ResponseUserInTeam
     {
-        public static ResponseGroup FromJson(string json) => JsonConvert.DeserializeObject<ResponseGroup>(json, ResponseGroupJson.Converter.Settings);
+        public static ResponseUserInTeam FromJson(string json) => JsonConvert.DeserializeObject<ResponseUserInTeam>(json, ResponseUserInTeamJson.Converter.Settings);
     }
 
     internal static class Converter

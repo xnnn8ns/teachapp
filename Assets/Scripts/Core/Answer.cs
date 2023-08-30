@@ -4,9 +4,23 @@ public class Answer: Information
 {
     private bool _isRight = false;
     private int _score = 0;
-    private bool _isPositionDependent = false;
+    private bool _isPositionRowDependent = false;
+    private bool _isPositionCellDependent = false;
     private int _positionRowIndex = 0;
     private int _positionCellIndex = 0;
+    private bool _isOpenOnStart = false;
+
+    public bool IsOpenOnStart
+    {
+        get
+        {
+            return _isOpenOnStart;
+        }
+        set
+        {
+            _isOpenOnStart = value;
+        }
+    }
 
     public bool IsRight
     {
@@ -32,15 +46,27 @@ public class Answer: Information
         }
     }
 
-    public bool IsPositionDependent
+    public bool IsPositionRowDependent
     {
         get
         {
-            return _isPositionDependent;
+            return _isPositionRowDependent;
         }
         set
         {
-            _isPositionDependent = value;
+            _isPositionRowDependent = value;
+        }
+    }
+
+    public bool IsPositionCellDependent
+    {
+        get
+        {
+            return _isPositionCellDependent;
+        }
+        set
+        {
+            _isPositionCellDependent = value;
         }
     }
 
@@ -70,12 +96,12 @@ public class Answer: Information
 
     public bool IsRightInputValuesForShelf(int rowIndex, int cellIndex)
     {
-        if (!_isPositionDependent)
+        if (!_isPositionRowDependent && !_isPositionCellDependent)
             return _isRight;
         else
             return _isRight
-                && rowIndex == _positionRowIndex
-                && cellIndex == _positionCellIndex;
+                && (rowIndex == _positionRowIndex || !_isPositionRowDependent) 
+                && (cellIndex == _positionCellIndex || !_isPositionCellDependent);
     }
 
     public bool IsRightInputValuesForTest(bool checkValue)

@@ -116,7 +116,8 @@ public class TransformPhisics : MonoBehaviour
         if (_answersInTouchArea.Count == 0)
             return null;
 
-        Transform closestToCameraTransform = _answersInTouchArea[0].transform;
+        int indexAnswer = 0;
+        Transform closestToCameraTransform = _answersInTouchArea[indexAnswer].transform;
         if (_answersInTouchArea.Count > 1) {
             float distanceMin = Vector3.Distance(Camera.main.transform.position, closestToCameraTransform.position);
             for (int i = 1; i < _answersInTouchArea.Count; i++)
@@ -124,12 +125,15 @@ public class TransformPhisics : MonoBehaviour
                 float distanceCurrent = Vector3.Distance(Camera.main.transform.position, _answersInTouchArea[i].transform.position);
                 if (distanceCurrent < distanceMin)
                 {
+                    indexAnswer = i;
                     distanceMin = distanceCurrent;
-                    closestToCameraTransform = _answersInTouchArea[i].transform;
+                    closestToCameraTransform = _answersInTouchArea[indexAnswer].transform;
                 }
             }
         }
-
+        if (_answersInTouchArea[indexAnswer].GetComponent<AnswerSurface>().GetAnswer().IsOpenOnStart)
+            return null;
+        
         return closestToCameraTransform;
     }
 

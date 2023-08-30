@@ -1,35 +1,35 @@
 [
   {
     "id": 1,
-    "score": 140,
-    "isActive": false,
-    "activeStarsCount": 3,
-    "isPassed": true
+    "score": 50,
+    "isActive": true,
+    "activeStarsCount": 0,
+    "isPassed": false
   },
   {
     "id": 2,
-    "score": 200,
-    "isActive": true,
-    "activeStarsCount": 2,
+    "score": 50,
+    "isActive": false,
+    "activeStarsCount": 0,
     "isPassed": false
   },
   {
     "id": 3,
-    "score": 390,
+    "score": 0,
     "isActive": false,
     "activeStarsCount": 0,
     "isPassed": false
   },
   {
     "id": 4,
-    "score": 400,
+    "score": 0,
     "isActive": false,
     "activeStarsCount": 0,
     "isPassed": false
   },
   {
     "id": 5,
-    "score": 400,
+    "score": 0,
     "isActive": false,
     "activeStarsCount": 0,
     "isPassed": false

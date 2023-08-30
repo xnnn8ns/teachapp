@@ -130,7 +130,6 @@ namespace Mkey
 
         public void ClickLevelHeadButton()
         {
-            Debug.Log("Click Theory " + ID.ToString());
             Settings.Current_Theme = ID;
             SceneManager.LoadScene("TypeTextScene", LoadSceneMode.Single);
         }

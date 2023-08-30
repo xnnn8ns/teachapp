@@ -30,9 +30,9 @@ public class ProcessDeepLinkManager : MonoBehaviour
     {
         //Debug.Log(url);
         //deeplinkURL = url;
-        string group = url.Split('?')[1];
+        string team = url.Split('?')[1];
         //Debug.Log("Group: " + group);
-        OpenShareLink(group);
+        OpenShareLink(team);
     }
 
     private void OpenShareLink(string obj)
@@ -40,26 +40,25 @@ public class ProcessDeepLinkManager : MonoBehaviour
         //string uid = obj.Split("="[0])[1];
         if (int.TryParse(obj, out int result))
         {
-            PlayerPrefs.SetInt("CurrentGroupID", result);
+            PlayerPrefs.SetInt("CurrentTeamID", result);
             UserData.LoadUserData();
             //Debug.Log("UserID: " + UserData.UserID);
             if (UserData.UserID > 0)
             {
-                StartCoroutine(AddUserToGroup(UserData.UserID, result));
+                StartCoroutine(AddUserToTeam(UserData.UserID, result));
             }
         }
         
     }
 
-    private IEnumerator AddUserToGroup(int userID, int groupID)
+    private IEnumerator AddUserToTeam(int userID, int teamID)
     {
         Debug.Log("CreateNewUser: start");
         WWWForm form = new WWWForm();
         form.AddField("userID", userID);
-        form.AddField("groupID", groupID);
-        UserData.SetCurrentGroup(groupID);
+        form.AddField("teamID", teamID);
 
-        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/add_user_to_group.php", form);
+        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/add_user_to_team.php", form);
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
