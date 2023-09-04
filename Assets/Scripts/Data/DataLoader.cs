@@ -232,7 +232,7 @@ public class DataLoader : MonoBehaviour
         }
         UserData.LoadUserData();
         SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
-        if(UserData.UserID > 0)
+        if(UserData.UserID != "")
             StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
     }
 

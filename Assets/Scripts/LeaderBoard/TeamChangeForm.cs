@@ -94,7 +94,7 @@ public class TeamChangeForm : MonoBehaviour
     }
 
 
-    private IEnumerator AddUserToTeam(int userID, int teamID)
+    private IEnumerator AddUserToTeam(string userID, int teamID)
     {
         WWWForm form = new WWWForm();
         form.AddField("userID", userID);

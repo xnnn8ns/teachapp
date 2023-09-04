@@ -98,11 +98,14 @@ public class ComonFunctions : MonoBehaviour
         if (avatarID == 0)
         {
             if (isByVK == 0)
-                imageAvatar.sprite = null;
+            {
+                imageAvatar.sprite = Resources.Load<Sprite>("Avatars/1");
+                //imageAvatar.sprite = null;
+            }
             else
             {
                 Sprite sprite = GetSpriteFromResourceByVKID(VKID);
-                if(sprite)
+                if (sprite)
                     imageAvatar.sprite = sprite;
             }
             return;
@@ -125,7 +128,7 @@ public class ComonFunctions : MonoBehaviour
         return sprite;
     }
 
-    public IEnumerator GetUserTeamID(int userID)
+    public IEnumerator GetUserTeamID(string userID)
     {
         WWWForm form = new WWWForm();
         form.AddField("userID", userID);
@@ -155,7 +158,7 @@ public class ComonFunctions : MonoBehaviour
         }
     }
 
-    public IEnumerator UpdateUser(int userID, string name, string email, string password, int avatarID, int isByVK, int VKID, int score)
+    public IEnumerator UpdateUser(string userID, string name, string email, string password, int avatarID, int isByVK, int VKID, int score)
     {
         WWWForm form = new WWWForm();
         form.AddField("id", userID);

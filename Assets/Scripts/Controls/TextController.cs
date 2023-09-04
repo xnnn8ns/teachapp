@@ -39,9 +39,11 @@ public class TextController : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(GetDataFromAPI(Settings.Current_Theme+1));
+        //StartCoroutine(GetDataFromAPI(Settings.Current_Theme+1));
         //ShowWebView();
-        //InitTextTypeTest();
+        InitTextTypeTest();
+        //StartCoroutine(GetDataFromAPIOld());
+        //GetFromJSON();
     }
 
     private void InitTextType()
@@ -53,8 +55,8 @@ public class TextController : MonoBehaviour
             //string strFull = _theories[indexCurrentTheory].GetTextList()[indexCurrentText].ToString();
         string strFull = _theoriesString[indexCurrentTheory];
 
-        //textCurrentForType.StartType(strFull, NextType);
-            textCurrentForType.GetComponentInChildren<Text>().text = strFull;
+        textCurrentForType.ShowFullText(strFull, NextType);
+            //textCurrentForType.GetComponentInChildren<Text>().text = strFull;
         //}
         //catch (Exception ex)
         //{
@@ -80,15 +82,18 @@ public class TextController : MonoBehaviour
     private void InitTextTypeTest()
     {
         GameObject newTextItem = Instantiate(textItemPrefab, scrollParent);
-        //TextAnimation _textCurrentForType = newTextItem.GetComponentInChildren<TextAnimation>();
+        TextAnimation _textCurrentForType = newTextItem.GetComponentInChildren<TextAnimation>();
         //string strType = "Some text here " + indexCurrentText.ToString();
+        string strType = Resources.Load<TextAsset>("HTML_Theory/th_2").text.ToString();
+        string testText = @"This is some <b><size=50><color=#ff0000ff>Text</color></size></b>";
+        string strNew = @strType;
         //string strType = _theoriesString[indexCurrentTheory];
-        //Debug.Log(indexCurrentTheory);
+        Debug.Log(strNew);
         //string strFull = "";
         //for (int i = 0; i < 3; i++)
         //    strFull += strType + ", ";
-
-        //_textCurrentForType.StartType(strType, NextType);
+        //_textType.text = strType;
+        _textCurrentForType.ShowFullText(strNew, NextType);
     }
 
     //private IEnumerator StartInitTextType()
@@ -128,7 +133,7 @@ public class TextController : MonoBehaviour
     private void GetFromJSON()
     {
         string strJSON = "";
-        strJSON = Resources.Load<TextAsset>("TA_data_theory").text;
+        strJSON = Resources.Load<TextAsset>("HTML_Theory/th_1").text;
         RawDataTheory treoryFromJSON = null;
         try
         {
@@ -153,7 +158,7 @@ public class TextController : MonoBehaviour
 
     private void AddTestText()
     {
-        string testText = "This is some <b><size=50><color=#ff0000ff>Text</color></size></b>";
+        string testText = @"This is some <b><size=50><color=#ff0000ff>Text</color></size></b>";
         Theory theory = new Theory();
         theory.Title = "Test";
         List<string> texts = new List<string>();
@@ -237,7 +242,7 @@ public class TextController : MonoBehaviour
                 }
             }
         }
-        ShowWebView(content);
+        //ShowWebView(content);
     }
 
     private IEnumerator GetDataFromAPIOld()
@@ -274,7 +279,7 @@ public class TextController : MonoBehaviour
                     Debug.Log(_theoriesString.Count);
                 }
 
-                //InitTextTypeTest();
+                InitTextTypeTest();
             }
         }
     }

@@ -32,6 +32,14 @@ public class TextAnimation : MonoBehaviour
         _coroutineType = StartCoroutine(TypeText());
     }
 
+    public void ShowFullText(string text, Action result)
+    {
+        _textCash = text;
+        _resultCurrentType = result;
+        _textType.text = text;
+        //_coroutineType = StartCoroutine(TypeText());
+    }
+
     private IEnumerator TypeText()
     {
         foreach (char c in _textCash)

@@ -31,14 +31,14 @@ public class AuthController : MonoBehaviour
         webViewGameObject.SetActive(true);
         gameObject.SetActive(true);
 
-        webView = CreateUniWebView();
+        //webView = CreateUniWebView();
 
-        webView.CleanCache();
+        //webView.CleanCache();
 
         webView.Load("http://sg12ngec.beget.tech/auth/auth.html", true);
 
             webView.SetShowToolbar(
-                true,  // Show or hide?         true  = show
+                false,  // Show or hide?         true  = show
                 false, // With animation?       false = no animation
                 false,  // Is it on top?         true  = top
                 false  // Should adjust insets? true  = avoid overlapping to web view
@@ -66,19 +66,19 @@ public class AuthController : MonoBehaviour
 
     private UniWebView CreateUniWebView()
     {
-        if (webView == null)
-        {
-            webView = webViewGameObject.AddComponent<UniWebView>();
-            webView.Frame = new Rect(0, 0, Screen.width, Screen.height);
-            webView.SetSupportMultipleWindows(true);
-            webView.SetAllowBackForwardNavigationGestures(true);
-            webView.SetBackButtonEnabled(true);
-            webView.SetZoomEnabled(true);
-            webView.SetToolbarDoneButtonText(LangAsset.GetValueByKey("Close"));
-            webView.SetToolbarGoBackButtonText(LangAsset.GetValueByKey("Back"));
-            webView.SetToolbarGoForwardButtonText(LangAsset.GetValueByKey("Forward"));
-            webView.OnMessageReceived += (view, message) => RecieveMessage(view, message);
-        }
+        //if (webView == null)
+        //{
+            //webView = webViewGameObject.AddComponent<UniWebView>();
+            //webView.Frame = new Rect(0, 0, Screen.width, Screen.height);
+            //webView.SetSupportMultipleWindows(true);
+            //webView.SetAllowBackForwardNavigationGestures(true);
+            //webView.SetBackButtonEnabled(true);
+            //webView.SetZoomEnabled(true);
+            //webView.SetToolbarDoneButtonText(LangAsset.GetValueByKey("Close"));
+            //webView.SetToolbarGoBackButtonText(LangAsset.GetValueByKey("Back"));
+            //webView.SetToolbarGoForwardButtonText(LangAsset.GetValueByKey("Forward"));
+            //webView.OnMessageReceived += (view, message) => RecieveMessage(view, message);
+        //}
 
         return webView;
     }
@@ -128,12 +128,12 @@ public class AuthController : MonoBehaviour
     {
         if (webViewGameObject)
         {
-            webView.SetShowToolbar(
-                false,  // Show or hide?         true  = show
-                false, // With animation?       false = no animation
-                true,  // Is it on top?         true  = top
-                false  // Should adjust insets? true  = avoid overlapping to web view
-            );
+            //webView.SetShowToolbar(
+            //    false,  // Show or hide?         true  = show
+            //    false, // With animation?       false = no animation
+            //    true,  // Is it on top?         true  = top
+            //    false  // Should adjust insets? true  = avoid overlapping to web view
+            //);
             webViewGameObject?.SetActive(false);
             //gameObject?.SetActive(false);
             webView.gameObject.SetActive(false);
@@ -166,7 +166,7 @@ public class AuthController : MonoBehaviour
                         fullName += " ";
                     fullName += vkResponse.ResponseList[0].UserLastName;
                 }
-                UserData.SetUserData(0, fullName, "", "", 0, 1, int.Parse(vkResponse.ResponseList[0].UserID), UserData.Score);
+                UserData.SetUserData("", fullName, "", "", 0, 1, int.Parse(vkResponse.ResponseList[0].UserID), UserData.Score);
                 StartCoroutine(LogByVK(fullName, "", "", 0, UserData.IsByVK, UserData.VKID, UserData.Score));
                 StartCoroutine(ComonFunctions.Instance.GetIconFromURLByUserID(vkResponse.ResponseList[0].UserID, vkResponse.ResponseList[0].UserPhoto, imagePerson));
             }
@@ -236,7 +236,7 @@ public class AuthController : MonoBehaviour
             {
                 if (int.TryParse(response.ResponseData, out int resultID))
                 {
-                    UserData.UserID = resultID;
+                    UserData.UserID = resultID.ToString();
                     UserData.SetUserData(UserData.UserID, name, email, password, avatarID, isByVK, VKID, score);
                     StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
 
@@ -247,7 +247,7 @@ public class AuthController : MonoBehaviour
                 NativeResponseAuth nativeResponse = NativeResponseAuth.FromJson(www.downloadHandler.text);
                 if (nativeResponse != null)
                 {
-                    UserData.SetUserData(nativeResponse.ResponseAuth[0].UserID,
+                    UserData.SetUserData(nativeResponse.ResponseAuth[0].UserID.ToString(),
                         nativeResponse.ResponseAuth[0].UserFullName,
                         nativeResponse.ResponseAuth[0].UserEmail,
                         nativeResponse.ResponseAuth[0].UserPassword,

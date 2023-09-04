@@ -16,7 +16,7 @@ public class UserDataList
 
 public class LeaderboardData
 {
-    public int id;
+    public string id;
     public string name;
     public int score;
 }
@@ -160,8 +160,10 @@ public class LeaderBoardScript : MonoBehaviour
                 name = UserData.UserName,
                 score = 0// userData.score
             };
-
+            //Debug.Log("UpdateFakeLeaderboardData 1");
+            Debug.Log(leaderboardData.Count);
             leaderboardData.Add(userLeaderboardData);
+            Debug.Log(leaderboardData.Count);
             //}
             //else
             //{
@@ -220,7 +222,7 @@ public class LeaderBoardScript : MonoBehaviour
         }
     }
 
-    public void SaveEnemyScore(int _id, int _score)
+    private void SaveEnemyScore(string _id, int _score)
     {
         string jsonLeaderBoardPath = "/leaderboard.json";
 

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using AuthJson;
+using AuthJsonNew;
 using ResponseJson;
 using TMPro;
 using UnityEngine;
@@ -94,7 +96,7 @@ public class AuthForm : MonoBehaviour
             StartCoroutine(LoginUser(email, password));
         else
         {
-            if (UserData.UserID == 0)
+            if (UserData.UserID == "")
                 StartCoroutine(CreateNewUser(name, email, password, 0, 0, 0, UserData.Score));
             else
                 StartCoroutine(ComonFunctions.Instance.UpdateUser(UserData.UserID, name, email, password, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID, UserData.Score));
@@ -125,6 +127,66 @@ public class AuthForm : MonoBehaviour
 
     private IEnumerator CreateNewUser(string name, string email, string password, int avatarID, int isByVK, int VKID, int score)
     {
+        Dictionary<string, string> headers = new Dictionary<string, string>();
+        headers.Add("accept", "application/ld+json");
+        headers.Add("Content-Type", "application/ld+json");
+
+        //WWWForm form = new WWWForm();
+        
+        //form.AddField("login", name);
+        //form.AddField("plainPassword", email);
+        //form.headers.Add("accept", "application/ld+json");
+        //form.headers.Add("Content-Type", "application/ld+json");
+
+
+        //form.AddField("password", password);
+        //form.AddField("avatarID", avatarID);
+        //form.AddField("isByVK", isByVK);
+        //form.AddField("VKID", VKID);
+        //form.AddField("score", score);
+        string strPass = "";
+        AuthPost auth = new AuthPost();
+        auth.login = email;
+        auth.plainPassword = password;
+        strPass = JsonUtility.ToJson(auth);
+
+        var body = Encoding.UTF8.GetBytes(strPass);
+
+        UnityWebRequest www = UnityWebRequest.Put("https://teach-app.pyatnitsev.ru/api/users/create", body);
+        
+        www.SetRequestHeader("Accept", "application/ld+json");
+        www.SetRequestHeader("Content-Type", "application/ld+json");
+        www.method = "POST";
+
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("Form upload complete!");
+            ResponseAuthNew nativeResponse = ResponseAuthNew.FromJson(www.downloadHandler.text);
+            Debug.Log(www.downloadHandler.text);
+            if (nativeResponse != null)
+            {
+                //if (int.TryParse(nativeResponse.UserID, out int resultID))
+                //{
+
+                UserData.UserID = nativeResponse.UserID;
+                //Debug.Log(UserData.UserID);
+                UserData.SetUserData(UserData.UserID, name, email, password, avatarID, isByVK, VKID, score);
+                CloseAuthScenes();
+                SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
+                //}
+            }
+
+        }
+    }
+
+    private IEnumerator CreateNewUserOld(string name, string email, string password, int avatarID, int isByVK, int VKID, int score)
+    {
         WWWForm form = new WWWForm();
         form.AddField("fullName", name);
         form.AddField("userEmail", email);
@@ -135,6 +197,7 @@ public class AuthForm : MonoBehaviour
         form.AddField("score", score);
 
         UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/insert_user.php", form);
+
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
@@ -149,7 +212,7 @@ public class AuthForm : MonoBehaviour
             {
                 if (int.TryParse(nativeResponse.ResponseData, out int resultID))
                 {
-                    UserData.UserID = resultID;
+                    UserData.UserID = resultID.ToString(); ;
                     UserData.SetUserData(UserData.UserID, name, email, password, avatarID, isByVK, VKID, score);
                     CloseAuthScenes();
                     SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
@@ -188,11 +251,30 @@ public class AuthForm : MonoBehaviour
 
     private IEnumerator LoginUser(string email, string password)
     {
-        WWWForm form = new WWWForm();
-        form.AddField("userEmail", email);
-        form.AddField("password", password);
+        Dictionary<string, string> headers = new Dictionary<string, string>();
+        headers.Add("accept", "application/ld+json");
+        headers.Add("Content-Type", "application/ld+json");
 
-        UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/login_user.php", form);
+        //WWWForm form = new WWWForm();
+        //form.AddField("userEmail", email);
+        //form.AddField("password", password);
+
+        //UnityWebRequest www = UnityWebRequest.Post("http://sg12ngec.beget.tech/auth/login_user.php", form);
+
+        string strPass = "";
+        LoginPost login = new LoginPost();
+        login.login = email;
+        login.password = password;
+        strPass = JsonUtility.ToJson(login);
+
+        var body = Encoding.UTF8.GetBytes(strPass);
+
+        UnityWebRequest www = UnityWebRequest.Put("https://teach-app.pyatnitsev.ru/api/login", body);
+
+        www.SetRequestHeader("Accept", "application/json");
+        www.SetRequestHeader("Content-Type", "application/json");
+        www.method = "POST";
+
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
@@ -202,18 +284,11 @@ public class AuthForm : MonoBehaviour
         else
         {
             Debug.Log(www.downloadHandler.text);
-            NativeResponseAuth nativeResponse = NativeResponseAuth.FromJson(www.downloadHandler.text);
-            if (nativeResponse != null && nativeResponse.ResponseCode == 1)
+            ResponseAuthNew nativeResponse = ResponseAuthNew.FromJson(www.downloadHandler.text);
+            if (nativeResponse != null)
             {
-                UserData.SetUserData(nativeResponse.ResponseAuth[0].UserID,
-                    nativeResponse.ResponseAuth[0].UserFullName,
-                    nativeResponse.ResponseAuth[0].UserEmail,
-                    nativeResponse.ResponseAuth[0].UserPassword,
-                    nativeResponse.ResponseAuth[0].UserAvatarID,
-                    nativeResponse.ResponseAuth[0].IsByVK,
-                    nativeResponse.ResponseAuth[0].VKID,
-                    nativeResponse.ResponseAuth[0].Score);
-                StartCoroutine(ComonFunctions.Instance.GetUserTeamID(nativeResponse.ResponseAuth[0].UserID));
+                UserData.SetToken(nativeResponse.Token);
+                StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID.ToString()));
                 SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
             }
 
@@ -248,7 +323,7 @@ public class AuthForm : MonoBehaviour
 
     public void ClickLogOut()
     {
-        UserData.SetUserData(0,
+        UserData.SetUserData("",
                    "",
                    "",
                    "",

@@ -618,7 +618,7 @@ public class QuestionInitializer : MonoBehaviour
             if(isPassed)
                 DataLoader.SaveLevelResults(Settings.Current_Level, _scoreValue, true, false, 0);
             Debug.Log("UpdateUser: " + UserData.Score);
-            if (UserData.UserID > 0)
+            if (UserData.UserID != "")
                 StartCoroutine(ComonFunctions.Instance.UpdateUser(UserData.UserID, UserData.UserName, UserData.UserEmail, UserData.UserPassword, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID, UserData.Score));
             ActionLevelCompleted.Invoke();
         }

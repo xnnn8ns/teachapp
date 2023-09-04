@@ -43,7 +43,7 @@ public class ProcessDeepLinkManager : MonoBehaviour
             PlayerPrefs.SetInt("CurrentTeamID", result);
             UserData.LoadUserData();
             //Debug.Log("UserID: " + UserData.UserID);
-            if (UserData.UserID > 0)
+            if (UserData.UserID != "")
             {
                 StartCoroutine(AddUserToTeam(UserData.UserID, result));
             }
@@ -51,7 +51,7 @@ public class ProcessDeepLinkManager : MonoBehaviour
         
     }
 
-    private IEnumerator AddUserToTeam(int userID, int teamID)
+    private IEnumerator AddUserToTeam(string userID, int teamID)
     {
         Debug.Log("CreateNewUser: start");
         WWWForm form = new WWWForm();

@@ -7,7 +7,7 @@ using TMPro;
 
 public class UserData : MonoBehaviour
 {
-    public static int UserID = 0;
+    public static string UserID = "";
     public static string UserName = "";
     public static string UserEmail = "";
     public static string UserPassword = "";
@@ -18,8 +18,15 @@ public class UserData : MonoBehaviour
     public static string CurrentTeamName = "";
     public static int CurrentTeamUserAdminID = 0;
     public static int Score = 0;
+    public static string Token = "";
 
-    public static void SetUserData(int userID, string userName, string userEmail, string userPassword, int userAvatarID, int isByVK, int vkID, int score)
+    public static void SetToken(string token)
+    {
+        Token = token;
+        PlayerPrefs.SetString("Token", Token);
+    }
+
+    public static void SetUserData(string userID, string userName, string userEmail, string userPassword, int userAvatarID, int isByVK, int vkID, int score)
     {
         UserID = userID;
         UserName = userName;
@@ -29,7 +36,7 @@ public class UserData : MonoBehaviour
         IsByVK = isByVK;
         VKID = vkID;
         Score = score;
-        PlayerPrefs.SetInt("UserID", UserID);
+        PlayerPrefs.SetString("UserID", UserID);
         PlayerPrefs.SetString("UserName", UserName);
         PlayerPrefs.SetString("UserEmail", UserEmail);
         PlayerPrefs.SetString("UserPassword", UserPassword);
@@ -41,7 +48,7 @@ public class UserData : MonoBehaviour
 
     public static void LoadUserData()
     {
-        UserID = PlayerPrefs.GetInt("UserID", 0);
+        UserID = PlayerPrefs.GetString("UserID", "");
         UserName = PlayerPrefs.GetString("UserName", "");
         UserEmail = PlayerPrefs.GetString("UserEmail", "");
         UserPassword = PlayerPrefs.GetString("UserPassword", "");
@@ -58,7 +65,7 @@ public class UserData : MonoBehaviour
     public static bool IsHaveLoginUserData()
     {
         LoadUserData();
-        if (UserID > 0)
+        if (UserID != "")
             return true;
         return false;
     }

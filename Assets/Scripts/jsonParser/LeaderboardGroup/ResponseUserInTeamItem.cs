@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 public class ResponseUserInTeamItem
 {
     [JsonProperty("UserID")]
-    public int UserID { get; set; }
+    public string UserID { get; set; }
 
     [JsonProperty("UserFullName")]
     public string UserFullName { get; set; }
