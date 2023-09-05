@@ -84,16 +84,16 @@ public class TextController : MonoBehaviour
         GameObject newTextItem = Instantiate(textItemPrefab, scrollParent);
         TextAnimation _textCurrentForType = newTextItem.GetComponentInChildren<TextAnimation>();
         //string strType = "Some text here " + indexCurrentText.ToString();
-        string strType = Resources.Load<TextAsset>("HTML_Theory/th_2").text.ToString();
-        string testText = @"This is some <b><size=50><color=#ff0000ff>Text</color></size></b>";
-        string strNew = @strType;
+        string strType = Resources.Load<TextAsset>("HTML_Theory/th_3").text.ToString();
+        //string testText = @"This is some <b><size=50><color=#ff0000ff>Text</color></size></b>";
+        //string strNew = @strType;
         //string strType = _theoriesString[indexCurrentTheory];
-        Debug.Log(strNew);
+        //Debug.Log(strNew);
         //string strFull = "";
         //for (int i = 0; i < 3; i++)
         //    strFull += strType + ", ";
         //_textType.text = strType;
-        _textCurrentForType.ShowFullText(strNew, NextType);
+        _textCurrentForType.ShowFullText(strType, NextType);
     }
 
     //private IEnumerator StartInitTextType()

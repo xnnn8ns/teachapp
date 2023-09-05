@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LeaderBoardScenes/SelectTeam.unity
     guid: 259d3611f246d4ad1be5a24c782f53ec
+  - enabled: 1
+    path: Assets/Scenes/UIScenes/WindowYesNowScene.unity
+    guid: 390c242cc1826445c98ba2a01bf3d7fb
   m_configObjects: {}

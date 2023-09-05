@@ -15,6 +15,17 @@ public class QuizController : MonoBehaviour
 
     public void ClickReturnFromQuiz()
     {
+        Scene scene = SceneManager.GetSceneByName("WindowYesNowScene");
+        if (scene.isLoaded)
+            return;
+
+        SceneManager.LoadScene("WindowYesNowScene", LoadSceneMode.Additive);
+
+        FindObjectOfType<WindowsYesNoMessageScript>()?.FillWindowData(ClickReturnFromQuizOld,"Прекратить задание1");
+    }
+
+    public void ClickReturnFromQuizOld()
+    {
         Scene scene = SceneManager.GetSceneByName("WindowMessageScene");
         if (scene.isLoaded)
             return;

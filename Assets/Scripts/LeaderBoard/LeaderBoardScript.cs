@@ -158,7 +158,7 @@ public class LeaderBoardScript : MonoBehaviour
             {
                 id = UserData.UserID,
                 name = UserData.UserName,
-                score = 0// userData.score
+                score = UserData.Score
             };
             //Debug.Log("UpdateFakeLeaderboardData 1");
             Debug.Log(leaderboardData.Count);
