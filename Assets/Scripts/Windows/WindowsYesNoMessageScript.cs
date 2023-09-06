@@ -8,29 +8,35 @@ using UnityEngine.SceneManagement;
 public class WindowsYesNoMessageScript : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _textTitle;
+    private string _sceneToLoad = "";
 
-    private Action _actionClickOk;
-
-    public void FillWindowData(Action actionClickOk, string title)
+    private void Start()
     {
-        _textTitle.text = title;
-        _actionClickOk = actionClickOk;
+        _sceneToLoad = PlayerPrefs.GetString("SceneToLoad");
     }
+
+    //public void FillWindowData(Action actionClickOk, string title)
+    //{
+    //    _textTitle.text = title;
+    //}
 
     public void ClickOK()
     {
-        _actionClickOk.Invoke();
+        SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
     }
 
     public void ClickCancel()
     {
-        //_actionClickCancel.Invoke();
-
-        foreach (var item in SceneManager.GetAllScenes())
+        for (int i = 0; i < SceneManager.sceneCount; i++)
         {
-            if (item.name == "WindowYesNowScene")
-                SceneManager.UnloadSceneAsync(item);
+            if (SceneManager.GetSceneAt(i).name == "WindowYesNowScene")
+                SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
         }
+        //foreach (var item in SceneManager.GetAllScenes())
+        //{
+        //    if (item.name == "WindowYesNowScene")
+        //        SceneManager.UnloadSceneAsync(item);
+        //}
 
     }
 }

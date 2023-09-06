@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 namespace Mkey
 {
@@ -75,17 +76,22 @@ namespace Mkey
                 Debug.LogError("No RectTransform component. Use RectTransform for MapMaker.");
                 return;
             }
-
+            
             List<Biome> bList = new List<Biome>(mapMaker.biomes);
             bList.RemoveAll((b) => { return b == null; });
 
             //if (mapMaker.mapType == MapType.Vertical) bList.Reverse();
             MapLevelButtons = new List<LevelButton>();
             int theoryCount = 0;
+            
             foreach (var b in bList)
             {
                 b.ID = theoryCount;
                 MapLevelButtons.AddRange(b.levelButtons);
+                //HeaderTheory headerTheory = b.GetComponentInChildren<HeaderTheory>();
+                //headerTheory.SetID(theoryCount, ClickTeoryButton);
+                //Debug.LogError(b.name);
+                //Debug.LogError(b.count);
                 theoryCount++;
             }
 
@@ -120,6 +126,12 @@ namespace Mkey
             
             CreateAllButtonsInJson();
             VereficationAllButtons();
+        }
+
+        private void ClickTeoryButton(int id)
+        {
+            //if (MSound) MSound.SoundPlayClick(0, null);
+            //ClickLevelButton(scene);
         }
 
         private void CreateAllButtonsInJson() 

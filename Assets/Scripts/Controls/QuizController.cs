@@ -10,7 +10,7 @@ public class QuizController : MonoBehaviour
 
     private void Awake()
     {
-        _questionInitializer.ActionLevelCompleted += ClickReturnFromQuiz;
+        _questionInitializer.ActionLevelCompleted += FinishFromQuiz;
     }
 
     public void ClickReturnFromQuiz()
@@ -18,13 +18,13 @@ public class QuizController : MonoBehaviour
         Scene scene = SceneManager.GetSceneByName("WindowYesNowScene");
         if (scene.isLoaded)
             return;
-
+        PlayerPrefs.SetString("SceneToLoad", "MapScene");
         SceneManager.LoadScene("WindowYesNowScene", LoadSceneMode.Additive);
 
-        FindObjectOfType<WindowsYesNoMessageScript>()?.FillWindowData(ClickReturnFromQuizOld,"Прекратить задание1");
+        //FindObjectOfType<WindowsYesNoMessageScript>()?.FillWindowData(ClickReturnFromQuizOld,"Прекратить задание1");
     }
 
-    public void ClickReturnFromQuizOld()
+    public void FinishFromQuiz()
     {
         Scene scene = SceneManager.GetSceneByName("WindowMessageScene");
         if (scene.isLoaded)
