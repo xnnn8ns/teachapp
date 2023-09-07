@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -21,6 +22,10 @@ namespace Mkey
         [HideInInspector]
         [SerializeField]
         private bool snapButtonsToCurveOld = false;
+        [SerializeField]
+        private TMP_Text _theoryTitle;
+        [SerializeField]
+        private TMP_Text _theorySubTitle;
 
         #region temp vars
         private List<Vector3> pos;
@@ -132,6 +137,12 @@ namespace Mkey
         {
             Settings.Current_Theme = ID;
             SceneManager.LoadScene("TypeTextScene", LoadSceneMode.Single);
+        }
+
+        public void FillTitleAndSubTitle(string title, string subTitle)
+        {
+            _theoryTitle.text = title;
+            _theorySubTitle.text = subTitle;
         }
     }
 

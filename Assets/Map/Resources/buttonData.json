@@ -103,40 +103,5 @@
     "isActive": false,
     "activeStarsCount": 0,
     "isPassed": false
-  },
-  {
-    "id": 16,
-    "score": 0,
-    "isActive": false,
-    "activeStarsCount": 0,
-    "isPassed": false
-  },
-  {
-    "id": 17,
-    "score": 0,
-    "isActive": false,
-    "activeStarsCount": 0,
-    "isPassed": false
-  },
-  {
-    "id": 18,
-    "score": 0,
-    "isActive": false,
-    "activeStarsCount": 0,
-    "isPassed": false
-  },
-  {
-    "id": 19,
-    "score": 0,
-    "isActive": false,
-    "activeStarsCount": 0,
-    "isPassed": false
-  },
-  {
-    "id": 20,
-    "score": 0,
-    "isActive": false,
-    "activeStarsCount": 0,
-    "isPassed": false
   }
 ]

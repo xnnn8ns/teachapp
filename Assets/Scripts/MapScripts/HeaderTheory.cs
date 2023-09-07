@@ -19,9 +19,10 @@ public class HeaderTheory : MonoBehaviour
         _actionCLick?.Invoke(_id);
     }
 
-    public void SetID(int id, Action<int> actionCLick)
+    public void FillData(int id, string title, string subTitle)
     {
         _id = id;
-        _actionCLick = actionCLick;
+        _theoryTitle.text = title;
+        _theorySubTitle.text = subTitle;
     }
 }

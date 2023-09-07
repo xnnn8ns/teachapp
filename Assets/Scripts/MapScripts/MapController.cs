@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using System.IO;
+using Newtonsoft.Json;
+using ResponseTheoryListJSON;
 
 namespace Mkey
 {
@@ -39,6 +42,8 @@ namespace Mkey
         [SerializeField] private ButtonsManager ButtonsManager;
 
         [SerializeField]private bool _createDataButtonsInJson = true;
+
+        private TheoryListJSON _theoryListJSON;
 
         private void Awake()
         {
@@ -76,23 +81,29 @@ namespace Mkey
                 Debug.LogError("No RectTransform component. Use RectTransform for MapMaker.");
                 return;
             }
-            
+
+            FillTheoryDataFromJSON();
+
+
             List<Biome> bList = new List<Biome>(mapMaker.biomes);
             bList.RemoveAll((b) => { return b == null; });
 
             //if (mapMaker.mapType == MapType.Vertical) bList.Reverse();
             MapLevelButtons = new List<LevelButton>();
-            int theoryCount = 0;
-            
-            foreach (var b in bList)
+            //int theoryCount = 0;
+
+            for (int i = 0; i < bList.Count; i++)
             {
-                b.ID = theoryCount;
-                MapLevelButtons.AddRange(b.levelButtons);
-                //HeaderTheory headerTheory = b.GetComponentInChildren<HeaderTheory>();
-                //headerTheory.SetID(theoryCount, ClickTeoryButton);
+                if (i >= _theoryListJSON.theoryList.Count)
+                    break;
+                
+                bList[i].ID = _theoryListJSON.theoryList[i].ID;
+                MapLevelButtons.AddRange(bList[i].levelButtons);
+
+                bList[i].FillTitleAndSubTitle(_theoryListJSON.theoryList[i].Title, _theoryListJSON.theoryList[i].Description);
                 //Debug.LogError(b.name);
                 //Debug.LogError(b.count);
-                theoryCount++;
+                //theoryCount++;
             }
 
             topPassedLevel = Mathf.Clamp(topPassedLevel, 0, MapLevelButtons.Count - 1);
@@ -106,13 +117,6 @@ namespace Mkey
                     Debug.Log("load scene : " + scene);
                     ClickLevelButton(scene);
                     //ButtonsManager.SetData(scene, 1000, true, true, 3);
-
-                // uncomment for load game scene 
-                    /* 
-                   if(SceneLoader.Instance) SceneLoader.Instance.LoadScene(scene, () => { });
-                     */
-                    // 
-
                 });
 
                 //SetButtonActive(scene, (currentLevel == scene || scene == topPassedLevel + 1), (topPassedLevel >= scene));
@@ -134,6 +138,26 @@ namespace Mkey
             //ClickLevelButton(scene);
         }
 
+        private void FillTheoryDataFromJSON()
+        {
+            string jsonLeaderBoardPath = "/theory_list.json";
+
+            if (!File.Exists(Application.persistentDataPath + jsonLeaderBoardPath))
+            {
+                FileStream fs = File.Create(Application.persistentDataPath + jsonLeaderBoardPath);
+                fs.Dispose();
+                TextAsset txt = (TextAsset)Resources.Load("theory_list", typeof(TextAsset));
+                string jsonTemp = txt.text;
+                File.WriteAllText(Application.persistentDataPath + jsonLeaderBoardPath, jsonTemp);
+            }
+
+            string json = File.ReadAllText(Application.persistentDataPath + jsonLeaderBoardPath);
+            List<TheoryListItemJSON> theoryDataList = new List<TheoryListItemJSON>();
+
+            _theoryListJSON = JsonConvert.DeserializeObject<TheoryListJSON>(json);
+            Debug.Log("FillTheoryDataFromJSON - finish");
+        }
+
         private void CreateAllButtonsInJson() 
         {
             if (_createDataButtonsInJson)
@@ -150,19 +174,10 @@ namespace Mkey
 
             for (int i = 0; i < mapLevelButtons.Count; i++)
             {
-
-                
                 ButtonData buttonData = DataLoader.GetLevelData(i + 1);
                 if (buttonData != null)
                 {
                     SetButtonActive(buttonData.id, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount);
-
-                    //Debug.Log("Button ID: " + buttonData.id);
-                    //Debug.Log("Button Score: " + buttonData.score);
-                    //Debug.Log("Button IsActive: " + buttonData.isActive);
-                    //Debug.Log("Button LeftStarActive: " + buttonData.leftStarActive);
-                    //Debug.Log("Button CenterStarActive: " + buttonData.centerStarActive);
-                    //Debug.Log("Button RightStarActive: " + buttonData.rightStarActive);
                 }
 
             }
