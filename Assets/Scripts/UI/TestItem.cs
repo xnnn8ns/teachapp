@@ -1,21 +1,22 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
-public class ImageItem : MonoBehaviour, IPointerClickHandler
+public class TestItem : MonoBehaviour, IPointerClickHandler
 {
 
     private Image _imageBack;
-    private Image _imageValue;
-    public int ImageIndex = 0;
-    public event Action<int> ClickImage;
+    private TextMeshProUGUI _textValue;
+    public int TestIndex = 0;
+    public event Action<int> ClickTest;
 
     private void Awake()
     {
         _imageBack = GetComponent<Image>();
-        _imageValue = transform.GetChild(0)?.GetComponent<Image>();
+        _textValue = GetComponentInChildren<TextMeshProUGUI>();
     }
 
     public void SetBackColor(Color color)
@@ -28,13 +29,13 @@ public class ImageItem : MonoBehaviour, IPointerClickHandler
         return _imageBack.color;
     }
 
-    public void SetImage(Sprite sprite)
+    public void SetTestValue(string testAnswer)
     {
-        _imageValue.sprite = sprite;
+        _textValue.text = testAnswer;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        ClickImage?.Invoke(ImageIndex);
+        ClickTest.Invoke(TestIndex);
     }
 }

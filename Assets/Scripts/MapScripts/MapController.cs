@@ -48,14 +48,9 @@ namespace Mkey
         private void Awake()
         {
             if (Instance)
-            {
                 Destroy(gameObject);
-            }
             else
-            {
-                Instance = this;
-            }
-            
+                Instance = this;  
         }
 
         void Start()
@@ -87,7 +82,8 @@ namespace Mkey
 
             List<Biome> bList = new List<Biome>(mapMaker.biomes);
             bList.RemoveAll((b) => { return b == null; });
-
+            //Debug.LogError(bList.Count);
+            //Debug.LogError(_theoryListJSON.theoryList.Count);
             //if (mapMaker.mapType == MapType.Vertical) bList.Reverse();
             MapLevelButtons = new List<LevelButton>();
             //int theoryCount = 0;
@@ -99,10 +95,10 @@ namespace Mkey
                 
                 bList[i].ID = _theoryListJSON.theoryList[i].ID;
                 MapLevelButtons.AddRange(bList[i].levelButtons);
-
+                
                 bList[i].FillTitleAndSubTitle(_theoryListJSON.theoryList[i].Title, _theoryListJSON.theoryList[i].Description);
-                //Debug.LogError(b.name);
-                //Debug.LogError(b.count);
+                Debug.LogError(_theoryListJSON.theoryList[i].Title);
+                //Debug.LogError(bList[i].count);
                 //theoryCount++;
             }
 
@@ -120,11 +116,16 @@ namespace Mkey
                 });
 
                 //SetButtonActive(scene, (currentLevel == scene || scene == topPassedLevel + 1), (topPassedLevel >= scene));
-                MapLevelButtons[i].numberText.text = (scene).ToString();
+                //MapLevelButtons[i].numberText.text = (scene).ToString();
+                //if (MapLevelButtons[i].)
+                //{
+
+                //}
+                //MapLevelButtons[i].numberText.text = "100%";
             }
             parentCanvas = GetComponentInParent<Canvas>();
             sRect = GetComponentInParent<ScrollRect>();
-            //if (scrollToActiveButton) StartCoroutine(SetMapPositionToAciveButton()); //this script reverse prefabs 
+            if (scrollToActiveButton) StartCoroutine(SetMapPositionToAciveButton()); //this script reverse prefabs 
             ButtonsManager = GameObject.FindObjectOfType<ButtonsManager>();
 
             
@@ -140,19 +141,19 @@ namespace Mkey
 
         private void FillTheoryDataFromJSON()
         {
-            string jsonLeaderBoardPath = "/theory_list.json";
+            string jsonPath = "/theory_list.json";
 
-            if (!File.Exists(Application.persistentDataPath + jsonLeaderBoardPath))
+            if (!File.Exists(Application.persistentDataPath + jsonPath))
             {
-                FileStream fs = File.Create(Application.persistentDataPath + jsonLeaderBoardPath);
+                FileStream fs = File.Create(Application.persistentDataPath + jsonPath);
                 fs.Dispose();
                 TextAsset txt = (TextAsset)Resources.Load("theory_list", typeof(TextAsset));
                 string jsonTemp = txt.text;
-                File.WriteAllText(Application.persistentDataPath + jsonLeaderBoardPath, jsonTemp);
+                File.WriteAllText(Application.persistentDataPath + jsonPath, jsonTemp);
             }
 
-            string json = File.ReadAllText(Application.persistentDataPath + jsonLeaderBoardPath);
-            List<TheoryListItemJSON> theoryDataList = new List<TheoryListItemJSON>();
+            string json = File.ReadAllText(Application.persistentDataPath + jsonPath);
+            //List<TheoryListItemJSON> theoryDataList = new List<TheoryListItemJSON>();
 
             _theoryListJSON = JsonConvert.DeserializeObject<TheoryListJSON>(json);
             Debug.Log("FillTheoryDataFromJSON - finish");
@@ -171,7 +172,6 @@ namespace Mkey
 
         private void VereficationAllButtons() 
         {
-
             for (int i = 0; i < mapLevelButtons.Count; i++)
             {
                 ButtonData buttonData = DataLoader.GetLevelData(i + 1);
@@ -185,34 +185,50 @@ namespace Mkey
 
         private IEnumerator SetMapPositionToAciveButton()
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.001f);
             if (sRect)
             {
                 int bCount = mapMaker.biomes.Count;
                 if (mapMaker.mapType == MapType.Vertical)
                 {
-                    float contentSizeY = content.sizeDelta.y / (bCount) * (bCount - 1.0f);
-                    float relPos = content.InverseTransformPoint(ActiveButton.transform.position).y; // Debug.Log("contentY : " + contentSizeY +  " ;relpos : " + relPos + " : " + relPos / contentSizeY);
-                    float vpos = (-contentSizeY / (bCount * 2.0f) + relPos) / contentSizeY; // 
-                  //  sRect.verticalNormalizedPosition = Mathf.Clamp01(vpos); // Debug.Log("vpos : " + Mathf.Clamp01(vpos));
+                    ////Debug.Log(ActiveButton.transform.position);
+                    //float contentSizeY = content.sizeDelta.y / (bCount) * (bCount - 1.0f);
+                    //float relPos = content.InverseTransformPoint(ActiveButton.transform.position).y; // Debug.Log("contentY : " + contentSizeY +  " ;relpos : " + relPos + " : " + relPos / contentSizeY);
+                    //float vpos = (-contentSizeY / (bCount * 2.0f) + relPos) / contentSizeY; // 
+                    //                                                                        //  sRect.verticalNormalizedPosition = Mathf.Clamp01(vpos); // Debug.Log("vpos : " + Mathf.Clamp01(vpos));
 
-                    SimpleTween.Cancel(gameObject, false);
-                    float start = sRect.verticalNormalizedPosition;
+                    //SimpleTween.Cancel(gameObject, false);
+                    //float start = sRect.verticalNormalizedPosition;
 
-                    SimpleTween.Value(gameObject, start, vpos, 0.25f).SetOnUpdate((float f) => { sRect.verticalNormalizedPosition = Mathf.Clamp01(f); });
+                    //SimpleTween.Value(gameObject, start, vpos, 0.25f).SetOnUpdate((float f) => { sRect.verticalNormalizedPosition = Mathf.Clamp01(f); });
+                    Debug.Log(sRect.normalizedPosition);
+                    Vector2 initialNormalizedPos = sRect.normalizedPosition;
+                    Vector2 targetNormalizedPos = new Vector2(initialNormalizedPos.x, PlayerPrefs.GetFloat("ScrollYPointFocus", 1.0f));
+                    //float speed = 5f;
 
+                    //float t = 0f;
+                    //while (t < 2f)
+                    //{
+                        //sRect.normalizedPosition = Vector2.LerpUnclamped(initialNormalizedPos, targetNormalizedPos, 1f - (1f - t) * (1f - t));
+                    //    Debug.Log(t);
+                    //    yield return null;
+                    //    t += speed * Time.unscaledDeltaTime;
+                    //}
+
+                    sRect.normalizedPosition = targetNormalizedPos;
+                    //Debug.Log(sRect.normalizedPosition);
                 }
                 else
                 {
-                    float contentSizeX = content.sizeDelta.x / (bCount) * (bCount - 1.0f);
-                    float relPos = content.InverseTransformPoint(ActiveButton.transform.position).x;
-                    float hpos = (-contentSizeX / (bCount * 2.0f) + relPos) / contentSizeX; // 
-                    //sRect.horizontalNormalizedPosition = Mathf.Clamp01(hpos);
+                    //float contentSizeX = content.sizeDelta.x / (bCount) * (bCount - 1.0f);
+                    //float relPos = content.InverseTransformPoint(ActiveButton.transform.position).x;
+                    //float hpos = (-contentSizeX / (bCount * 2.0f) + relPos) / contentSizeX; // 
+                    ////sRect.horizontalNormalizedPosition = Mathf.Clamp01(hpos);
 
-                    SimpleTween.Cancel(gameObject, false);
-                    float start = sRect.horizontalNormalizedPosition;
+                    //SimpleTween.Cancel(gameObject, false);
+                    //float start = sRect.horizontalNormalizedPosition;
 
-                    SimpleTween.Value(gameObject, start, hpos, 0.25f).SetOnUpdate((float f) => { sRect.horizontalNormalizedPosition = Mathf.Clamp01(f); });
+                    //SimpleTween.Value(gameObject, start, hpos, 0.25f).SetOnUpdate((float f) => { sRect.horizontalNormalizedPosition = Mathf.Clamp01(f); });
                 }
             }
             else
@@ -223,18 +239,17 @@ namespace Mkey
 
         private void SetButtonActive(int sceneNumber, bool active, bool isPassed,int _activeStarsCount)
         {         
-            MapLevelButtons[sceneNumber - 1].SetActive(active, _activeStarsCount, isPassed);
+            MapLevelButtons[sceneNumber - 1].SetIsActive(active, _activeStarsCount, isPassed);
         }
 
         public void SetControlActivity(bool activity)
         {
             for (int i = 0; i < MapLevelButtons.Count; i++)
             {
-                if (!activity) MapLevelButtons[i].button.interactable = activity;
+                if (!activity)
+                    MapLevelButtons[i].button.interactable = activity;
                 else
-                {
                     MapLevelButtons[i].button.interactable = MapLevelButtons[i].Interactable;
-                }
             }
         }
 
@@ -253,9 +268,16 @@ namespace Mkey
             
             Settings.Current_Level = clickIndex;
             PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
+            
             SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
 
             //SceneManager.LoadScene("QuestionAnswerTestCheckScene", LoadSceneMode.Single);
+        }
+
+        void OnDisable()
+        {
+            PlayerPrefs.SetFloat("ScrollYPointFocus", sRect.normalizedPosition.y);
+            //Debug.Log("PrintOnDisable: script was disabled");
         }
     }
 }

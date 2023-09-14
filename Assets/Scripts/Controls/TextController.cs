@@ -40,7 +40,7 @@ public class TextController : MonoBehaviour
 
     private void Start()
     {
-        theoryTitleText.text = "Раздел " + (Settings.Current_Theme + 1).ToString();
+        theoryTitleText.text = "Раздел " + (Settings.Current_Theme).ToString();
         //StartCoroutine(GetDataFromAPI(Settings.Current_Theme+1));
         //ShowWebView();
         InitTextTypeTest();
@@ -86,7 +86,7 @@ public class TextController : MonoBehaviour
         GameObject newTextItem = Instantiate(textItemPrefab, scrollParent);
         TextAnimation _textCurrentForType = newTextItem.GetComponentInChildren<TextAnimation>();
         //string strType = "Some text here " + indexCurrentText.ToString();
-        string strType = Resources.Load<TextAsset>("HTML_Theory/th_" + (Settings.Current_Theme + 1).ToString()).text;
+        string strType = Resources.Load<TextAsset>("HTML_Theory/th_" + (Settings.Current_Theme).ToString()).text;
         //string testText = @"This is some <b><size=50><color=#ff0000ff>Text</color></size></b>";
         //string strNew = @strType;
         //string strType = _theoriesString[indexCurrentTheory];

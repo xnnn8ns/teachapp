@@ -8,10 +8,13 @@ using System.IO;
 using UnityEngine.Networking;
 using ResponseTaskJSON;
 using Unity.VisualScripting;
+using ResponseTestJSON;
 
 public class DataLoader : MonoBehaviour
 {
-    private const string apiUrl = "http://45.12.239.30:8000/api/tasks/";
+    private const string apiTaskUrl = "http://45.12.239.30:8000/api/tasks/";
+    private const string apiTestUrl = "http://45.12.239.30:8000/api/choicefield/";
+
 
     private void Start()
     {
@@ -179,7 +182,7 @@ public class DataLoader : MonoBehaviour
         }
         else
         {
-            StartCoroutine(GetDataFromAPI());
+            StartCoroutine(GetTaskDataFromAPI());
             //FileStream fs = File.Create(Application.persistentDataPath + Settings.jsonTaskFilePath);
             //fs.Dispose();
             //TextAsset txt = (TextAsset)Resources.Load("buttonData", typeof(TextAsset));
@@ -200,14 +203,10 @@ public class DataLoader : MonoBehaviour
         //}
     }
 
-
-    private int indexCurrentTheory = 0;
-    private int indexCurrentText = 0;
-    private int countText = 0; //3;
-    private IEnumerator GetDataFromAPI()
+    private IEnumerator GetTaskDataFromAPI()
     {
         //List<TaskJSONItem> _tasks = new List<TaskJSONItem>();
-        using (UnityWebRequest www = UnityWebRequest.Get(apiUrl))
+        using (UnityWebRequest www = UnityWebRequest.Get(apiTaskUrl))
         {
             yield return www.SendWebRequest();
 
@@ -222,14 +221,46 @@ public class DataLoader : MonoBehaviour
                 TaskJSON response = TaskJSON.FromJson(www.downloadHandler.text);
                 if (response != null && response.Count > 0)
                 {
+                    int count = 1;
                     foreach (var item in response)
                     {
+                        item.Topic = count;
                         ParseJSONTask(item);
+                        count++;
                     }
                 }
 
             }
         }
+
+        using (UnityWebRequest www = UnityWebRequest.Get(apiTestUrl))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError ||
+                www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("HTTP Error: " + www.error);
+            }
+            else
+            {
+                Debug.Log("API Response: " + www.downloadHandler.text);
+                TestJSON response = TestJSON.FromJson(www.downloadHandler.text);
+                if (response != null && response.Count > 0)
+                {
+                    //Debug.Log(response.Count);
+                    int count = 1;
+                    foreach (var item in response)
+                    {
+                        item.Topic = count;
+                        ParseJSONTest(item);
+                        count++;
+                    }
+                }
+
+            }
+        }
+
         UserData.LoadUserData();
         SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
         if(UserData.UserID != "")
@@ -301,6 +332,93 @@ public class DataLoader : MonoBehaviour
             question.SetAnswerList(answers);
             Question.QuestionsList.Add(question);
 
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(ex.Message);
+        }
+    }
+
+    private IEnumerator GetTestDataFromAPI()
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get(apiTestUrl))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError ||
+                www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("HTTP Error: " + www.error);
+            }
+            else
+            {
+                Debug.Log("API Response: " + www.downloadHandler.text);
+                TestJSON response = TestJSON.FromJson(www.downloadHandler.text);
+                if (response != null && response.Count > 0)
+                {
+                    foreach (var item in response)
+                    {
+                        ParseJSONTest(item);
+                    }
+                }
+
+            }
+        }
+        //UserData.LoadUserData();
+        //SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
+        //if (UserData.UserID != "")
+        //    StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
+    }
+
+    private void ParseJSONTest(TestJSONItem test)
+    {
+        try
+        {
+            Level newLevel;
+            if (Level.Levels.Count == 0)
+            {
+                newLevel = new Level();
+                newLevel.LevelNumber = 1;
+                newLevel.TotalTime = 300;
+                //newLevel.TotalScore = task.Points;
+                //newLevel.TotalCount = raws.Length;
+                Level.Levels.Add(newLevel);
+            }
+            else
+            {
+                newLevel = Level.Levels[0];
+            }
+
+            Question question = new QuestionText();
+            question.Title = test.Question;
+            question.CountShelves = 4;
+            question.QuestionType = QuestionType.Test;
+            question.Score = test.Points;
+            question.Level = test.Topic;
+            question.IsSingleRightAnswer = false;
+            List<Answer> answers = new List<Answer>();
+
+
+            for (int i = 0; i < 4; i++)
+            {
+                Answer answer = new Answer();
+                string answerQuiz = test.Answer1;
+                if(i == 1)
+                    answerQuiz = test.Answer2;
+                else if(i == 2)
+                    answerQuiz = test.Answer3;
+                else if(i == 3)
+                    answerQuiz = test.Answer4;
+
+                answer.Title = answerQuiz;
+                answer.IsRight = test.CorrectAnswer == i + 1;
+                answer.Score = 0;
+                answers.Add(answer);
+            }
+            question.SetAnswerList(answers);
+            //Debug.Log(Question.QuestionsList.Count);
+            Question.QuestionsList.Add(question);
+            //Debug.Log(Question.QuestionsList.Count);
         }
         catch (Exception ex)
         {

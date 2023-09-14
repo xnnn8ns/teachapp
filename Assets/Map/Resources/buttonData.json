@@ -2,7 +2,7 @@
   {
     "id": 1,
     "score": 0,
-    "isActive": false,
+    "isActive": true,
     "activeStarsCount": 0,
     "isPassed": false
   },

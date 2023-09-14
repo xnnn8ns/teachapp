@@ -10,7 +10,7 @@ public class Settings : MonoBehaviour
     public static bool IsNeedDragDropTouchDetector = false;
     public static bool IsTurnOnClickPointerListener = false;
     public static int Current_Level = 1;
-    public static int Current_Theme = 0;
+    public static int Current_Theme = 1;
     //public const string jsonFilePath = "/Map/Resources/buttonData.json";
     public const string jsonButtonFilePath = "/buttonData.json";
     public const string jsonTaskFilePath = "/TaskData.json";

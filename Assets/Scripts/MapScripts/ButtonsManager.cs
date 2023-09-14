@@ -40,9 +40,21 @@ public class ButtonsManager : MonoBehaviour
 
     public void CreateAllButtons(int id)
     {
-        CreateDefaultButtons(id);
-        json = JsonConvert.SerializeObject(buttonDataList, Formatting.Indented);
-        File.WriteAllText(Application.dataPath + "/Map/Resources/buttonData.json", json);
+        //CreateDefaultButtons(id);
+        //json = JsonConvert.SerializeObject(buttonDataList, Formatting.Indented);
+        //File.WriteAllText(Application.persistentDataPath + Settings.jsonButtonFilePath, json);
+
+        if (File.Exists(Application.persistentDataPath + Settings.jsonButtonFilePath))
+            json = File.ReadAllText(Application.persistentDataPath + Settings.jsonButtonFilePath);
+        else
+        {
+            FileStream fs = File.Create(Application.persistentDataPath + Settings.jsonButtonFilePath);
+            fs.Dispose();
+            TextAsset txt = (TextAsset)Resources.Load("buttonData", typeof(TextAsset));
+            json = txt.text;
+            //Debug.Log(json);
+            File.WriteAllText(Application.persistentDataPath + Settings.jsonButtonFilePath, json);
+        }
     }
 
    

@@ -7,6 +7,8 @@ public class ImageChecker : MonoBehaviour
 {
     [SerializeField]
     private ImageItem[] _imageItems;
+    [SerializeField]
+    private TestItem[] _testItems;
 
     private Color _colorSelected = Color.green;
     private Color _colorUnSelected = Color.gray;
@@ -35,7 +37,34 @@ public class ImageChecker : MonoBehaviour
         }
     }
 
-    public void SetSingleSelectedImage(int indexImageForSelect)
+    public void SetTestFromAnswers(List<Answer> answers, Action action)
+    {
+        _actionCallBack = action;
+        _answers = answers;
+        for (int i = 0; i < _answers.Count; i++)
+        {
+            string title = _answers[i].Title;
+            _testItems[i].TestIndex = i;
+            _testItems[i].SetTestValue(title);
+            _testItems[i].SetBackColor(_colorUnSelected);
+            _testItems[i].ClickTest += SetSingleSelectedTest;
+        }
+    }
+
+    private void SetSingleSelectedTest(int indexTestForSelect)
+    {
+        for (int i = 0; i < _answers.Count; i++)
+        {
+            if (i == indexTestForSelect)
+                _testItems[i].SetBackColor(_colorSelected);
+            else
+                _testItems[i].SetBackColor(_colorUnSelected);
+
+        }
+        _actionCallBack?.Invoke();
+    }
+
+    private void SetSingleSelectedImage(int indexImageForSelect)
     {
         for (int i = 0; i < _answers.Count; i++)
         {

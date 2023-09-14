@@ -42,9 +42,18 @@ public class TextAnimation : MonoBehaviour
 
     private IEnumerator TypeText()
     {
+        _textType.text = "<color=#ffffff>" + _textCash + "</color>";
+        yield return new WaitForSeconds(0.1f);
+        string str = "";
+        int countStr = 0;
         foreach (char c in _textCash)
         {
-            _textType.text += c;
+            str += c;
+            string colorStr = "<color=#000000>" + str + "</color>";
+            string reminderStr = _textCash.Substring(countStr);
+            string colorReminderStr = "<color=#ffffff>" + reminderStr + "</color>";
+            _textType.text = colorStr + colorReminderStr;
+            countStr++;
             yield return new WaitForSeconds(0.0725f);
         }
         _resultCurrentType?.Invoke();

@@ -2,18 +2,53 @@
     "theoryList": [
         {
             "id": 1,
-            "title": "Переменные",
+            "title": "Раздел 1",
             "description": "Переменные и данные"
         },
         {
             "id": 2,
-            "title": "Конструкции",
-            "description": "Синтаксис языка"
+            "title": "Раздел 2",
+            "description": "Типа данных"
         },
         {
             "id": 3,
-            "title": "Циклы",
-            "description": "Основные циклы Python"
+            "title": "Раздел 3",
+            "description": "Арифметические операторы"
+        },
+        {
+            "id": 4,
+            "title": "Раздел 4",
+            "description": "Операторы сравнения"
+        },
+        {
+            "id": 5,
+            "title": "Раздел 5",
+            "description": "Логические переменные"
+        },
+        {
+            "id": 6,
+            "title": "Раздел 6",
+            "description": "Ввод и вывод данных"
+        },
+        {
+            "id": 7,
+            "title": "Раздел 7",
+            "description": "Условия"
+        },
+        {
+            "id": 8,
+            "title": "Раздел 8",
+            "description": "Цикл while"
+        },
+        {
+            "id": 9,
+            "title": "Раздел 9",
+            "description": "Цикл for"
+        },
+        {
+            "id": 10,
+            "title": "Раздел 10",
+            "description": "Вложенные циклы"
         }
     ]
 }
