@@ -172,12 +172,18 @@ namespace Mkey
 
         private void VereficationAllButtons() 
         {
-            for (int i = 0; i < mapLevelButtons.Count; i++)
+            for (int i = 1; i <= mapLevelButtons.Count; i++)
             {
-                ButtonData buttonData = DataLoader.GetLevelData(i + 1);
+                ButtonData buttonData = DataLoader.GetLevelData(i);
                 if (buttonData != null)
                 {
-                    SetButtonActive(buttonData.id, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount);
+                    //Debug.Log(i);
+                    ETypeLevel typeLevel = ETypeLevel.simple;
+                    if(i%3 == 0)
+                        typeLevel = ETypeLevel.additional;
+                    if(i%10 == 0)
+                        typeLevel = ETypeLevel.final;
+                    SetButtonActive(buttonData.id, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, typeLevel);
                 }
 
             }
@@ -237,9 +243,9 @@ namespace Mkey
             }
         }
 
-        private void SetButtonActive(int sceneNumber, bool active, bool isPassed,int _activeStarsCount)
+        private void SetButtonActive(int sceneNumber, bool active, bool isPassed,int _activeStarsCount, ETypeLevel typeLevel = ETypeLevel.simple)
         {         
-            MapLevelButtons[sceneNumber - 1].SetIsActive(active, _activeStarsCount, isPassed);
+            MapLevelButtons[sceneNumber - 1].SetIsActive(active, _activeStarsCount, isPassed, typeLevel);
         }
 
         public void SetControlActivity(bool activity)
