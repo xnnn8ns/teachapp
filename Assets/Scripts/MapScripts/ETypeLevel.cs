@@ -1,6 +1,8 @@
 public enum ETypeLevel
 {
-    simple,
-    additional,
-    final
+    simple = 0,
+    additional = 1,
+    final = 2,
+    mission1 = 3,
+    mission2 = 4
 }

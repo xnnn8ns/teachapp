@@ -23,9 +23,13 @@ namespace Mkey
         public Image FinalStatePassed;
         public Text numberText;
         public bool Interactable { get; private set; }
+        private ETypeLevel _typeLevel = ETypeLevel.simple;
+        public bool IsNeedMissRebuild = false;
 
         internal void SetIsActive(bool active, int activeStarsCount, bool isPassed, ETypeLevel typeLevel = ETypeLevel.simple)
         {
+            numberText.text = "";
+            _typeLevel = typeLevel;
             Image imgButton = button.GetComponent<Image>();
             if (LeftStar) LeftStar.SetActive(activeStarsCount > 0);// && isPassed);
             if (MiddleStar) MiddleStar.SetActive(activeStarsCount > 1);// && isPassed);
@@ -60,6 +64,12 @@ namespace Mkey
                     imgButton.sprite = AdditionState.sprite;
                     numberText.text = "";
                 }
+                else if (typeLevel == ETypeLevel.mission1
+                    || typeLevel == ETypeLevel.mission2)
+                {
+                    //imgButton.sprite = AdditionState.sprite;
+                    numberText.text = "";
+                }
                 else
                 {
                     imgButton.sprite = ActiveState.sprite;
@@ -80,7 +90,10 @@ namespace Mkey
                     imgButton.sprite = FinalStatePassed.sprite;
                 else if (typeLevel == ETypeLevel.additional)
                     imgButton.sprite = AdditionStatePassed.sprite;
-                else
+                //else if (typeLevel == ETypeLevel.mission1
+                //    || typeLevel == ETypeLevel.mission2)
+                    //imgButton.sprite = AdditionStatePassed.sprite;
+                else if (typeLevel == ETypeLevel.simple)
                     imgButton.sprite = LockState.sprite;
 
             }
@@ -95,14 +108,21 @@ namespace Mkey
                 else
                     numberText.text = "100%";
             }
-            else
+            else if(typeLevel != ETypeLevel.mission1
+                    && typeLevel != ETypeLevel.mission2)
             {
+                numberText.text = "";
                 LeftStar.SetActive(false);
                 MiddleStar.SetActive(false);
                 RightStar.SetActive(false);
                 LeftStarEmpty.SetActive(false);
                 MiddleStarEmpty.SetActive(false);
                 RightStarEmpty.SetActive(false);
+            }
+            else if (typeLevel == ETypeLevel.mission1
+                   || typeLevel == ETypeLevel.mission2)
+            {
+                numberText.text = "";
             }
             //button.GetComponent<Image>().sprite = imgButton.sprite;
             //if(LockText) LockText.SetActive(active || isPassed);

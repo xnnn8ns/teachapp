@@ -11,6 +11,7 @@ public class ButtonData
     public bool isActive;
     public int activeStarsCount;
     public bool isPassed;
+    public int typeLevel;
 }
 
 public class ButtonDataList
@@ -32,13 +33,14 @@ public class ButtonsManager : MonoBehaviour
             score = 0,
             isActive = false,
             activeStarsCount=0,
-            isPassed = false
+            isPassed = false,
+            typeLevel = 0
         };
         buttonDataList.Add(buttonData);
 
     }
 
-    public void CreateAllButtons(int id)
+    public void CreateAllButtons()
     {
         //CreateDefaultButtons(id);
         //json = JsonConvert.SerializeObject(buttonDataList, Formatting.Indented);

@@ -17,6 +17,7 @@ namespace Mkey
         public GameObject levelButtonPrefab;
         public int count;
         public List<LevelButton> levelButtons;
+        public List<LevelButton> missionButtons;
         [SerializeField]
         private bool snapButtonsToCurve = true;
         [HideInInspector]
@@ -51,6 +52,7 @@ namespace Mkey
         {
             LevelButton[] existingButtons = GetComponentsInChildren<LevelButton>();
 
+
             bool rebuildInOldPositions = false;
             Vector3[] existingPositions = new Vector3[existingButtons.Length];
             if (existingButtons != null && count == existingButtons.Length)
@@ -72,7 +74,8 @@ namespace Mkey
 
             foreach (var b in existingButtons)
             {
-                DestroyImmediate(b.gameObject);
+                if(!b.IsNeedMissRebuild)
+                    DestroyImmediate(b.gameObject);
             }
             levelButtons = new List<LevelButton>();
 
@@ -144,6 +147,12 @@ namespace Mkey
             _theoryTitle.text = title;
             _theorySubTitle.text = subTitle;
         }
+
+        //public void FillMissions()
+        //{
+        //    missionButtons[0].SetIsActive(true, 2, false, ETypeLevel.mission1);
+        //    missionButtons[1].SetIsActive(true, 0, false, ETypeLevel.mission2);
+        //}
     }
 
 #if UNITY_EDITOR

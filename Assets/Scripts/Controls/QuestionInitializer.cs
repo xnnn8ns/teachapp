@@ -616,7 +616,12 @@ public class QuestionInitializer : MonoBehaviour
             int totalScore = UserData.Score + _scoreValue;
             UserData.SetScore(totalScore);
             ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_Level);
-            buttonData.activeStarsCount++;
+            if(buttonData.typeLevel != (int)ETypeLevel.final
+                && buttonData.typeLevel != (int)ETypeLevel.additional)
+                buttonData.activeStarsCount++;
+            else
+                buttonData.activeStarsCount = 3;
+
             bool isPassed = false;
             int currentLevel = Settings.Current_Level;
             if (buttonData.activeStarsCount > 2)

@@ -155,7 +155,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100%
+  m_Text: 
 --- !u!1 &1213924538618872
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +239,7 @@ MonoBehaviour:
   FinalState: {fileID: 6125839744272568319}
   FinalStatePassed: {fileID: 2397262880900379956}
   numberText: {fileID: 114707668277743868}
+  IsNeedMissRebuild: 0
 --- !u!1 &1397203345223996
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +383,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 838048e1d54734383b78a67e0a916e94, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ce6b01756ea6e4d32b776ca8afdd3343, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
