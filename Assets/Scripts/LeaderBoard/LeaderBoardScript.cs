@@ -160,6 +160,8 @@ public class LeaderBoardScript : MonoBehaviour
                 name = UserData.UserName,
                 score = UserData.Score
             };
+            if (userLeaderboardData.name == "")
+                userLeaderboardData.name = LangAsset.GetValueByKey("UserName");
             //Debug.Log("UpdateFakeLeaderboardData 1");
             Debug.Log(leaderboardData.Count);
             leaderboardData.Add(userLeaderboardData);

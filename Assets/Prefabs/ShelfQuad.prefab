@@ -115,8 +115,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shelfArea: {fileID: 508200732875167254}
   _shelfChecker: {fileID: 6797169165861033759}
-  _setInShelf: {fileID: 0}
+  _materialDefault: {fileID: 2100000, guid: 617a0d9865d4b4345a87e3cff1308638, type: 2}
+  _materialCompleted: {fileID: 2100000, guid: 12830af8a7a7d431ba57cbab4f6528c5, type: 2}
   IsRawAnswersShelf: 0
+  IsEnabled: 1
+  _questionsShelved: []
 --- !u!82 &4662808143141539947
 AudioSource:
   m_ObjectHideFlags: 0

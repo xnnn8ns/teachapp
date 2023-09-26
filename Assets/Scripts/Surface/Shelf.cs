@@ -11,6 +11,10 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     private Transform _shelfArea;
     [SerializeField]
     private  GameObject _shelfChecker;
+    [SerializeField]
+    private Material _materialDefault;
+    [SerializeField]
+    private Material _materialCompleted;
 
     public bool IsRawAnswersShelf = false;
     public bool IsEnabled = true;
@@ -19,9 +23,12 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     public List<AnswerSurface> _questionsShelved = new List<AnswerSurface>();
 
 
+
     public void AddAnswerToShelfByDrag(AnswerSurface transformChild, bool isToEnd = false)
     {
         float currentX = transformChild.transform.position.x;
+        //if (IsRawAnswersShelf)
+        //    currentX = transformChild.BasePosition.x;
         int currentIndex = 0;
         foreach (var item in _questionsShelved)
         {
@@ -59,10 +66,10 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
     private void SetAnswersOnShelf()
     {
-        //if (!IsRawAnswersShelf || !_isShelfFirstCompleted)
+        if (!IsRawAnswersShelf || !_isShelfFirstCompleted)
             SetAnswersOnAnswerShelf();
-        //else
-        //    SetAnswersByBasePositoinShelf();
+        else
+            SetAnswersByBasePositoinShelf();
     }
 
     private void SetAnswersByBasePositoinShelf()
@@ -136,7 +143,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
             widthRaw += item.transform.localScale.x + 0.05f;
 
-            if (widthRaw > 4.9f)
+            if (widthRaw > 4.9f && IsRawAnswersShelf) // for auto set on next line if this full
             {
                 countRows++;
                 widthRaw = 0;
@@ -233,25 +240,35 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
     public bool GetIsShelfFull(AnswerSurface additionalAnswerSurface)
     {
-        float widthRaw = 0f;
-        foreach (var item in _questionsShelved)
-        {
-            Vector3 startPoint = _shelfArea.position;
-
-            startPoint.x += 0.075f;
-
-
-            startPoint.x -= _shelfArea.localScale.x / 2;
-
-            startPoint.x += widthRaw;
-
-            widthRaw += item.transform.localScale.x + 0.05f;
-
-            if (widthRaw + additionalAnswerSurface.transform.localScale.x > 4.9f)
-            {
-                return true;
-            }
-        }
         return false;
+        //float widthRaw = 0f;
+        //foreach (var item in _questionsShelved)
+        //{
+        //    Vector3 startPoint = _shelfArea.position;
+
+        //    startPoint.x += 0.075f;
+
+
+        //    startPoint.x -= _shelfArea.localScale.x / 2;
+
+        //    startPoint.x += widthRaw;
+
+        //    widthRaw += item.transform.localScale.x + 0.05f;
+
+        //    if (widthRaw + additionalAnswerSurface.transform.localScale.x > 4.9f)
+        //    {
+        //        return true;
+        //    }
+        //}
+        //return false;
+    }
+
+    public void SetCompleted()
+    {
+        _shelfArea.GetComponent<Renderer>().material = _materialCompleted;
+        IsEnabled = false;
+        foreach (var item in _questionsShelved)
+            item.GetAnswer().IsOpenOnStart = true;
+        
     }
 }

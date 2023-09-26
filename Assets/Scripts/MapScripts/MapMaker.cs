@@ -172,14 +172,14 @@ namespace Mkey
             if (biomes == null || length == 0) return;
             int lengthp = BackgroundPrefabs.Count;
             if (BackgroundPrefabs == null || lengthp == 0) return;
-
+            Debug.Log(lengthp);
             //save  biomes prefabs
             GameObject[] bPrefs = new GameObject[length];
             for (int i = 0; i < length; i++)
             {
                 for (int pi = 0; pi < length; pi++)
                 {
-
+                    Debug.Log(biomes[i].name);
                     if (biomes[i].name.Contains(BackgroundPrefabs[pi].name))
                     {
                         bPrefs[i] = BackgroundPrefabs[pi];

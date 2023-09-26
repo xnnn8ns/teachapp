@@ -57,7 +57,7 @@ public class TransformPhisics : MonoBehaviour
         bool isClick = false;
         if (dist < 0.2f && timeStart + 0.25f > Time.time)
             isClick = true;
-        Debug.Log(isClick);
+        //Debug.Log(isClick);
         _questionInitializer.CheckAnswerAfterDrop(_draggingTransform, isClick);
         _draggingTransform = null;
         //Vibration.VibratePeek();
@@ -131,6 +131,7 @@ public class TransformPhisics : MonoBehaviour
                 }
             }
         }
+        
         if (_answersInTouchArea[indexAnswer].GetComponent<AnswerSurface>().GetAnswer().IsOpenOnStart)
             return null;
         

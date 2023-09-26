@@ -279,16 +279,16 @@ public class QuestionInitializer : MonoBehaviour
     private void CheckMultiAnswerAfterDrop(AnswerSurface answerSurface, bool isClick)
     {
         bool isInsideAnyShelf = false;
-        foreach (Shelf shelf in _shelvesForCheck)
+        for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
-            if (shelf.IsAnswerInsideShelfBorders(answerSurface) && shelf.IsEnabled)
+            if (_shelvesForCheck[i].IsAnswerInsideShelfBorders(answerSurface) && _shelvesForCheck[i].IsEnabled)
             {
                 if (isClick)
                     _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
                 else
                 {
-                    shelf.AddAnswerToShelfByDrag(answerSurface);
-                    _shelfDefault = shelf;
+                    _shelvesForCheck[i].AddAnswerToShelfByDrag(answerSurface);
+                    _shelfDefault = _shelvesForCheck[i];
                 }
                 isInsideAnyShelf = true;
                 break;
@@ -311,23 +311,30 @@ public class QuestionInitializer : MonoBehaviour
 
     private void AddAnswerToDefaultShelfAfterClick(AnswerSurface answerSurface)
     {
-        foreach (Shelf shelf in _shelvesForCheck)
+        for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
-            if (!shelf.GetIsShelfFull(answerSurface) && shelf.IsEnabled && shelf.Equals(_shelfDefault))
+            if (!_shelvesForCheck[i].GetIsShelfFull(answerSurface) && _shelvesForCheck[i].IsEnabled && _shelvesForCheck[i].Equals(_shelfDefault))
             {
-                shelf.AddAnswerToShelfByDrag(answerSurface, true);
+                _shelvesForCheck[i].AddAnswerToShelfByDrag(answerSurface, true);
+                Debug.Log("CheckShelfForRightCompleted: " + CheckShelfForRightCompleted(_shelvesForCheck[i], i));
                 return;
             }
         }
 
-        foreach (Shelf shelf in _shelvesForCheck)
+        for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
-            if (!shelf.GetIsShelfFull(answerSurface) && shelf.IsEnabled)
+            if (!_shelvesForCheck[i].GetIsShelfFull(answerSurface) && _shelvesForCheck[i].IsEnabled)
             {
-                shelf.AddAnswerToShelfByDrag(answerSurface, true);
+                _shelvesForCheck[i].AddAnswerToShelfByDrag(answerSurface, true);
+                Debug.Log("CheckShelfForRightCompleted-Click: " + CheckShelfForRightCompleted(_shelvesForCheck[i], i));
                 break;
             }
         }
+    }
+
+    private void SetShelfRightCompleted(Shelf shelf)
+    {
+
     }
 
     private void CheckSingleAnswerAfterDrop(AnswerSurface answerSurface, bool isClick)
@@ -402,6 +409,14 @@ public class QuestionInitializer : MonoBehaviour
         _shelfRawAnswers?.RemoveAnswerFromShelf(answerSurface);
     }
 
+    private bool CheckShelfForRightCompleted(Shelf shelf, int rowIndex)
+    {
+        bool isRight = shelf.IsRightAnswersInShelf(_questionsCurrentLevel[_currentQuestionIndex], rowIndex);
+        if (isRight)
+            shelf.SetCompleted();
+        return isRight;
+    }
+
     public void ClickCheckAnswerForQuestion()
     {
         _setInShelfAudio?.Play();
@@ -412,7 +427,7 @@ public class QuestionInitializer : MonoBehaviour
         for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
             if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
-                isRight = _shelvesForCheck[i].IsRightAnswersInShelf(_questionsCurrentLevel[_currentQuestionIndex], i);
+                isRight = CheckShelfForRightCompleted(_shelvesForCheck[i], i);
             //else if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Test)
             //    isRight = _questionsCurrentLevel[_currentQuestionIndex].GetAnswerList()[i].IsRight == _shelvesForCheck[i].GetTestShelfChecker();
             if (!isRight)

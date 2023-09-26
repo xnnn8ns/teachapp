@@ -59,7 +59,7 @@ public class UserData : MonoBehaviour
         CurrentTeamName = PlayerPrefs.GetString("CurrentTeamName", "");
         CurrentTeamUserAdminID = PlayerPrefs.GetInt("CurrentTeamUserAdminID", 0);
         Score = PlayerPrefs.GetInt("Score", 0);
-        Debug.Log("1 Score: " + Score);
+        //Debug.Log("1 Score: " + Score);
     }
 
     public static bool IsHaveLoginUserData()
