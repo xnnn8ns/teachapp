@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using System.Linq;
 
 public class Shelf : MonoBehaviour, IPointerClickHandler
 {
@@ -77,50 +78,6 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
         foreach (var item in _questionsShelved)
             item.transform.DOMove(item.BasePosition, 0.25f);
         //item.transform.position = item.BasePosition;
-    }
-
-    private void SetAnswersOnAnswerShelf2()
-    {
-        float widthRaw = 0f;
-        SetTestShelfChecker(false);
-
-        int countRows = 0;
-
-        foreach (var item in _questionsShelved)
-        {
-            Vector3 startPoint = _shelfArea.position;
-
-            startPoint.x += 0.075f;
-
-
-            startPoint.x -= _shelfArea.localScale.x / 2;
-
-            startPoint.x += widthRaw;
-
-            widthRaw += item.transform.localScale.x + 0.05f;
-
-            
-
-            float yPosition = startPoint.y - 0.55f * countRows + _shelfArea.transform.localScale.y / 2 - 0.28f;
-
-            startPoint.y = yPosition;
-
-            Vector3 offsetPoint = Vector3.zero;
-            offsetPoint.x += item.transform.localScale.x / 2;
-
-            Vector3 targetPoint = startPoint + offsetPoint;
-            //item.transform.position = targetPoint;
-            item.transform.DOMove(targetPoint, 0.25f);
-
-            if (widthRaw > 4f)
-            {
-                countRows++;
-                widthRaw = 0;
-            }
-
-            if (IsRawAnswersShelf)
-                item.BasePosition = targetPoint;
-        }
     }
 
     private void SetAnswersOnAnswerShelf()
@@ -269,6 +226,10 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
         IsEnabled = false;
         foreach (var item in _questionsShelved)
             item.GetAnswer().IsOpenOnStart = true;
-        
+    }
+
+    public void ReBuildBasePosition()
+    {
+        SetAnswersOnAnswerShelf();
     }
 }

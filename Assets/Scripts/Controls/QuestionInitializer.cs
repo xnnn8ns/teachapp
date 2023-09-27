@@ -208,7 +208,7 @@ public class QuestionInitializer : MonoBehaviour
     {
         List<Answer> answers = _questionsCurrentLevel[_currentQuestionIndex].GetAnswerList();
         Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, 0);
-
+        //answers.Shuffle();
         foreach (var answer in answers)
         { 
             GameObject answerPrefab = Instantiate(_answerPrefab, vectorPosition, Quaternion.identity);
@@ -218,13 +218,7 @@ public class QuestionInitializer : MonoBehaviour
             answerSurface.SetAnswer(answer, true);
             if (answerSurface != null) 
                 _shelfRawAnswers.AddAnswerToShelf(answerSurface);
-
-            //Vector3 vectorMockPosition = answerPrefab.transform.position + new Vector3(0, 0, 0.01f);
-            //GameObject mock = Instantiate(_answerMockPrefab, vectorMockPosition, Quaternion.identity);
-            //mock.transform.localScale = answerSurface.transform.localScale;
-            //_answersMock.Add(mock);
         }
-        _shelfRawAnswers.SetFirstAnswerForRawShelfCompleted();
         StartCoroutine(SetOpenOnStartRightAnswer());
     }
 
@@ -302,6 +296,7 @@ public class QuestionInitializer : MonoBehaviour
             else
                 _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
         }
+        CheckAllShelvesOnComplete();
     }
 
     private bool IsClickOnAnswerInRawAnswerShelf()
@@ -316,7 +311,8 @@ public class QuestionInitializer : MonoBehaviour
             if (!_shelvesForCheck[i].GetIsShelfFull(answerSurface) && _shelvesForCheck[i].IsEnabled && _shelvesForCheck[i].Equals(_shelfDefault))
             {
                 _shelvesForCheck[i].AddAnswerToShelfByDrag(answerSurface, true);
-                Debug.Log("CheckShelfForRightCompleted: " + CheckShelfForRightCompleted(_shelvesForCheck[i], i));
+                //Debug.Log("CheckShelfForRightCompleted: " +
+                //CheckShelfForRightCompleted(_shelvesForCheck[i], i);
                 return;
             }
         }
@@ -326,7 +322,8 @@ public class QuestionInitializer : MonoBehaviour
             if (!_shelvesForCheck[i].GetIsShelfFull(answerSurface) && _shelvesForCheck[i].IsEnabled)
             {
                 _shelvesForCheck[i].AddAnswerToShelfByDrag(answerSurface, true);
-                Debug.Log("CheckShelfForRightCompleted-Click: " + CheckShelfForRightCompleted(_shelvesForCheck[i], i));
+                //Debug.Log("CheckShelfForRightCompleted-Click: " +
+                //CheckShelfForRightCompleted(_shelvesForCheck[i], i);
                 break;
             }
         }
@@ -370,14 +367,14 @@ public class QuestionInitializer : MonoBehaviour
             else
                 _shelfRawAnswers.AddAnswerToShelfByDrag(answerSurface);
         }
+        //CheckAllShelvesOnComplete();
     }
 
     private void MoveAllAnswersToOtherShelf(Shelf source, Shelf destination)
     {
         foreach (AnswerSurface answerSurface in source.GetAnswerList())
-        {
             destination.AddAnswerToShelf(answerSurface);
-        }
+        
         source.GetAnswerList().Clear();
     }
 
@@ -407,6 +404,15 @@ public class QuestionInitializer : MonoBehaviour
             }
         }
         _shelfRawAnswers?.RemoveAnswerFromShelf(answerSurface);
+    }
+
+    private void CheckAllShelvesOnComplete()
+    {
+        for (int i = 0; i < _shelvesForCheck.Count; i++)
+        {
+            if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
+                CheckShelfForRightCompleted(_shelvesForCheck[i], i);
+        }
     }
 
     private bool CheckShelfForRightCompleted(Shelf shelf, int rowIndex)
@@ -473,6 +479,7 @@ public class QuestionInitializer : MonoBehaviour
             if (answerSurfacesUpdated.Count > 0)
             {
                 _shelvesForCheck[i].AddAnswerToShelfOnRightPlace(answerSurfacesUpdated);
+                
                 foreach (var item in answerSurfacesUpdated)
                 {
                     _shelfRawAnswers.RemoveAnswerFromShelf(item);
@@ -480,7 +487,16 @@ public class QuestionInitializer : MonoBehaviour
                 _shelvesForCheck[i].IsEnabled = false;
             }
         }
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.01f);
+        _shelfRawAnswers.GetAnswerList().Shuffle();
+        _shelfRawAnswers.ReBuildBasePosition();
+        for (int i = 0; i < _shelvesForCheck.Count; i++)
+        {
+            if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
+                CheckShelfForRightCompleted(_shelvesForCheck[i], i);
+        }
+        _shelfRawAnswers.SetFirstAnswerForRawShelfCompleted();
+        yield return new WaitForSeconds(0.05f);
     }
 
     private IEnumerator SetRightAnswerOnScreen(bool isRight)
@@ -654,4 +670,5 @@ public class QuestionInitializer : MonoBehaviour
             ActionLevelCompleted.Invoke();
         }
     }
+
 }
