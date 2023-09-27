@@ -22,4 +22,7 @@ public class TaskJSONItem
 
     [JsonProperty("topic")]
     public int Topic { get; set; }
+
+    [JsonProperty("additionalBlocks")]
+    public string AdditionalBlocks { get; set; }
 }

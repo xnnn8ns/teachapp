@@ -271,7 +271,16 @@ public class DataLoader : MonoBehaviour
     {
         try
         {
+            if (task.Content == null)
+                task.Content = "";
             string[] raws = task.Content.Split("\r\n");
+            if (task.AdditionalBlocks == null)
+            {
+                task.AdditionalBlocks = "";
+                //task.AdditionalBlocks = "8 ! *";
+            }
+                
+            string[] radditionalBlockRaws = task.AdditionalBlocks.Split("\r\n");
 
             Level newLevel;
             if (Level.Levels.Count == 0)
@@ -328,6 +337,33 @@ public class DataLoader : MonoBehaviour
                 }
 
                 row++;
+            }
+
+            if (task.AdditionalBlocks.Length > 0)
+            {
+                foreach (var strShelf in radditionalBlockRaws)
+                {
+                    string itemShelf = strShelf;
+                    string[] block = itemShelf.Split(" ");
+                    //int position = 0;
+                    foreach (var itemSub in block)
+                    {
+                        Answer answer = new Answer();
+                        answer.Title = itemSub;
+                        answer.IsRight = false;
+                        answer.Score = 0;
+                        answer.IsPositionCellDependent = false;
+                        answer.IsPositionRowDependent = false;
+                        answer.PositionRowIndex = 0;
+                        answer.PositionCellIndex = 0;
+                        answer.IsOpenOnStart = false;
+                        answers.Add(answer);
+                        //position++;
+                        //Debug.Log(itemSub);
+                    }
+
+                    //row++;
+                }
             }
             question.SetAnswerList(answers);
             Question.QuestionsList.Add(question);
