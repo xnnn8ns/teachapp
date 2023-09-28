@@ -10,6 +10,7 @@ public abstract class Question : Information
     private int _score = 0;
     private QuestionType _questionType = QuestionType.Shelf;
     private List<Answer> _answerList = new List<Answer>();
+    private bool _isPassed = false;
 
     public int GetAnswerCount()
     {
@@ -126,6 +127,18 @@ public abstract class Question : Information
         set
         {
             _level = value;
+        }
+    }
+
+    public bool IsPassed
+    {
+        get
+        {
+            return _isPassed;
+        }
+        set
+        {
+            _isPassed = value;
         }
     }
 }

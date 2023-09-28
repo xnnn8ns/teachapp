@@ -299,11 +299,6 @@ public class QuestionInitializer : MonoBehaviour
         CheckAllShelvesOnComplete();
     }
 
-    private bool IsClickOnAnswerInRawAnswerShelf()
-    {
-        return true;
-    }
-
     private void AddAnswerToDefaultShelfAfterClick(AnswerSurface answerSurface)
     {
         for (int i = 0; i < _shelvesForCheck.Count; i++)
@@ -327,11 +322,6 @@ public class QuestionInitializer : MonoBehaviour
                 break;
             }
         }
-    }
-
-    private void SetShelfRightCompleted(Shelf shelf)
-    {
-
     }
 
     private void CheckSingleAnswerAfterDrop(AnswerSurface answerSurface, bool isClick)
@@ -376,21 +366,6 @@ public class QuestionInitializer : MonoBehaviour
             destination.AddAnswerToShelf(answerSurface);
         
         source.GetAnswerList().Clear();
-    }
-
-    private IEnumerator RemoveAnswerFromShelfAfterDelay(AnswerSurface answerSurface)
-    {
-        yield return new WaitForSeconds(0.25f);
-        foreach (Shelf shelf in _shelvesForCheck)
-        {
-            if (shelf.GetAnswerList().Contains(answerSurface))
-            {
-                shelf.RemoveAnswerFromShelf(answerSurface);
-                break;
-            }
-        }
-        _shelfRawAnswers?.RemoveAnswerFromShelf(answerSurface);
-        yield break;
     }
 
     private void RemoveAnswerFromShelf(AnswerSurface answerSurface)
@@ -444,9 +419,10 @@ public class QuestionInitializer : MonoBehaviour
             _questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Test)
             isRight = _imageChecker.GetIsRight();
 
-        Debug.Log(isRight);
+        //Debug.Log(isRight);
         if (isRight)
         {
+            _questionsCurrentLevel[_currentQuestionIndex].IsPassed = isRight;
             _rightAnsweredCount++;
             AddEarnedPoints(_questionsCurrentLevel[_currentQuestionIndex].Score);
         }
@@ -562,14 +538,28 @@ public class QuestionInitializer : MonoBehaviour
         StopAllCoroutines();
         DestroyQuestionObjects();
         _currentQuestionIndex++;
-        if (_currentQuestionIndex < _questionsCurrentLevel.Count)
+        for (int i = _currentQuestionIndex; i < _questionsCurrentLevel.Count; i++)
+        {
+            if (!_questionsCurrentLevel[i].IsPassed)
+                break;
+            else
+                _currentQuestionIndex++;
+        }
+        bool isLastQuestion = _currentQuestionIndex >= _questionsCurrentLevel.Count;
+
+        if (!isLastQuestion)
             InitQuestion();
         else
             _imageChecker.gameObject.SetActive(false);
 
         SetLevelEarnedPoints(_rightAnsweredCount, _questionsCurrentLevel.Count);
-        
-        CheckIsLevelCompleted();
+
+        if (isLastQuestion) {
+            if(CheckIsLevelCompleted())
+                SetLevelCompleted();
+            else
+                InitQuestion();
+        }
     }
 
     private void DestroyQuestionObjects()
@@ -639,7 +629,20 @@ public class QuestionInitializer : MonoBehaviour
         _typeAudio?.Stop();
     }
 
-    private void CheckIsLevelCompleted()
+    private bool CheckIsLevelCompleted()
+    {
+        for (int i = 0; i < _questionsCurrentLevel.Count; i++)
+        {
+            if (!_questionsCurrentLevel[i].IsPassed)
+            {
+                _currentQuestionIndex = i;
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void SetLevelCompleted()
     {
         if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
         {
