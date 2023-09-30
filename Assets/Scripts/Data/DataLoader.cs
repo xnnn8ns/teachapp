@@ -279,7 +279,9 @@ public class DataLoader : MonoBehaviour
                 task.AdditionalBlocks = "";
                 //task.AdditionalBlocks = "8 ! *";
             }
-                
+            if (task.AdditionalBlocks.Length == 1 && task.AdditionalBlocks == "0")
+                task.AdditionalBlocks = "";
+
             string[] radditionalBlockRaws = task.AdditionalBlocks.Split("\r\n");
 
             Level newLevel;

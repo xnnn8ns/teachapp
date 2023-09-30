@@ -392,7 +392,7 @@ public class QuestionInitializer : MonoBehaviour
 
     private bool CheckShelfForRightCompleted(Shelf shelf, int rowIndex)
     {
-        bool isRight = shelf.IsRightAnswersInShelf(_questionsCurrentLevel[_currentQuestionIndex], rowIndex);
+        bool isRight = shelf.IsRightAnswersInShelf2(_questionsCurrentLevel[_currentQuestionIndex], rowIndex);
         if (isRight)
             shelf.SetCompleted();
         return isRight;

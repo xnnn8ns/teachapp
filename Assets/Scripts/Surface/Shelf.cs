@@ -166,6 +166,32 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
         return true;
     }
 
+    public bool IsRightAnswersInShelf2(Question question, int shelfIndex)
+    {
+        //Debug.Log(_questionsShelved.Count);
+        if (_questionsShelved.Count != question.GetCountRigthAnswersForRowIndex(shelfIndex))
+            return false;
+
+        for (int i = 0; i < _questionsShelved.Count; i++)
+        {
+            string answerCurrent = _questionsShelved[i].GetAnswer().Title;
+            List<Answer> answerList = question.GetRigthAnswerList();
+            foreach (var item in answerList)
+            {
+                if (item.PositionRowIndex == shelfIndex
+                    &&
+                    item.PositionCellIndex == i)
+                {
+                    if (item.Title != answerCurrent)
+                        return false;
+                    else
+                        break;
+                }
+            }
+        }
+        return true;
+    }
+
     public void DestroyAllObjectsOnShelf()
     {
         for (int i = _questionsShelved.Count - 1; i >= 0; i--)
@@ -224,8 +250,8 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     {
         _shelfArea.GetComponent<Renderer>().material = _materialCompleted;
         IsEnabled = false;
-        foreach (var item in _questionsShelved)
-            item.GetAnswer().IsOpenOnStart = true;
+        //foreach (var item in _questionsShelved)
+        //    item.GetAnswer().IsOpenOnStart = true;
     }
 
     public void ReBuildBasePosition()

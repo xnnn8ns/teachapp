@@ -28,6 +28,18 @@ public abstract class Question : Information
         return count;
     }
 
+    public List<Answer> GetRigthAnswerList()
+    {
+        List<Answer> answers = new List<Answer>();
+
+        foreach (var item in _answerList)
+        {
+            if (item.IsRight)
+                answers.Add(item);
+        }
+        return answers;
+    }
+
     public int GetCountRigthAnswersForRowIndex(int rowIndex)
     {
         int count = 0;
