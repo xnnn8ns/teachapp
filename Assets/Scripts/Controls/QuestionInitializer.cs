@@ -101,13 +101,14 @@ public class QuestionInitializer : MonoBehaviour
         {
             GameObject shelfQuestionPrefab = Instantiate(_shelfPrefab);
             shelfQuestionPrefab.transform.position = new Vector3(0, heightUpperShelf - i * _shelfHeightScale * 1.05f, 0);
-            shelfQuestionPrefab.transform.localScale = new Vector3(5, _shelfHeightScale, 1);
+            
+            shelfQuestionPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), _shelfHeightScale, 1);
             _shelvesForCheck.Add(shelfQuestionPrefab?.GetComponent<Shelf>());
         }
 
         GameObject shelfAnswerPrefab = Instantiate(_shelfPrefab);
         shelfAnswerPrefab.transform.position = new Vector3(0, heightBelowShelf, 0);
-        shelfAnswerPrefab.transform.localScale = new Vector3(5, 3, 1);
+        shelfAnswerPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), 3, 1);
         _shelfRawAnswers = shelfAnswerPrefab?.GetComponent<Shelf>();
         _shelfRawAnswers.IsRawAnswersShelf = true;
 
@@ -125,7 +126,7 @@ public class QuestionInitializer : MonoBehaviour
         {
             GameObject shelfAnswerPrefab = Instantiate(_shelfPrefab);
             shelfAnswerPrefab.transform.position = new Vector3(0, heightUpperShelf - i * _shelfHeightScale * 1.05f, 0);
-            shelfAnswerPrefab.transform.localScale = new Vector3(5, _shelfHeightScale, 1);
+            shelfAnswerPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), _shelfHeightScale, 1);
             Shelf shelf = shelfAnswerPrefab?.GetComponent<Shelf>();
             if (shelf != null)
             {

@@ -54,7 +54,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
     public void AddAnswerToShelf(AnswerSurface transformChild)
     {
-        Debug.Log("AddAnswerToShelf");
+        //Debug.Log("AddAnswerToShelf");
         _questionsShelved.Add(transformChild);
         
         SetAnswersOnShelf();
@@ -150,21 +150,21 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
         return _questionsShelved;
     }
 
-    public bool IsRightAnswersInShelf(Question question, int shelfIndex)
-    {
-        //Debug.Log(_questionsShelved.Count);
-        if (_questionsShelved.Count != question.GetCountRigthAnswersForRowIndex(shelfIndex))
-            return false;
+    //public bool IsRightAnswersInShelf(Question question, int shelfIndex)
+    //{
+    //    //Debug.Log(_questionsShelved.Count);
+    //    if (_questionsShelved.Count != question.GetCountRigthAnswersForRowIndex(shelfIndex))
+    //        return false;
 
-        for (int i = 0; i < _questionsShelved.Count; i++)
-        {
-            if(_questionsShelved[i].GetAnswer().IsRightInputValuesForShelf(shelfIndex, i))
-                continue;
-            else
-                return false;
-        }
-        return true;
-    }
+    //    for (int i = 0; i < _questionsShelved.Count; i++)
+    //    {
+    //        if(_questionsShelved[i].GetAnswer().IsRightInputValuesForShelf(shelfIndex, i))
+    //            continue;
+    //        else
+    //            return false;
+    //    }
+    //    return true;
+    //}
 
     public bool IsRightAnswersInShelf2(Question question, int shelfIndex)
     {

@@ -207,5 +207,20 @@ public class ComonFunctions : MonoBehaviour
     //            SceneManager.LoadScene(0);
     //    }
     //}
+
+    public static float GetScaleForShelf()
+    {
+        float currentScreenCoefProportion = (float)Screen.height / Screen.width;
+        float defaultScreenCoefProportion = 2.164251f;// for iPhone11 // need scale 5
+        float scale = defaultScreenCoefProportion - 1.778667f; // 1.778667 for 6 // need scale 5
+
+        float deltaFromDefault = currentScreenCoefProportion / defaultScreenCoefProportion;
+
+        float targetScale = 5f / deltaFromDefault;
+
+        Debug.Log(deltaFromDefault);
+        Debug.Log(targetScale);
+        return targetScale;
+    }
 }
 
