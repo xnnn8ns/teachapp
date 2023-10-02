@@ -170,7 +170,7 @@ public class QuestionInitializer : MonoBehaviour
         else
             InitAnswersForTest();
         _typeAudio?.Play();
-        Debug.Log("_typeAudio Play");
+        //Debug.Log("_typeAudio Play");
     }
 
 

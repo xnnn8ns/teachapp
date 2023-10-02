@@ -11,6 +11,7 @@ public class WindowScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _textTime;
     [SerializeField] private TextMeshProUGUI _textScore;
 
+
     private string _sceneToLoad = "";
 
     private void Start()
@@ -35,6 +36,8 @@ public class WindowScript : MonoBehaviour
             }
         }
     }
+
+    
 
     public void ClickCancel()
     {
