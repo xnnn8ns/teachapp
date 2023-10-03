@@ -48,8 +48,10 @@ public class QuestionInitializer : MonoBehaviour
     private static int _scoreValue = 0;
     private static float _shelfHeightScale = 0.56f;
 
-    private float heightUpperShelf = 2.5f;
-    private float heightBelowShelf = -3f;
+    private float _heightUpperShelf = 2.5f;
+    private float _heightBelowShelf = -3f;
+
+    private int _secondsCount = 100;
 
     private void FillQuestionsForCurrentLevel()
     {
@@ -64,6 +66,10 @@ public class QuestionInitializer : MonoBehaviour
             {
                 if (question.Level == levelWithStars)
                     _questionsCurrentLevel.Add(question);
+            }
+            foreach (var item in _questionsCurrentLevel)
+            {
+                item.TypeLevel = (ETypeLevel)buttonData.typeLevel;
             }
         }
     }
@@ -86,9 +92,24 @@ public class QuestionInitializer : MonoBehaviour
             InitImageTest(); //InitTest();
         //else
         //    InitImageCheck();
+        if (_currentQuestionIndex == 0) {
+            if (_questionsCurrentLevel[_currentQuestionIndex].TypeLevel == ETypeLevel.additional)
+                _secondsCount = 120;
+            else if (_questionsCurrentLevel[_currentQuestionIndex].TypeLevel == ETypeLevel.mission1)
+                _secondsCount = 100;
+            else if (_questionsCurrentLevel[_currentQuestionIndex].TypeLevel == ETypeLevel.mission2)
+                _secondsCount = 90;
+            else if (_questionsCurrentLevel[_currentQuestionIndex].TypeLevel == ETypeLevel.final)
+                _secondsCount = 60;
+            else
+                _secondsCount = 300;
+        }
+
+        StartCoroutine(TimerCountDown(_secondsCount));
 
         _buttonCheck.SetActive(false);
         _buttonCheckDisabled.SetActive(true);
+        
     }
 
     private void InitShelves()
@@ -100,14 +121,14 @@ public class QuestionInitializer : MonoBehaviour
         for (int i = 0; i < countShelves; i++)
         {
             GameObject shelfQuestionPrefab = Instantiate(_shelfPrefab);
-            shelfQuestionPrefab.transform.position = new Vector3(0, heightUpperShelf - i * _shelfHeightScale * 1.05f, 0);
+            shelfQuestionPrefab.transform.position = new Vector3(0, _heightUpperShelf - i * _shelfHeightScale * 1.05f, 0);
             
             shelfQuestionPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), _shelfHeightScale, 1);
             _shelvesForCheck.Add(shelfQuestionPrefab?.GetComponent<Shelf>());
         }
 
         GameObject shelfAnswerPrefab = Instantiate(_shelfPrefab);
-        shelfAnswerPrefab.transform.position = new Vector3(0, heightBelowShelf, 0);
+        shelfAnswerPrefab.transform.position = new Vector3(0, _heightBelowShelf, 0);
         shelfAnswerPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), 3, 1);
         _shelfRawAnswers = shelfAnswerPrefab?.GetComponent<Shelf>();
         _shelfRawAnswers.IsRawAnswersShelf = true;
@@ -125,7 +146,7 @@ public class QuestionInitializer : MonoBehaviour
         for (int i = 0; i < countTestShelves; i++)
         {
             GameObject shelfAnswerPrefab = Instantiate(_shelfPrefab);
-            shelfAnswerPrefab.transform.position = new Vector3(0, heightUpperShelf - i * _shelfHeightScale * 1.05f, 0);
+            shelfAnswerPrefab.transform.position = new Vector3(0, _heightUpperShelf - i * _shelfHeightScale * 1.05f, 0);
             shelfAnswerPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), _shelfHeightScale, 1);
             Shelf shelf = shelfAnswerPrefab?.GetComponent<Shelf>();
             if (shelf != null)
@@ -245,7 +266,6 @@ public class QuestionInitializer : MonoBehaviour
         InitQuestion();
         //InitTouchDetector();
         _resultPanelScript.SetActive(false);
-
     }
 
     public void RemoveFromShelf(Transform transformTouchDown)
@@ -404,7 +424,7 @@ public class QuestionInitializer : MonoBehaviour
         _setInShelfAudio?.Play();
 
         StopAnimationTextType();
-
+        StopAllCoroutines();
         bool isRight = false;
         for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
@@ -595,7 +615,7 @@ public class QuestionInitializer : MonoBehaviour
     private void AddEarnedPoints(int valuePoints)
     {
         _scoreValue += valuePoints;
-        _scoreValueText.text = _scoreValue.ToString();
+        //_scoreValueText.text = _scoreValue.ToString();
     }
 
     private void ClickTestShelf(bool value, Shelf shelf)
@@ -675,4 +695,20 @@ public class QuestionInitializer : MonoBehaviour
         }
     }
 
+    private IEnumerator TimerCountDown(int secondsTillFinish)
+    {
+        _secondsCount = secondsTillFinish;
+        _scoreValueText.text = ComonFunctions.GetMinetsSecondsFromSeconds(_secondsCount);
+        while (_secondsCount > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            _secondsCount--;
+            _scoreValueText.text = ComonFunctions.GetMinetsSecondsFromSeconds(_secondsCount);
+
+        }
+        if (_secondsCount < 0)
+            _secondsCount = 0;
+        _scoreValueText.text = ComonFunctions.GetMinetsSecondsFromSeconds(_secondsCount);
+        yield break;
+    }
 }

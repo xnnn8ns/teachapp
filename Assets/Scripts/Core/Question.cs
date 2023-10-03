@@ -11,6 +11,7 @@ public abstract class Question : Information
     private QuestionType _questionType = QuestionType.Shelf;
     private List<Answer> _answerList = new List<Answer>();
     private bool _isPassed = false;
+    private ETypeLevel _ETypeLevel = ETypeLevel.simple;
 
     public int GetAnswerCount()
     {
@@ -151,6 +152,18 @@ public abstract class Question : Information
         set
         {
             _isPassed = value;
+        }
+    }
+
+    public ETypeLevel TypeLevel
+    {
+        get
+        {
+            return _ETypeLevel;
+        }
+        set
+        {
+            _ETypeLevel = value;
         }
     }
 }

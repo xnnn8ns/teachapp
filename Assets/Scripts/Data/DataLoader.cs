@@ -172,23 +172,23 @@ public class DataLoader : MonoBehaviour
     public void GetTaskData()
     {
         //List<ButtonData> buttonDataList = new List<ButtonData>();
-        string json = "";
-        if (File.Exists(Application.persistentDataPath + Settings.jsonTaskFilePath))
-        {
-            json = File.ReadAllText(Application.persistentDataPath + Settings.jsonTaskFilePath);
-            UserData.LoadUserData();
-            SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
-            StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
-        }
-        else
-        {
-            StartCoroutine(GetTaskDataFromAPI());
+        //string json = "";
+        //if (File.Exists(Application.persistentDataPath + Settings.jsonTaskFilePath))
+        //{
+        //    json = File.ReadAllText(Application.persistentDataPath + Settings.jsonTaskFilePath);
+        //    UserData.LoadUserData();
+        //    SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
+        //    StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
+        //}
+        //else
+        //{
+            StartCoroutine(GetTestTaskDataFromAPI());
             //FileStream fs = File.Create(Application.persistentDataPath + Settings.jsonTaskFilePath);
             //fs.Dispose();
             //TextAsset txt = (TextAsset)Resources.Load("buttonData", typeof(TextAsset));
             //json = txt.text;
             //File.WriteAllText(Application.persistentDataPath + Settings.jsonButtonFilePath, json);
-        }
+        //}
         //Debug.Log(json);
         //buttonDataList = JsonConvert.DeserializeObject<List<ButtonData>>(json);
 
@@ -203,22 +203,15 @@ public class DataLoader : MonoBehaviour
         //}
     }
 
-    private IEnumerator GetTaskDataFromAPI()
+    private IEnumerator GetTestTaskDataFromAPI()
     {
-        //List<TaskJSONItem> _tasks = new List<TaskJSONItem>();
         using (UnityWebRequest www = UnityWebRequest.Get(apiTaskUrl))
         {
             yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.ConnectionError ||
-                www.result == UnityWebRequest.Result.ProtocolError)
+            string json = DownLaodOrCreateFileJson(www, Settings.jsonTestFilePath);
+            if (json.Length > 0)
             {
-                Debug.LogError("HTTP Error: " + www.error);
-            }
-            else
-            {
-                Debug.Log("API Response: " + www.downloadHandler.text);
-                TaskJSON response = TaskJSON.FromJson(www.downloadHandler.text);
+                TaskJSON response = TaskJSON.FromJson(json);
                 if (response != null && response.Count > 0)
                 {
                     int count = 1;
@@ -229,26 +222,20 @@ public class DataLoader : MonoBehaviour
                         count++;
                     }
                 }
-
             }
+            else
+                Debug.LogError("Error first download test json from server");
         }
 
         using (UnityWebRequest www = UnityWebRequest.Get(apiTestUrl))
         {
             yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.ConnectionError ||
-                www.result == UnityWebRequest.Result.ProtocolError)
+            string json = DownLaodOrCreateFileJson(www, Settings.jsonTaskFilePath);
+            if (json.Length > 0)
             {
-                Debug.LogError("HTTP Error: " + www.error);
-            }
-            else
-            {
-                Debug.Log("API Response: " + www.downloadHandler.text);
-                TestJSON response = TestJSON.FromJson(www.downloadHandler.text);
+                TestJSON response = TestJSON.FromJson(json);
                 if (response != null && response.Count > 0)
                 {
-                    //Debug.Log(response.Count);
                     int count = 1;
                     foreach (var item in response)
                     {
@@ -265,6 +252,34 @@ public class DataLoader : MonoBehaviour
         SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
         if(UserData.UserID != "")
             StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
+    }
+
+    private string DownLaodOrCreateFileJson(UnityWebRequest www, string filePathSave)
+    {
+        string json = "";
+        bool isError = false;
+        if (www.result == UnityWebRequest.Result.ConnectionError ||
+            www.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError("HTTP Error: " + www.error);
+            isError = true;
+            if (File.Exists(Application.persistentDataPath + filePathSave))
+                json = File.ReadAllText(Application.persistentDataPath + filePathSave);
+        }
+        if (!isError)
+        {
+            json = www.downloadHandler.text;
+            Debug.Log("API Response: " + json);
+            if (!File.Exists(Application.persistentDataPath + filePathSave))
+            {
+                FileStream fs = File.Create(Application.persistentDataPath + filePathSave);
+                fs.Dispose();
+                Debug.Log("File create " + filePathSave);
+            }
+            File.WriteAllText(Application.persistentDataPath + filePathSave, json);
+            Debug.Log("File.WriteAllText " + filePathSave);
+        }
+        return json;
     }
 
     private void ParseJSONTask(TaskJSONItem task)

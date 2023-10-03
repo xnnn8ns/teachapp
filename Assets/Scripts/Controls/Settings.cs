@@ -14,7 +14,8 @@ public class Settings : MonoBehaviour
     public static int Current_Theme = 1;
     //public const string jsonFilePath = "/Map/Resources/buttonData.json";
     public const string jsonButtonFilePath = "/buttonData.json";
-    public const string jsonTaskFilePath = "/TaskData.json";
+    public const string jsonTestFilePath = "/testRawData.json";
+    public const string jsonTaskFilePath = "/taskData.json";
     public const string theoryFilePath = "/theoryTask-";
 
     public static void SetClickQuestionSettings()

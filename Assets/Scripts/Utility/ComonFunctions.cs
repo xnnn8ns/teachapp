@@ -222,5 +222,20 @@ public class ComonFunctions : MonoBehaviour
         Debug.Log(targetScale);
         return targetScale;
     }
+
+    public static string GetMinetsSecondsFromSeconds(int seconds)
+    {
+        string time = "";
+        int minutes = seconds / 60;
+        if (minutes < 10)
+            time += "0";
+        time += minutes;
+        time += ":";
+        int secondsRest = seconds - minutes * 60;
+        if (secondsRest < 10)
+            time += "0";
+        time += secondsRest;
+        return time;
+    }
 }
 
