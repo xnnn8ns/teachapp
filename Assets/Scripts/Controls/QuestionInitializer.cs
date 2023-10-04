@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using Mkey;
+using UnityEngine.SceneManagement;
 
 public class QuestionInitializer : MonoBehaviour
 {
@@ -576,10 +577,13 @@ public class QuestionInitializer : MonoBehaviour
         SetLevelEarnedPoints(_rightAnsweredCount, _questionsCurrentLevel.Count);
 
         if (isLastQuestion) {
-            if(CheckIsLevelCompleted())
+            if (CheckIsLevelCompleted())
                 SetLevelCompleted();
             else
+            {
+                ShowWindowToRepeatErrorQuestions();
                 InitQuestion();
+            }
         }
     }
 
@@ -704,11 +708,31 @@ public class QuestionInitializer : MonoBehaviour
             yield return new WaitForSeconds(1f);
             _secondsCount--;
             _scoreValueText.text = ComonFunctions.GetMinetsSecondsFromSeconds(_secondsCount);
-
         }
         if (_secondsCount < 0)
             _secondsCount = 0;
         _scoreValueText.text = ComonFunctions.GetMinetsSecondsFromSeconds(_secondsCount);
+        StopQuizByTimer();
         yield break;
+    }
+
+    private void StopQuizByTimer()
+    {
+        //Scene scene = SceneManager.GetSceneByName("WindowTimerStopScene");
+        //if (scene.isLoaded)
+        //    return;
+        PlayerPrefs.SetString("SceneToLoad", "MapScene");
+        SceneManager.LoadScene("WindowTimerStopScene", LoadSceneMode.Single);
+        StopAllCoroutines();
+    }
+
+    private void ShowWindowToRepeatErrorQuestions()
+    {
+        Scene scene = SceneManager.GetSceneByName("WindowRepeatErrorScene");
+        if (scene.isLoaded)
+            return;
+        //PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
+        SceneManager.LoadScene("WindowRepeatErrorScene", LoadSceneMode.Additive);
+        StopAllCoroutines();
     }
 }

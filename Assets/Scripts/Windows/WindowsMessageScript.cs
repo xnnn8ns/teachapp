@@ -7,6 +7,8 @@ public class WindowsMessageScript : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _textScore;
     [SerializeField] private AudioSource _audioScore;
+    [SerializeField] private bool _needFillData = true;
+    [SerializeField] private bool _needUnloadCurrentScene = false;
 
     private string _sceneToLoad = "";
     private int _targetScore = 0;
@@ -14,7 +16,8 @@ public class WindowsMessageScript : MonoBehaviour
     private void Start()
     {
         _sceneToLoad = PlayerPrefs.GetString("SceneToLoad");
-        FillWindowData();
+        if(_needFillData)
+            FillWindowData();
     }
 
     private void FillWindowData()
@@ -27,8 +30,18 @@ public class WindowsMessageScript : MonoBehaviour
     {
         StopAllCoroutines();
         _audioScore?.Stop();
-        _textScore.text = _targetScore.ToString();
-        SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
+        if(_textScore)
+            _textScore.text = _targetScore.ToString();
+        if (_needUnloadCurrentScene)
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                if (SceneManager.GetSceneAt(i).name == "WindowRepeatErrorScene")
+                    SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+            }
+        }
+        else
+            SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
     }
 
     private IEnumerator ArisePonts(int targetValue)

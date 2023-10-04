@@ -38,4 +38,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UIScenes/WindowYesNowScene.unity
     guid: 390c242cc1826445c98ba2a01bf3d7fb
+  - enabled: 1
+    path: Assets/Scenes/UIScenes/WindowTimerStopScene.unity
+    guid: 2c8121d87b2a04ce7aacda4b779320b8
+  - enabled: 1
+    path: Assets/Scenes/UIScenes/WindowRepeatErrorScene.unity
+    guid: c69448460cd1b40889e63a43f79ad957
   m_configObjects: {}
