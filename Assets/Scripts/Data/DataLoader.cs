@@ -18,64 +18,9 @@ public class DataLoader : MonoBehaviour
 
     private void Start()
     {
-        GetTaskData();
-        //GetFromJSON();
-        //UserData.LoadUserData();
-        //SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
-        //StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
+        StartCoroutine(GetTestTaskDataFromAPI());
     }
 
-    private void GetFromJSON()
-    {
-        
-        Settings.Current_Level = DataLoader.GetCurrentLevel();
-        string strJSON;
-        strJSON = Resources.Load<TextAsset>("TA_data_test").text;
-        RawDataLevelList levelsFromJSON = null;
-        try
-        {
-            levelsFromJSON = JsonConvert.DeserializeObject<RawDataLevelList>(strJSON, Settings.JsonSettings);
-            foreach (var level in levelsFromJSON.RawLevels)
-            {
-                Level newLevel = new Level();
-                newLevel.LevelNumber = level.Level;
-                newLevel.TotalTime = level.TotalTime;
-                newLevel.TotalScore = level.TotalScore;
-                newLevel.TotalCount = level.RawQuestions.Count;
-                foreach (var item in level.RawQuestions)
-                {
-                    Question question = new QuestionText();
-                    question.Title = item.Title;
-                    question.CountShelves = item.CountShelves;
-                    question.QuestionType = (QuestionType)item.QuestionType;
-                    question.Score = item.Score;
-                    question.Level = level.Level;
-                    //Debug.Log(question.QuestionType);
-                    question.IsSingleRightAnswer = item.IsSingleRightAnswer;
-                    List<Answer> answers = new List<Answer>();
-                    foreach (var itemSub in item.RawAnswers)
-                    {
-                        Answer answer = new Answer();
-                        answer.Title = itemSub.Title;
-                        answer.IsRight = itemSub.IsRight;
-                        answer.Score = itemSub.Score;
-                        answer.IsPositionRowDependent = itemSub.IsPositionDependent;
-                        answer.IsPositionCellDependent = true;
-                        answer.PositionRowIndex = itemSub.PositionRowIndex;
-                        answer.PositionCellIndex = itemSub.PositionCellIndex;
-                        answers.Add(answer);
-                    }
-                    question.SetAnswerList(answers);
-                    Question.QuestionsList.Add(question);
-                }
-                Level.Levels.Add(newLevel);
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.Log(ex.Message);
-        }
-    }
 
     public static void SaveCurrentLevel()
     {
@@ -86,16 +31,6 @@ public class DataLoader : MonoBehaviour
     {
         return PlayerPrefs.GetInt("Current_Level", 0);
     }
-
-    //public static void SaveCurrentButtonID()
-    //{
-    //    PlayerPrefs.SetInt("Current_ButtonID", Settings.Current_ButtonID);
-    //}
-
-    //public static int GetCurrentButtonID()
-    //{
-    //    return PlayerPrefs.GetInt("Current_ButtonID", 0);
-    //}
 
     public static void SaveCurrentTheme()
     {
@@ -169,40 +104,6 @@ public class DataLoader : MonoBehaviour
         }
     }
 
-    public void GetTaskData()
-    {
-        //List<ButtonData> buttonDataList = new List<ButtonData>();
-        //string json = "";
-        //if (File.Exists(Application.persistentDataPath + Settings.jsonTaskFilePath))
-        //{
-        //    json = File.ReadAllText(Application.persistentDataPath + Settings.jsonTaskFilePath);
-        //    UserData.LoadUserData();
-        //    SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
-        //    StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
-        //}
-        //else
-        //{
-            StartCoroutine(GetTestTaskDataFromAPI());
-            //FileStream fs = File.Create(Application.persistentDataPath + Settings.jsonTaskFilePath);
-            //fs.Dispose();
-            //TextAsset txt = (TextAsset)Resources.Load("buttonData", typeof(TextAsset));
-            //json = txt.text;
-            //File.WriteAllText(Application.persistentDataPath + Settings.jsonButtonFilePath, json);
-        //}
-        //Debug.Log(json);
-        //buttonDataList = JsonConvert.DeserializeObject<List<ButtonData>>(json);
-
-        //ButtonData buttonData = buttonDataList.Find(item => item.id == id);
-
-        //if (buttonData != null)
-        //    return buttonData;
-        //else
-        //{
-        //    Debug.LogError("Button data with id " + id + " not found!");
-        //    return null;
-        //}
-    }
-
     private IEnumerator GetTestTaskDataFromAPI()
     {
         using (UnityWebRequest www = UnityWebRequest.Get(apiTaskUrl))
@@ -214,13 +115,8 @@ public class DataLoader : MonoBehaviour
                 TaskJSON response = TaskJSON.FromJson(json);
                 if (response != null && response.Count > 0)
                 {
-                    int count = 1;
                     foreach (var item in response)
-                    {
-                        item.Topic = count;
                         ParseJSONTask(item);
-                        count++;
-                    }
                 }
             }
             else
@@ -236,13 +132,8 @@ public class DataLoader : MonoBehaviour
                 TestJSON response = TestJSON.FromJson(json);
                 if (response != null && response.Count > 0)
                 {
-                    int count = 1;
                     foreach (var item in response)
-                    {
-                        item.Topic = count;
                         ParseJSONTest(item);
-                        count++;
-                    }
                 }
 
             }
@@ -269,15 +160,12 @@ public class DataLoader : MonoBehaviour
         if (!isError)
         {
             json = www.downloadHandler.text;
-            Debug.Log("API Response: " + json);
             if (!File.Exists(Application.persistentDataPath + filePathSave))
             {
                 FileStream fs = File.Create(Application.persistentDataPath + filePathSave);
                 fs.Dispose();
-                Debug.Log("File create " + filePathSave);
             }
             File.WriteAllText(Application.persistentDataPath + filePathSave, json);
-            Debug.Log("File.WriteAllText " + filePathSave);
         }
         return json;
     }
@@ -294,32 +182,34 @@ public class DataLoader : MonoBehaviour
                 task.AdditionalBlocks = "";
                 //task.AdditionalBlocks = "8 ! *";
             }
-            if (task.AdditionalBlocks.Length == 1 && task.AdditionalBlocks == "0")
+            if (task.AdditionalBlocks.Length == 1 && (task.AdditionalBlocks == "0" || task.AdditionalBlocks == "?"))
                 task.AdditionalBlocks = "";
 
             string[] radditionalBlockRaws = task.AdditionalBlocks.Split("\r\n");
 
             Level newLevel;
-            if (Level.Levels.Count == 0)
-            {
+            //if (Level.Levels.Count == 0)
+            //{
                 newLevel = new Level();
-                newLevel.LevelNumber = 1;
+                newLevel.LevelNumber = task.Topic;
                 newLevel.TotalTime = 300;
                 newLevel.TotalScore = task.Points;
                 newLevel.TotalCount = raws.Length;
                 Level.Levels.Add(newLevel);
-            }
-            else
-            {
-                newLevel = Level.Levels[0];
-            }
+            //}
+            //else
+            //{
+            //    newLevel = Level.Levels[0];
+            //}
 
             Question question = new QuestionText();
             question.Title = task.Title;
             question.CountShelves = raws.Length;
             question.QuestionType = QuestionType.Shelf;
             question.Score = task.Points;
-            question.Level = task.Topic;
+            question.Level = task.Level;
+            question.Topic = task.Topic;
+            question.Step = task.Step;
             question.IsSingleRightAnswer = false;
             List<Answer> answers = new List<Answer>();
             int row = 0;
@@ -392,37 +282,6 @@ public class DataLoader : MonoBehaviour
         }
     }
 
-    private IEnumerator GetTestDataFromAPI()
-    {
-        using (UnityWebRequest www = UnityWebRequest.Get(apiTestUrl))
-        {
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.ConnectionError ||
-                www.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.LogError("HTTP Error: " + www.error);
-            }
-            else
-            {
-                Debug.Log("API Response: " + www.downloadHandler.text);
-                TestJSON response = TestJSON.FromJson(www.downloadHandler.text);
-                if (response != null && response.Count > 0)
-                {
-                    foreach (var item in response)
-                    {
-                        ParseJSONTest(item);
-                    }
-                }
-
-            }
-        }
-        //UserData.LoadUserData();
-        //SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
-        //if (UserData.UserID != "")
-        //    StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
-    }
-
     private void ParseJSONTest(TestJSONItem test)
     {
         try
@@ -431,10 +290,8 @@ public class DataLoader : MonoBehaviour
             if (Level.Levels.Count == 0)
             {
                 newLevel = new Level();
-                newLevel.LevelNumber = 1;
+                newLevel.LevelNumber = test.Topic;
                 newLevel.TotalTime = 300;
-                //newLevel.TotalScore = task.Points;
-                //newLevel.TotalCount = raws.Length;
                 Level.Levels.Add(newLevel);
             }
             else
@@ -447,7 +304,10 @@ public class DataLoader : MonoBehaviour
             question.CountShelves = 4;
             question.QuestionType = QuestionType.Test;
             question.Score = test.Points;
-            question.Level = test.Topic;
+            question.Level = test.Level;
+            question.Topic = test.Topic;
+            question.Step = test.Step;
+            //Debug.Log(question.Step);
             question.IsSingleRightAnswer = false;
             List<Answer> answers = new List<Answer>();
 

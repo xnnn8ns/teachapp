@@ -31,4 +31,10 @@ public class TestJSONItem
 
     [JsonProperty("topic")]
     public int Topic { get; set; }
+
+    [JsonProperty("step")]
+    public int Step { get; set; }
+
+    [JsonProperty("level")]
+    public int Level { get; set; }
 }

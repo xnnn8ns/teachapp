@@ -62,10 +62,12 @@ public class QuestionInitializer : MonoBehaviour
         ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_Level);
         if (buttonData != null)
         {
-            int levelWithStars = Settings.Current_Level + buttonData.activeStarsCount;
+            //int levelWithStars = Settings.Current_Level + buttonData.activeStarsCount;
             foreach (var question in Question.QuestionsList)
             {
-                if (question.Level == levelWithStars)
+                if (question.Level == Settings.Current_Level
+                    &&
+                    question.Step == buttonData.activeStarsCount + 1)
                     _questionsCurrentLevel.Add(question);
             }
             foreach (var item in _questionsCurrentLevel)

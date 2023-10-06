@@ -23,6 +23,12 @@ public class TaskJSONItem
     [JsonProperty("topic")]
     public int Topic { get; set; }
 
+    [JsonProperty("level")]
+    public int Level { get; set; }
+
+    [JsonProperty("step")]
+    public int Step { get; set; }
+
     [JsonProperty("additionalBlocks")]
     public string AdditionalBlocks { get; set; }
 }

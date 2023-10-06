@@ -6,7 +6,7 @@ public class Level
     public static List<Level> Levels = new List<Level>();
 
     private int _levelNumber = 1;
-    private int _totalTime = 1;
+    private int _totalTime = 300;
     private int _totalScore = 1;
     private int _totalCount = 1;
     private List<Question> _questions = new List<Question>();

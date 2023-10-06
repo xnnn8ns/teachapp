@@ -5,6 +5,8 @@ public abstract class Question : Information
     public static List<Question> QuestionsList = new List<Question>();
 
     private int _level = 1;
+    private int _step = 1;
+    private int _topic = 1;
     private int _countShelves = 1;
     private bool _isSingleRightAnswer = false;
     private int _score = 0;
@@ -140,6 +142,30 @@ public abstract class Question : Information
         set
         {
             _level = value;
+        }
+    }
+
+    public int Topic
+    {
+        get
+        {
+            return _topic;
+        }
+        set
+        {
+            _topic = value;
+        }
+    }
+
+    public int Step
+    {
+        get
+        {
+            return _step;
+        }
+        set
+        {
+            _step = value;
         }
     }
 
