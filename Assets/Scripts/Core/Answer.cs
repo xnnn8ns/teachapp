@@ -9,6 +9,19 @@ public class Answer: Information
     private int _positionRowIndex = 0;
     private int _positionCellIndex = 0;
     private bool _isOpenOnStart = false;
+    private bool _isEnabled = true;
+
+    public bool IsEnabled
+    {
+        get
+        {
+            return _isEnabled;
+        }
+        set
+        {
+            _isEnabled = value;
+        }
+    }
 
     public bool IsOpenOnStart
     {

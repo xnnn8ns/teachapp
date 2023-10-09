@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 617a0d9865d4b4345a87e3cff1308638, type: 2}
+  - {fileID: 2100000, guid: 669f9b798663044bc90eaae529d80e82, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,8 +116,9 @@ MonoBehaviour:
   _shelfArea: {fileID: 508200732875167254}
   _shelfChecker: {fileID: 6797169165861033759}
   _materialDefault: {fileID: 2100000, guid: 617a0d9865d4b4345a87e3cff1308638, type: 2}
-  _materialCompleted: {fileID: 2100000, guid: 12830af8a7a7d431ba57cbab4f6528c5, type: 2}
-  IsRawAnswersShelf: 0
+  _materialCompleted: {fileID: 2100000, guid: 85de931cb9ec14775af08b6f3e479395, type: 2}
+  _materialWrong: {fileID: 2100000, guid: bca85309cecb24c7c8940778b2d5360e, type: 2}
+  _materialFull: {fileID: 2100000, guid: d461c50b48b2541fd92b1cb90a111c18, type: 2}
   IsEnabled: 1
   _questionsShelved: []
 --- !u!82 &4662808143141539947

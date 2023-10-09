@@ -59,21 +59,13 @@ public class QuestionInitializer : MonoBehaviour
         _scoreValue = 0;
         _questionsCurrentLevel.Clear();
         _currentQuestionIndex = 0;
-        ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_Level);
+        ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
         if (buttonData != null)
         {
-            //int levelWithStars = Settings.Current_Level + buttonData.activeStarsCount;
-            foreach (var question in Question.QuestionsList)
-            {
-                if (question.Level == Settings.Current_Level
-                    &&
-                    question.Step == buttonData.activeStarsCount + 1)
-                    _questionsCurrentLevel.Add(question);
-            }
-            foreach (var item in _questionsCurrentLevel)
-            {
-                item.TypeLevel = (ETypeLevel)buttonData.typeLevel;
-            }
+            _questionsCurrentLevel = Question.GetQuestionListForLevel(
+                Settings.Current_ButtonOnMapID,
+                buttonData.activeStarsCount,
+                (ETypeLevel)buttonData.typeLevel);
         }
     }
 
@@ -134,7 +126,8 @@ public class QuestionInitializer : MonoBehaviour
         shelfAnswerPrefab.transform.position = new Vector3(0, _heightBelowShelf, 0);
         shelfAnswerPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), 3, 1);
         _shelfRawAnswers = shelfAnswerPrefab?.GetComponent<Shelf>();
-        _shelfRawAnswers.IsRawAnswersShelf = true;
+        _shelfRawAnswers.SetAsRawShelf();
+        //_materialFull
 
         InitQuestionTitleAndAnswers();
         Settings.SetDragDropQuestionSettings();
@@ -196,7 +189,6 @@ public class QuestionInitializer : MonoBehaviour
         _typeAudio?.Play();
         //Debug.Log("_typeAudio Play");
     }
-
 
     private void FinishTypeTextCallBack()
     {
@@ -261,7 +253,6 @@ public class QuestionInitializer : MonoBehaviour
         _typeAudio = GetComponents<AudioSource>()[1];
         _wrongAnswerAudio = GetComponents<AudioSource>()[2];
         _OKAnswerAudio = GetComponents<AudioSource>()[3];
-        //Debug.Log(Settings.Current_Level);
         //FillTestQuestionList();
         _imageChecker.gameObject.SetActive(false);
         //GetFromJSON();
@@ -436,7 +427,9 @@ public class QuestionInitializer : MonoBehaviour
             //else if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Test)
             //    isRight = _questionsCurrentLevel[_currentQuestionIndex].GetAnswerList()[i].IsRight == _shelvesForCheck[i].GetTestShelfChecker();
             if (!isRight)
-                break;
+                _shelvesForCheck[i].SetWrongCompleted();
+            //if (!isRight)
+            //    break;
         }
         if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Image
             ||
@@ -676,7 +669,7 @@ public class QuestionInitializer : MonoBehaviour
             PlayerPrefs.SetInt("AddedScore", _scoreValue);
             int totalScore = UserData.Score + _scoreValue;
             UserData.SetScore(totalScore);
-            ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_Level);
+            ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
             if(buttonData.typeLevel != (int)ETypeLevel.final
                 && buttonData.typeLevel != (int)ETypeLevel.additional)
                 buttonData.activeStarsCount++;
@@ -684,16 +677,16 @@ public class QuestionInitializer : MonoBehaviour
                 buttonData.activeStarsCount = 3;
 
             bool isPassed = false;
-            int currentLevel = Settings.Current_Level;
+            int currentLevel = Settings.Current_ButtonOnMapID;
             if (buttonData.activeStarsCount > 2)
             {
-                Settings.Current_Level++;
+                Settings.Current_ButtonOnMapID++;
                 DataLoader.SaveCurrentLevel();
                 isPassed = true;
             }
             DataLoader.SaveLevelResults(currentLevel, _scoreValue, !isPassed, isPassed, buttonData.activeStarsCount);
             if(isPassed)
-                DataLoader.SaveLevelResults(Settings.Current_Level, _scoreValue, true, false, 0);
+                DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, _scoreValue, true, false, 0);
             Debug.Log("UpdateUser: " + UserData.Score);
             if (UserData.UserID != "")
                 StartCoroutine(ComonFunctions.Instance.UpdateUser(UserData.UserID, UserData.UserName, UserData.UserEmail, UserData.UserPassword, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID, UserData.Score));

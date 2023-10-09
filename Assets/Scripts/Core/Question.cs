@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public abstract class Question : Information
 {
@@ -10,6 +12,7 @@ public abstract class Question : Information
     private int _countShelves = 1;
     private bool _isSingleRightAnswer = false;
     private int _score = 0;
+    private int _difficulty = 1;
     private QuestionType _questionType = QuestionType.Shelf;
     private List<Answer> _answerList = new List<Answer>();
     private bool _isPassed = false;
@@ -181,6 +184,18 @@ public abstract class Question : Information
         }
     }
 
+    public int Difficulty
+    {
+        get
+        {
+            return _difficulty;
+        }
+        set
+        {
+            _difficulty = value;
+        }
+    }
+
     public ETypeLevel TypeLevel
     {
         get
@@ -191,5 +206,147 @@ public abstract class Question : Information
         {
             _ETypeLevel = value;
         }
+    }
+
+    //public static List<Question> GetQuestionListForLevel2(int buttonOnMapID, int stepID, ETypeLevel eTypeLevel)
+    //{
+    //    List<Question> questionsLevel = new List<Question>();
+    //    int topicID = Settings.GetTopicFromButtonOnMapID(buttonOnMapID);
+    //    int levelID = Settings.GetLevelFromButtonOnMapID(buttonOnMapID);
+    //    foreach (var question in Question.QuestionsList)
+    //    {
+    //        if (question.Topic == topicID
+    //            &&
+    //            question.Level == levelID
+    //            &&
+    //            question.Step == stepID + 1)
+    //            questionsLevel.Add(question);
+    //    }
+    //    foreach (var item in questionsLevel)
+    //    {
+    //        item.TypeLevel = eTypeLevel;
+    //    }
+    //    return questionsLevel;
+    //}
+
+    public static List<Question> GetQuestionListForLevel(int buttonOnMapID, int stepID, ETypeLevel eTypeLevel)
+    {
+        List<Question> qList;
+        List<Question> questionsTopic = GetQuestionListForTopic(buttonOnMapID);
+        int levelID = Settings.GetLevelFromButtonOnMapID(buttonOnMapID);
+        qList = GetQuestionListForLevelFromTopic(questionsTopic, levelID);
+        foreach (var item in qList)
+            item.TypeLevel = eTypeLevel;
+        
+        return qList;
+    }
+
+    private static List<Question> GetQuestionListForTopic(int buttonOnMapID)
+    {
+        int topicID = Settings.GetTopicFromButtonOnMapID(buttonOnMapID);
+        List<Question> qTopicList = new List<Question>();
+        foreach (var q in Question.QuestionsList)
+        {
+            if (q.Topic == topicID)
+                qTopicList.Add(q);
+        }
+        qTopicList = qTopicList.OrderBy(x => x.Score).ToList();
+        return qTopicList;
+    }
+
+    private static List<Question> GetQuestionListForLevelFromTopic(List<Question> qTopic, int levelID)
+    {
+        List<Question> list = new List<Question>();
+        List<Question> listTest = new List<Question>();
+        List<Question> listTask = new List<Question>();
+
+        if (qTopic.Count <= 0)
+            return list;
+
+        int countInLevel = qTopic.Count * levelID / 10;
+        int countTest = countInLevel;
+        foreach (var q in qTopic)
+        {
+            if(q.QuestionType == QuestionType.Test && countTest > 0)
+            {
+                listTest.Add(q);
+                countTest--;
+            }
+            if (countTest <= 0)
+                break;
+        }
+        countTest = countInLevel;
+        foreach (var q in qTopic)
+        {
+            if (q.QuestionType == QuestionType.Shelf && countTest > 0)
+            {
+                listTask.Add(q);
+                countTest--;
+            }
+            if (countTest <= 0)
+                break;
+        }
+
+        int countLTest = listTest.Count;
+        int thirtyPercent = countLTest / 3;
+        int sixtyPercent = countLTest * 2 / 3;
+        List<Question> thirtyPercentTestList = listTest.GetRange(0, thirtyPercent);
+        List<Question> sixtyFivePercentTestList = listTest.GetRange(thirtyPercent, sixtyPercent - thirtyPercent);
+        List<Question> hundredFivePercentTestList = listTest.GetRange(sixtyPercent, countLTest - sixtyPercent);
+
+
+        int countLTask = listTask.Count;
+        thirtyPercent = countLTask / 3;
+        sixtyPercent = countLTask * 2 / 3;
+        //List<Question> thirtyPercentTaskList = listTask.GetRange(0, thirtyPercent);
+        //List<Question> sixtyFivePercentTaskList = listTask.GetRange(thirtyPercent, sixtyPercent - thirtyPercent);
+        List<Question> sixtyFivePercentTaskList = listTask.GetRange(0, sixtyPercent - thirtyPercent);
+        List<Question> hundredFivePercentTaskList = listTask.GetRange(sixtyPercent, countLTask - sixtyPercent);
+
+        Random rand = new Random();
+
+        int indexRand = 0;
+        int countToAdd = 1; 
+        while (countToAdd > 0)
+        {
+            indexRand = rand.Next(0, thirtyPercentTestList.Count);
+            list.Add(thirtyPercentTestList[indexRand]);
+            countToAdd--;
+        }
+
+        countToAdd = 2;
+        
+        while (countToAdd > 0)
+        {
+            if (countToAdd % 2 != 0)
+            {
+                indexRand = rand.Next(0, sixtyFivePercentTaskList.Count);
+                list.Add(sixtyFivePercentTaskList[indexRand]);
+            }
+            else
+            {
+                indexRand = rand.Next(0, sixtyFivePercentTestList.Count);
+                list.Add(sixtyFivePercentTestList[indexRand]);
+            }
+            countToAdd--;
+        }
+
+        countToAdd = 3;
+        while (countToAdd > 0)
+        {
+            if (countToAdd == 1)
+            {
+                indexRand = rand.Next(0, hundredFivePercentTaskList.Count);
+                list.Add(hundredFivePercentTaskList[indexRand]);
+            }
+            else
+            {
+                indexRand = rand.Next(0, hundredFivePercentTestList.Count);
+                list.Add(hundredFivePercentTestList[indexRand]);
+            }
+            countToAdd--;
+        }
+
+        return list;
     }
 }

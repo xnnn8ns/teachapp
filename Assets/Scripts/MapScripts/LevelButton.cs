@@ -14,6 +14,7 @@ namespace Mkey
         public GameObject RightStarEmpty;
         public GameObject Lock;
         public Button button;
+        public Image targetImage;
         public Image LockState;
         public Image ActiveState;
         public Image PassState;
@@ -30,7 +31,7 @@ namespace Mkey
         {
             numberText.text = "";
             _typeLevel = typeLevel;
-            Image imgButton = button.GetComponent<Image>();
+            //targetImage = targetImage.GetComponent<Image>();
             if (LeftStar) LeftStar.SetActive(activeStarsCount > 0);// && isPassed);
             if (MiddleStar) MiddleStar.SetActive(activeStarsCount > 1);// && isPassed);
             if (RightStar) RightStar.SetActive(activeStarsCount > 2);// && isPassed);
@@ -40,11 +41,11 @@ namespace Mkey
             if (isPassed)
             {
                 if(typeLevel == ETypeLevel.final)
-                    imgButton.sprite = FinalStatePassed.sprite;
+                    targetImage.sprite = FinalStatePassed.sprite;
                 else if (typeLevel == ETypeLevel.additional)
-                    imgButton.sprite = AdditionStatePassed.sprite;
+                    targetImage.sprite = AdditionStatePassed.sprite;
                 else 
-                    imgButton.sprite = PassState.sprite;
+                    targetImage.sprite = PassState.sprite;
 
             }
             
@@ -56,12 +57,12 @@ namespace Mkey
 
                 if (typeLevel == ETypeLevel.final)
                 {
-                    imgButton.sprite = FinalState.sprite;
+                    targetImage.sprite = FinalState.sprite;
                     numberText.text = "";
                 }
                 else if (typeLevel == ETypeLevel.additional)
                 {
-                    imgButton.sprite = AdditionState.sprite;
+                    targetImage.sprite = AdditionState.sprite;
                     numberText.text = "";
                 }
                 else if (typeLevel == ETypeLevel.mission1
@@ -72,7 +73,7 @@ namespace Mkey
                 }
                 else
                 {
-                    imgButton.sprite = ActiveState.sprite;
+                    targetImage.sprite = ActiveState.sprite;
                     numberText.color = Color.black;
                 }
             }
@@ -87,14 +88,14 @@ namespace Mkey
                 //Lock.SetActive(!isPassed && !active);
                 
                 if (typeLevel == ETypeLevel.final)
-                    imgButton.sprite = FinalStatePassed.sprite;
+                    targetImage.sprite = FinalStatePassed.sprite;
                 else if (typeLevel == ETypeLevel.additional)
-                    imgButton.sprite = AdditionStatePassed.sprite;
+                    targetImage.sprite = AdditionStatePassed.sprite;
                 //else if (typeLevel == ETypeLevel.mission1
                 //    || typeLevel == ETypeLevel.mission2)
                     //imgButton.sprite = AdditionStatePassed.sprite;
                 else if (typeLevel == ETypeLevel.simple)
-                    imgButton.sprite = LockState.sprite;
+                    targetImage.sprite = LockState.sprite;
 
             }
             if (typeLevel == ETypeLevel.simple)

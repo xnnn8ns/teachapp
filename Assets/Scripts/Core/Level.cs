@@ -9,6 +9,7 @@ public class Level
     private int _totalTime = 300;
     private int _totalScore = 1;
     private int _totalCount = 1;
+    
     private List<Question> _questions = new List<Question>();
 
     public int LevelNumber

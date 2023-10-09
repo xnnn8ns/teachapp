@@ -24,22 +24,22 @@ public class DataLoader : MonoBehaviour
 
     public static void SaveCurrentLevel()
     {
-        PlayerPrefs.SetInt("Current_Level", Settings.Current_Level);
+        PlayerPrefs.SetInt("ButtonOnMapID", Settings.Current_ButtonOnMapID);
     }
 
     public static int GetCurrentLevel()
     {
-        return PlayerPrefs.GetInt("Current_Level", 0);
+        return PlayerPrefs.GetInt("ButtonOnMapID", 0);
     }
 
     public static void SaveCurrentTheme()
     {
-        PlayerPrefs.SetInt("Current_Theme", Settings.Current_Theme);
+        PlayerPrefs.SetInt("Current_Topic", Settings.Current_Topic);
     }
 
     public static int GetCurrentTheme()
     {
-        return PlayerPrefs.GetInt("Current_Theme", 0);
+        return PlayerPrefs.GetInt("Current_Topic", 0);
     }
 
     public static void SaveLevelResults(int id, int _score, bool _isActive, bool _isPassed, int _activeStarsCount)
@@ -187,23 +187,14 @@ public class DataLoader : MonoBehaviour
 
             string[] radditionalBlockRaws = task.AdditionalBlocks.Split("\r\n");
 
-            Level newLevel;
-            //if (Level.Levels.Count == 0)
-            //{
-                newLevel = new Level();
-                newLevel.LevelNumber = task.Topic;
-                newLevel.TotalTime = 300;
-                newLevel.TotalScore = task.Points;
-                newLevel.TotalCount = raws.Length;
-                Level.Levels.Add(newLevel);
-            //}
-            //else
-            //{
-            //    newLevel = Level.Levels[0];
-            //}
+            Level newLevel = new Level();
+            newLevel.LevelNumber = task.Topic;
+            newLevel.TotalCount = raws.Length;
+            Level.Levels.Add(newLevel);
 
             Question question = new QuestionText();
             question.Title = task.Title;
+            question.Difficulty = task.Difficulty;
             question.CountShelves = raws.Length;
             question.QuestionType = QuestionType.Shelf;
             question.Score = task.Points;
@@ -213,7 +204,7 @@ public class DataLoader : MonoBehaviour
             question.IsSingleRightAnswer = false;
             List<Answer> answers = new List<Answer>();
             int row = 0;
-            
+
 
             foreach (var strShelf in raws)
             {
@@ -286,21 +277,13 @@ public class DataLoader : MonoBehaviour
     {
         try
         {
-            Level newLevel;
-            if (Level.Levels.Count == 0)
-            {
-                newLevel = new Level();
-                newLevel.LevelNumber = test.Topic;
-                newLevel.TotalTime = 300;
-                Level.Levels.Add(newLevel);
-            }
-            else
-            {
-                newLevel = Level.Levels[0];
-            }
+            Level newLevel = new Level();
+            newLevel.LevelNumber = test.Topic;
+            Level.Levels.Add(newLevel);
 
             Question question = new QuestionText();
             question.Title = test.Question;
+            question.Difficulty = test.Difficulty;
             question.CountShelves = 4;
             question.QuestionType = QuestionType.Test;
             question.Score = test.Points;
@@ -316,11 +299,11 @@ public class DataLoader : MonoBehaviour
             {
                 Answer answer = new Answer();
                 string answerQuiz = test.Answer1;
-                if(i == 1)
+                if (i == 1)
                     answerQuiz = test.Answer2;
-                else if(i == 2)
+                else if (i == 2)
                     answerQuiz = test.Answer3;
-                else if(i == 3)
+                else if (i == 3)
                     answerQuiz = test.Answer4;
 
                 answer.Title = answerQuiz;

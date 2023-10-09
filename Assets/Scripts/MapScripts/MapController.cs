@@ -345,7 +345,7 @@ namespace Mkey
             if (scene.isLoaded)
                 return;
             
-            Settings.Current_Level = clickIndex;
+            Settings.Current_ButtonOnMapID = clickIndex;
             Settings.IsMisionClicked = isMissionClicked;
             PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
             

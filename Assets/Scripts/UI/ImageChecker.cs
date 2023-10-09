@@ -10,7 +10,7 @@ public class ImageChecker : MonoBehaviour
     [SerializeField]
     private TestItem[] _testItems;
 
-    private Color _colorSelected = Color.green;
+    private Color _colorSelected = Color.yellow;
     private Color _colorUnSelected = Color.gray;
     private List<Answer> _answers = new List<Answer>();
     private Action _actionCallBack;

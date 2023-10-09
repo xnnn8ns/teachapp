@@ -138,7 +138,7 @@ namespace Mkey
 
         public void ClickLevelHeadButton()
         {
-            Settings.Current_Theme = ID;
+            Settings.Current_Topic = ID;
             SceneManager.LoadScene("TypeTextScene", LoadSceneMode.Single);
         }
 

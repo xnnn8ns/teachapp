@@ -16,14 +16,23 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     private Material _materialDefault;
     [SerializeField]
     private Material _materialCompleted;
+    [SerializeField]
+    private Material _materialWrong;
+    [SerializeField]
+    private Material _materialFull;
 
-    public bool IsRawAnswersShelf = false;
+    private bool IsRawAnswersShelf = false;
     public bool IsEnabled = true;
     public event Action<bool, Shelf> ClickShelf;
     private bool _isShelfFirstCompleted = false;
     public List<AnswerSurface> _questionsShelved = new List<AnswerSurface>();
 
+    public void SetAsRawShelf()
+    {
+        _shelfArea.GetComponent<Renderer>().material = _materialFull;
+        IsRawAnswersShelf = true;
 
+    }
 
     public void AddAnswerToShelfByDrag(AnswerSurface transformChild, bool isToEnd = false)
     {
@@ -250,6 +259,18 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     {
         _shelfArea.GetComponent<Renderer>().material = _materialCompleted;
         IsEnabled = false;
+        foreach (var item in _questionsShelved)
+            item.GetAnswer().IsEnabled = false;
+        //foreach (var item in _questionsShelved)
+        //    item.GetAnswer().IsOpenOnStart = true;
+    }
+
+    public void SetWrongCompleted()
+    {
+        _shelfArea.GetComponent<Renderer>().material = _materialWrong;
+        IsEnabled = false;
+        foreach (var item in _questionsShelved)
+            item.GetAnswer().IsEnabled = false;
         //foreach (var item in _questionsShelved)
         //    item.GetAnswer().IsOpenOnStart = true;
     }

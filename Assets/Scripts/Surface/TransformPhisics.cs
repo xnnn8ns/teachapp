@@ -76,7 +76,7 @@ public class TransformPhisics : MonoBehaviour
         _touchDetector.HoldTouchArise += Drag;
     }
 
-    private void UnSignListeners()
+   public void UnSignListeners()
     {
         if (_touchDetector == null)
             return;
@@ -134,7 +134,10 @@ public class TransformPhisics : MonoBehaviour
         
         if (_answersInTouchArea[indexAnswer].GetComponent<AnswerSurface>().GetAnswer().IsOpenOnStart)
             return null;
-        
+
+        if (!_answersInTouchArea[indexAnswer].GetComponent<AnswerSurface>().GetAnswer().IsEnabled)
+            return null;
+
         return closestToCameraTransform;
     }
 
