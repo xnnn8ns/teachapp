@@ -11,7 +11,7 @@ public class ImageChecker : MonoBehaviour
     private TestItem[] _testItems;
 
     private Color _colorSelected = Color.yellow;
-    private Color _colorUnSelected = Color.gray;
+    private Color _colorUnSelected = Color.white;
     private List<Answer> _answers = new List<Answer>();
     private Action _actionCallBack;
 
