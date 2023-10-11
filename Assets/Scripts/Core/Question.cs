@@ -235,6 +235,7 @@ public abstract class Question : Information
         List<Question> questionsTopic = GetQuestionListForTopic(buttonOnMapID);
         int levelID = Settings.GetLevelFromButtonOnMapID(buttonOnMapID);
         qList = GetQuestionListForLevelFromTopic(questionsTopic, levelID);
+        qList.Insert(0, AlgorithmTestContriller.Algo1("Friend", levelID, Settings.Current_Topic, stepID));
         foreach (var item in qList)
             item.TypeLevel = eTypeLevel;
         

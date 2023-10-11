@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 
 public class QuestionInitializer : MonoBehaviour
 {
+    #region vars
+
     public event Action ActionLevelCompleted;
 
     [SerializeField]
@@ -24,7 +26,9 @@ public class QuestionInitializer : MonoBehaviour
     [SerializeField]
     private Text _scoreValueText;
     [SerializeField]
-    private ImageChecker _imageChecker;
+    private ImageChecker _imageCheckerTest;
+    [SerializeField]
+    private ImageChecker _imageCheckerShelfTest;
     [SerializeField]
     private GameObject _resultPanelScript;
     [SerializeField]
@@ -54,6 +58,8 @@ public class QuestionInitializer : MonoBehaviour
 
     private int _secondsCount = 100;
 
+#endregion
+
     private void FillQuestionsForCurrentLevel()
     {
         _scoreValue = 0;
@@ -74,17 +80,36 @@ public class QuestionInitializer : MonoBehaviour
         return _answers;
     }
 
+    private void Awake()
+    {
+        _setInShelfAudio = GetComponents<AudioSource>()[0];
+        _typeAudio = GetComponents<AudioSource>()[1];
+        _wrongAnswerAudio = GetComponents<AudioSource>()[2];
+        _OKAnswerAudio = GetComponents<AudioSource>()[3];
+        //FillTestQuestionList();
+        _imageCheckerTest.gameObject.SetActive(false);
+        //GetFromJSON();
+        FillQuestionsForCurrentLevel();
+        InitQuestion();
+        //InitTouchDetector();
+        _resultPanelScript.SetActive(false);
+    }
+
     #region Init
 
     private void InitQuestion()
     {
         _resultPanelScript.SetActive(false);
         Debug.Log(_resultPanelScript.activeSelf);
-        _imageChecker.gameObject.SetActive(false);
+        AlgorithmTestContriller.getInstance();
+        _imageCheckerTest.gameObject.SetActive(false);
+        _imageCheckerShelfTest.gameObject.SetActive(false);
         if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
             InitShelves();
         else if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Test)
-            InitImageTest(); //InitTest();
+            InitTestSimple();
+        else if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.ShelfTest)
+            InitShelveTests();
         //else
         //    InitImageCheck();
         if (_currentQuestionIndex == 0) {
@@ -117,7 +142,7 @@ public class QuestionInitializer : MonoBehaviour
         {
             GameObject shelfQuestionPrefab = Instantiate(_shelfPrefab);
             shelfQuestionPrefab.transform.position = new Vector3(0, _heightUpperShelf - i * _shelfHeightScale * 1.05f, 0);
-            
+
             shelfQuestionPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), _shelfHeightScale, 1);
             _shelvesForCheck.Add(shelfQuestionPrefab?.GetComponent<Shelf>());
         }
@@ -128,6 +153,31 @@ public class QuestionInitializer : MonoBehaviour
         _shelfRawAnswers = shelfAnswerPrefab?.GetComponent<Shelf>();
         _shelfRawAnswers.SetAsRawShelf();
         //_materialFull
+
+        InitQuestionTitleAndAnswers();
+        Settings.SetDragDropQuestionSettings();
+    }
+
+    private void InitShelveTests()
+    {
+        int countShelves = _questionsCurrentLevel[_currentQuestionIndex].CountShelves;
+        _answers.Clear();
+        _shelvesForCheck.Clear();
+        _imageCheckerShelfTest.gameObject.SetActive(true);
+        for (int i = 0; i < countShelves; i++)
+        {
+            GameObject shelfQuestionPrefab = Instantiate(_shelfPrefab);
+            shelfQuestionPrefab.transform.position = new Vector3(0, _heightUpperShelf - i * _shelfHeightScale * 1.05f, 0);
+            
+            shelfQuestionPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), _shelfHeightScale, 1);
+            _shelvesForCheck.Add(shelfQuestionPrefab?.GetComponent<Shelf>());
+        }
+
+        GameObject shelfAnswerPrefab = Instantiate(_shelfPrefab);
+        shelfAnswerPrefab.transform.position = new Vector3(0, _heightBelowShelf, 0);
+        shelfAnswerPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), 3, 1);
+        _shelfRawAnswers = shelfAnswerPrefab?.GetComponent<Shelf>();
+        _shelfRawAnswers.SetAsRawShelf(false);
 
         InitQuestionTitleAndAnswers();
         Settings.SetDragDropQuestionSettings();
@@ -158,22 +208,22 @@ public class QuestionInitializer : MonoBehaviour
 
     private void InitImageCheck()
     {
-        _imageChecker.gameObject.SetActive(true);
+        _imageCheckerTest.gameObject.SetActive(true);
         _answers.Clear();
         _shelvesForCheck.Clear();
 
-        _imageChecker.SetImagesFromAnswers(_questionsCurrentLevel[_currentQuestionIndex].GetAnswerList(), ClickImageTest);
+        _imageCheckerTest.SetImagesFromAnswers(_questionsCurrentLevel[_currentQuestionIndex].GetAnswerList(), ClickImageTest);
 
         Settings.SetClickQuestionSettings();
     }
 
-    private void InitImageTest()
+    private void InitTestSimple()
     {
-        _imageChecker.gameObject.SetActive(true);
+        _imageCheckerTest.gameObject.SetActive(true);
         _answers.Clear();
         _shelvesForCheck.Clear();
 
-        _imageChecker.SetTestFromAnswers(_questionsCurrentLevel[_currentQuestionIndex].GetAnswerList(), ClickImageTest);
+        _imageCheckerTest.SetTestFromAnswers(_questionsCurrentLevel[_currentQuestionIndex].GetAnswerList(), ClickImageTest);
         InitQuestionTitleAndAnswers();
         Settings.SetClickQuestionSettings();
     }
@@ -182,10 +232,21 @@ public class QuestionInitializer : MonoBehaviour
     {
         TextAnimation txtAnim = _questionText.GetComponent<TextAnimation>();
         txtAnim.StartType(_questionsCurrentLevel[_currentQuestionIndex].Title, FinishTypeTextCallBack);
-        if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
-            InitAnswersForShelf();
-        else
-            InitAnswersForTest();
+        switch (_questionsCurrentLevel[_currentQuestionIndex].QuestionType)
+        {
+            case QuestionType.Shelf:
+                InitAnswersForShelf();
+                break;
+            case QuestionType.Test:
+                InitAnswersForTest();
+                break;
+            case QuestionType.ShelfTest:
+                InitAnswersForShelfTest();
+                break;
+            default:
+                InitAnswersForTest();
+                break;
+        }            
         _typeAudio?.Play();
         //Debug.Log("_typeAudio Play");
     }
@@ -198,7 +259,6 @@ public class QuestionInitializer : MonoBehaviour
     private void InitAnswersForTest()
     {
         List<Answer> answers = _questionsCurrentLevel[_currentQuestionIndex].GetAnswerList();
-        //Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, 0);
 
         if (answers.Count != _shelvesForCheck.Count)
             return;
@@ -239,27 +299,41 @@ public class QuestionInitializer : MonoBehaviour
         StartCoroutine(SetOpenOnStartRightAnswer());
     }
 
+    private void InitAnswersForShelfTest()
+    {
+        List<Answer> answers = _questionsCurrentLevel[_currentQuestionIndex].GetAnswerList();
+        List<Answer> answersForTestCheck = new List<Answer>();
+        Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, 0);
+        //answers.Shuffle();
+        foreach (var answer in answers)
+        {
+            if (answer.IsOpenOnStart)
+            {
+                GameObject answerPrefab = Instantiate(_answerPrefab, vectorPosition, Quaternion.identity);
+                SetAnswerDrag(answerPrefab, answer, answerPrefab.GetComponent<AnimationExecuter>());
+                _answers.Add(answerPrefab);
+                AnswerSurface answerSurface = answerPrefab?.GetComponent<AnswerSurface>();
+                answerSurface.SetAnswer(answer, true);
+                if (answerSurface != null)
+                    _shelfRawAnswers.AddAnswerToShelf(answerSurface);
+            }
+            else
+                answersForTestCheck.Add(answer);
+        }
+
+        _imageCheckerShelfTest.SetTestFromAnswers(answersForTestCheck, ClickImageTest);
+
+        StartCoroutine(SetOpenOnStartRightAnswer());
+    }
+
     #endregion
+
+    #region Actions
 
     private void SetAnswerDrag(GameObject answerPrefab, Answer answer, AnimationExecuter animationExecuter)
     {
         AnswerSurface answerSurface = answerPrefab.GetComponent<AnswerSurface>();
         answerSurface.SetTitle(answer.Title);
-    }
-
-    private void Awake()
-    {
-        _setInShelfAudio = GetComponents<AudioSource>()[0];
-        _typeAudio = GetComponents<AudioSource>()[1];
-        _wrongAnswerAudio = GetComponents<AudioSource>()[2];
-        _OKAnswerAudio = GetComponents<AudioSource>()[3];
-        //FillTestQuestionList();
-        _imageChecker.gameObject.SetActive(false);
-        //GetFromJSON();
-        FillQuestionsForCurrentLevel();
-        InitQuestion();
-        //InitTouchDetector();
-        _resultPanelScript.SetActive(false);
     }
 
     public void RemoveFromShelf(Transform transformTouchDown)
@@ -426,7 +500,8 @@ public class QuestionInitializer : MonoBehaviour
                 isRight = CheckShelfForRightCompleted(_shelvesForCheck[i], i);
             //else if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Test)
             //    isRight = _questionsCurrentLevel[_currentQuestionIndex].GetAnswerList()[i].IsRight == _shelvesForCheck[i].GetTestShelfChecker();
-            if (!isRight)
+            if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Shelf
+                && !isRight)
                 _shelvesForCheck[i].SetWrongCompleted();
             //if (!isRight)
             //    break;
@@ -434,7 +509,9 @@ public class QuestionInitializer : MonoBehaviour
         if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Image
             ||
             _questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Test)
-            isRight = _imageChecker.GetIsRight();
+            isRight = _imageCheckerTest.GetIsRight();
+        else if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.ShelfTest)
+            isRight = _imageCheckerShelfTest.GetIsRight();
 
         //Debug.Log(isRight);
         if (isRight)
@@ -452,7 +529,9 @@ public class QuestionInitializer : MonoBehaviour
         if (_questionsCurrentLevel == null || _currentQuestionIndex >= _questionsCurrentLevel.Count)
             yield break;
 
-        if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType != QuestionType.Shelf)
+        if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType != QuestionType.Shelf
+            &&
+            _questionsCurrentLevel[_currentQuestionIndex].QuestionType != QuestionType.ShelfTest)
             yield break;
 
         for (int i = 0; i < _shelvesForCheck.Count; i++)
@@ -567,7 +646,7 @@ public class QuestionInitializer : MonoBehaviour
         if (!isLastQuestion)
             InitQuestion();
         else
-            _imageChecker.gameObject.SetActive(false);
+            _imageCheckerTest.gameObject.SetActive(false);
 
         SetLevelEarnedPoints(_rightAnsweredCount, _questionsCurrentLevel.Count);
 
@@ -730,4 +809,6 @@ public class QuestionInitializer : MonoBehaviour
         SceneManager.LoadScene("WindowRepeatErrorScene", LoadSceneMode.Additive);
         StopAllCoroutines();
     }
+
+    #endregion
 }

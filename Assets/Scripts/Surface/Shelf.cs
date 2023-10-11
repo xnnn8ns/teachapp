@@ -27,11 +27,11 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     private bool _isShelfFirstCompleted = false;
     public List<AnswerSurface> _questionsShelved = new List<AnswerSurface>();
 
-    public void SetAsRawShelf()
+    public void SetAsRawShelf(bool isVisible = true)
     {
         _shelfArea.GetComponent<Renderer>().material = _materialFull;
         IsRawAnswersShelf = true;
-
+        GetComponent<Renderer>().enabled = isVisible;
     }
 
     public void AddAnswerToShelfByDrag(AnswerSurface transformChild, bool isToEnd = false)
@@ -128,6 +128,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
             offsetPoint.x += item.transform.localScale.x / 2;
 
             Vector3 targetPoint = startPoint + offsetPoint;
+            targetPoint.z = -0.01f;
             //item.transform.position = targetPoint;
             item.transform.DOMove(targetPoint, 0.25f);
 
