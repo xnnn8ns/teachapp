@@ -101,7 +101,6 @@ public class QuestionInitializer : MonoBehaviour
     {
         _resultPanelScript.SetActive(false);
         Debug.Log(_resultPanelScript.activeSelf);
-        AlgorithmTestContriller.getInstance();
         _imageCheckerTest.gameObject.SetActive(false);
         _imageCheckerShelfTest.gameObject.SetActive(false);
         if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Shelf)

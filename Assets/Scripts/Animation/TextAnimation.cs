@@ -50,8 +50,12 @@ public class TextAnimation : MonoBehaviour
         {
             str += c;
             string colorStr = "<color=#000000>" + str + "</color>";
-            string reminderStr = _textCash.Substring(countStr);
-            string colorReminderStr = "<color=#ffffff>" + reminderStr + "</color>";
+            string colorReminderStr = "";
+            if (str.Length < _textCash.Length)
+            {
+                string reminderStr = _textCash.Substring(countStr+1);
+                colorReminderStr = "<color=#ffffff>" + reminderStr + "</color>";
+            }
             _textType.text = colorStr + colorReminderStr;
             countStr++;
             yield return new WaitForSeconds(0.0725f);
