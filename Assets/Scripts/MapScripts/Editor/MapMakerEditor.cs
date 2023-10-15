@@ -127,6 +127,30 @@ namespace Mkey
             EditorGUILayout.Space();
             EditorGUILayout.EndVertical();
 
+            EditorGUILayout.BeginVertical("box");
+            EditorGUILayout.Space();
+            EditorGUI.indentLevel += 1;
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("BackgroundImages"), true);
+            EditorGUI.indentLevel -= 1;
+            EditorGUILayout.Space();
+            EditorGUILayout.EndVertical();
+
+            EditorGUILayout.BeginVertical("box");
+            EditorGUILayout.Space();
+            EditorGUI.indentLevel += 1;
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("AnimatorControllerLeft"), true);
+            EditorGUI.indentLevel -= 1;
+            EditorGUILayout.Space();
+            EditorGUILayout.EndVertical();
+
+            EditorGUILayout.BeginVertical("box");
+            EditorGUILayout.Space();
+            EditorGUI.indentLevel += 1;
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("AnimatorControllerRight"), true);
+            EditorGUI.indentLevel -= 1;
+            EditorGUILayout.Space();
+            EditorGUILayout.EndVertical();
+
             // prefab error box
             if (!mapMaker) mapMaker = (MapMaker)target;
             if (mapMaker.HasEmptyPrefabs())

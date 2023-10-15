@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,9 @@ namespace Mkey
     public class MapMaker : MonoBehaviour
     {
         public List<GameObject> BackgroundPrefabs;
+        public List<Sprite> BackgroundImages;
+        public List<AnimatorController> AnimatorControllerLeft;
+        public List<AnimatorController> AnimatorControllerRight;
         public MapType mapType;
         public List<Biome> biomes;
 
@@ -30,7 +34,7 @@ namespace Mkey
             return false;
         }
 
-        public void AddBiome(GameObject prefab)
+        public void AddBiome(GameObject prefab, Sprite backImage = null, AnimatorController animatorLeft = null, AnimatorController animatorRight = null)
         {
             if (!prefab)
             {
@@ -38,7 +42,13 @@ namespace Mkey
                 return;
             }
             if (biomes == null) biomes = new List<Biome>();
-            biomes.Add(CreateBiome(prefab));
+            Biome biome = CreateBiome(prefab);
+            if(backImage) 
+                biome.SetBackGroundImage(backImage);
+            if (animatorLeft && animatorRight)
+                biome.SetAnimatorController(animatorLeft, animatorRight);
+            biomes.Add(biome);
+
         }
 
         public void AddBiomeAtTop(GameObject prefab)
@@ -171,28 +181,57 @@ namespace Mkey
 
             if (biomes == null || length == 0) return;
             int lengthp = BackgroundPrefabs.Count;
+            int lengths = BackgroundImages.Count;
+            int lengthAL = AnimatorControllerLeft.Count;
+            int lengthAR = AnimatorControllerRight.Count;
             if (BackgroundPrefabs == null || lengthp == 0) return;
             Debug.Log(lengthp);
             //save  biomes prefabs
             GameObject[] bPrefs = new GameObject[length];
-            for (int i = 0; i < length; i++)
+            Sprite[] sPrefs = new Sprite[10];
+            AnimatorController[] alPrefs = new AnimatorController[10];
+            AnimatorController[] arPrefs = new AnimatorController[10];
+
+            int currentBackground = 0;
+            int currentSprite = 0;
+            int currentALAnim = 0;
+            int currentARAnim = 0;
+            for (int i = 0; i < 10; i++)
             {
-                for (int pi = 0; pi < length; pi++)
-                {
-                    Debug.Log(biomes[i].name);
-                    if (biomes[i].name.Contains(BackgroundPrefabs[pi].name))
-                    {
-                        bPrefs[i] = BackgroundPrefabs[pi];
-                        break;
-                    }
-                }
+                bPrefs[i] = BackgroundPrefabs[currentBackground];
+                sPrefs[i] = BackgroundImages[currentSprite];
+                alPrefs[i] = AnimatorControllerLeft[currentALAnim];
+                arPrefs[i] = AnimatorControllerRight[currentARAnim];
+                currentBackground++;
+                currentSprite++;
+                currentALAnim++;
+                currentARAnim++;
+                if (currentBackground >= lengthp)
+                    currentBackground = 0;
+                if (currentSprite >= lengths)
+                    currentSprite = 0;
+                if (currentALAnim >= lengthAL)
+                    currentALAnim = 0;
+                if (currentARAnim >= lengthAR)
+                    currentARAnim = 0;
             }
+            //for (int i = 0; i < length; i++)
+            //{
+            //    for (int pi = 0; pi < length; pi++)
+            //    {
+            //        Debug.Log(biomes[i].name);
+            //        if (biomes[i].name.Contains(BackgroundPrefabs[pi].name))
+            //        {
+            //            bPrefs[i] = BackgroundPrefabs[pi];
+            //            break;
+            //        }
+            //    }
+            //}
 
             Clean();
-
-            foreach (var item in bPrefs)
+            for (int i = 0; i < bPrefs.Length; i++)
             {
-                AddBiome(item);
+                AddBiome(bPrefs[i], sPrefs[i], alPrefs[i], arPrefs[i]);
             }
 
             ReArrangeBiomes();
@@ -392,32 +431,3 @@ namespace Mkey
         }
     }
 }
-/*
- *     public void OnManuallyHierChanged_old()
-    {
-        Debug.Log(name + " OnManuallyHierChanged()");
-
-
-
-        if (biomes.Count < 2) return;
-        List<Biome> bList = new List<Biome>();
-
-        for (int i = 0; i < biomes.Count; i++)
-        {
-            Biome b = biomes[i];
-            int si = b.transform.GetSiblingIndex();
-            bList.Add(b);
-        }
-        //  bList.ForEach((b) => { Debug.Log(b.transform.GetSiblingIndex()); });
-        bList.Sort((b, c) => {
-            int bi = b.transform.GetSiblingIndex();
-            int ci = c.transform.GetSiblingIndex();
-            if (ci > bi) return -1;
-            if (ci < bi) return 1;
-            return 0;
-        });
-        int it = 0;
-        bList.ForEach((b) => { biomes[it] = b; it++; });
-
-    }
- */

@@ -3044,6 +3044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _questionText: {fileID: 863595471}
   _answerPrefab: {fileID: 2200933521651468310, guid: 8df3959c7ce9f4738b9aa055c85f8365, type: 3}
+  _answerReadyPrefab: {fileID: 2200933521651468310, guid: 951b7a94894e04bafb3562fdc8c67eb9, type: 3}
   _answerMockPrefab: {fileID: 2200933521651468310, guid: 8ad670e5a301c46b1b1b832f5c2d5a0a, type: 3}
   _shelfPrefab: {fileID: 508200732875167250, guid: 918ce219029f54be9ada89212df5dd0a, type: 3}
   _canvasController: {fileID: 2040055838}

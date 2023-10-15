@@ -36,7 +36,8 @@ namespace Mkey
             if (MiddleStar) MiddleStar.SetActive(activeStarsCount > 1);// && isPassed);
             if (RightStar) RightStar.SetActive(activeStarsCount > 2);// && isPassed);
             Interactable = active;// || isPassed;
-            if(button)  button.interactable = Interactable;
+            //if(button)  button.interactable = Interactable;
+            if (button) button.interactable = true;
             //Debug.Log(typeLevel);
             if (isPassed)
             {
@@ -128,6 +129,7 @@ namespace Mkey
             //button.GetComponent<Image>().sprite = imgButton.sprite;
             //if(LockText) LockText.SetActive(active || isPassed);
             numberText.gameObject.SetActive(active || isPassed);
+
         }
     }
 }

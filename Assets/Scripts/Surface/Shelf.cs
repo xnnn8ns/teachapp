@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using System.Linq;
+using TMPro;
 
 public class Shelf : MonoBehaviour, IPointerClickHandler
 {
@@ -20,8 +21,11 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     private Material _materialWrong;
     [SerializeField]
     private Material _materialFull;
+    [SerializeField]
+    private TextMeshPro _textHint;
 
-    private bool IsRawAnswersShelf = false;
+    private bool _isRawAnswersShelf = false;
+    private int _countAnswersToBeOnShelf = 0;
     public bool IsEnabled = true;
     public event Action<bool, Shelf> ClickShelf;
     private bool _isShelfFirstCompleted = false;
@@ -30,7 +34,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     public void SetAsRawShelf(bool isVisible = true)
     {
         _shelfArea.GetComponent<Renderer>().material = _materialFull;
-        IsRawAnswersShelf = true;
+        _isRawAnswersShelf = true;
         GetComponent<Renderer>().enabled = isVisible;
     }
 
@@ -76,7 +80,8 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
     private void SetAnswersOnShelf()
     {
-        if (!IsRawAnswersShelf || !_isShelfFirstCompleted)
+        SetHint();
+        if (!_isRawAnswersShelf || !_isShelfFirstCompleted)
             SetAnswersOnAnswerShelf();
         else
             SetAnswersByBasePositoinShelf();
@@ -109,7 +114,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
             widthRaw += item.transform.localScale.x + 0.05f;
 
-            if (widthRaw > 4.9f && IsRawAnswersShelf) // for auto set on next line if this full
+            if (widthRaw > 4.9f && _isRawAnswersShelf) // for auto set on next line if this full
             {
                 countRows++;
                 widthRaw = 0;
@@ -134,7 +139,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
             
 
-            if (IsRawAnswersShelf)
+            if (_isRawAnswersShelf)
                 item.BasePosition = targetPoint;
         }
     }
@@ -142,7 +147,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     public void RemoveAnswerFromShelf(AnswerSurface transformChild)
     {   
         _questionsShelved?.Remove(transformChild);
-        if (!IsRawAnswersShelf) {
+        if (!_isRawAnswersShelf) {
             SetAnswersOnShelf();
         }
     }
@@ -280,4 +285,29 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
     {
         SetAnswersOnAnswerShelf();
     }
+
+    public void SetHint()
+    {
+        if (IsEnabled && _questionsShelved.Count == 0)
+        {
+            _textHint.gameObject.SetActive(true);
+            ScaleTextHint();
+        }
+        else
+            _textHint.gameObject.SetActive(false);
+        _textHint.text = "Blocks: " + _countAnswersToBeOnShelf.ToString();
+    }
+
+    private void ScaleTextHint()
+    {
+        Vector3 scaleText = _textHint.transform.localScale;
+        scaleText.x = transform.lossyScale.y;
+        _textHint.transform.localScale = scaleText;
+    }
+
+    public void SetCountAnswerToBeOnShelf(int value)
+    {
+        _countAnswersToBeOnShelf = value;
+    }
+        
 }

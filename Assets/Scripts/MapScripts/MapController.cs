@@ -39,7 +39,7 @@ namespace Mkey
         //private int biomesCount = 6;
 
         public static int currentLevel = 0; // set from this script by clicking on button. Use this variable to load appropriate level.
-        public static int topPassedLevel = 30; // set from game MapController.topPassedLevel = 2; 
+        //public static int topPassedLevel = 30; // set from game MapController.topPassedLevel = 2; 
 
         [Header("If true, then the map will scroll to the Active Level Button", order = 1)]
         public bool scrollToActiveButton = true;
@@ -105,13 +105,9 @@ namespace Mkey
                 MapMissionButtons.AddRange(bList[i].missionButtons);
 
                 bList[i].FillTitleAndSubTitle(_theoryListJSON.theoryList[i].Title, _theoryListJSON.theoryList[i].Description);
-                //Debug.LogError(_theoryListJSON.theoryList[i].Title);
-                //Debug.LogError(bList[i].count);
-                //theoryCount++;
-                //FillBiomeMissions(bList[i]);
             }
 
-            topPassedLevel = Mathf.Clamp(topPassedLevel, 0, MapLevelButtons.Count - 1);
+            //topPassedLevel = Mathf.Clamp(topPassedLevel, 0, MapLevelButtons.Count - 1);
             int levelCount = 1;
             for (int i = 0; i < MapLevelButtons.Count; i++)
             {
@@ -119,6 +115,8 @@ namespace Mkey
                 //Debug.Log("i : " + MapLevelButtons[i].name);
                 MapLevelButtons[i].button.onClick.AddListener(() =>
                 {
+                    if (Settings.IsModalWindowOpened)
+                        return;
                     currentLevel = clickIndex;
                     if (MSound) MSound.SoundPlayClick(0, null);
                     Debug.Log("clickIndex : " + clickIndex);
@@ -138,6 +136,8 @@ namespace Mkey
                 int clickIndex = i + 1 + 10;
                 MapMissionButtons[i].button.onClick.AddListener(() =>
                 {
+                    if (Settings.IsModalWindowOpened)
+                        return;
                     currentLevel = clickIndex;
                     if (MSound) MSound.SoundPlayClick(0, null);
                     Debug.Log("clickIndex : " + clickIndex);
@@ -159,19 +159,6 @@ namespace Mkey
             
             CreateAllButtonsInJson();
             VereficationAllButtons();
-        }
-
-        //private void FillBiomeMissions(Biome biome)
-        //{
-        //    //biome.FillMissions();
-        //    biome.missionButtons[0].SetIsActive(true, 2, false, ETypeLevel.mission1);
-        //    biome.missionButtons[1].SetIsActive(true, 0, false, ETypeLevel.mission2);
-        //}
-
-        private void ClickTheoryButton(int id)
-        {
-            //if (MSound) MSound.SoundPlayClick(0, null);
-            //ClickLevelButton(scene);
         }
 
         private void FillTheoryDataFromJSON()
@@ -262,47 +249,13 @@ namespace Mkey
             yield return new WaitForSeconds(0.001f);
             if (sRect)
             {
-                int bCount = mapMaker.biomes.Count;
                 if (mapMaker.mapType == MapType.Vertical)
                 {
-                    ////Debug.Log(ActiveButton.transform.position);
-                    //float contentSizeY = content.sizeDelta.y / (bCount) * (bCount - 1.0f);
-                    //float relPos = content.InverseTransformPoint(ActiveButton.transform.position).y; // Debug.Log("contentY : " + contentSizeY +  " ;relpos : " + relPos + " : " + relPos / contentSizeY);
-                    //float vpos = (-contentSizeY / (bCount * 2.0f) + relPos) / contentSizeY; // 
-                    //                                                                        //  sRect.verticalNormalizedPosition = Mathf.Clamp01(vpos); // Debug.Log("vpos : " + Mathf.Clamp01(vpos));
-
-                    //SimpleTween.Cancel(gameObject, false);
-                    //float start = sRect.verticalNormalizedPosition;
-
-                    //SimpleTween.Value(gameObject, start, vpos, 0.25f).SetOnUpdate((float f) => { sRect.verticalNormalizedPosition = Mathf.Clamp01(f); });
                     Debug.Log(sRect.normalizedPosition);
                     Vector2 initialNormalizedPos = sRect.normalizedPosition;
                     Vector2 targetNormalizedPos = new Vector2(initialNormalizedPos.x, PlayerPrefs.GetFloat("ScrollYPointFocus", 1.0f));
-                    //float speed = 5f;
-
-                    //float t = 0f;
-                    //while (t < 2f)
-                    //{
-                        //sRect.normalizedPosition = Vector2.LerpUnclamped(initialNormalizedPos, targetNormalizedPos, 1f - (1f - t) * (1f - t));
-                    //    Debug.Log(t);
-                    //    yield return null;
-                    //    t += speed * Time.unscaledDeltaTime;
-                    //}
 
                     sRect.normalizedPosition = targetNormalizedPos;
-                    //Debug.Log(sRect.normalizedPosition);
-                }
-                else
-                {
-                    //float contentSizeX = content.sizeDelta.x / (bCount) * (bCount - 1.0f);
-                    //float relPos = content.InverseTransformPoint(ActiveButton.transform.position).x;
-                    //float hpos = (-contentSizeX / (bCount * 2.0f) + relPos) / contentSizeX; // 
-                    ////sRect.horizontalNormalizedPosition = Mathf.Clamp01(hpos);
-
-                    //SimpleTween.Cancel(gameObject, false);
-                    //float start = sRect.horizontalNormalizedPosition;
-
-                    //SimpleTween.Value(gameObject, start, hpos, 0.25f).SetOnUpdate((float f) => { sRect.horizontalNormalizedPosition = Mathf.Clamp01(f); });
                 }
             }
             else
@@ -332,26 +285,57 @@ namespace Mkey
             }
         }
 
-        private void Update_rem()
-        {
-            Debug.Log(content.sizeDelta.y + " : " + content.InverseTransformPoint(ActiveButton.transform.position).y);
-            Debug.Log("sRect.verticalNormalizedPosition: " + sRect.verticalNormalizedPosition);
-            Debug.Log("sRect.verticalNormalizedPosition: " + sRect.horizontalNormalizedPosition);
-        }
 
         private void ClickLevelButton(int clickIndex, bool isMissionClicked = false)
+        {
+                ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
+                if (buttonData != null)
+                {
+                    if (buttonData.isPassed)
+                    {
+                        ClickPassButton(clickIndex, isMissionClicked);
+                        return;
+                    }
+                    if (!buttonData.isActive)
+                    {
+                        ClickFutureButton();
+                        return;
+                    }
+                }
+            ClickCurrentLevelButton(clickIndex, isMissionClicked);
+
+
+            //SceneManager.LoadScene("QuestionAnswerTestCheckScene", LoadSceneMode.Single);
+        }
+
+        private void ClickCurrentLevelButton(int clickIndex, bool isMissionClicked = false)
         {
             Scene scene = SceneManager.GetSceneByName("WindowScene");
             if (scene.isLoaded)
                 return;
-            
+
             Settings.Current_ButtonOnMapID = clickIndex;
             Settings.IsMisionClicked = isMissionClicked;
             PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
-            
-            SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
 
-            //SceneManager.LoadScene("QuestionAnswerTestCheckScene", LoadSceneMode.Single);
+            SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
+        }
+
+        private void ClickPassButton(int clickIndex, bool isMissionClicked = false)
+        {
+            Debug.Log("ClickPassButton");
+        }
+
+        private void ClickFutureButton()
+        {
+            
+            Scene scene = SceneManager.GetSceneByName("WindowSimpliMessageScene");
+            if (scene.isLoaded)
+                return;
+            PlayerPrefs.SetString("MessageForWindow", "Данный уровень\nпока не доступен");
+            SceneManager.LoadScene("WindowSimpliMessageScene", LoadSceneMode.Additive);
+            Debug.Log("ClickFutureButton");
+            Settings.IsModalWindowOpened = true;
         }
 
         void OnDisable()

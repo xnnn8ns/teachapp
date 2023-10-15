@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class WindowsMessageScript : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _textScore;
+    [SerializeField] private TextMeshProUGUI _textMessage;
+    [SerializeField] private TextMeshProUGUI _textValue;
     [SerializeField] private AudioSource _audioScore;
     [SerializeField] private bool _needFillData = true;
     [SerializeField] private bool _needUnloadCurrentScene = false;
@@ -22,26 +23,37 @@ public class WindowsMessageScript : MonoBehaviour
 
     private void FillWindowData()
     {
-        _targetScore = PlayerPrefs.GetInt("AddedScore", 0);
-        StartCoroutine(ArisePonts(_targetScore));
+        if (_textValue)
+        {
+            _targetScore = PlayerPrefs.GetInt("AddedScore", 0);
+            StartCoroutine(ArisePonts(_targetScore));
+        }
+        if (_textMessage)
+        {
+            _textMessage.text = PlayerPrefs.GetString("MessageForWindow", "");
+        }
     }
 
     public void ClickOK()
     {
         StopAllCoroutines();
         _audioScore?.Stop();
-        if(_textScore)
-            _textScore.text = _targetScore.ToString();
+        if(_textValue)
+            _textValue.text = _targetScore.ToString();
         if (_needUnloadCurrentScene)
         {
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
                 if (SceneManager.GetSceneAt(i).name == "WindowRepeatErrorScene")
                     SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+                if (SceneManager.GetSceneAt(i).name == "WindowSimpliMessageScene")
+                    SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
             }
         }
         else
             SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
+
+        Settings.IsModalWindowOpened = false;
     }
 
     private IEnumerator ArisePonts(int targetValue)
@@ -50,11 +62,11 @@ public class WindowsMessageScript : MonoBehaviour
         _audioScore?.Play();
         while (count <= targetValue)
         {
-            _textScore.text = count.ToString();
+            _textValue.text = count.ToString();
             yield return new WaitForSeconds(0.02f);
             count++;
         }
-        _textScore.text = _targetScore.ToString();
+        _textValue.text = _targetScore.ToString();
         _audioScore?.Stop();
         yield break;
     }

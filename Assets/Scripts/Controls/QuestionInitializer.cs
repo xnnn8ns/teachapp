@@ -18,6 +18,8 @@ public class QuestionInitializer : MonoBehaviour
     [SerializeField]
     private GameObject _answerPrefab;
     [SerializeField]
+    private GameObject _answerReadyPrefab;
+    [SerializeField]
     private GameObject _answerMockPrefab;
     [SerializeField]
     private GameObject _shelfPrefab;
@@ -58,7 +60,7 @@ public class QuestionInitializer : MonoBehaviour
 
     private int _secondsCount = 100;
 
-#endregion
+    #endregion
 
     private void FillQuestionsForCurrentLevel()
     {
@@ -308,11 +310,11 @@ public class QuestionInitializer : MonoBehaviour
         {
             if (answer.IsOpenOnStart)
             {
-                GameObject answerPrefab = Instantiate(_answerPrefab, vectorPosition, Quaternion.identity);
+                GameObject answerPrefab = Instantiate(_answerReadyPrefab, vectorPosition, Quaternion.identity);
                 SetAnswerDrag(answerPrefab, answer, answerPrefab.GetComponent<AnimationExecuter>());
                 _answers.Add(answerPrefab);
                 AnswerSurface answerSurface = answerPrefab?.GetComponent<AnswerSurface>();
-                answerSurface.SetAnswer(answer, true);
+                answerSurface.SetAnswer(answer, false);
                 if (answerSurface != null)
                     _shelfRawAnswers.AddAnswerToShelf(answerSurface);
             }
@@ -567,6 +569,18 @@ public class QuestionInitializer : MonoBehaviour
                 CheckShelfForRightCompleted(_shelvesForCheck[i], i);
         }
         _shelfRawAnswers.SetFirstAnswerForRawShelfCompleted();
+        for (int i = 0; i < _shelvesForCheck.Count; i++)
+        {
+            List<Answer> answers = _questionsCurrentLevel[_currentQuestionIndex].GetRigthAnswerList();
+            int countAnswers = 0;
+            foreach (var item in answers)
+            {
+                if (item.PositionRowIndex == i)
+                    countAnswers++;
+            }
+            _shelvesForCheck[i].SetCountAnswerToBeOnShelf(countAnswers);
+            _shelvesForCheck[i].SetHint();
+        }
         yield return new WaitForSeconds(0.05f);
     }
 

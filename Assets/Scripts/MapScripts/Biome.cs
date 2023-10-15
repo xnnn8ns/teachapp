@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine;
+using UnityEditor.Animations;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -27,11 +29,28 @@ namespace Mkey
         private TMP_Text _theoryTitle;
         [SerializeField]
         private TMP_Text _theorySubTitle;
+        [SerializeField]
+        private Image _backGroundImage;
+        [SerializeField]
+        private Animator _animLeft;
+        [SerializeField]
+        private Animator _animRight;
 
         #region temp vars
         private List<Vector3> pos;
         private SceneCurve sceneCurve;
         #endregion temp vars
+
+        public void SetBackGroundImage(Sprite img)
+        {
+            _backGroundImage.sprite = img;
+        }
+
+        public void SetAnimatorController(AnimatorController animControllerLeft, AnimatorController animControllerRight)
+        {
+            _animLeft.runtimeAnimatorController = animControllerLeft;
+            _animRight.runtimeAnimatorController = animControllerRight;
+        }
 
         public Vector2 BiomeSize
         {
@@ -138,6 +157,8 @@ namespace Mkey
 
         public void ClickLevelHeadButton()
         {
+            if (Settings.IsModalWindowOpened)
+                return;
             Settings.Current_Topic = ID;
             SceneManager.LoadScene("TypeTextScene", LoadSceneMode.Single);
         }

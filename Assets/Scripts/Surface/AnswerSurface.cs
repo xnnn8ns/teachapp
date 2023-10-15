@@ -19,6 +19,22 @@ public class AnswerSurface : Surface
         _answer = answer;
         if (scaleByTitleLenth)
             SetScaleForContent();
+        else
+            SetScaleForShelf();
+    }
+
+    private void SetScaleForShelf()
+    {
+        float lenthScale = Settings.SCALE_SURFACE_MAX_SHELF;
+        Vector3 localScale = transform.localScale;
+        float multi = lenthScale / localScale.x;
+        RectTransform rect = GetComponentInChildren<RectTransform>();
+        Vector3 rectScale = rect.localScale;
+        rectScale.x /= multi;
+        rect.localScale = rectScale;
+
+        localScale.x = lenthScale;
+        transform.localScale = localScale;
     }
 
     private void SetScaleForContent()

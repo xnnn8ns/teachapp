@@ -4,6 +4,7 @@ using UnityEngine;
 public class Settings : MonoBehaviour
 {
     public const float SCALE_CHAR = 0.2f;// 0.166f;
+    public const float SCALE_SURFACE_MAX_SHELF = 4.0f;// 1.25f;
     public const float SCALE_SURFACE_MAX = 1.75f;// 1.25f;
     public const float SCALE_SURFACE_MIN = 0.4f;// 0.25f;
 
@@ -17,6 +18,8 @@ public class Settings : MonoBehaviour
     public const string jsonTestFilePath = "/testRawData.json";
     public const string jsonTaskFilePath = "/taskData.json";
     public const string theoryFilePath = "/theoryTask-";
+
+    public static bool IsModalWindowOpened = false;
 
     public static void SetClickQuestionSettings()
     {

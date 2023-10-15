@@ -235,11 +235,17 @@ public abstract class Question : Information
         List<Question> questionsTopic = GetQuestionListForTopic(buttonOnMapID);
         int levelID = Settings.GetLevelFromButtonOnMapID(buttonOnMapID);
         qList = GetQuestionListForLevelFromTopic(questionsTopic, levelID);
-        qList.Insert(0, AlgorithmTestContriller.Algo0(12, levelID, Settings.Current_Topic, stepID));
-        qList.Insert(0, AlgorithmTestContriller.Algo2("friend", levelID, Settings.Current_Topic, stepID));
-        qList.Insert(0, AlgorithmTestContriller.Algo3("hello", levelID, Settings.Current_Topic, stepID));
-        qList.Insert(0, AlgorithmTestContriller.Algo4(4.65f, levelID, Settings.Current_Topic, stepID));
-        qList.Insert(0, AlgorithmTestContriller.Algo5(21.5f, levelID, Settings.Current_Topic, stepID));
+        //qList.Insert(0, AlgorithmTestContriller.Algo0(12, levelID, Settings.Current_Topic, stepID));
+        //qList.Insert(0, AlgorithmTestContriller.Algo2("friend", levelID, Settings.Current_Topic, stepID));
+        //qList.Insert(0, AlgorithmTestContriller.Algo3("hello", levelID, Settings.Current_Topic, stepID));
+        //qList.Insert(0, AlgorithmTestContriller.Algo4(4.65f, levelID, Settings.Current_Topic, stepID));
+        //qList.Insert(0, AlgorithmTestContriller.Algo5(21.5f, levelID, Settings.Current_Topic, stepID));
+        qList.Insert(0, AlgorithmTestContriller.Algo6(levelID, Settings.Current_Topic, stepID));
+        qList.Insert(0, AlgorithmTestContriller.Algo7(levelID, Settings.Current_Topic, stepID));
+        qList.Insert(0, AlgorithmTestContriller.Algo8(levelID, Settings.Current_Topic, stepID));
+        qList.Insert(0, AlgorithmTestContriller.Algo9(levelID, Settings.Current_Topic, stepID));
+        qList.Insert(0, AlgorithmTestContriller.Test_0_KeyWords(levelID, Settings.Current_Topic, stepID));
+        qList.Insert(0, AlgorithmTestContriller.Test_1_KeyOperators(levelID, Settings.Current_Topic, stepID));
 
         foreach (var item in qList)
             item.TypeLevel = eTypeLevel;
