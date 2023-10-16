@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,8 +12,8 @@ namespace Mkey
     {
         public List<GameObject> BackgroundPrefabs;
         public List<Sprite> BackgroundImages;
-        public List<AnimatorController> AnimatorControllerLeft;
-        public List<AnimatorController> AnimatorControllerRight;
+        public List<Animator> AnimatorControllerLeft;
+        public List<Animator> AnimatorControllerRight;
         public MapType mapType;
         public List<Biome> biomes;
 
@@ -34,7 +33,7 @@ namespace Mkey
             return false;
         }
 
-        public void AddBiome(GameObject prefab, Sprite backImage = null, AnimatorController animatorLeft = null, AnimatorController animatorRight = null)
+        public void AddBiome(GameObject prefab, Sprite backImage = null, Animator animatorLeft = null, Animator animatorRight = null)
         {
             if (!prefab)
             {
@@ -189,8 +188,8 @@ namespace Mkey
             //save  biomes prefabs
             GameObject[] bPrefs = new GameObject[length];
             Sprite[] sPrefs = new Sprite[10];
-            AnimatorController[] alPrefs = new AnimatorController[10];
-            AnimatorController[] arPrefs = new AnimatorController[10];
+            Animator[] alPrefs = new Animator[10];
+            Animator[] arPrefs = new Animator[10];
 
             int currentBackground = 0;
             int currentSprite = 0;

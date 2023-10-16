@@ -33,7 +33,7 @@ namespace Mkey
         }
         [HideInInspector]
         public Canvas parentCanvas;
-        private MapMaker mapMaker;
+        //private MapMaker mapMaker;
         private ScrollRect sRect;
         private RectTransform content;
         //private int biomesCount = 6;
@@ -62,31 +62,37 @@ namespace Mkey
         void Start()
         {
             //Debug.Log("Map controller started");
-            if (mapMaker == null) mapMaker = GetComponent<MapMaker>();
+            //if (mapMaker == null) mapMaker = GetComponent<MapMaker>();
 
-            if (mapMaker == null)
-            {
-                Debug.LogError("No <MapMaker> component. Add <MapMaker.>");
-                return;
-            }
+            //if (mapMaker == null)
+            //{
+            //    Debug.LogError("No <MapMaker> component. Add <MapMaker.>");
+            //    return;
+            //}
 
-            if (mapMaker.biomes == null)
-            {
-                Debug.LogError("No Maps. Add Biomes to MapMaker.");
-                return;
-            }
+            //if (mapMaker.biomes == null)
+            //{
+            //    Debug.LogError("No Maps. Add Biomes to MapMaker.");
+            //    return;
+            //}
 
-            content = GetComponent<RectTransform>();
-            if (!content)
-            {
-                Debug.LogError("No RectTransform component. Use RectTransform for MapMaker.");
-                return;
-            }
+            //content = GetComponent<RectTransform>();
+            //if (!content)
+            //{
+            //    Debug.LogError("No RectTransform component. Use RectTransform for MapMaker.");
+            //    return;
+            //}
 
             FillTheoryDataFromJSON();
 
 
-            List<Biome> bList = new List<Biome>(mapMaker.biomes);
+            Biome[] list = GetComponentsInChildren<Biome>();
+            List<Biome> bList = new List<Biome>();
+            foreach (var item in list)
+            {
+                bList.Add(item);
+            }
+            //List<Biome> bList = new List<Biome>(mapMaker.biomes);
             bList.RemoveAll((b) => { return b == null; });
             //Debug.LogError(bList.Count);
             //Debug.LogError(_theoryListJSON.theoryList.Count);
@@ -249,14 +255,14 @@ namespace Mkey
             yield return new WaitForSeconds(0.001f);
             if (sRect)
             {
-                if (mapMaker.mapType == MapType.Vertical)
-                {
+                //if (mapMaker.mapType == MapType.Vertical)
+                //{
                     Debug.Log(sRect.normalizedPosition);
                     Vector2 initialNormalizedPos = sRect.normalizedPosition;
                     Vector2 targetNormalizedPos = new Vector2(initialNormalizedPos.x, PlayerPrefs.GetFloat("ScrollYPointFocus", 1.0f));
 
                     sRect.normalizedPosition = targetNormalizedPos;
-                }
+                //}
             }
             else
             {

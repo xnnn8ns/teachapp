@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
-using UnityEditor.Animations;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -46,10 +45,10 @@ namespace Mkey
             _backGroundImage.sprite = img;
         }
 
-        public void SetAnimatorController(AnimatorController animControllerLeft, AnimatorController animControllerRight)
+        public void SetAnimatorController(Animator animControllerLeft, Animator animControllerRight)
         {
-            _animLeft.runtimeAnimatorController = animControllerLeft;
-            _animRight.runtimeAnimatorController = animControllerRight;
+            _animLeft.runtimeAnimatorController = animControllerLeft.runtimeAnimatorController;
+            _animRight.runtimeAnimatorController = animControllerRight.runtimeAnimatorController;
         }
 
         public Vector2 BiomeSize
