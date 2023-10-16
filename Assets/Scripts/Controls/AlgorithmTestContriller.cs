@@ -10,6 +10,8 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static List<KeyWord> keyOperatorsForTestList = null;
     private static List<string> varNames;
 
+    #region KeyMethods
+
     private static List<string> GetKeyWordsForAlgo()
     {
         if (keyWordsForAlgo == null)
@@ -108,18 +110,22 @@ public class AlgorithmTestContriller : MonoBehaviour
         }
     }
 
+    #endregion
+
     #region Algorithms
 
     /// <summary>
     /// Return word (int), which pass as params
     /// </summary>
-    /// <param name="intValue"></param>
     /// <param name="level"></param>
     /// <param name="topic"></param>
     /// <param name="step"></param>
     /// <returns></returns>
-    public static Question Algo0(int intValue, int level, int topic, int step)
+    public static Question Algo0(int level, int topic, int step)
     {
+        System.Random rand = new System.Random();
+        int intValue = rand.Next(1, 30);
+
         string rightAnswer = intValue.ToString();
         string codeAnswers = "print (\"" + rightAnswer + "\")";
         List<string> codeWords = new List<string>();
@@ -142,13 +148,15 @@ public class AlgorithmTestContriller : MonoBehaviour
     /// <summary>
     /// Print word (int), which pass as params
     /// </summary>
-    /// <param name="intValue"></param>
     /// <param name="level"></param>
     /// <param name="topic"></param>
     /// <param name="step"></param>
     /// <returns></returns>
-    public static Question Algo1(int intValue, int level, int topic, int step)
+    public static Question Algo1(int level, int topic, int step)
     {
+        System.Random rand = new System.Random();
+        int intValue = rand.Next(1, 30);
+
         string rightAnswer = intValue.ToString();
         string varName = GetRandomFromVarNames();
 
@@ -176,15 +184,14 @@ public class AlgorithmTestContriller : MonoBehaviour
     /// <summary>
     /// Return word, which pass as params
     /// </summary>
-    /// <param name="strValue"></param>
     /// <param name="level"></param>
     /// <param name="topic"></param>
     /// <param name="step"></param>
     /// <returns></returns>
-    public static Question Algo2(string strValue, int level, int topic, int step)
+    public static Question Algo2(int level, int topic, int step)
     {
-        string rightAnswer = strValue;
-        string codeAnswers = "print (\"" + strValue + "\")";
+        string rightAnswer = GetRandomFromVarNames();
+        string codeAnswers = "print (\"" + rightAnswer + "\")";
         List<string> codeWords = new List<string>();
         codeWords.Add(codeAnswers);
 
@@ -205,17 +212,18 @@ public class AlgorithmTestContriller : MonoBehaviour
     /// <summary>
     /// Return word (with Random var name), which pass as params
     /// </summary>
-    /// <param name="strValue"></param>
     /// <param name="level"></param>
     /// <param name="topic"></param>
     /// <param name="step"></param>
     /// <returns></returns>
-    public static Question Algo3(string strValue, int level, int topic, int step)
+    public static Question Algo3(int level, int topic, int step)
     {
-        string rightAnswer = strValue;
-        string varName = GetRandomFromVarNames();
+        string rightAnswer = GetRandomFromVarNames();
+        List<string> varNames = new List<string>();
+        varNames.Add(rightAnswer);
+        string varName = GetRandomFromVarNames(varNames);
 
-        string codeAnswers0 = varName + " = " + strValue;
+        string codeAnswers0 = varName + " = " + rightAnswer;
         string codeAnswers1 = "print (" + varName + ")";
 
         List<string> codeWords = new List<string>();
@@ -239,13 +247,15 @@ public class AlgorithmTestContriller : MonoBehaviour
     /// <summary>
     /// Return word (float), which pass as params
     /// </summary>
-    /// <param name="floatValue"></param>
     /// <param name="level"></param>
     /// <param name="topic"></param>
     /// <param name="step"></param>
     /// <returns></returns>
-    public static Question Algo4(float floatValue, int level, int topic, int step)
+    public static Question Algo4(int level, int topic, int step)
     {
+        System.Random rand = new System.Random();
+        float floatValue = (rand.Next(10, 100) * 10) / 1000f;
+
         string rightAnswer = floatValue.ToString();
         string codeAnswers = "print (\"" + rightAnswer + "\")";
         List<string> codeWords = new List<string>();
@@ -268,13 +278,15 @@ public class AlgorithmTestContriller : MonoBehaviour
     /// <summary>
     /// print word (floatValue), which pass as params
     /// </summary>
-    /// <param name="floatValue"></param>
     /// <param name="level"></param>
     /// <param name="topic"></param>
     /// <param name="step"></param>
     /// <returns></returns>
-    public static Question Algo5(float floatValue, int level, int topic, int step)
+    public static Question Algo5(int level, int topic, int step)
     {
+        System.Random rand = new System.Random();
+        float floatValue = (rand.Next(10, 100) * 10) / 1000f;
+
         string rightAnswer = floatValue.ToString();
         string varName = GetRandomFromVarNames();
 
@@ -299,6 +311,13 @@ public class AlgorithmTestContriller : MonoBehaviour
         return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
     }
 
+    /// <summary>
+    /// Sum of a + b, print (sum)
+    /// </summary>
+    /// <param name="level"></param>
+    /// <param name="topic"></param>
+    /// <param name="step"></param>
+    /// <returns></returns>
     public static Question Algo6(int level, int topic, int step)
     {
         System.Random rand = new System.Random();
@@ -340,6 +359,13 @@ public class AlgorithmTestContriller : MonoBehaviour
         return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
     }
 
+    /// <summary>
+    /// Sum of a - b, print (sum)
+    /// </summary>
+    /// <param name="level"></param>
+    /// <param name="topic"></param>
+    /// <param name="step"></param>
+    /// <returns></returns>
     public static Question Algo7(int level, int topic, int step)
     {
         System.Random rand = new System.Random();
@@ -381,6 +407,13 @@ public class AlgorithmTestContriller : MonoBehaviour
         return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
     }
 
+    /// <summary>
+    /// Total of a * b, print (Total)
+    /// </summary>
+    /// <param name="level"></param>
+    /// <param name="topic"></param>
+    /// <param name="step"></param>
+    /// <returns></returns>
     public static Question Algo8(int level, int topic, int step)
     {
         System.Random rand = new System.Random();
@@ -422,6 +455,13 @@ public class AlgorithmTestContriller : MonoBehaviour
         return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
     }
 
+    /// <summary>
+    /// Total of a / b, print (Total)
+    /// </summary>
+    /// <param name="level"></param>
+    /// <param name="topic"></param>
+    /// <param name="step"></param>
+    /// <returns></returns>
     public static Question Algo9(int level, int topic, int step)
     {
         System.Random rand = new System.Random();
@@ -688,7 +728,7 @@ public class AlgorithmTestContriller : MonoBehaviour
         List<KeyWord> listFull = GetKeyWordsForTest();
         foreach (var item in listFull)
         {
-            if (item.Topic == topic)
+            if (item.Topic <= topic)
             {
                 list.Add(item);
             }
@@ -725,7 +765,7 @@ public class AlgorithmTestContriller : MonoBehaviour
         List<KeyWord> listFull = GetKeyOperatorsForTest();
         foreach (var item in listFull)
         {
-            if (item.Topic == topic)
+            if (item.Topic <= topic)
             {
                 list.Add(item);
             }

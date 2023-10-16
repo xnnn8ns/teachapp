@@ -235,17 +235,8 @@ public abstract class Question : Information
         List<Question> questionsTopic = GetQuestionListForTopic(buttonOnMapID);
         int levelID = Settings.GetLevelFromButtonOnMapID(buttonOnMapID);
         qList = GetQuestionListForLevelFromTopic(questionsTopic, levelID);
-        //qList.Insert(0, AlgorithmTestContriller.Algo0(12, levelID, Settings.Current_Topic, stepID));
-        //qList.Insert(0, AlgorithmTestContriller.Algo2("friend", levelID, Settings.Current_Topic, stepID));
-        //qList.Insert(0, AlgorithmTestContriller.Algo3("hello", levelID, Settings.Current_Topic, stepID));
-        //qList.Insert(0, AlgorithmTestContriller.Algo4(4.65f, levelID, Settings.Current_Topic, stepID));
-        //qList.Insert(0, AlgorithmTestContriller.Algo5(21.5f, levelID, Settings.Current_Topic, stepID));
-        qList.Insert(0, AlgorithmTestContriller.Algo6(levelID, Settings.Current_Topic, stepID));
-        qList.Insert(0, AlgorithmTestContriller.Algo7(levelID, Settings.Current_Topic, stepID));
-        qList.Insert(0, AlgorithmTestContriller.Algo8(levelID, Settings.Current_Topic, stepID));
-        qList.Insert(0, AlgorithmTestContriller.Algo9(levelID, Settings.Current_Topic, stepID));
-        qList.Insert(0, AlgorithmTestContriller.Test_0_KeyWords(levelID, Settings.Current_Topic, stepID));
-        qList.Insert(0, AlgorithmTestContriller.Test_1_KeyOperators(levelID, Settings.Current_Topic, stepID));
+
+        AddRandomQuestions(qList, levelID, stepID);
 
         foreach (var item in qList)
             item.TypeLevel = eTypeLevel;
@@ -253,13 +244,65 @@ public abstract class Question : Information
         return qList;
     }
 
+    private static void AddRandomQuestions(List<Question> qList, int levelID, int stepID)
+    {
+        qList.Insert(1, AlgorithmTestContriller.Test_0_KeyWords(levelID, Settings.Current_Topic, stepID));
+        qList.Insert(3, AlgorithmTestContriller.Test_1_KeyOperators(levelID, Settings.Current_Topic, stepID));
+
+        Random random = new Random();
+        int rand = random.Next(0, 10);
+        switch (rand)
+        {
+            case 0:
+                qList.Insert(0, AlgorithmTestContriller.Algo0(levelID, Settings.Current_Topic, stepID));
+                break;
+            case 1:
+                qList.Insert(0, AlgorithmTestContriller.Algo2(levelID, Settings.Current_Topic, stepID));
+                break;
+            case 2:
+                qList.Insert(0, AlgorithmTestContriller.Algo3(levelID, Settings.Current_Topic, stepID));
+                break;
+            case 3:
+                qList.Insert(0, AlgorithmTestContriller.Algo4(levelID, Settings.Current_Topic, stepID));
+                break;
+            case 4:
+                qList.Insert(0, AlgorithmTestContriller.Algo5(levelID, Settings.Current_Topic, stepID));
+                break;
+            case 5:
+                qList.Insert(0, AlgorithmTestContriller.Algo6(levelID, Settings.Current_Topic, stepID));
+                break;
+            case 6:
+                qList.Insert(0, AlgorithmTestContriller.Algo7(levelID, Settings.Current_Topic, stepID));
+                break;
+            case 7:
+                qList.Insert(0, AlgorithmTestContriller.Algo8(levelID, Settings.Current_Topic, stepID));
+                break;
+            case 8:
+                qList.Insert(0, AlgorithmTestContriller.Algo9(levelID, Settings.Current_Topic, stepID));
+                break;
+            default:
+                qList.Insert(0, AlgorithmTestContriller.Algo0(levelID, Settings.Current_Topic, stepID));
+                break;
+        }
+
+        //qList.Insert(0, AlgorithmTestContriller.Algo0(levelID, Settings.Current_Topic, stepID));
+        //qList.Insert(0, AlgorithmTestContriller.Algo2(levelID, Settings.Current_Topic, stepID));
+        //qList.Insert(0, AlgorithmTestContriller.Algo3(levelID, Settings.Current_Topic, stepID));
+        //qList.Insert(0, AlgorithmTestContriller.Algo4(levelID, Settings.Current_Topic, stepID));
+        //qList.Insert(0, AlgorithmTestContriller.Algo5(levelID, Settings.Current_Topic, stepID));
+        //qList.Insert(0, AlgorithmTestContriller.Algo6(levelID, Settings.Current_Topic, stepID));
+        //qList.Insert(0, AlgorithmTestContriller.Algo7(levelID, Settings.Current_Topic, stepID));
+        //qList.Insert(0, AlgorithmTestContriller.Algo8(levelID, Settings.Current_Topic, stepID));
+        //qList.Insert(0, AlgorithmTestContriller.Algo9(levelID, Settings.Current_Topic, stepID));
+    } 
+
     private static List<Question> GetQuestionListForTopic(int buttonOnMapID)
     {
         int topicID = Settings.GetTopicFromButtonOnMapID(buttonOnMapID);
         List<Question> qTopicList = new List<Question>();
         foreach (var q in Question.QuestionsList)
         {
-            if (q.Topic == topicID)
+            if (q.Topic <= topicID)
                 qTopicList.Add(q);
         }
         qTopicList = qTopicList.OrderBy(x => x.Score).ToList();
@@ -317,7 +360,7 @@ public abstract class Question : Information
 
         Random rand = new Random();
 
-        int indexRand = 0;
+        int indexRand;
         int countToAdd = 1; 
         while (countToAdd > 0)
         {
@@ -326,7 +369,7 @@ public abstract class Question : Information
             countToAdd--;
         }
 
-        countToAdd = 2;
+        countToAdd = 1;
         
         while (countToAdd > 0)
         {
@@ -343,7 +386,7 @@ public abstract class Question : Information
             countToAdd--;
         }
 
-        countToAdd = 3;
+        countToAdd = 1;
         while (countToAdd > 0)
         {
             if (countToAdd == 1)
