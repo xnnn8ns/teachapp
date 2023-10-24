@@ -29,7 +29,7 @@ public class ResultPanel : MonoBehaviour
         imagelOK.SetActive(isOk);
         imageWrong.SetActive(!isOk);
         textResult.text = txtResult;
-        Debug.Log(backgroundPanelOK.activeSelf);
+        //Debug.Log(backgroundPanelOK.activeSelf);
     }
 
     public void ClickButtonNext()

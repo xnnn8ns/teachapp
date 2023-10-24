@@ -507,7 +507,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc05d405cf934383b7e1f26b9ee7328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textScore: {fileID: 274445375}
+  _textMessage: {fileID: 0}
+  _textValue: {fileID: 274445375}
   _audioScore: {fileID: 446781810}
   _needFillData: 1
   _needUnloadCurrentScene: 0

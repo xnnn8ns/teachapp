@@ -1,122 +1,152 @@
 [
   {
     "id": 1,
-    "score": 0,
+    "score": 20,
     "isActive": true,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  0
+    "typeLevel": 0,
+    "topic":  1
   },
   {
     "id": 2,
-    "score": 0,
+    "score": 20,
     "isActive": false,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  0
+    "typeLevel":  0,
+    "topic":  1
   },
   {
     "id": 3,
-    "score": 0,
+    "score": 20,
     "isActive": false,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  0
+    "typeLevel":  0,
+    "topic":  1
   },
   {
     "id": 4,
-    "score": 0,
+    "score": 20,
     "isActive": false,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  1
+    "typeLevel":  1,
+    "topic":  1
   },
   {
     "id": 5,
-    "score": 0,
+    "score": 20,
     "isActive": false,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  0
+    "typeLevel":  0,
+    "topic":  1
   },
   {
     "id": 6,
-    "score": 0,
+    "score": 20,
     "isActive": false,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  0
+    "typeLevel":  0,
+    "topic":  1
   },
   {
     "id": 7,
-    "score": 0,
+    "score": 20,
     "isActive": false,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  1
+    "typeLevel":  1,
+    "topic":  1
   },
   {
     "id": 8,
-    "score": 0,
+    "score": 20,
     "isActive": false,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  0
+    "typeLevel":  0,
+    "topic":  1
   },
   {
     "id": 9,
-    "score": 0,
+    "score": 30,
     "isActive": false,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  0
+    "typeLevel":  0,
+    "topic":  1
   },
   {
     "id": 10,
-    "score": 0,
+    "score": 100,
     "isActive": false,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  2
+    "typeLevel":  2,
+    "topic":  1
   },
   {
     "id": 11,
-    "score": 0,
+    "score": 30,
     "isActive": true,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  3
+    "typeLevel":  3,
+    "topic":  2
   },
   {
     "id": 12,
-    "score": 0,
+    "score": 30,
     "isActive": true,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  4
+    "typeLevel":  4,
+    "topic":  2
   },
   {
     "id": 13,
-    "score": 0,
+    "score": 30,
     "isActive": false,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  0
+    "typeLevel":  0,
+    "topic":  2
   },
   {
     "id": 14,
-    "score": 0,
+    "score": 30,
     "isActive": false,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  0
+    "typeLevel":  0,
+    "topic":  2
   },
   {
     "id": 15,
-    "score": 0,
+    "score": 30,
     "isActive": false,
     "activeStarsCount": 0,
+    "passCount": 0,
     "isPassed": false,
-    "typeLevel":  1
+    "typeLevel":  1,
+    "topic":  2
   }
 ]

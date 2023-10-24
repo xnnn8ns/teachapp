@@ -21,8 +21,6 @@ namespace Mkey
         [SerializeField]
         public MapType oldMapType;
 
-        private List<LevelButton> levelButtons;
-
         public bool HasEmptyPrefabs()
         {
             if (BackgroundPrefabs == null || BackgroundPrefabs.Count == 0) return true;

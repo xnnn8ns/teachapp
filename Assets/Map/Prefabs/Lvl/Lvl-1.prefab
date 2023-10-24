@@ -1426,7 +1426,7 @@ MonoBehaviour:
   RightStarEmpty: {fileID: 8335470242051916355}
   Lock: {fileID: 734317462849005291}
   button: {fileID: 7061382500666953408}
-  targetImage: {fileID: 0}
+  targetImage: {fileID: 3637382675974052220}
   LockState: {fileID: 3637382675974052220}
   ActiveState: {fileID: 3637382675974052220}
   PassState: {fileID: 3637382675974052220}
@@ -12296,7 +12296,7 @@ MonoBehaviour:
   RightStarEmpty: {fileID: 7500017057826091174}
   Lock: {fileID: 6943332302882437822}
   button: {fileID: 8654861734227978566}
-  targetImage: {fileID: 0}
+  targetImage: {fileID: 8342438298625850086}
   LockState: {fileID: 8342438298625850086}
   ActiveState: {fileID: 8342438298625850086}
   PassState: {fileID: 8342438298625850086}

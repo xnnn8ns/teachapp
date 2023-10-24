@@ -212,14 +212,14 @@ public class ComonFunctions : MonoBehaviour
     {
         float currentScreenCoefProportion = (float)Screen.height / Screen.width;
         float defaultScreenCoefProportion = 2.164251f;// for iPhone11 // need scale 5
-        float scale = defaultScreenCoefProportion - 1.778667f; // 1.778667 for 6 // need scale 5
+        //float scale = defaultScreenCoefProportion - 1.778667f; // 1.778667 for 6 // need scale 5
 
         float deltaFromDefault = currentScreenCoefProportion / defaultScreenCoefProportion;
 
         float targetScale = 5f / deltaFromDefault;
 
-        Debug.Log(deltaFromDefault);
-        Debug.Log(targetScale);
+        //Debug.Log(deltaFromDefault);
+        //Debug.Log(targetScale);
         return targetScale;
     }
 
@@ -236,6 +236,86 @@ public class ComonFunctions : MonoBehaviour
             time += "0";
         time += secondsRest;
         return time;
+    }
+
+    public static int GetScoreForLevel(int scoreByDefault, int passCount, ETypeLevel eTypeLevel)
+    {
+        //Debug.Log(scoreByDefault);
+        //Debug.Log(passCount);
+        int score = 0;
+
+        if (eTypeLevel != ETypeLevel.simple)
+        {
+            if (passCount == 0)
+                score = scoreByDefault;
+            int max = 10;
+            while (passCount > 0 && max > 0)
+            {
+                score /= 4;
+                max--;
+                passCount--;
+            }
+        }
+        else
+        {
+            if (passCount == 0)
+                score = (int)(scoreByDefault * 0.25f);
+            else if (passCount == 1)
+                score = (int)(scoreByDefault * 0.25f);
+            else if (passCount == 2)
+                score = scoreByDefault - 2 * (int)(scoreByDefault * 0.25f);
+            else if (passCount == 3)
+                score = (int)(scoreByDefault * 0.1f);
+            else if (passCount == 4)
+                score = (int)(scoreByDefault * 0.05f);
+            else if (passCount == 5)
+                score = (int)(scoreByDefault * 0.025f);
+            else if (passCount == 6)
+                score = (int)(scoreByDefault * 0.01f);
+            else
+                score = (int)(scoreByDefault * 0.001f);
+        }
+
+        if (score <= 0)
+            score = 1;
+        //Debug.Log(score);
+        return score;
+    }
+
+    public static int GetStarCountAfterLevelPass(int secondsOnStart, int secondsLeft, int eTypeLevel)
+    {
+        if(eTypeLevel == (int)ETypeLevel.mission1
+            ||
+            eTypeLevel == (int)ETypeLevel.mission2
+            ||
+            eTypeLevel == (int)ETypeLevel.additional)
+        {
+            if (secondsLeft > (int)(secondsOnStart * 0.6f))
+                return 3;
+            else if (secondsLeft > (int)(secondsOnStart * 0.8f))
+                return 2;
+            else
+                return 1;
+        }
+
+        if (eTypeLevel == (int)ETypeLevel.simple)
+        {
+            if (secondsLeft > (int)(secondsOnStart * 0.5f))
+                return 1;
+        }
+
+        if (eTypeLevel == (int)ETypeLevel.final)
+        {
+            if (secondsLeft > (int)(secondsOnStart * 0.5f))
+                return 3;
+            else if (secondsLeft > (int)(secondsOnStart * 0.75f))
+                return 2;
+            else
+                return 1;
+        }
+
+
+        return 0;
     }
 }
 

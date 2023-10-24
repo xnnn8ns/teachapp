@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using UnityEngine;
 
 public abstract class Question : Information
 {
@@ -229,24 +231,30 @@ public abstract class Question : Information
     //    return questionsLevel;
     //}
 
-    public static List<Question> GetQuestionListForLevel(int buttonOnMapID, int stepID, ETypeLevel eTypeLevel)
+    public static List<Question> GetQuestionListForLevel(int topic, int buttonOnMapID, int passCount, ETypeLevel eTypeLevel)
     {
+        UnityEngine.Debug.Log(topic);
+        UnityEngine.Debug.Log(buttonOnMapID);
         List<Question> qList;
         List<Question> questionsTopic = GetQuestionListForTopic(buttonOnMapID);
-        int levelID = Settings.GetLevelFromButtonOnMapID(buttonOnMapID);
-        qList = GetQuestionListForLevelFromTopic(questionsTopic, levelID);
-
-        AddRandomQuestions(qList, levelID, stepID);
-
+        //int levelID = Settings.GetLevelFromButtonOnMapID(buttonOnMapID);
+        //UnityEngine.Debug.Log("levelID: " + levelID);
+        qList = GetQuestionListForLevelFromTopic(topic, questionsTopic, buttonOnMapID);
+        //foreach (var item in qList)
+        //    UnityEngine.Debug.Log(item.Score);
+        UnityEngine.Debug.Log(qList.Count);
+        while (qList.Count < 6)
+            AddRandomQuestions(topic, qList, buttonOnMapID, passCount);
+        //UnityEngine.Debug.Log(qList.Count);
         foreach (var item in qList)
             item.TypeLevel = eTypeLevel;
         
         return qList;
     }
 
-    private static void AddRandomQuestions(List<Question> qList, int levelID, int stepID)
+    private static void AddRandomQuestions(int topic, List<Question> qList, int levelID, int passCount)
     {
-        qList.Insert(0, AlgorithmTestContriller.GetQuestionFromAlgo(Settings.Current_Topic, levelID, stepID));
+        qList.Insert(0, AlgorithmTestContriller.GetQuestionFromAlgo(topic, levelID, passCount));
     }
 
     private static void AddRandomQuestions2(List<Question> qList, int levelID, int stepID)
@@ -254,7 +262,7 @@ public abstract class Question : Information
         qList.Insert(1, AlgorithmTestContriller.Test_0_KeyWords(Settings.Current_Topic, levelID, stepID));
         qList.Insert(3, AlgorithmTestContriller.Test_1_KeyOperators(Settings.Current_Topic, levelID, stepID));
 
-        Random random = new Random();
+        System.Random random = new System.Random();
         int rand = random.Next(0, 10);
         switch (rand)
         {
@@ -308,7 +316,7 @@ public abstract class Question : Information
     {
         int topicID = Settings.GetTopicFromButtonOnMapID(buttonOnMapID);
         List<Question> qTopicList = new List<Question>();
-        foreach (var q in Question.QuestionsList)
+        foreach (var q in QuestionsList)
         {
             if (q.Topic <= topicID)
                 qTopicList.Add(q);
@@ -317,7 +325,7 @@ public abstract class Question : Information
         return qTopicList;
     }
 
-    private static List<Question> GetQuestionListForLevelFromTopic(List<Question> qTopic, int levelID)
+    private static List<Question> GetQuestionListForLevelFromTopic(int topic, List<Question> qTopic, int levelID)
     {
         List<Question> list = new List<Question>();
         List<Question> listTest = new List<Question>();
@@ -326,7 +334,7 @@ public abstract class Question : Information
         if (qTopic.Count <= 0)
             return list;
 
-        int countInLevel = qTopic.Count * levelID / 10;
+        int countInLevel = qTopic.Count * levelID / 12;
         int countTest = countInLevel;
         foreach (var q in qTopic)
         {
@@ -361,30 +369,38 @@ public abstract class Question : Information
         int countLTask = listTask.Count;
         thirtyPercent = countLTask / 3;
         sixtyPercent = countLTask * 2 / 3;
-        //List<Question> thirtyPercentTaskList = listTask.GetRange(0, thirtyPercent);
-        //List<Question> sixtyFivePercentTaskList = listTask.GetRange(thirtyPercent, sixtyPercent - thirtyPercent);
-        List<Question> sixtyFivePercentTaskList = listTask.GetRange(0, sixtyPercent - thirtyPercent);
+        List<Question> thirtyPercentTaskList = listTask.GetRange(0, thirtyPercent);
+        List<Question> sixtyFivePercentTaskList = listTask.GetRange(thirtyPercent, sixtyPercent - thirtyPercent);
+        //List<Question> sixtyFivePercentTaskList = listTask.GetRange(0, sixtyPercent - thirtyPercent);
         List<Question> hundredFivePercentTaskList = listTask.GetRange(sixtyPercent, countLTask - sixtyPercent);
 
-        Random rand = new Random();
-
+        System.Random rand = new System.Random();
+        //UnityEngine.Debug.Log(list.Count);
         int indexRand;
-        int countToAdd = 1; 
-        while (countToAdd > 0)
+        int countToAdd = 1;
+        if (topic < 2)
+            countToAdd = 2;
+        while (countToAdd > 0 && thirtyPercentTestList.Count > 0)
         {
+            UnityEngine.Debug.Log(thirtyPercentTestList.Count);
             indexRand = rand.Next(0, thirtyPercentTestList.Count);
             list.Add(thirtyPercentTestList[indexRand]);
             countToAdd--;
         }
-
+        //UnityEngine.Debug.Log(list.Count);
         countToAdd = 1;
-        
-        while (countToAdd > 0)
+        //if (topic < 2)
+        //    countToAdd = 0;
+        while (countToAdd > 0 && sixtyFivePercentTaskList.Count > 0 && thirtyPercentTaskList.Count > 0)
         {
-            if (countToAdd % 2 != 0)
+            if (topic > 2 && countToAdd % 2 != 0)
             {
                 indexRand = rand.Next(0, sixtyFivePercentTaskList.Count);
                 list.Add(sixtyFivePercentTaskList[indexRand]);
+            } else if (topic <= 2 && countToAdd % 2 != 0)
+            {
+                indexRand = rand.Next(0, thirtyPercentTaskList.Count);
+                list.Add(thirtyPercentTaskList[indexRand]);
             }
             else
             {
@@ -395,12 +411,14 @@ public abstract class Question : Information
         }
 
         countToAdd = 1;
-        while (countToAdd > 0)
+        if (topic < 2)
+            countToAdd = 0;
+        while (countToAdd > 0 && hundredFivePercentTaskList.Count > 0 && hundredFivePercentTestList.Count > 0)
         {
             if (countToAdd == 1)
             {
                 indexRand = rand.Next(0, hundredFivePercentTaskList.Count);
-                list.Add(hundredFivePercentTaskList[indexRand]);
+                //list.Add(hundredFivePercentTaskList[indexRand]);
             }
             else
             {
@@ -409,7 +427,7 @@ public abstract class Question : Information
             }
             countToAdd--;
         }
-
+        //UnityEngine.Debug.Log(list.Count);
         return list;
     }
 }

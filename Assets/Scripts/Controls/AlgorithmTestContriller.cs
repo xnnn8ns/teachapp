@@ -611,14 +611,14 @@ public class AlgorithmTestContriller : MonoBehaviour
         return FillNewQuestion(QuestionType.Test, title, codeWords, answersWords, level, topic, step, difficulty, score);
     }
 
-    private static Question FillNewQuestion(QuestionType questionType, string title, List<string> codeWords, List<string> answersWords, int topic, int level, int step, int difficulty, int score)
+    private static Question FillNewQuestion(QuestionType questionType, string title, List<string> codeWords, List<string> answersWords, int topic, int level, int passCount, int difficulty, int score)
     {
         Question question = new QuestionText();
         question.Difficulty = difficulty;
         question.Score = score;
         question.Level = level;
         question.Topic = topic;
-        question.Step = step;
+        question.Step = passCount;
         question.IsSingleRightAnswer = true;
         question.CountShelves = codeWords.Count;
         question.QuestionType = questionType;
@@ -832,8 +832,9 @@ public class AlgorithmTestContriller : MonoBehaviour
 
     #endregion
 
-    public static Question GetQuestionFromAlgo(int topic, int level, int step)
+    public static Question GetQuestionFromAlgo(int topic, int level, int passCount)
     {
+        Debug.Log(topic + "-" + level);
         List<AlgoInfo> listFull = GetAlgoInfoListForTopicAndLevel(topic, level);
         
         System.Random random = new System.Random();
@@ -845,7 +846,7 @@ public class AlgorithmTestContriller : MonoBehaviour
         string[] parameters = { level.ToString(), level.ToString(), level.ToString() };
         Type type = typeof(AlgorithmTestContriller);
         MethodInfo info = type.GetMethod(methodName);
-        System.Object obj = info.Invoke(null, new object[] { topic, level, step });
+        System.Object obj = info.Invoke(null, new object[] { topic, level, passCount });
         return (Question)obj;
 
         //}

@@ -42,37 +42,42 @@ public class QuestionInitializer : MonoBehaviour
     private AudioSource _typeAudio;
     private AudioSource _wrongAnswerAudio;
     private AudioSource _OKAnswerAudio;
+    private AudioSource _clickCatImageAudio;
 
     private List<Shelf> _shelvesForCheck = new List<Shelf>();
     private Shelf _shelfRawAnswers;
     private Shelf _shelfDefault;
 
 
-    private List<Question> _questionsCurrentLevel = new List<Question>();
+    private static List<Question> _questionsCurrentLevel = new List<Question>();
     private List<GameObject> _answers = new List<GameObject>();
     private static int _currentQuestionIndex = 0;
     private static int _rightAnsweredCount = 0;
-    private static int _scoreValue = 0;
+    //private static int _scoreValue = 0;
     private static float _shelfHeightScale = 0.56f;
 
     private float _heightUpperShelf = 2.5f;
     private float _heightBelowShelf = -3f;
 
-    private int _secondsCount = 100;
-
+    private int _secondsCountToLeft = 100;
+    private int _secondsCountOnStart = 100;
     #endregion
 
-    private void FillQuestionsForCurrentLevel()
+    public static void FillQuestionsForCurrentLevel()
     {
-        _scoreValue = 0;
+        //_scoreValue = 0;
         _questionsCurrentLevel.Clear();
         _currentQuestionIndex = 0;
+        //Debug.Log(Settings.Current_ButtonOnMapID);
         ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
+        //Debug.Log(buttonData.id);
+        
         if (buttonData != null)
         {
             _questionsCurrentLevel = Question.GetQuestionListForLevel(
+                buttonData.topic,
                 Settings.Current_ButtonOnMapID,
-                buttonData.activeStarsCount,
+                buttonData.passCount,
                 (ETypeLevel)buttonData.typeLevel);
         }
     }
@@ -88,10 +93,11 @@ public class QuestionInitializer : MonoBehaviour
         _typeAudio = GetComponents<AudioSource>()[1];
         _wrongAnswerAudio = GetComponents<AudioSource>()[2];
         _OKAnswerAudio = GetComponents<AudioSource>()[3];
+        _clickCatImageAudio = GetComponents<AudioSource>()[4];
         //FillTestQuestionList();
         _imageCheckerTest.gameObject.SetActive(false);
         //GetFromJSON();
-        FillQuestionsForCurrentLevel();
+        //FillQuestionsForCurrentLevel();
         InitQuestion();
         //InitTouchDetector();
         _resultPanelScript.SetActive(false);
@@ -114,19 +120,11 @@ public class QuestionInitializer : MonoBehaviour
         //else
         //    InitImageCheck();
         if (_currentQuestionIndex == 0) {
-            if (_questionsCurrentLevel[_currentQuestionIndex].TypeLevel == ETypeLevel.additional)
-                _secondsCount = 120;
-            else if (_questionsCurrentLevel[_currentQuestionIndex].TypeLevel == ETypeLevel.mission1)
-                _secondsCount = 100;
-            else if (_questionsCurrentLevel[_currentQuestionIndex].TypeLevel == ETypeLevel.mission2)
-                _secondsCount = 90;
-            else if (_questionsCurrentLevel[_currentQuestionIndex].TypeLevel == ETypeLevel.final)
-                _secondsCount = 60;
-            else
-                _secondsCount = 300;
+            _secondsCountToLeft = GetSecondsForCurrentQuestionList();
+            _secondsCountOnStart = _secondsCountToLeft;
         }
 
-        StartCoroutine(TimerCountDown(_secondsCount));
+        StartCoroutine(TimerCountDown(_secondsCountToLeft));
 
         _buttonCheck.SetActive(false);
         _buttonCheckDisabled.SetActive(true);
@@ -142,14 +140,14 @@ public class QuestionInitializer : MonoBehaviour
         for (int i = 0; i < countShelves; i++)
         {
             GameObject shelfQuestionPrefab = Instantiate(_shelfPrefab);
-            shelfQuestionPrefab.transform.position = new Vector3(0, _heightUpperShelf - i * _shelfHeightScale * 1.05f, 0);
+            shelfQuestionPrefab.transform.position = new Vector3(0, _heightUpperShelf - i * _shelfHeightScale * 1.05f, -0.01f);
 
             shelfQuestionPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), _shelfHeightScale, 1);
             _shelvesForCheck.Add(shelfQuestionPrefab?.GetComponent<Shelf>());
         }
 
         GameObject shelfAnswerPrefab = Instantiate(_shelfPrefab);
-        shelfAnswerPrefab.transform.position = new Vector3(0, _heightBelowShelf, 0);
+        shelfAnswerPrefab.transform.position = new Vector3(0, _heightBelowShelf, -0.01f);
         shelfAnswerPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), 3, 1);
         _shelfRawAnswers = shelfAnswerPrefab?.GetComponent<Shelf>();
         _shelfRawAnswers.SetAsRawShelf();
@@ -168,14 +166,14 @@ public class QuestionInitializer : MonoBehaviour
         for (int i = 0; i < countShelves; i++)
         {
             GameObject shelfQuestionPrefab = Instantiate(_shelfPrefab);
-            shelfQuestionPrefab.transform.position = new Vector3(0, _heightUpperShelf - i * _shelfHeightScale * 1.05f, 0);
+            shelfQuestionPrefab.transform.position = new Vector3(0, _heightUpperShelf - i * _shelfHeightScale * 1.05f, -0.01f);
             
             shelfQuestionPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), _shelfHeightScale, 1);
             _shelvesForCheck.Add(shelfQuestionPrefab?.GetComponent<Shelf>());
         }
 
         GameObject shelfAnswerPrefab = Instantiate(_shelfPrefab);
-        shelfAnswerPrefab.transform.position = new Vector3(0, _heightBelowShelf, 0);
+        shelfAnswerPrefab.transform.position = new Vector3(0, _heightBelowShelf, -0.01f);
         shelfAnswerPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), 3, 1);
         _shelfRawAnswers = shelfAnswerPrefab?.GetComponent<Shelf>();
         _shelfRawAnswers.SetAsRawShelf(false);
@@ -193,7 +191,7 @@ public class QuestionInitializer : MonoBehaviour
         for (int i = 0; i < countTestShelves; i++)
         {
             GameObject shelfAnswerPrefab = Instantiate(_shelfPrefab);
-            shelfAnswerPrefab.transform.position = new Vector3(0, _heightUpperShelf - i * _shelfHeightScale * 1.05f, 0);
+            shelfAnswerPrefab.transform.position = new Vector3(0, _heightUpperShelf - i * _shelfHeightScale * 1.05f, -0.01f);
             shelfAnswerPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), _shelfHeightScale, 1);
             Shelf shelf = shelfAnswerPrefab?.GetComponent<Shelf>();
             if (shelf != null)
@@ -270,6 +268,7 @@ public class QuestionInitializer : MonoBehaviour
             Shelf shelf = _shelvesForCheck[i];
 
             Vector3 vectorPosition = shelf.gameObject.transform.position;
+            vectorPosition.z = -0.02f;
 
             GameObject answerPrefab = Instantiate(_answerPrefab, vectorPosition, Quaternion.identity);
 
@@ -285,7 +284,7 @@ public class QuestionInitializer : MonoBehaviour
     private void InitAnswersForShelf()
     {
         List<Answer> answers = _questionsCurrentLevel[_currentQuestionIndex].GetAnswerList();
-        Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, 0);
+        Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, -0.02f);
         //answers.Shuffle();
         foreach (var answer in answers)
         { 
@@ -304,7 +303,7 @@ public class QuestionInitializer : MonoBehaviour
     {
         List<Answer> answers = _questionsCurrentLevel[_currentQuestionIndex].GetAnswerList();
         List<Answer> answersForTestCheck = new List<Answer>();
-        Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, 0);
+        Vector3 vectorPosition = new Vector3(-_answers.Count - 2f, -1, -0.02f);
         //answers.Shuffle();
         foreach (var answer in answers)
         {
@@ -519,7 +518,11 @@ public class QuestionInitializer : MonoBehaviour
         {
             _questionsCurrentLevel[_currentQuestionIndex].IsPassed = isRight;
             _rightAnsweredCount++;
-            AddEarnedPoints(_questionsCurrentLevel[_currentQuestionIndex].Score);
+            ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
+            //Debug.Log(_questionsCurrentLevel[_currentQuestionIndex].Score);
+            //Debug.Log(_currentQuestionIndex);
+            int points = ComonFunctions.GetScoreForLevel(_questionsCurrentLevel[_currentQuestionIndex].Score, buttonData.passCount, (ETypeLevel)buttonData.typeLevel);
+            AddEarnedPoints(points);
         }
 
         StartCoroutine(SetRightAnswerOnScreen(isRight));
@@ -548,6 +551,8 @@ public class QuestionInitializer : MonoBehaviour
                     else
                         answerSurfacesUpdated.Insert(answerSurface.GetAnswer().PositionCellIndex, answerSurface);
                 }
+                if (!answerSurface.GetAnswer().IsOpenOnStart)
+                    answerSurface.GetAnswer().IsEnabled = true;
             }
             if (answerSurfacesUpdated.Count > 0)
             {
@@ -556,6 +561,8 @@ public class QuestionInitializer : MonoBehaviour
                 foreach (var item in answerSurfacesUpdated)
                 {
                     _shelfRawAnswers.RemoveAnswerFromShelf(item);
+                    if (!item.GetAnswer().IsOpenOnStart)
+                        item.GetAnswer().IsEnabled = true;
                 }
                 _shelvesForCheck[i].IsEnabled = false;
             }
@@ -612,7 +619,7 @@ public class QuestionInitializer : MonoBehaviour
             for (int j = answerSurfacesListForRemove.Count - 1; j >= 0; j--)
             {
                 Answer answer = answerSurfacesListForRemove[j].GetAnswer();
-                if (!answer.IsOpenOnStart && (!answer.IsRight || answer.PositionRowIndex != i || answer.PositionCellIndex != j))
+                if (!answer.IsOpenOnStart && _shelvesForCheck[i].IsEnabled && (!answer.IsRight || answer.PositionRowIndex != i || answer.PositionCellIndex != j))
                 {
                     var movingAnswerSurface = answerSurfacesListForRemove[j];
                     RemoveAnswerFromShelf(answerSurfacesListForRemove[j]);
@@ -645,7 +652,9 @@ public class QuestionInitializer : MonoBehaviour
     {
         //_resultPanelScript?.gameObject?.SetActive(false);
         StopAllCoroutines();
+        //SetEnabledAnswersOnShelvesForRepeatLevelAfterErrors();
         DestroyQuestionObjects();
+        Debug.Log(_currentQuestionIndex);
         _currentQuestionIndex++;
         for (int i = _currentQuestionIndex; i < _questionsCurrentLevel.Count; i++)
         {
@@ -654,8 +663,9 @@ public class QuestionInitializer : MonoBehaviour
             else
                 _currentQuestionIndex++;
         }
+        Debug.Log(_currentQuestionIndex);
         bool isLastQuestion = _currentQuestionIndex >= _questionsCurrentLevel.Count;
-
+        Debug.Log(isLastQuestion);
         if (!isLastQuestion)
             InitQuestion();
         else
@@ -669,8 +679,18 @@ public class QuestionInitializer : MonoBehaviour
             else
             {
                 ShowWindowToRepeatErrorQuestions();
+                //SetEnabledAnswersOnShelvesForRepeatLevelAfterErrors();
                 InitQuestion();
             }
+        }
+    }
+
+    private void SetEnabledAnswersOnShelvesForRepeatLevelAfterErrors()
+    {
+        for (int i = 0; i < _shelvesForCheck.Count; i++)
+        {
+            if (_questionsCurrentLevel[_currentQuestionIndex].QuestionType == QuestionType.Shelf)
+                _shelvesForCheck[i].SetBackWrongCompleted();
         }
     }
 
@@ -705,7 +725,7 @@ public class QuestionInitializer : MonoBehaviour
 
     private void AddEarnedPoints(int valuePoints)
     {
-        _scoreValue += valuePoints;
+        //_scoreValue += valuePoints;
         //_scoreValueText.text = _scoreValue.ToString();
     }
 
@@ -758,47 +778,64 @@ public class QuestionInitializer : MonoBehaviour
     {
         if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
         {
-            PlayerPrefs.SetInt("AddedScore", _scoreValue);
-            int totalScore = UserData.Score + _scoreValue;
-            UserData.SetScore(totalScore);
             ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
-            if(buttonData.typeLevel != (int)ETypeLevel.final
-                && buttonData.typeLevel != (int)ETypeLevel.additional)
-                buttonData.activeStarsCount++;
+            int score = ComonFunctions.GetScoreForLevel(buttonData.score, buttonData.passCount, (ETypeLevel)buttonData.typeLevel);
+            PlayerPrefs.SetInt("AddedScore", score);
+            int totalScore = UserData.Score + score;
+            UserData.SetScore(totalScore);
+            int errorCount = PlayerPrefs.GetInt("ErrorCount", 0); ;
+            int starCount = 0;
+            Debug.Log("STAR______________");
+            Debug.Log(_secondsCountOnStart);
+            if(errorCount <= 0)
+                starCount = ComonFunctions.GetStarCountAfterLevelPass(_secondsCountOnStart, _secondsCountToLeft, buttonData.typeLevel);
+            Debug.Log(starCount);
+            Debug.Log(_secondsCountToLeft);
+            buttonData.passCount++;
+            if (buttonData.typeLevel == (int)ETypeLevel.simple)
+                buttonData.activeStarsCount += starCount;
             else
+                buttonData.activeStarsCount = starCount;
+            if (buttonData.activeStarsCount > 3)
                 buttonData.activeStarsCount = 3;
 
             bool isPassed = false;
             int currentLevel = Settings.Current_ButtonOnMapID;
-            if (buttonData.activeStarsCount > 2)
+
+            PlayerPrefs.SetFloat("PassSeconds", _secondsCountToLeft);
+            PlayerPrefs.SetInt("PassQuestionCount", GetQuestionCountCurrentQuestionList());
+
+            if (buttonData.passCount > 2)
             {
                 Settings.Current_ButtonOnMapID++;
                 DataLoader.SaveCurrentLevel();
                 isPassed = true;
             }
-            DataLoader.SaveLevelResults(currentLevel, _scoreValue, !isPassed, isPassed, buttonData.activeStarsCount);
-            if(isPassed)
-                DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, _scoreValue, true, false, 0);
+            DataLoader.SaveLevelResults(currentLevel, !isPassed, isPassed, buttonData.activeStarsCount, buttonData.passCount);
+            
+            if (isPassed) // set next level = true -- isActive, to show on map
+                DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, true, false, 0, 0);
             Debug.Log("UpdateUser: " + UserData.Score);
             if (UserData.UserID != "")
                 StartCoroutine(ComonFunctions.Instance.UpdateUser(UserData.UserID, UserData.UserName, UserData.UserEmail, UserData.UserPassword, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID, UserData.Score));
+            PlayerPrefs.SetInt("ErrorCount", 0);
             ActionLevelCompleted.Invoke();
         }
     }
 
     private IEnumerator TimerCountDown(int secondsTillFinish)
     {
-        _secondsCount = secondsTillFinish;
-        _scoreValueText.text = ComonFunctions.GetMinetsSecondsFromSeconds(_secondsCount);
-        while (_secondsCount > 0)
+        _secondsCountToLeft = secondsTillFinish;
+        _scoreValueText.text = ComonFunctions.GetMinetsSecondsFromSeconds(_secondsCountToLeft);
+        while (_secondsCountToLeft > 0)
         {
             yield return new WaitForSeconds(1f);
-            _secondsCount--;
-            _scoreValueText.text = ComonFunctions.GetMinetsSecondsFromSeconds(_secondsCount);
+            _secondsCountToLeft--;
+            _scoreValueText.text = ComonFunctions.GetMinetsSecondsFromSeconds(_secondsCountToLeft);
         }
-        if (_secondsCount < 0)
-            _secondsCount = 0;
-        _scoreValueText.text = ComonFunctions.GetMinetsSecondsFromSeconds(_secondsCount);
+        if (_secondsCountToLeft < 0)
+            _secondsCountToLeft = 0;
+        _scoreValueText.text = ComonFunctions.GetMinetsSecondsFromSeconds(_secondsCountToLeft);
         StopQuizByTimer();
         yield break;
     }
@@ -818,10 +855,40 @@ public class QuestionInitializer : MonoBehaviour
         Scene scene = SceneManager.GetSceneByName("WindowRepeatErrorScene");
         if (scene.isLoaded)
             return;
-        //PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
+        int errorCount = PlayerPrefs.GetInt("ErrorCount", 0);
+        errorCount++;
+        PlayerPrefs.SetInt("ErrorCount", errorCount);
         SceneManager.LoadScene("WindowRepeatErrorScene", LoadSceneMode.Additive);
         StopAllCoroutines();
     }
 
+    public void ClickCatImage()
+    {
+        _clickCatImageAudio.Play();
+    }
+
     #endregion
+
+    public static int GetSecondsForCurrentQuestionList()
+    {
+        int secondsCount;
+        Debug.Log(_questionsCurrentLevel.Count);
+        Debug.Log(_currentQuestionIndex);
+        if (_questionsCurrentLevel[_currentQuestionIndex].TypeLevel == ETypeLevel.additional)
+            secondsCount = 120;
+        else if (_questionsCurrentLevel[_currentQuestionIndex].TypeLevel == ETypeLevel.mission1)
+            secondsCount = 100;
+        else if (_questionsCurrentLevel[_currentQuestionIndex].TypeLevel == ETypeLevel.mission2)
+            secondsCount = 90;
+        else if (_questionsCurrentLevel[_currentQuestionIndex].TypeLevel == ETypeLevel.final)
+            secondsCount = 60;
+        else
+            secondsCount = 300;
+        return secondsCount;
+    }
+
+    public static int GetQuestionCountCurrentQuestionList()
+    {
+        return _questionsCurrentLevel.Count;
+    }
 }

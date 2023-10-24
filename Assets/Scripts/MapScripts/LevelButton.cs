@@ -26,9 +26,11 @@ namespace Mkey
         public bool Interactable { get; private set; }
         private ETypeLevel _typeLevel = ETypeLevel.simple;
         public bool IsNeedMissRebuild = false;
+        public int ID = 0;
 
-        internal void SetIsActive(bool active, int activeStarsCount, bool isPassed, ETypeLevel typeLevel = ETypeLevel.simple)
+        internal void SetIsActive(int id, bool active, int activeStarsCount, int passCount, bool isPassed, ETypeLevel typeLevel = ETypeLevel.simple)
         {
+            ID = id;
             numberText.text = "";
             _typeLevel = typeLevel;
             //targetImage = targetImage.GetComponent<Image>();
@@ -101,11 +103,11 @@ namespace Mkey
             }
             if (typeLevel == ETypeLevel.simple)
             {
-                if (activeStarsCount == 0)
+                if (passCount == 0)
                     numberText.text = "0%";
-                else if (activeStarsCount == 1)
+                else if (passCount == 1)
                     numberText.text = "30%";
-                else if (activeStarsCount == 2)
+                else if (passCount == 2)
                     numberText.text = "60%";
                 else
                     numberText.text = "100%";

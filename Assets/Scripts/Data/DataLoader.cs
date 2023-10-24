@@ -42,7 +42,7 @@ public class DataLoader : MonoBehaviour
         return PlayerPrefs.GetInt("Current_Topic", 0);
     }
 
-    public static void SaveLevelResults(int id, int _score, bool _isActive, bool _isPassed, int _activeStarsCount)
+    public static void SaveLevelResults(int id, bool _isActive, bool _isPassed, int _activeStarsCount, int _passCount)
     {
         List<ButtonData> buttonDataList = new List<ButtonData>();
 
@@ -57,10 +57,11 @@ public class DataLoader : MonoBehaviour
         if (buttonData != null)
         {
 
-            buttonData.score = _score;
+            //buttonData.score = _score;
             buttonData.isActive = _isActive;
             buttonData.isPassed = _isPassed;
             buttonData.activeStarsCount = _activeStarsCount;
+            buttonData.passCount = _passCount;
 
             json = JsonConvert.SerializeObject(buttonDataList, Formatting.Indented);
 
@@ -109,7 +110,7 @@ public class DataLoader : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Get(apiTaskUrl))
         {
             yield return www.SendWebRequest();
-            string json = DownLaodOrCreateFileJson(www, Settings.jsonTestFilePath);
+            string json = DownLoadOrCreateFileJson(www, Settings.jsonTestFilePath);
             if (json.Length > 0)
             {
                 TaskJSON response = TaskJSON.FromJson(json);
@@ -126,7 +127,7 @@ public class DataLoader : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Get(apiTestUrl))
         {
             yield return www.SendWebRequest();
-            string json = DownLaodOrCreateFileJson(www, Settings.jsonTaskFilePath);
+            string json = DownLoadOrCreateFileJson(www, Settings.jsonTaskFilePath);
             if (json.Length > 0)
             {
                 TestJSON response = TestJSON.FromJson(json);
@@ -145,7 +146,7 @@ public class DataLoader : MonoBehaviour
             StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
     }
 
-    private string DownLaodOrCreateFileJson(UnityWebRequest www, string filePathSave)
+    private string DownLoadOrCreateFileJson(UnityWebRequest www, string filePathSave)
     {
         string json = "";
         bool isError = false;
@@ -187,10 +188,10 @@ public class DataLoader : MonoBehaviour
 
             string[] radditionalBlockRaws = task.AdditionalBlocks.Split("\r\n");
 
-            Level newLevel = new Level();
-            newLevel.LevelNumber = task.Topic;
-            newLevel.TotalCount = raws.Length;
-            Level.Levels.Add(newLevel);
+            //Level newLevel = new Level();
+            //newLevel.LevelNumber = task.Topic;
+            //newLevel.TotalCount = raws.Length;
+            //Level.Levels.Add(newLevel);
 
             Question question = new QuestionText();
             question.Title = task.Title;
@@ -277,9 +278,9 @@ public class DataLoader : MonoBehaviour
     {
         try
         {
-            Level newLevel = new Level();
-            newLevel.LevelNumber = test.Topic;
-            Level.Levels.Add(newLevel);
+            //Level newLevel = new Level();
+            //newLevel.LevelNumber = test.Topic;
+            //Level.Levels.Add(newLevel);
 
             Question question = new QuestionText();
             question.Title = test.Question;
@@ -293,7 +294,7 @@ public class DataLoader : MonoBehaviour
             //Debug.Log(question.Step);
             question.IsSingleRightAnswer = false;
             List<Answer> answers = new List<Answer>();
-
+            //Debug.Log(question.Score);
 
             for (int i = 0; i < 4; i++)
             {

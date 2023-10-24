@@ -7,11 +7,14 @@ using System.IO;
 public class ButtonData
 {
     public int id;
+    public int level;
     public int score;
     public bool isActive;
     public int activeStarsCount;
+    public int passCount;
     public bool isPassed;
     public int typeLevel;
+    public int topic;
 }
 
 public class ButtonDataList
@@ -24,37 +27,80 @@ public class ButtonsManager : MonoBehaviour
 
     List<ButtonData> buttonDataList = new List<ButtonData>(); 
 
-    public int rx = 2;
-    void CreateDefaultButtons(int id)
-    {
-        ButtonData buttonData = new ButtonData()
-        {
-            id = id,
-            score = 0,
-            isActive = false,
-            activeStarsCount=0,
-            isPassed = false,
-            typeLevel = 0
-        };
-        buttonDataList.Add(buttonData);
-
-    }
-
     public void CreateAllButtons()
     {
-        //CreateDefaultButtons(id);
-        //json = JsonConvert.SerializeObject(buttonDataList, Formatting.Indented);
-        //File.WriteAllText(Application.persistentDataPath + Settings.jsonButtonFilePath, json);
-
         if (File.Exists(Application.persistentDataPath + Settings.jsonButtonFilePath))
             json = File.ReadAllText(Application.persistentDataPath + Settings.jsonButtonFilePath);
         else
         {
             FileStream fs = File.Create(Application.persistentDataPath + Settings.jsonButtonFilePath);
             fs.Dispose();
-            TextAsset txt = (TextAsset)Resources.Load("buttonData", typeof(TextAsset));
-            json = txt.text;
+            //TextAsset txt = (TextAsset)Resources.Load("buttonData", typeof(TextAsset));
+            //json = txt.text;
+            //buttonDataList = JsonConvert.DeserializeObject<List<ButtonData>>(json);
+            int topicID = 1;
+            int levelID = 1;
+            int scoreCurrent;
+            int scoreLevel = 20;
+            int scoreFinal = 80;
+            for (int i = 1; i <= 120; i++)
+            {
+                bool isActiveButton = false;
+                if (i == 1)
+                    isActiveButton = true;
+                int typeLevelButton;
+                if (levelID == 10)
+                {
+                    typeLevelButton = (int)ETypeLevel.final;
+                    scoreCurrent = scoreFinal + scoreLevel;
+                }
+                else if (levelID == 11)
+                {
+                    typeLevelButton = (int)ETypeLevel.mission1;
+                    scoreCurrent = 2 * scoreLevel;
+                }
+                else if (levelID == 12)
+                {
+                    typeLevelButton = (int)ETypeLevel.mission2;
+                    scoreCurrent = 2 * scoreLevel;
+                }
+                else if (levelID == 4 || levelID == 7)
+                {
+                    typeLevelButton = (int)ETypeLevel.additional;
+                    scoreCurrent = scoreLevel;
+                }
+                else
+                {
+                    typeLevelButton = (int)ETypeLevel.simple;
+                    scoreCurrent = scoreLevel;
+                }
+                
+                //Debug.Log(i.ToString() + "-" + typeLevelButton.ToString()+"-"+ topicID.ToString()+"-"+ scoreCurrent.ToString());
+                ButtonData buttonData = new ButtonData()
+                {
+                    id = i,
+                    score = scoreCurrent,
+                    isActive = isActiveButton,
+                    activeStarsCount = 0,
+                    passCount = 0,
+                    isPassed = false,
+                    typeLevel = typeLevelButton,
+                    topic = topicID,
+                    level = levelID
+                };
+                buttonDataList.Add(buttonData);
+                if (i % 12 == 0)
+                {
+                    topicID++;
+                    levelID = 1;
+                    scoreLevel += 10;
+                    scoreFinal += 20;
+                }else
+                    levelID++;
+
+            }
             //Debug.Log(json);
+            json = JsonConvert.SerializeObject(buttonDataList, Formatting.Indented);
             File.WriteAllText(Application.persistentDataPath + Settings.jsonButtonFilePath, json);
         }
     }

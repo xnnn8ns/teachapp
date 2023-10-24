@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Level
 {
-    public static List<Level> Levels = new List<Level>();
+    //public static List<Level> Levels = new List<Level>();
 
     private int _levelNumber = 1;
     private int _totalTime = 300;

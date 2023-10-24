@@ -22,19 +22,12 @@ public class WindowScript : MonoBehaviour
 
     private void FillWindowData()
     {
-        //List<Level> levels = QuestionInitializer.GetLevelList();
-        foreach (var item in Level.Levels)
-        {
-            ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
-            int currentLevelWithStarCount = Settings.Current_ButtonOnMapID + buttonData.activeStarsCount;
-            if (item.LevelNumber == currentLevelWithStarCount)
-            {
-                _textTime.text = item.TotalTime.ToString();
-                _textScore.text = item.TotalScore.ToString();
-                _textCount.text = item.TotalCount.ToString();
-                break;
-            }
-        }
+        QuestionInitializer.FillQuestionsForCurrentLevel();
+        ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
+        _textTime.text = ComonFunctions.GetMinetsSecondsFromSeconds(QuestionInitializer.GetSecondsForCurrentQuestionList());
+        Debug.Log(buttonData.score.ToString() + "-" + buttonData.passCount);
+        _textScore.text = ComonFunctions.GetScoreForLevel(buttonData.score, buttonData.passCount, (ETypeLevel)buttonData.typeLevel).ToString();
+        _textCount.text = QuestionInitializer.GetQuestionCountCurrentQuestionList().ToString();
     }
 
     

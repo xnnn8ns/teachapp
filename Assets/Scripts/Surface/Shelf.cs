@@ -133,7 +133,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
             offsetPoint.x += item.transform.localScale.x / 2;
 
             Vector3 targetPoint = startPoint + offsetPoint;
-            targetPoint.z = -0.01f;
+            targetPoint.z = -0.02f;
             //item.transform.position = targetPoint;
             item.transform.DOMove(targetPoint, 0.25f);
 
@@ -269,6 +269,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
             item.GetAnswer().IsEnabled = false;
         //foreach (var item in _questionsShelved)
         //    item.GetAnswer().IsOpenOnStart = true;
+        Debug.Log("SetCompleted");
     }
 
     public void SetWrongCompleted()
@@ -279,6 +280,17 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
             item.GetAnswer().IsEnabled = false;
         //foreach (var item in _questionsShelved)
         //    item.GetAnswer().IsOpenOnStart = true;
+        Debug.Log("SetWrongCompleted");
+    }
+
+    public void SetBackWrongCompleted()
+    {
+        foreach (var item in _questionsShelved)
+        {
+            if(!item.GetAnswer().IsOpenOnStart)
+                item.GetAnswer().IsEnabled = true;
+        }
+        Debug.Log("SetBackWrongCompleted");
     }
 
     public void ReBuildBasePosition()

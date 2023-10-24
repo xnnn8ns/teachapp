@@ -113,50 +113,7 @@ namespace Mkey
                 bList[i].FillTitleAndSubTitle(_theoryListJSON.theoryList[i].Title, _theoryListJSON.theoryList[i].Description);
             }
 
-            //topPassedLevel = Mathf.Clamp(topPassedLevel, 0, MapLevelButtons.Count - 1);
-            int levelCount = 1;
-            for (int i = 0; i < MapLevelButtons.Count; i++)
-            {
-                int clickIndex = i + 1;
-                //Debug.Log("i : " + MapLevelButtons[i].name);
-                MapLevelButtons[i].button.onClick.AddListener(() =>
-                {
-                    if (Settings.IsModalWindowOpened)
-                        return;
-                    currentLevel = clickIndex;
-                    if (MSound) MSound.SoundPlayClick(0, null);
-                    Debug.Log("clickIndex : " + clickIndex);
-                    ClickLevelButton(clickIndex);
-                    //ButtonsManager.SetData(scene, 1000, true, true, 3);
-                });
-                levelCount++;
-                if (levelCount >= 10)
-                {
-                    levelCount = 1;
-                    i += 2;
-                }
-            }
-            levelCount = 0;
-            for (int i = 0; i < MapMissionButtons.Count; i++)
-            {
-                int clickIndex = i + 1 + 10;
-                MapMissionButtons[i].button.onClick.AddListener(() =>
-                {
-                    if (Settings.IsModalWindowOpened)
-                        return;
-                    currentLevel = clickIndex;
-                    if (MSound) MSound.SoundPlayClick(0, null);
-                    Debug.Log("clickIndex : " + clickIndex);
-                    ClickLevelButton(clickIndex,true);
-                    //ButtonsManager.SetData(scene, 1000, true, true, 3);
-                });
-                levelCount++;
-                if (levelCount >= 2)
-                {
-                    levelCount = 1;
-                    i += 10;
-                }
-            }
+            
             parentCanvas = GetComponentInParent<Canvas>();
             sRect = GetComponentInParent<ScrollRect>();
             if (scrollToActiveButton) StartCoroutine(SetMapPositionToAciveButton()); //this script reverse prefabs 
@@ -165,6 +122,29 @@ namespace Mkey
             
             CreateAllButtonsInJson();
             VereficationAllButtons();
+
+            for (int i = 0; i < MapLevelButtons.Count; i++)
+            {
+                int id = MapLevelButtons[i].ID;
+                MapLevelButtons[i].button.onClick.AddListener(() =>
+                {
+                    if (Settings.IsModalWindowOpened)
+                        return;
+                    if (MSound) MSound.SoundPlayClick(0, null);
+                    ClickLevelButton(id);
+                });
+            }
+            for (int i = 0; i < MapMissionButtons.Count; i++)
+            {
+                int id = MapMissionButtons[i].ID;
+                MapMissionButtons[i].button.onClick.AddListener(() =>
+                {
+                    if (Settings.IsModalWindowOpened)
+                        return;
+                    if (MSound) MSound.SoundPlayClick(0, null);
+                    ClickLevelButton(id, true);
+                });
+            }
         }
 
         private void FillTheoryDataFromJSON()
@@ -187,66 +167,41 @@ namespace Mkey
             Debug.Log("FillTheoryDataFromJSON - finish");
         }
 
-        private void CreateAllButtonsInJson() 
+        private void CreateAllButtonsInJson()
         {
             if (_createDataButtonsInJson)
-            {
-                //for (int i = 0; i < mapLevelButtons.Count; i++)               
-                    ButtonsManager.CreateAllButtons();
-                
-            }
+                ButtonsManager.CreateAllButtons();
+
             _createDataButtonsInJson = false;
         }
 
         private void VereficationAllButtons() 
         {
-            int levelCount = 0;
-            for (int i = 0; i < MapLevelButtons.Count; i++)
+            //int levelCount = 0;
+            int clickIndex = 1;
+            for (int i = 1; i <= MapLevelButtons.Count; i++)
             {
-                int clickIndex = i + 1;
                 ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
+                //Debug.Log(buttonData.id);
                 if (buttonData != null)
-                {
-                    //Debug.Log(i);
-                    ETypeLevel typeLevel = ETypeLevel.simple;
-                    if(buttonData.typeLevel == (int)ETypeLevel.additional)
-                        typeLevel = ETypeLevel.additional;
-                    if(buttonData.typeLevel == (int)ETypeLevel.final)
-                        typeLevel = ETypeLevel.final;
-                    SetButtonActive(i, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, typeLevel);
-                }
-                levelCount++;
-                if (levelCount >= 10)
-                {
-                    levelCount = 1;
-                    i += 2;
-                }
+                    SetButtonActive(buttonData.id, i - 1, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, buttonData.passCount, (ETypeLevel)buttonData.typeLevel);
+                
+                clickIndex++;
+                if(i % 10 == 0)
+                    clickIndex = clickIndex + 2;
             }
-            levelCount = 0;
-            for (int i = 0; i <= MapMissionButtons.Count; i++)
+            //levelCount = 0;
+            clickIndex = 11;
+            for (int i = 1; i <= MapMissionButtons.Count; i++)
             {
-                int clickIndex = i + 1 + 10;
+                //Debug.Log(clickIndex);
                 ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
                 if (buttonData != null)
-                {
-                    //Debug.Log(i);
-                    ETypeLevel typeLevel = ETypeLevel.simple;
-                    if (buttonData.typeLevel == (int)ETypeLevel.additional)
-                        typeLevel = ETypeLevel.additional;
-                    if (buttonData.typeLevel == (int)ETypeLevel.final)
-                        typeLevel = ETypeLevel.final;
-                    if (buttonData.typeLevel == (int)ETypeLevel.mission1)
-                        typeLevel = ETypeLevel.mission1;
-                    if (buttonData.typeLevel == (int)ETypeLevel.mission2)
-                        typeLevel = ETypeLevel.mission2;
-                    SetButtonMissionActive(i, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, typeLevel);
-                }
-                levelCount++;
-                if (levelCount >= 2)
-                {
-                    levelCount = 1;
-                    i += 10;
-                }
+                    SetButtonMissionActive(buttonData.id, i - 1, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, buttonData.passCount, (ETypeLevel)buttonData.typeLevel);
+                
+                clickIndex++;
+                if (i % 2 == 0)
+                    clickIndex = clickIndex + 10;
             }
         }
 
@@ -270,14 +225,16 @@ namespace Mkey
             }
         }
 
-        private void SetButtonActive(int index, bool active, bool isPassed,int _activeStarsCount, ETypeLevel typeLevel = ETypeLevel.simple)
-        {         
-            MapLevelButtons[index].SetIsActive(active, _activeStarsCount, isPassed, typeLevel);
+        private void SetButtonActive(int id, int index, bool active, bool isPassed,int _activeStarsCount, int passCount, ETypeLevel typeLevel = ETypeLevel.simple)
+        {
+            //Debug.Log(index.ToString()+"-"+ MapLevelButtons.Count.ToString());
+            MapLevelButtons[index].SetIsActive(id, active, _activeStarsCount, passCount, isPassed, typeLevel);
         }
 
-        private void SetButtonMissionActive(int index, bool active, bool isPassed, int _activeStarsCount, ETypeLevel typeLevel = ETypeLevel.simple)
+        private void SetButtonMissionActive(int id, int index, bool active, bool isPassed, int _activeStarsCount, int passCount, ETypeLevel typeLevel = ETypeLevel.simple)
         {
-            MapMissionButtons[index].SetIsActive(active, _activeStarsCount, isPassed, typeLevel);
+            //Debug.Log(index.ToString() + "-" + MapMissionButtons.Count.ToString());
+            MapMissionButtons[index].SetIsActive(id, active, _activeStarsCount, passCount, isPassed, typeLevel);
         }
 
         public void SetControlActivity(bool activity)
@@ -291,23 +248,23 @@ namespace Mkey
             }
         }
 
-
         private void ClickLevelButton(int clickIndex, bool isMissionClicked = false)
         {
-                ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
-                if (buttonData != null)
+            Debug.Log(clickIndex);
+            ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
+            if (buttonData != null)
+            {
+                if (buttonData.isPassed)
                 {
-                    if (buttonData.isPassed)
-                    {
-                        ClickPassButton(clickIndex, isMissionClicked);
-                        return;
-                    }
-                    if (!buttonData.isActive)
-                    {
-                        ClickFutureButton();
-                        return;
-                    }
+                    ClickPassButton(clickIndex, isMissionClicked);
+                    return;
                 }
+                //if (!buttonData.isActive)
+                //{
+                //    ClickFutureButton();
+                //    return;
+                //}
+            }
             ClickCurrentLevelButton(clickIndex, isMissionClicked);
 
 
@@ -319,7 +276,7 @@ namespace Mkey
             Scene scene = SceneManager.GetSceneByName("WindowScene");
             if (scene.isLoaded)
                 return;
-
+            Debug.Log(clickIndex);
             Settings.Current_ButtonOnMapID = clickIndex;
             Settings.IsMisionClicked = isMissionClicked;
             PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
@@ -330,6 +287,15 @@ namespace Mkey
         private void ClickPassButton(int clickIndex, bool isMissionClicked = false)
         {
             Debug.Log("ClickPassButton");
+            Scene scene = SceneManager.GetSceneByName("WindowScene");
+            if (scene.isLoaded)
+                return;
+
+            Settings.Current_ButtonOnMapID = clickIndex;
+            Settings.IsMisionClicked = isMissionClicked;
+            PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
+
+            SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
         }
 
         private void ClickFutureButton()
