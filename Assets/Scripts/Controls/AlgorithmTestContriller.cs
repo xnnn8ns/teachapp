@@ -16,6 +16,7 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static List<string> _varStrings;
     private static List<string> _keyComparison;
     private static List<string> _keyLogic;
+    private static List<string> _keyOperandFunc;
 
     #region KeyMethods
 
@@ -99,6 +100,16 @@ public class AlgorithmTestContriller : MonoBehaviour
         return _keyLogic;
     }
 
+    private static List<string> GetKeyOperandFunc()
+    {
+        if (_keyOperandFunc == null)
+        {
+            _keyOperandFunc = new List<string>();
+            ImportKeyOperandFunc();
+        }
+        return _keyOperandFunc;
+    }
+
     private static void ImportAlgoInfo()
     {
         GetAlgoInfoList().Clear();
@@ -108,7 +119,7 @@ public class AlgorithmTestContriller : MonoBehaviour
         
         for (var i = 1; i < splitDataset.Length; i++)
         {
-            Debug.Log(splitDataset[i]);
+            //Debug.Log(splitDataset[i]);
             var splitRow = splitDataset[i].Split(new char[] { ';' });
             //Debug.Log(splitRow);
             AlgoInfo algoInfo = new AlgoInfo();
@@ -213,6 +224,19 @@ public class AlgorithmTestContriller : MonoBehaviour
         {
             string str = splitDataset[i];
             GetKeyLogic().Add(str);
+        }
+    }
+
+    private static void ImportKeyOperandFunc()
+    {
+        GetKeyOperandFunc().Clear();
+        var dataset = Resources.Load<TextAsset>("keyoperators_for_func");
+        var splitDataset = dataset.text.Split(new char[] { '\n' });
+        for (var i = 0; i < splitDataset.Length; i++)
+        {
+            string str = splitDataset[i];
+            //Debug.Log(str);
+            GetKeyOperandFunc().Add(str);
         }
     }
 
@@ -1148,6 +1172,330 @@ public class AlgorithmTestContriller : MonoBehaviour
         return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
     }
 
+    public static Question Algo18(int topic, int level, int step)
+    {
+        System.Random rand = new System.Random();
+        int intValue1 = rand.Next(1, 8);
+        int intValue2 = rand.Next(1, 8);
+        intValue1 += intValue2;
+
+        string operand = GetRandomKeyOperandFunc();
+        int result;
+        string operandSec;
+        Debug.Log(operand);
+        if (operand.Contains("+"))
+        {
+            result = intValue1 + intValue2;
+            operandSec = "+";
+        }
+        else if (operand.Contains("-"))
+        {
+            result = intValue1 - intValue2;
+            operandSec = "-";
+        }
+        else if (operand.Contains("*"))
+        {
+            result = intValue1 * intValue2;
+            operandSec = "*";
+        }
+        else if (operand.Contains("/"))
+        {
+            operandSec = "/";
+            int res = intValue2 * rand.Next(2, 7);
+            intValue1 = res;
+            result = intValue1 / intValue2;
+        }
+        else
+        {
+            operandSec = "+";
+            result = 0;
+        }
+        Debug.Log(result);
+        string rightAnswer = result.ToString();
+
+        List<string> varWords = new List<string>();
+
+        string varName1 = GetRandomFromVarNames();
+        varWords.Add(varName1);
+        string varName2 = GetRandomFromVarNames(varWords);
+        varWords.Add(varName2);
+        string varName3 = GetRandomFromVarNames(varWords);
+        varWords.Add(varName3);
+
+        
+
+        string codeAnswers0 = "def sum(" + varName1 + ", " + varName2 + "):";
+        string codeAnswers1 = "      return " + varName1 + " " + operandSec + " " + varName2;
+        string codeAnswers2 = varName3 + " = " + " sum(" + intValue1.ToString() + ", " + intValue2.ToString() + ")";
+        string codeAnswers3 = "print(" + varName3 + ")";
+        Debug.Log(codeAnswers1);
+        List<string> codeWords = new List<string>();
+        codeWords.Add(codeAnswers0);
+        codeWords.Add(codeAnswers1);
+        codeWords.Add(codeAnswers2);
+        codeWords.Add(codeAnswers3);
+
+        List<string> answersWords = new List<string>();
+        answersWords.Add(rightAnswer);
+        string wrongAnswer;
+        for (int i = 0; i < 3; i++)
+        {
+            wrongAnswer = GetWrongIntFromRandom(answersWords);
+            answersWords.Add(wrongAnswer);
+        }
+        int difficulty = 2;
+        int score = 60;
+
+        return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
+    }
+
+    public static Question Algo19(int topic, int level, int step)
+    {
+        System.Random rand = new System.Random();
+        int a = rand.Next(1, 100);
+        int b = rand.Next(1, 100);
+        string rightAnswer;
+        string wrongAnswer;
+
+        string comparison = GetRandomKeyComparison();
+        bool rusult;
+        switch (comparison)
+        {
+            case "==":
+                rusult = a == b;
+                break;
+            case "!=":
+                rusult = a != b;
+                break;
+            case ">":
+                rusult = a > b;
+                break;
+            case "<":
+                rusult = a < b;
+                break;
+            case ">=":
+                rusult = a >= b;
+                break;
+            case "<=":
+                rusult = a <= b;
+                break;
+            default:
+                rusult = false;
+                break;
+        }
+
+        if (rusult)
+        {
+            rightAnswer = a.ToString();
+            wrongAnswer = b.ToString();
+        }
+        else
+        {
+            rightAnswer = b.ToString();
+            wrongAnswer = a.ToString();
+        }
+
+        List<string> varWords = new List<string>();
+
+        string varName1 = GetRandomFromVarNames();
+        varWords.Add(varName1);
+        string varName2 = GetRandomFromVarNames(varWords);
+        varWords.Add(varName2);
+
+        string codeAnswers0 = varName1 + " = " + a;
+        string codeAnswers1 = varName2 + " = " + b;
+        string codeAnswers2 = "if (" + varName1 + " " + comparison + " " + varName2 + "):";
+        string codeAnswers3 = "      print (" + varName1 + ")";
+        string codeAnswers4 = "else:";
+        string codeAnswers5 = "      print (" + varName2 + ")";
+
+        List<string> codeWords = new List<string>();
+        codeWords.Add(codeAnswers0);
+        codeWords.Add(codeAnswers1);
+        codeWords.Add(codeAnswers2);
+        codeWords.Add(codeAnswers3);
+        codeWords.Add(codeAnswers4);
+        codeWords.Add(codeAnswers5);
+
+        List<string> answersWords = new List<string>();
+        answersWords.Add(rightAnswer);
+        answersWords.Add(wrongAnswer);
+        for (int i = 0; i < 2; i++)
+        {
+            wrongAnswer = GetWrongIntFromRandom(answersWords);
+            answersWords.Add(wrongAnswer);
+        }
+        int difficulty = 2;
+        int score = 70;
+
+        return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
+    }
+
+    public static Question Algo20(int topic, int level, int step)
+    {
+        System.Random rand = new System.Random();
+        int a = rand.Next(5, 12);
+        int b = rand.Next(12, 20);
+        int c = rand.Next(1, 5);
+        string rightAnswer;
+        string wrongAnswer;
+
+        string comparison = GetRandomKeyComparison();
+        bool rusult;
+        switch (comparison)
+        {
+            case "==":
+                rusult = a == b;
+                break;
+            case "!=":
+                rusult = a != b;
+                break;
+            case ">":
+                rusult = a > b;
+                break;
+            case "<":
+                rusult = a < b;
+                break;
+            case ">=":
+                rusult = a >= b;
+                break;
+            case "<=":
+                rusult = a <= b;
+                break;
+            default:
+                rusult = false;
+                break;
+        }
+        string operandSec = "+";
+        int result2;
+        string operand = GetRandomKeyOperandFunc();
+
+        if (operand.Contains("+"))
+        {
+            result2 = a + c;
+            operandSec = "+";
+        }
+        else if (operand.Contains("-"))
+        {
+            result2 = a - c;
+            operandSec = "-";
+        }
+        else if (operand.Contains("*"))
+        {
+            result2 = a * c;
+            operandSec = "*";
+        }
+        else if (operand.Contains("/"))
+        {
+            operandSec = "/";
+            result2 = a / c;
+        }
+        else
+        {
+            operandSec = "+";
+            result2 = 0;
+        }
+        if (rusult)
+        {
+            rightAnswer = result2.ToString();
+            wrongAnswer = a.ToString();
+        }
+        else
+        {
+            rightAnswer = a.ToString();
+            wrongAnswer = result2.ToString();
+        }
+
+        List<string> varWords = new List<string>();
+
+        string varName1 = GetRandomFromVarNames();
+        varWords.Add(varName1);
+        string varName2 = GetRandomFromVarNames(varWords);
+        varWords.Add(varName2);
+        string varName3 = GetRandomFromVarNames(varWords);
+        varWords.Add(varName3);
+
+        string codeAnswers0 = varName1 + " = " + a;
+        string codeAnswers1 = varName2 + " = " + b;
+        string codeAnswers2 = "if (" + varName1 + " " + comparison + " " + varName2 + "):";
+        string codeAnswers3 = "      " + varName1 + " = " + varName1 + " " + operandSec + " " + c.ToString();
+        string codeAnswers4 = "print(" + varName1 + ")";
+
+        List<string> codeWords = new List<string>();
+        codeWords.Add(codeAnswers0);
+        codeWords.Add(codeAnswers1);
+        codeWords.Add(codeAnswers2);
+        codeWords.Add(codeAnswers3);
+        codeWords.Add(codeAnswers4);
+
+        List<string> answersWords = new List<string>();
+        answersWords.Add(rightAnswer);
+        answersWords.Add(wrongAnswer);
+        for (int i = 0; i < 2; i++)
+        {
+            string str = GetWrongIntFromRandom(answersWords);
+            answersWords.Add(str);
+        }
+        int difficulty = 2;
+        int score = 70;
+
+        return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
+    }
+
+    public static Question Algo21(int topic, int level, int step)
+    {
+        System.Random rand = new System.Random();
+        int a_start = rand.Next(5, 11);
+        int a = a_start;
+        int b_start = rand.Next(1, 15);
+        int b = b_start;
+        int c = rand.Next(1, 3);
+        int d = rand.Next(1, 3);
+        string rightAnswer;
+
+        while (a > 0)
+        {
+            b += c;
+            a -= d;
+        }
+
+        rightAnswer = b.ToString();
+
+        List<string> varWords = new List<string>();
+
+        string varName1 = GetRandomFromVarNames();
+        varWords.Add(varName1);
+        string varName2 = GetRandomFromVarNames(varWords);
+        varWords.Add(varName2);
+
+        string codeAnswers0 = varName1 + " = " + a_start;
+        string codeAnswers1 = varName2 + " = " + b_start;
+        string codeAnswers2 = "while (" + varName1 + " > 0):";
+        string codeAnswers3 = "      " + varName2 + " += " + c.ToString();
+        string codeAnswers4 = "      " + varName1 + " -= " + d.ToString();
+        string codeAnswers5 = "print(" + varName2 + ")";
+
+        List<string> codeWords = new List<string>();
+        codeWords.Add(codeAnswers0);
+        codeWords.Add(codeAnswers1);
+        codeWords.Add(codeAnswers2);
+        codeWords.Add(codeAnswers3);
+        codeWords.Add(codeAnswers4);
+        codeWords.Add(codeAnswers5);
+
+        List<string> answersWords = new List<string>();
+        answersWords.Add(rightAnswer);
+        for (int i = 0; i < 3; i++)
+        {
+            string str = GetWrongIntFromRandom(answersWords);
+            answersWords.Add(str);
+        }
+        int difficulty = 2;
+        int score = 70;
+
+        return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
+    }
+
     #endregion
 
     #region Test
@@ -1342,6 +1690,12 @@ public class AlgorithmTestContriller : MonoBehaviour
     {
         System.Random rand = new System.Random();
         return GetKeyLogic()[rand.Next(0, GetKeyLogic().Count)];
+    }
+
+    private static string GetRandomKeyOperandFunc()
+    {
+        System.Random rand = new System.Random();
+        return GetKeyOperandFunc()[rand.Next(0, GetKeyOperandFunc().Count)];
     }
 
     private static string GetRandomSubstring(string baseString, int start, int finish, List<string> stopWords)
@@ -1540,7 +1894,7 @@ public class AlgorithmTestContriller : MonoBehaviour
 
     public static Question GetQuestionFromAlgo(int topic, int level, int passCount)
     {
-        Debug.Log(topic + "-" + level);
+        //Debug.Log(topic + "-" + level);
         List<AlgoInfo> listFull = GetAlgoInfoListForTopicAndLevel(topic, level);
         
         System.Random random = new System.Random();
