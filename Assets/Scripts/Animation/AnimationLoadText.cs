@@ -19,20 +19,11 @@ public class AnimationLoadText : MonoBehaviour
         TypeRandomText();
     }
 
-    private void Update()
-    {
-        // Если печать завершилась, вы можете выполнить какое-либо действие
-        if (!isTyping)
-        {
-            // Вызовите функцию, чтобы начать печать следующего случайного текста с задержкой
-            Invoke("TypeRandomText", delayBetweenTexts);
-        }
-    }
+
 
     private void TypeRandomText()
     {
-        if (textArray.Length > 0)
-        {
+        
             int randomIndex;
             do
             {
@@ -43,7 +34,7 @@ public class AnimationLoadText : MonoBehaviour
 
             // Начните печать случайного текста
             StartCoroutine(TypeText(textArray[currentTextIndex]));
-        }
+        
     }
 
     IEnumerator TypeText(string text)
