@@ -237,7 +237,6 @@ public abstract class Question : Information
         UnityEngine.Debug.Log(buttonOnMapID);
         List<Question> qList;
         List<Question> questionsTopic = GetQuestionListForTopic(buttonOnMapID);
-        //int levelID = Settings.GetLevelFromButtonOnMapID(buttonOnMapID);
         //UnityEngine.Debug.Log("levelID: " + levelID);
         qList = GetQuestionListForLevelFromTopic(topic, questionsTopic, buttonOnMapID);
         //foreach (var item in qList)

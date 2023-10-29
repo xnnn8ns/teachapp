@@ -46,7 +46,7 @@ public class Settings : MonoBehaviour
 
     public static int GetLevelFromButtonOnMapID(int buttonOnMapID)
     {
-        int levelCount = buttonOnMapID / 10;
-        return buttonOnMapID - levelCount * 10;
+        int levelCount = buttonOnMapID / 12;
+        return buttonOnMapID - levelCount * 12;
     }
 }

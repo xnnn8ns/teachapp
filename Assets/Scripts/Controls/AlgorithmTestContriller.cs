@@ -121,7 +121,7 @@ public class AlgorithmTestContriller : MonoBehaviour
         {
             //Debug.Log(splitDataset[i]);
             var splitRow = splitDataset[i].Split(new char[] { ';' });
-            //Debug.Log(splitRow);
+            //Debug.Log(splitRow[0]);
             AlgoInfo algoInfo = new AlgoInfo();
             algoInfo.Title = splitRow[0];
             algoInfo.StartTopic = int.Parse(splitRow[1]);
@@ -1436,8 +1436,8 @@ public class AlgorithmTestContriller : MonoBehaviour
             string str = GetWrongIntFromRandom(answersWords);
             answersWords.Add(str);
         }
-        int difficulty = 2;
-        int score = 70;
+        int difficulty = 3;
+        int score = 110;
 
         return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
     }
@@ -1490,8 +1490,125 @@ public class AlgorithmTestContriller : MonoBehaviour
             string str = GetWrongIntFromRandom(answersWords);
             answersWords.Add(str);
         }
-        int difficulty = 2;
-        int score = 70;
+        int difficulty = 3;
+        int score = 120;
+
+        return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
+    }
+
+    public static Question Algo22(int topic, int level, int step)
+    {
+        System.Random rand = new System.Random();
+        int a = rand.Next(1, 4);
+        int b = rand.Next(1, 4);
+        int c = rand.Next(1, 5);
+        int d = rand.Next(1, 5);
+
+        int[] list = { a, b, c, d };
+
+        int total = 0;
+
+        string rightAnswer;
+
+        foreach (var item in list)
+        {
+            total += item;
+        }
+
+        rightAnswer = total.ToString();
+
+        List<string> varWords = new List<string>();
+
+        string varName1 = GetRandomFromVarNames();
+        varWords.Add(varName1);
+        string varName2 = GetRandomFromVarNames(varWords);
+        varWords.Add(varName2);
+        string varName3 = GetRandomFromVarNames(varWords);
+        varWords.Add(varName3);
+
+        string codeAnswers0 = varName1 + " = [" + a + "," + b + "," + c + "," + d + "]";
+        string codeAnswers1 = varName2 + " = 0";
+        string codeAnswers2 = "for " + varName3 + " in " + varName1 + ":";
+        string codeAnswers3 = "      " + varName2 + " += " + varName3;
+        string codeAnswers4 = "print(" + varName2 + ")";
+
+        List<string> codeWords = new List<string>();
+        codeWords.Add(codeAnswers0);
+        codeWords.Add(codeAnswers1);
+        codeWords.Add(codeAnswers2);
+        codeWords.Add(codeAnswers3);
+        codeWords.Add(codeAnswers4);
+
+        List<string> answersWords = new List<string>();
+        answersWords.Add(rightAnswer);
+        for (int i = 0; i < 3; i++)
+        {
+            string str = GetWrongIntFromRandom(answersWords);
+            answersWords.Add(str);
+        }
+        int difficulty = 3;
+        int score = 120;
+
+        return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
+    }
+
+    public static Question Algo23(int topic, int level, int step)
+    {
+        System.Random rand = new System.Random();
+        int a_start = rand.Next(5, 11);
+        int a = a_start;
+        int b_start = rand.Next(1, 15);
+        int b = b_start;
+        int c = rand.Next(1, 3);
+        int d = rand.Next(1, 3);
+        int e = rand.Next(3, 8);
+        string rightAnswer;
+
+        while (a > 0)
+        {
+            b += c;
+            a -= d;
+            if (b > e)
+                break;
+        }
+
+        rightAnswer = b.ToString();
+
+        List<string> varWords = new List<string>();
+
+        string varName1 = GetRandomFromVarNames();
+        varWords.Add(varName1);
+        string varName2 = GetRandomFromVarNames(varWords);
+        varWords.Add(varName2);
+
+        string codeAnswers0 = varName1 + " = " + a_start;
+        string codeAnswers1 = varName2 + " = " + b_start;
+        string codeAnswers2 = "while (" + varName1 + " > 0):";
+        string codeAnswers3 = "      " + varName2 + " += " + c.ToString();
+        string codeAnswers4 = "      " + varName1 + " -= " + d.ToString();
+        string codeAnswers5 = "if (" + varName2 + " > " + e + "):";
+        string codeAnswers6 = "      break";
+        string codeAnswers7 = "print(" + varName2 + ")";
+
+        List<string> codeWords = new List<string>();
+        codeWords.Add(codeAnswers0);
+        codeWords.Add(codeAnswers1);
+        codeWords.Add(codeAnswers2);
+        codeWords.Add(codeAnswers3);
+        codeWords.Add(codeAnswers4);
+        codeWords.Add(codeAnswers5);
+        codeWords.Add(codeAnswers6);
+        codeWords.Add(codeAnswers7);
+
+        List<string> answersWords = new List<string>();
+        answersWords.Add(rightAnswer);
+        for (int i = 0; i < 3; i++)
+        {
+            string str = GetWrongIntFromRandom(answersWords);
+            answersWords.Add(str);
+        }
+        int difficulty = 3;
+        int score = 120;
 
         return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
     }
@@ -1874,17 +1991,25 @@ public class AlgorithmTestContriller : MonoBehaviour
     {
         List<AlgoInfo> list = new List<AlgoInfo>();
         List<AlgoInfo> listFull = GetAlgoInfoList();
-        
         foreach (var item in listFull)
         {
+            
             if (item.StartTopic <= topic && item.FinishTopic >= topic)
             {
-                if(
+                //if (item.FinishTopic == 10)
+                //{
+                //    Debug.Log(topic + "--" + level);
+                //    Debug.Log(item.StartTopic + "-" + item.FinishTopic + "-" + item.StartLevel + "-" + item.FinishLevel);
+                //}
+                if (
                     ((item.StartTopic == topic && item.StartLevel <= level) || item.StartTopic != topic)
                     &&
                     ((item.FinishTopic == topic && item.FinishLevel >= level) || item.FinishTopic != topic)
                     )
+                {
+                    
                     list.Add(item);
+                }
             }
         }
         return list;
@@ -1894,22 +2019,20 @@ public class AlgorithmTestContriller : MonoBehaviour
 
     public static Question GetQuestionFromAlgo(int topic, int level, int passCount)
     {
-        //Debug.Log(topic + "-" + level);
-        List<AlgoInfo> listFull = GetAlgoInfoListForTopicAndLevel(topic, level);
+        Debug.Log(topic + "-" + level);
+        int levelID = Settings.GetLevelFromButtonOnMapID(level);
+        Debug.Log(topic + "-" + levelID);
+        List<AlgoInfo> listFull = GetAlgoInfoListForTopicAndLevel(topic, levelID);
         
         System.Random random = new System.Random();
         int index = random.Next(0, listFull.Count);
+        Debug.Log(topic + "-" + listFull.Count);
         AlgoInfo algoInfo = listFull[index];
-        //if (topic <= 1)
-        //{
         string methodName = algoInfo.Title;
-        string[] parameters = { level.ToString(), level.ToString(), level.ToString() };
         Type type = typeof(AlgorithmTestContriller);
         MethodInfo info = type.GetMethod(methodName);
         System.Object obj = info.Invoke(null, new object[] { topic, level, passCount });
         return (Question)obj;
-
-        //}
     }
 }
 

@@ -69,11 +69,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-<<<<<<< HEAD
-      "version": "1.6.3",
-=======
       "version": "1.7.0",
->>>>>>> 4629c1a (version)
       "depth": 1,
       "source": "registry",
       "dependencies": {
