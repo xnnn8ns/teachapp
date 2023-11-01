@@ -47,4 +47,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UIScenes/WindowSimpliMessageScene.unity
     guid: 2e1ab58b9caaf4f54a7f3b9c017fbeaa
+  - enabled: 1
+    path: Assets/Scenes/UIScenes/WindowLevelLoading.unity
+    guid: 3653fb5a9e3dcdd4f9af118ca65d8710
   m_configObjects: {}

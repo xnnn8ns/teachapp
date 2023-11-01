@@ -1980,9 +1980,7 @@ public class AlgorithmTestContriller : MonoBehaviour
         foreach (var item in listFull)
         {
             if (item.Topic <= topic)
-            {
                 list.Add(item);
-            }
         }
         return list;
     }
@@ -2019,14 +2017,14 @@ public class AlgorithmTestContriller : MonoBehaviour
 
     public static Question GetQuestionFromAlgo(int topic, int level, int passCount)
     {
-        Debug.Log(topic + "-" + level);
+        //Debug.Log(topic + "-" + level);
         int levelID = Settings.GetLevelFromButtonOnMapID(level);
-        Debug.Log(topic + "-" + levelID);
+        //Debug.Log(topic + "-" + levelID);
         List<AlgoInfo> listFull = GetAlgoInfoListForTopicAndLevel(topic, levelID);
         
         System.Random random = new System.Random();
         int index = random.Next(0, listFull.Count);
-        Debug.Log(topic + "-" + listFull.Count);
+        //Debug.Log(topic + "-" + listFull.Count);
         AlgoInfo algoInfo = listFull[index];
         string methodName = algoInfo.Title;
         Type type = typeof(AlgorithmTestContriller);

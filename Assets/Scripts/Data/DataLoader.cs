@@ -15,9 +15,12 @@ public class DataLoader : MonoBehaviour
     private const string apiTaskUrl = "http://45.12.239.30:8000/api/tasks/";
     private const string apiTestUrl = "http://45.12.239.30:8000/api/choicefield/";
 
+    float timeStartLoad = 0;
 
     private void Start()
     {
+        SceneManager.LoadScene("WindowLevelLoading", LoadSceneMode.Additive);
+        timeStartLoad = Time.time;
         StartCoroutine(GetTestTaskDataFromAPI());
     }
 
@@ -141,6 +144,13 @@ public class DataLoader : MonoBehaviour
         }
 
         UserData.LoadUserData();
+        for (int i = 0; i < 10; i++)
+        {
+            if (timeStartLoad + 3.5f < Time.time)
+                break;
+            yield return new WaitForSeconds(0.25f);
+        }
+        
         SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
         if(UserData.UserID != "")
             StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));

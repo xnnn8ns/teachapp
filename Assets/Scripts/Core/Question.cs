@@ -239,6 +239,7 @@ public abstract class Question : Information
         List<Question> questionsTopic = GetQuestionListForTopic(buttonOnMapID);
         //UnityEngine.Debug.Log("levelID: " + levelID);
         qList = GetQuestionListForLevelFromTopic(topic, questionsTopic, buttonOnMapID);
+        UnityEngine.Debug.Log("qList: " + qList.Count);
         //foreach (var item in qList)
         //    UnityEngine.Debug.Log(item.Score);
         UnityEngine.Debug.Log(qList.Count);
@@ -318,9 +319,14 @@ public abstract class Question : Information
         foreach (var q in QuestionsList)
         {
             if (q.Topic <= topicID)
+            {
+                UnityEngine.Debug.Log(q.Title);
                 qTopicList.Add(q);
+            }
         }
-        qTopicList = qTopicList.OrderBy(x => x.Score).ToList();
+        UnityEngine.Debug.Log("topicID: " + topicID + " --- qTopicList.Count: " + qTopicList.Count);
+        //UnityEngine.Debug.Log(qTopicList.Count);
+        qTopicList = qTopicList.OrderBy(x => x.Topic).OrderBy(x => x.Level).ThenBy(x => x.Score).ToList();
         return qTopicList;
     }
 
@@ -417,7 +423,7 @@ public abstract class Question : Information
             if (countToAdd == 1)
             {
                 indexRand = rand.Next(0, hundredFivePercentTaskList.Count);
-                //list.Add(hundredFivePercentTaskList[indexRand]);
+                list.Add(hundredFivePercentTaskList[indexRand]);
             }
             else
             {

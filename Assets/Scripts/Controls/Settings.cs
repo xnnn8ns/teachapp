@@ -41,7 +41,7 @@ public class Settings : MonoBehaviour
 
     public static int GetTopicFromButtonOnMapID(int buttonOnMapID)
     {
-        return ((buttonOnMapID - 1)  / 10) + 1;
+        return ((buttonOnMapID - 1)  / 12) + 1;
     }
 
     public static int GetLevelFromButtonOnMapID(int buttonOnMapID)
