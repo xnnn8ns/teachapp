@@ -35,8 +35,11 @@ public class TextController : MonoBehaviour
     private int indexCurrentTheory = 0;
     private int indexCurrentText = 0;
     private int countText = 0; //3;
-    //private int countTheories = 0; //3;
-                                   //private static bool IsTyping = false;
+                               //private int countTheories = 0; //3;
+                               //private static bool IsTyping = false;
+
+    [SerializeField]
+    private AudioSource _clickAudio;
 
     private void Start()
     {
@@ -208,6 +211,7 @@ public class TextController : MonoBehaviour
 
     public void ClickReturnFromTheory()
     {
+        _clickAudio?.Play();
         SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
     }
 

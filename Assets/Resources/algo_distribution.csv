@@ -1,5 +1,8 @@
 MethodName;StartTopic;StartLevel;FinishTopic;FinishLevel;QuestionType
 Algo0;1;1;2;10;1
+Algo0_1;1;2;2;10;1
+Algo0_2;1;2;2;10;1
+Algo0_3;1;2;2;10;1
 Algo1;1;3;2;10;1
 Algo2;1;5;3;10;1
 Algo3;1;5;3;10;1

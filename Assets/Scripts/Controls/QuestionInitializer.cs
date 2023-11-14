@@ -38,7 +38,7 @@ public class QuestionInitializer : MonoBehaviour
     [SerializeField]
     private GameObject _buttonCheckDisabled;
 
-    private AudioSource _setInShelfAudio;
+    private AudioSource _clickAudio;
     private AudioSource _typeAudio;
     private AudioSource _wrongAnswerAudio;
     private AudioSource _OKAnswerAudio;
@@ -89,7 +89,7 @@ public class QuestionInitializer : MonoBehaviour
 
     private void Awake()
     {
-        _setInShelfAudio = GetComponents<AudioSource>()[0];
+        _clickAudio = GetComponents<AudioSource>()[0];
         _typeAudio = GetComponents<AudioSource>()[1];
         _wrongAnswerAudio = GetComponents<AudioSource>()[2];
         _OKAnswerAudio = GetComponents<AudioSource>()[3];
@@ -489,7 +489,7 @@ public class QuestionInitializer : MonoBehaviour
 
     public void ClickCheckAnswerForQuestion()
     {
-        _setInShelfAudio?.Play();
+        _clickAudio?.Play();
 
         StopAnimationTextType();
         StopAllCoroutines();
@@ -751,12 +751,15 @@ public class QuestionInitializer : MonoBehaviour
 
     private void ClickImageTest()
     {
+        _clickAudio?.Play();
+        Debug.Log("ClickImageTest");
         _buttonCheck.SetActive(true);
         _buttonCheckDisabled.SetActive(false);
     }
 
-    private void StopAnimationTextType()
+    public void StopAnimationTextType()
     {
+        _clickAudio?.Play();
         _questionText?.GetComponent<TextAnimation>()?.ClickButtonFinishReadingByUser();
         _typeAudio?.Stop();
     }
@@ -852,6 +855,7 @@ public class QuestionInitializer : MonoBehaviour
 
     private void ShowWindowToRepeatErrorQuestions()
     {
+        StopAllCoroutines();
         Scene scene = SceneManager.GetSceneByName("WindowRepeatErrorScene");
         if (scene.isLoaded)
             return;
@@ -859,7 +863,7 @@ public class QuestionInitializer : MonoBehaviour
         errorCount++;
         PlayerPrefs.SetInt("ErrorCount", errorCount);
         SceneManager.LoadScene("WindowRepeatErrorScene", LoadSceneMode.Additive);
-        StopAllCoroutines();
+        
     }
 
     public void ClickCatImage()

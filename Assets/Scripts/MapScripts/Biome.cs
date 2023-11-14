@@ -34,6 +34,8 @@ namespace Mkey
         private Animator _animLeft;
         [SerializeField]
         private Animator _animRight;
+        [SerializeField]
+        private AudioSource _clickAudio;
 
         #region temp vars
         private List<Vector3> pos;
@@ -158,8 +160,9 @@ namespace Mkey
         {
             if (Settings.IsModalWindowOpened)
                 return;
+            _clickAudio?.Play();
             Settings.Current_Topic = ID;
-            SceneManager.LoadScene("TypeTextScene", LoadSceneMode.Single);
+            SceneManager.LoadScene("WebWidget", LoadSceneMode.Single);
         }
 
         public void FillTitleAndSubTitle(string title, string subTitle)

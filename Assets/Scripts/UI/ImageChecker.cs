@@ -11,11 +11,24 @@ public class ImageChecker : MonoBehaviour
     private TestItem[] _testItems;
 
     private Color _colorSelected = Color.yellow;
+    //private Color _colorUnSelected = Color.HSVToRGB(0.96875f, 0.86328125f, 0.9765625f);
     private Color _colorUnSelected = Color.white;
+    
     private List<Answer> _answers = new List<Answer>();
     private Action _actionCallBack;
 
     const string Path = "ImagesTest/";
+
+    private void Awake()
+    {
+        Color color;
+        bool result = ColorUtility.TryParseHtmlString("#F8DDFA", out color);
+        Debug.Log(color.ToString());
+        if (result && color != null)
+        {
+            _colorUnSelected = color;
+        }
+    }
 
     private Sprite GetImageByResourceName(string resourceName)
     {

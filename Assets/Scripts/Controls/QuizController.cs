@@ -7,6 +7,8 @@ public class QuizController : MonoBehaviour
 {
     [SerializeField]
     private QuestionInitializer _questionInitializer;
+    [SerializeField]
+    private AudioSource _clickAudio;
 
     private void Awake()
     {
@@ -15,6 +17,7 @@ public class QuizController : MonoBehaviour
 
     public void ClickReturnFromQuiz()
     {
+        _clickAudio?.Play();
         Scene scene = SceneManager.GetSceneByName("WindowYesNowScene");
         if (scene.isLoaded)
             return;

@@ -11,12 +11,14 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static List<string> _keyWordsForAlgo;
     private static List<KeyWord> _keyWordsForTestList = null;
     private static List<KeyWord> _keyOperatorsForTestList = null;
+    private static List<KeyWord> _keyBuildInsForTestList = null;
     private static List<AlgoInfo> _algoInfoList = null;
     private static List<string> _varNames;
     private static List<string> _varStrings;
     private static List<string> _keyComparison;
     private static List<string> _keyLogic;
     private static List<string> _keyOperandFunc;
+    private static List<string> _keyBuildInFunc;
 
     #region KeyMethods
 
@@ -48,6 +50,16 @@ public class AlgorithmTestContriller : MonoBehaviour
             ImportKeyOperatorsForTest();
         }
         return _keyOperatorsForTestList;
+    }
+
+    private static List<KeyWord> GetKeyBuildInsForTest()
+    {
+        if (_keyBuildInsForTestList == null)
+        {
+            _keyBuildInsForTestList = new List<KeyWord>();
+            ImportKeyBuildInsForTest();
+        }
+        return _keyBuildInsForTestList;
     }
 
     private static List<KeyWord> GetKeyWordsForTest()
@@ -110,6 +122,16 @@ public class AlgorithmTestContriller : MonoBehaviour
         return _keyOperandFunc;
     }
 
+    private static List<string> GetKeyBuildInFunc()
+    {
+        if (_keyBuildInFunc == null)
+        {
+            _keyBuildInFunc = new List<string>();
+            ImportKeyBuildInFunc();
+        }
+        return _keyBuildInFunc;
+    }
+
     private static void ImportAlgoInfo()
     {
         GetAlgoInfoList().Clear();
@@ -147,6 +169,23 @@ public class AlgorithmTestContriller : MonoBehaviour
             keyWord.Description = splitRow[1];
             keyWord.Topic = int.Parse(splitRow[2]);
             GetKeyOperatorsForTest().Add(keyWord);
+        }
+    }
+
+    private static void ImportKeyBuildInsForTest()
+    {
+        GetKeyBuildInsForTest().Clear();
+        var dataset = Resources.Load<TextAsset>("keywords_build_in_for_test");
+        var splitDataset = dataset.text.Split(new char[] { '\n' });
+        for (var i = 0; i < splitDataset.Length; i++)
+        {
+            var splitRow = splitDataset[i].Split(new char[] { ';' });
+            KeyWord keyWord = new KeyWord();
+            keyWord.ID = i;
+            keyWord.Title = splitRow[0];
+            keyWord.Description = splitRow[1];
+            keyWord.Topic = int.Parse(splitRow[2]);
+            GetKeyBuildInsForTest().Add(keyWord);
         }
     }
 
@@ -240,6 +279,19 @@ public class AlgorithmTestContriller : MonoBehaviour
         }
     }
 
+    private static void ImportKeyBuildInFunc()
+    {
+        GetKeyBuildInFunc().Clear();
+        var dataset = Resources.Load<TextAsset>("keywords_build_in_for_test");
+        var splitDataset = dataset.text.Split(new char[] { '\n' });
+        for (var i = 0; i < splitDataset.Length; i++)
+        {
+            string str = splitDataset[i];
+            //Debug.Log(str);
+            GetKeyBuildInFunc().Add(str);
+        }
+    }
+
     #endregion
 
     #region Algorithms
@@ -271,6 +323,86 @@ public class AlgorithmTestContriller : MonoBehaviour
         }
         int difficulty = 1;
         int score = 10;
+
+        return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
+    }
+
+    public static Question Algo0_1(int topic, int level, int step)
+    {
+        System.Random rand = new System.Random();
+        int intValue = rand.Next(1, 30);
+
+        string rightAnswerOriginal = intValue.ToString();
+        string codeAnswers = "str (\"" + rightAnswerOriginal + "\")";
+        string rightAnswer = "\"" + rightAnswerOriginal + "\"";
+        List<string> codeWords = new List<string>();
+        codeWords.Add(codeAnswers);
+
+        List<string> answersWords = new List<string>();
+        answersWords.Add(rightAnswer);
+        string wrongAnswer = "\'" + rightAnswerOriginal + "\'";
+        answersWords.Add(wrongAnswer);
+        wrongAnswer = rightAnswerOriginal;
+        answersWords.Add(wrongAnswer);
+        wrongAnswer = rightAnswerOriginal + ".0";
+        answersWords.Add(wrongAnswer);
+
+        int difficulty = 1;
+        int score = 10;
+
+        return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
+    }
+
+    public static Question Algo0_2(int topic, int level, int step)
+    {
+        System.Random rand = new System.Random();
+        int intValue1 = rand.Next(1, 10);
+        int intValue2 = rand.Next(1, 10);
+
+        string rightAnswerOriginal = intValue1.ToString() + intValue2.ToString();
+        string codeAnswers = "str (\"" + intValue1 + "\") + str(\"" + intValue2 + "\")";
+        string rightAnswer = "\"" + rightAnswerOriginal + "\"";
+        List<string> codeWords = new List<string>();
+        codeWords.Add(codeAnswers);
+
+        List<string> answersWords = new List<string>();
+        answersWords.Add(rightAnswer);
+        string wrongAnswer = "\'" + rightAnswerOriginal + "\'";
+        answersWords.Add(wrongAnswer);
+        wrongAnswer = (intValue1 + intValue2).ToString();
+        answersWords.Add(wrongAnswer);
+        wrongAnswer = "\"" + wrongAnswer + "\"";
+        answersWords.Add(wrongAnswer);
+
+        int difficulty = 1;
+        int score = 15;
+
+        return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
+    }
+
+    public static Question Algo0_3(int topic, int level, int step)
+    {
+        System.Random rand = new System.Random();
+        int intValue1 = rand.Next(1, 10);
+        int intValue2 = rand.Next(1, 10);
+
+        string rightAnswerOriginal = intValue1.ToString() + intValue2.ToString();
+        string codeAnswers = "str (" + intValue1 + ") + str(" + intValue2 + ")";
+        string rightAnswer = "\"" + rightAnswerOriginal + "\"";
+        List<string> codeWords = new List<string>();
+        codeWords.Add(codeAnswers);
+
+        List<string> answersWords = new List<string>();
+        answersWords.Add(rightAnswer);
+        string wrongAnswer = "\'" + rightAnswerOriginal + "\'";
+        answersWords.Add(wrongAnswer);
+        wrongAnswer = (intValue1 + intValue2).ToString();
+        answersWords.Add(wrongAnswer);
+        wrongAnswer = "\"" + wrongAnswer + "\"";
+        answersWords.Add(wrongAnswer);
+
+        int difficulty = 1;
+        int score = 15;
 
         return FillNewQuestionForShelfTest(codeWords, answersWords, level, topic, step, difficulty, score);
     }
@@ -1667,6 +1799,31 @@ public class AlgorithmTestContriller : MonoBehaviour
         return FillNewQuestionForTest(keyOperatorRight.Description, answersWords, level, topic, step, difficulty, score);
     }
 
+    public static Question Test_2_KeyBuildIns(int topic, int level, int step)
+    {
+        List<KeyWord> kwList = GetKeyBuildInsListForTopic(topic);
+        System.Random rand = new System.Random();
+        KeyWord keyBuildInRight = kwList[rand.Next(0, kwList.Count)];
+
+        List<KeyWord> keyBuildInsForTest = new List<KeyWord>();
+        keyBuildInsForTest.Add(keyBuildInRight);
+        KeyWord wrongAnswer;
+        for (int i = 0; i < 3; i++)
+        {
+            wrongAnswer = GetRandomFromKeyBuildInsForTest(keyBuildInsForTest);
+            keyBuildInsForTest.Add(wrongAnswer);
+        }
+        List<string> answersWords = new List<string>();
+        foreach (var item in keyBuildInsForTest)
+            answersWords.Add(item.Title);
+
+
+        int difficulty = 1;
+        int score = 10;
+
+        return FillNewQuestionForTest(keyBuildInRight.Description, answersWords, level, topic, step, difficulty, score);
+    }
+
     #endregion
 
     #region methods
@@ -1815,6 +1972,12 @@ public class AlgorithmTestContriller : MonoBehaviour
         return GetKeyOperandFunc()[rand.Next(0, GetKeyOperandFunc().Count)];
     }
 
+    private static string GetRandomKeyBuildInFunc()
+    {
+        System.Random rand = new System.Random();
+        return GetKeyBuildInFunc()[rand.Next(0, GetKeyBuildInFunc().Count)];
+    }
+
     private static string GetRandomSubstring(string baseString, int start, int finish, List<string> stopWords)
     {
         int newStart = start;
@@ -1956,6 +2119,12 @@ public class AlgorithmTestContriller : MonoBehaviour
         return GetKeyOperatorsForTest()[rand.Next(0, GetKeyOperatorsForTest().Count)];
     }
 
+    private static KeyWord GetRandomFromKeyBuildInsForTest()
+    {
+        System.Random rand = new System.Random();
+        return GetKeyBuildInsForTest()[rand.Next(0, GetKeyBuildInsForTest().Count)];
+    }
+
     private static KeyWord GetRandomFromKeyOperatorsForTest(List<KeyWord> stopWords)
     {
         KeyWord keyWord = null;
@@ -1973,10 +2142,39 @@ public class AlgorithmTestContriller : MonoBehaviour
         return keyWord;
     }
 
+    private static KeyWord GetRandomFromKeyBuildInsForTest(List<KeyWord> stopWords)
+    {
+        KeyWord keyWord = null;
+
+        bool containsWord = true;
+        int maxRound = 100;
+        while (containsWord)
+        {
+            keyWord = GetRandomFromKeyBuildInsForTest();
+            containsWord = stopWords.Contains(keyWord);
+            maxRound--;
+            if (maxRound < 0)
+                break;
+        }
+        return keyWord;
+    }
+
     private static List<KeyWord> GetKeyOperatorsListForTopic(int topic)
     {
         List<KeyWord> list = new List<KeyWord>();
         List<KeyWord> listFull = GetKeyOperatorsForTest();
+        foreach (var item in listFull)
+        {
+            if (item.Topic <= topic)
+                list.Add(item);
+        }
+        return list;
+    }
+
+    private static List<KeyWord> GetKeyBuildInsListForTopic(int topic)
+    {
+        List<KeyWord> list = new List<KeyWord>();
+        List<KeyWord> listFull = GetKeyBuildInsForTest();
         foreach (var item in listFull)
         {
             if (item.Topic <= topic)

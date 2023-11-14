@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/QuizScenes/QuestionAnswerTestCheckScene.unity
     guid: 1f88d32e9113b435185ce97a611270e5
   - enabled: 1
-    path: Assets/Scenes/QuizScenes/TypeTextScene.unity
+    path: Assets/Scenes/QuizScenes/WebWidget.unity
     guid: c3a79eccdb53f48d8b447f1bb42d92e4
   - enabled: 1
     path: Assets/Scenes/UIScenes/WindowScene.unity

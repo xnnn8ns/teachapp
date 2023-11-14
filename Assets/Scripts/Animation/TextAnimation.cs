@@ -9,9 +9,6 @@ public class TextAnimation : MonoBehaviour
     [SerializeField]
     private Text _textType;
 
-    [SerializeField]
-    private Button _clickFinishButton;
-
     private string _textCash;
 
     private Coroutine _coroutineType = null;
@@ -42,7 +39,7 @@ public class TextAnimation : MonoBehaviour
 
     private IEnumerator TypeText()
     {
-        _textType.text = "<color=#ffffff>" + _textCash + "</color>";
+        _textType.text = "<color=#F8DDFA>" + _textCash + "</color>";
         yield return new WaitForSeconds(0.1f);
         string str = "";
         int countStr = 0;
@@ -54,14 +51,14 @@ public class TextAnimation : MonoBehaviour
             if (str.Length < _textCash.Length)
             {
                 string reminderStr = _textCash.Substring(countStr+1);
-                colorReminderStr = "<color=#ffffff>" + reminderStr + "</color>";
+                colorReminderStr = "<color=#F8DDFA>" + reminderStr + "</color>";
             }
             _textType.text = colorStr + colorReminderStr;
             countStr++;
-            yield return new WaitForSeconds(0.0725f);
+            yield return new WaitForSeconds(0.015f);
         }
         _resultCurrentType?.Invoke();
-        _clickFinishButton?.gameObject.SetActive(false);
+        //_clickFinishButton?.gameObject.SetActive(false);
     }
 
     public void ClickButtonFinishReadingByUser()
@@ -77,6 +74,6 @@ public class TextAnimation : MonoBehaviour
         }
         _textType.text = _textCash;
         _resultCurrentType?.Invoke();
-        _clickFinishButton?.gameObject?.SetActive(false);
+        //_clickFinishButton?.gameObject?.SetActive(false);
     }
 }

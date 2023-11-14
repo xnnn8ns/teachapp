@@ -5,11 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class WindowsMessageScript : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _textMessage;
-    [SerializeField] private TextMeshProUGUI _textValue;
-    [SerializeField] private AudioSource _audioScore;
-    [SerializeField] private bool _needFillData = true;
-    [SerializeField] private bool _needUnloadCurrentScene = false;
+    [SerializeField]
+    private TextMeshProUGUI _textMessage;
+    [SerializeField]
+    private TextMeshProUGUI _textValue;
+    [SerializeField]
+    private AudioSource _audioScore;
+    [SerializeField]
+    private AudioSource _clickAudio;
+
+    [SerializeField]
+    private AudioSource _audioFanFars;
+    [SerializeField]
+    private bool _needFillData = true;
+    [SerializeField]
+    private bool _needUnloadCurrentScene = false;
+    [SerializeField]
+    
 
     private string _sceneToLoad = "";
     private int _targetScore = 0;
@@ -36,9 +48,13 @@ public class WindowsMessageScript : MonoBehaviour
 
     public void ClickOK()
     {
+        _clickAudio?.Play();
         StopAllCoroutines();
-        _audioScore?.Stop();
-        if(_textValue)
+        if(_audioScore)
+            _audioScore?.Stop();
+        if (_audioFanFars)
+            _audioFanFars?.Stop();
+        if (_textValue)
             _textValue.text = _targetScore.ToString();
         if (_needUnloadCurrentScene)
         {
@@ -60,14 +76,34 @@ public class WindowsMessageScript : MonoBehaviour
     {
         int count = 0;
         _audioScore?.Play();
-        while (count <= targetValue)
+        int deltaStep = 1;
+        if (targetValue < 25)
+            deltaStep = 1;
+        else if (targetValue < 50)
+            deltaStep = 2;
+        else if (targetValue < 80)
+            deltaStep = 3;
+        else if (targetValue < 150)
+            deltaStep = 4;
+        else if (targetValue < 250)
+            deltaStep = 5;
+        else if (targetValue < 500)
+            deltaStep = 10;
+        else if (targetValue < 1000)
+            deltaStep = 20;
+        else
+            deltaStep = 100;
+        while (count < targetValue)
         {
             _textValue.text = count.ToString();
             yield return new WaitForSeconds(0.02f);
-            count++;
+            count += deltaStep;
+            if (count > targetValue)
+                count = targetValue;
         }
         _textValue.text = _targetScore.ToString();
         _audioScore?.Stop();
+        _audioFanFars?.Play();
         yield break;
     }
 }

@@ -7,8 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class WindowsYesNoMessageScript : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _textTitle;
+    [SerializeField]
+    private TextMeshProUGUI _textTitle;
     private string _sceneToLoad = "";
+    [SerializeField]
+    private AudioSource _clickAudio;
 
     private void Start()
     {

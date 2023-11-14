@@ -7,10 +7,14 @@ using UnityEngine.UI;
 
 public class WindowScript : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _textCount;
-    [SerializeField] private TextMeshProUGUI _textTime;
-    [SerializeField] private TextMeshProUGUI _textScore;
-
+    [SerializeField]
+    private TextMeshProUGUI _textCount;
+    [SerializeField]
+    private TextMeshProUGUI _textTime;
+    [SerializeField]
+    private TextMeshProUGUI _textScore;
+    [SerializeField]
+    private AudioSource _clickAudio;
 
     private string _sceneToLoad = "";
 
@@ -34,11 +38,13 @@ public class WindowScript : MonoBehaviour
 
     public void ClickCancel()
     {
+        _clickAudio?.Play();
         SceneManager.UnloadSceneAsync("WindowScene", UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
     }
 
     public void ClickOK()
     {
+        _clickAudio?.Play();
         SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
     }
 }

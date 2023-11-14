@@ -110,8 +110,10 @@ public class DataLoader : MonoBehaviour
 
     private IEnumerator GetTestTaskDataFromAPI()
     {
+        //Debug.Log("GetTestTaskDataFromAPI");
         using (UnityWebRequest www = UnityWebRequest.Get(apiTaskUrl))
         {
+            //Debug.Log("SendWebRequest");
             yield return www.SendWebRequest();
             string json = DownLoadOrCreateFileJson(www, Settings.jsonTestFilePath);
             if (json.Length > 0)
@@ -163,10 +165,20 @@ public class DataLoader : MonoBehaviour
         if (www.result == UnityWebRequest.Result.ConnectionError ||
             www.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.LogError("HTTP Error: " + www.error);
+            //Debug.LogError("HTTP Error: " + www.error);
             isError = true;
             if (File.Exists(Application.persistentDataPath + filePathSave))
+            {
+                //Debug.Log("File.Exists");
                 json = File.ReadAllText(Application.persistentDataPath + filePathSave);
+            }
+            else
+            {
+                string newFile = filePathSave.Replace("/","");
+                newFile = newFile.Replace(".json", "");
+                TextAsset txt = (TextAsset)Resources.Load(newFile, typeof(TextAsset));
+                json = txt.text;
+            }
         }
         if (!isError)
         {

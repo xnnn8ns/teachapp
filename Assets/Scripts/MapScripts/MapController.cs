@@ -45,11 +45,17 @@ namespace Mkey
         public bool scrollToActiveButton = true;
 
         private SoundMaster MSound => SoundMaster.Instance;
-        [SerializeField] private ButtonsManager ButtonsManager;
 
-        [SerializeField]private bool _createDataButtonsInJson = true;
+        [SerializeField]
+        private ButtonsManager ButtonsManager;
+
+        [SerializeField]
+        private bool _createDataButtonsInJson = true;
 
         private TheoryListJSON _theoryListJSON;
+
+        [SerializeField]
+        private AudioSource _clickAudio;
 
         private void Awake()
         {
@@ -273,6 +279,7 @@ namespace Mkey
 
         private void ClickCurrentLevelButton(int clickIndex, bool isMissionClicked = false)
         {
+            _clickAudio?.Play();
             Scene scene = SceneManager.GetSceneByName("WindowScene");
             if (scene.isLoaded)
                 return;
@@ -286,6 +293,7 @@ namespace Mkey
 
         private void ClickPassButton(int clickIndex, bool isMissionClicked = false)
         {
+            _clickAudio?.Play();
             Debug.Log("ClickPassButton");
             Scene scene = SceneManager.GetSceneByName("WindowScene");
             if (scene.isLoaded)
@@ -300,7 +308,7 @@ namespace Mkey
 
         private void ClickFutureButton()
         {
-            
+            _clickAudio?.Play();
             Scene scene = SceneManager.GetSceneByName("WindowSimpliMessageScene");
             if (scene.isLoaded)
                 return;
