@@ -267,9 +267,9 @@ public abstract class Question : Information
             qList.Insert(0, AlgorithmTestContriller.Test_2_KeyBuildIns(topic, levelID, stepID));
         if (qList.Count < 7)
         {
-            qList.Insert(0, AlgorithmTestContriller.Algo0_3(topic, levelID, stepID));
+            //qList.Insert(0, AlgorithmTestContriller.Algo0_3(topic, levelID, stepID));
 
-            //qList.Insert(0, AlgorithmTestContriller.GetQuestionFromAlgo(topic, levelID, stepID));
+            qList.Insert(0, AlgorithmTestContriller.GetQuestionFromAlgo(topic, levelID, stepID));
         }
 
 
