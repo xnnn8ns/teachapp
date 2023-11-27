@@ -31,7 +31,24 @@ public class TestItem : MonoBehaviour, IPointerClickHandler
 
     public void SetTestValue(string testAnswer)
     {
+        //_textValue.enableAutoSizing = true;
         _textValue.text = testAnswer;
+    }
+
+    public float GetFontSize()
+    {
+        Debug.Log("_textValue.fontSizeMax: " + _textValue.fontSizeMax);
+        return _textValue.fontSizeMax;
+    }
+
+    public void SetTestFontSize(float value)
+    {
+        //_textValue.enableAutoSizing = false;
+        //Debug.Log("_textValue.fontSizeMax: " + _textValue.fontSizeMax);
+        _textValue.fontSizeMax = value;
+        _textValue.fontSizeMin = Screen.height / 58f;
+        //Debug.Log("_textValue.fontSizeMax2: " + value);
+        //Debug.Log("_textValue.fontSizeMax3: " + _textValue.fontSizeMax);
     }
 
     public void OnPointerClick(PointerEventData eventData)

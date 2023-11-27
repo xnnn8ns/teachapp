@@ -5,7 +5,7 @@ using UnityEngine;
 public class LangAsset : MonoBehaviour
 {
     private static List<LangItem> instance;
-    public static LangLocation CurrentLangLocation = LangLocation.Ru;
+    public static LangLocation CurrentLangLocation = LangLocation.En;
 
     private LangAsset()
     { }

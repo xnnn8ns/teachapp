@@ -155,13 +155,22 @@ namespace Mkey
 
         private void FillTheoryDataFromJSON()
         {
-            string jsonPath = "/theory_list.json";
+            string corePath = "theory_list";
+
+            if (LangAsset.CurrentLangLocation == LangLocation.En)
+                corePath = "theory_list_en";
+
+            string jsonPath = "/" + "theory_list" + ".json";
+            
+
+
+
 
             if (!File.Exists(Application.persistentDataPath + jsonPath))
             {
                 FileStream fs = File.Create(Application.persistentDataPath + jsonPath);
                 fs.Dispose();
-                TextAsset txt = (TextAsset)Resources.Load("theory_list", typeof(TextAsset));
+                TextAsset txt = (TextAsset)Resources.Load(corePath, typeof(TextAsset));
                 string jsonTemp = txt.text;
                 File.WriteAllText(Application.persistentDataPath + jsonPath, jsonTemp);
             }

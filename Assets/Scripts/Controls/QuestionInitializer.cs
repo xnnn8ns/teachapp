@@ -333,7 +333,7 @@ public class QuestionInitializer : MonoBehaviour
     private void SetAnswerDrag(GameObject answerPrefab, Answer answer, AnimationExecuter animationExecuter)
     {
         AnswerSurface answerSurface = answerPrefab.GetComponent<AnswerSurface>();
-        answerSurface.SetTitle(answer.Title);
+        answerSurface.SetTitle(answer.Title);   
     }
 
     public void RemoveFromShelf(Transform transformTouchDown)

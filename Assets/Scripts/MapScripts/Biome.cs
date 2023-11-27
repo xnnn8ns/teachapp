@@ -29,6 +29,8 @@ namespace Mkey
         [SerializeField]
         private TMP_Text _theorySubTitle;
         [SerializeField]
+        private TMP_Text _theoryButtonTitle;
+        [SerializeField]
         private Image _backGroundImage;
         [SerializeField]
         private Animator _animLeft;
@@ -169,6 +171,7 @@ namespace Mkey
         {
             _theoryTitle.text = title;
             _theorySubTitle.text = subTitle;
+            _theoryButtonTitle.text = LangAsset.GetValueByKey("Theory");
         }
 
         //public void FillMissions()

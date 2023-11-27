@@ -15748,7 +15748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.019607853, g: 0.81960785, b: 0.5984435, a: 0.21176471}
+  m_Color: {r: 0.019607853, g: 0.81960785, b: 0.5984435, a: 0.11764706}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -15991,7 +15991,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 37
+  m_fontSize: 41
   m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -16374,6 +16374,7 @@ MonoBehaviour:
   snapButtonsToCurveOld: 1
   _theoryTitle: {fileID: 9062374553454713760}
   _theorySubTitle: {fileID: 9062374553683431312}
+  _theoryButtonTitle: {fileID: 9062374554001178851}
   _backGroundImage: {fileID: 9062374553133113463}
   _animLeft: {fileID: 4062567500575234151}
   _animRight: {fileID: 544062255442183879}

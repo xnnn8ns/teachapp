@@ -54,6 +54,7 @@ public class ImageChecker : MonoBehaviour
     {
         _actionCallBack = action;
         _answers = answers;
+        float maxSize = 0;
         for (int i = 0; i < _answers.Count; i++)
         {
             string title = _answers[i].Title;
@@ -61,7 +62,28 @@ public class ImageChecker : MonoBehaviour
             _testItems[i].SetTestValue(title);
             _testItems[i].SetBackColor(_colorUnSelected);
             _testItems[i].ClickTest += SetSingleSelectedTest;
+            if (maxSize < title.Length)
+                maxSize = title.Length;
         }
+        float maxFloatSize = Screen.height/30f;
+        if (maxSize > 3)
+            maxFloatSize = Screen.height / 48f;
+        Debug.Log("Screen.height: " + Screen.height);
+        for (int i = 0; i < _answers.Count; i++)
+        {
+            _testItems[i].SetTestFontSize(maxFloatSize);
+        }
+        //StartCoroutine(SetFontSize(minSize));
+    }
+
+    private IEnumerator SetFontSize(float fontSize)
+    {
+        yield return new WaitForSeconds(0.1f);
+        for (int i = 0; i < _answers.Count; i++)
+        {
+            _testItems[i].SetTestFontSize(fontSize);
+        }
+        yield break;
     }
 
     private void SetSingleSelectedTest(int indexTestForSelect)
