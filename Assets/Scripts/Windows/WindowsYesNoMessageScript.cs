@@ -9,6 +9,10 @@ public class WindowsYesNoMessageScript : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _textTitle;
+    [SerializeField]
+    private TextMeshProUGUI _textButtonYesHeader;
+    [SerializeField]
+    private TextMeshProUGUI _textButtonNoHeader;
     private string _sceneToLoad = "";
     [SerializeField]
     private AudioSource _clickAudio;
@@ -16,6 +20,7 @@ public class WindowsYesNoMessageScript : MonoBehaviour
     private void Start()
     {
         _sceneToLoad = PlayerPrefs.GetString("SceneToLoad");
+        SetHeaders();
     }
 
     //public void FillWindowData(Action actionClickOk, string title)
@@ -40,6 +45,13 @@ public class WindowsYesNoMessageScript : MonoBehaviour
         //    if (item.name == "WindowYesNowScene")
         //        SceneManager.UnloadSceneAsync(item);
         //}
+    }
 
+    private void SetHeaders()
+    {
+        if (_textTitle)
+            _textTitle.text = LangAsset.GetValueByKey("StopTask");
+        _textButtonYesHeader.text = LangAsset.GetValueByKey("Yes");
+        _textButtonNoHeader.text = LangAsset.GetValueByKey("No");
     }
 }

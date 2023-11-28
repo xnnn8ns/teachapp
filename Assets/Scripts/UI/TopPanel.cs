@@ -13,10 +13,16 @@ public class TopPanel : MonoBehaviour
     private void Start()
     {
         SetPoints();
+        SetTitle();
     }
 
     private void SetPoints()
     {
         pointsText.text = PlayerPrefs.GetInt("Score", 0).ToString();
+    }
+
+    private void SetTitle()
+    {
+        courseTitle.text = LangAsset.GetValueByKey("PythonBasic");
     }
 }

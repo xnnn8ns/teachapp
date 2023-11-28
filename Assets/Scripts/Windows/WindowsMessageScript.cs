@@ -6,13 +6,25 @@ using UnityEngine.SceneManagement;
 public class WindowsMessageScript : MonoBehaviour
 {
     [SerializeField]
+    private TextMeshProUGUI _textHeader;
+    [SerializeField]
     private TextMeshProUGUI _textMessage;
     [SerializeField]
     private TextMeshProUGUI _textValue;
     [SerializeField]
+    private TextMeshProUGUI _textValueHeader;
+    [SerializeField]
+    private TextMeshProUGUI _textButtonOKHeader;
+    [SerializeField]
     private AudioSource _audioScore;
     [SerializeField]
     private AudioSource _clickAudio;
+    [SerializeField]
+    private bool _isErrorExistsForm = false;
+    [SerializeField]
+    private bool _isLevelBlockedForm = false;
+    [SerializeField]
+    private bool _isTimeExpiredForm = false;
 
     [SerializeField]
     private AudioSource _audioFanFars;
@@ -31,6 +43,7 @@ public class WindowsMessageScript : MonoBehaviour
         _sceneToLoad = PlayerPrefs.GetString("SceneToLoad");
         if(_needFillData)
             FillWindowData();
+        SetHeaders();
     }
 
     private void FillWindowData()
@@ -105,5 +118,34 @@ public class WindowsMessageScript : MonoBehaviour
         _audioScore?.Stop();
         _audioFanFars?.Play();
         yield break;
+    }
+
+    private void SetHeaders()
+    {
+        if (_textHeader)
+        {
+            if (_isErrorExistsForm)
+                _textHeader.text = LangAsset.GetValueByKey("HaveIncorrectAnswers");
+            else if (_isTimeExpiredForm)
+                _textHeader.text = LangAsset.GetValueByKey("TimeIsUp");
+            else
+                _textHeader.text = LangAsset.GetValueByKey("TestPassed");
+        }
+        if(!_isErrorExistsForm && _textValueHeader)
+            _textValueHeader.text = LangAsset.GetValueByKey("PointsReceived");
+        if (_isErrorExistsForm)
+            _textMessage.text = LangAsset.GetValueByKey("TryAgain");
+        else if (_isLevelBlockedForm)
+        {
+            string x = LangAsset.GetValueByKey("LevelBlocked").Replace("|||", System.Environment.NewLine);
+            _textMessage.text = x;
+        }else if(_isTimeExpiredForm)
+            _textMessage.text = LangAsset.GetValueByKey("TaskFailed");
+
+        if (_isLevelBlockedForm)
+            _textButtonOKHeader.text = LangAsset.GetValueByKey("Close");
+        else
+            _textButtonOKHeader.text = LangAsset.GetValueByKey("Continue");
+
     }
 }

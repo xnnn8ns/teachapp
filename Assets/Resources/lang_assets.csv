@@ -8,7 +8,7 @@ Select;Выбрать;
 MainMenu;Главное меню;
 Value;Объем;
 Demo;Демо-режим;
-Close;Закрыть;
+Close;Закрыть;Close
 Source;Источник;
 Unselect;Убрать выделение;
 Back;Назад;Back
@@ -18,3 +18,23 @@ Save;Сохранить;
 UserName;Ваша позиция;Your position
 Blocks;Блоков;Blocks
 Theory;Теория;Theory
+PythonBasic;Введение в Python;Introduction to Python
+Loading;ЗАГРУЗКА;LOADING
+QuizInTest;Вопросов:;Questions:
+PointsInTest;Баллов в тесте:;Points in the test:
+TimeInTest;Время:;Time:
+StartTest;Данные о тесте;Test info
+PassingTest;Прохождение теста;Test results
+Start;Начать;Start
+Cancel;Отмена;Cancel
+TestPassed;Тест пройден;Test passed
+PointsReceived;Получено баллов:;Points received:
+Continue;Продолжить;Continue
+HaveIncorrectAnswers;Есть неверные ответы;Have incorrect answers
+TryAgain;Попробуйте еще раз;Try again
+LevelBlocked;Данный уровень|||пока не доступен;This level is not|||yet available
+TimeIsUp;Время закончилось;Time is up
+TaskFailed;Задание не пройдено;Task failed
+StopTask;Прекратить задание?;Stop the task?
+Yes;Да;Yes
+No;Нет;No

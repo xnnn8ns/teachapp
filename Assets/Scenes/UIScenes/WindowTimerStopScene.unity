@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &274445374
 RectTransform:
   m_ObjectHideFlags: 0
@@ -506,10 +506,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc05d405cf934383b7e1f26b9ee7328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textMessage: {fileID: 0}
+  _textHeader: {fileID: 1608567884}
+  _textMessage: {fileID: 837188454}
   _textValue: {fileID: 0}
+  _textValueHeader: {fileID: 0}
+  _textButtonOKHeader: {fileID: 813978756}
   _audioScore: {fileID: 446781810}
   _clickAudio: {fileID: 1913769842}
+  _isErrorExistsForm: 0
+  _isLevelBlockedForm: 0
+  _isTimeExpiredForm: 1
   _audioFanFars: {fileID: 0}
   _needFillData: 0
   _needUnloadCurrentScene: 0
@@ -694,7 +700,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.6
+  m_fontSize: 46.1
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -962,7 +968,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 63
+  m_fontSize: 68.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

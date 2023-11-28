@@ -507,6 +507,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textTitle: {fileID: 1608567884}
+  _textButtonYesHeader: {fileID: 813978756}
+  _textButtonNoHeader: {fileID: 1461683596}
   _clickAudio: {fileID: 446781810}
 --- !u!82 &446781810
 AudioSource:
@@ -1307,7 +1309,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54.4
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

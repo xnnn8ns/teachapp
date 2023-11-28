@@ -506,10 +506,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc05d405cf934383b7e1f26b9ee7328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textMessage: {fileID: 0}
+  _textHeader: {fileID: 1608567884}
+  _textMessage: {fileID: 837188454}
   _textValue: {fileID: 0}
+  _textValueHeader: {fileID: 0}
+  _textButtonOKHeader: {fileID: 813978756}
   _audioScore: {fileID: 0}
   _clickAudio: {fileID: 1913769842}
+  _isErrorExistsForm: 1
   _audioFanFars: {fileID: 0}
   _needFillData: 0
   _needUnloadCurrentScene: 1
@@ -829,7 +833,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 67.9
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -964,7 +968,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54.25
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

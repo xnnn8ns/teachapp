@@ -8,11 +8,25 @@ using UnityEngine.UI;
 public class WindowScript : MonoBehaviour
 {
     [SerializeField]
+    private TextMeshProUGUI _textHeader;
+    [SerializeField]
     private TextMeshProUGUI _textCount;
+    [SerializeField]
+    private TextMeshProUGUI _textCountHeader;
     [SerializeField]
     private TextMeshProUGUI _textTime;
     [SerializeField]
+    private TextMeshProUGUI _textTimeHeader;
+    [SerializeField]
     private TextMeshProUGUI _textScore;
+    [SerializeField]
+    private TextMeshProUGUI _textScoreHeader;
+    [SerializeField]
+    private TextMeshProUGUI _textButtonOKHeader;
+    [SerializeField]
+    private TextMeshProUGUI _textButtonCancelHeader;
+    [SerializeField]
+    private bool _isStartTestText = true;
     [SerializeField]
     private AudioSource _clickAudio;
 
@@ -22,6 +36,7 @@ public class WindowScript : MonoBehaviour
     {
         _sceneToLoad = PlayerPrefs.GetString("SceneToLoad");
         FillWindowData();
+        SetHeaders();
     }
 
     private void FillWindowData()
@@ -34,7 +49,20 @@ public class WindowScript : MonoBehaviour
         _textCount.text = QuestionInitializer.GetQuestionCountCurrentQuestionList().ToString();
     }
 
-    
+    private void SetHeaders()
+    {
+        if(_isStartTestText)
+            _textHeader.text = LangAsset.GetValueByKey("PassingTest");
+        else
+            _textHeader.text = LangAsset.GetValueByKey("PassingTest");
+        _textCountHeader.text = LangAsset.GetValueByKey("QuizInTest");
+        _textTimeHeader.text = LangAsset.GetValueByKey("TimeInTest");
+        _textScoreHeader.text = LangAsset.GetValueByKey("PointsInTest");
+        _textButtonOKHeader.text = LangAsset.GetValueByKey("Start");
+        _textButtonCancelHeader.text = LangAsset.GetValueByKey("Cancel");
+    }
+
+
 
     public void ClickCancel()
     {
