@@ -12,7 +12,7 @@ Close;Закрыть;Close
 Source;Источник;
 Unselect;Убрать выделение;
 Back;Назад;Back
-PerfectDone;Все верно!;Perfect done!
+PerfectDone;Все верно!;Perfect done!!
 DoneErrors;Есть ошибки!;Done with errors!
 Save;Сохранить;
 UserName;Ваша позиция;Your position
@@ -38,3 +38,6 @@ TaskFailed;Задание не пройдено;Task failed
 StopTask;Прекратить задание?;Stop the task?
 Yes;Да;Yes
 No;Нет;No
+Check;Проверить;Check
+WhatResultAfterCode;Какой результат будет после выполнения следующего кода:;What result after executing the code below:
+Section;Раздел;Section

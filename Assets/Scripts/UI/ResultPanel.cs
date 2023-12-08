@@ -21,6 +21,8 @@ public class ResultPanel : MonoBehaviour
 
     private Action action;
 
+    
+
     public void ShowPanel(bool isOk, string txtResult, Action callBack)
     {
         action = callBack;
@@ -36,5 +38,4 @@ public class ResultPanel : MonoBehaviour
     {
         action?.Invoke();
     }
-
 }

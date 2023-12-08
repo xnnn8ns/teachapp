@@ -16,8 +16,14 @@ namespace Mkey
         public Button button;
         public Image targetImage;
         public Image LockState;
+
+        public Image LockStateMirror;
         public Image ActiveState;
+
+        public Image ActiveStateMirror;
         public Image PassState;
+
+        public Image PassStateMirror;
         public Image AdditionState;
         public Image AdditionStatePassed;
         public Image FinalState;
@@ -40,15 +46,21 @@ namespace Mkey
             Interactable = active;// || isPassed;
             //if(button)  button.interactable = Interactable;
             if (button) button.interactable = true;
-            //Debug.Log(typeLevel);
+            bool isMirror = IsMirror(id);
+            // Debug.Log(id);
+            // Debug.Log(lastNumberFromID);
             if (isPassed)
             {
                 if(typeLevel == ETypeLevel.final)
                     targetImage.sprite = FinalStatePassed.sprite;
                 else if (typeLevel == ETypeLevel.additional)
                     targetImage.sprite = AdditionStatePassed.sprite;
-                else 
-                    targetImage.sprite = PassState.sprite;
+                else {
+                    if (isMirror) 
+                       targetImage.sprite = PassStateMirror.sprite; 
+                    else
+                        targetImage.sprite = PassState.sprite;
+                }
 
             }
             
@@ -76,7 +88,10 @@ namespace Mkey
                 }
                 else
                 {
-                    targetImage.sprite = ActiveState.sprite;
+                    if (isMirror) 
+                        targetImage.sprite = ActiveStateMirror.sprite;
+                    else
+                        targetImage.sprite = ActiveState.sprite;
                     numberText.color = Color.black;
                 }
             }
@@ -98,7 +113,12 @@ namespace Mkey
                 //    || typeLevel == ETypeLevel.mission2)
                     //imgButton.sprite = AdditionStatePassed.sprite;
                 else if (typeLevel == ETypeLevel.simple)
-                    targetImage.sprite = LockState.sprite;
+                {
+                    if (isMirror) 
+                        targetImage.sprite = LockStateMirror.sprite;
+                    else
+                        targetImage.sprite = LockState.sprite;
+                }
 
             }
             if (typeLevel == ETypeLevel.simple)
@@ -132,6 +152,34 @@ namespace Mkey
             //if(LockText) LockText.SetActive(active || isPassed);
             numberText.gameObject.SetActive(active || isPassed);
 
+        }
+    
+        private int GetLastNumber(int numbers)
+        {
+            numbers -= (Settings.GetTopicFromButtonOnMapID(numbers)-1)*2;
+            char[] numbersList = ConvertIntToCharArray(numbers);
+            return int.Parse(numbersList[numbersList.Length - 1].ToString());
+        }
+
+        private char[] ConvertIntToCharArray(int number)
+        {
+            return number.ToString().ToCharArray();
+        }
+        
+        private bool IsMirror(int id){
+            int lastNumberFromID = GetLastNumber(id);
+            if(Settings.GetTopicFromButtonOnMapID(id) % 2 == 1){
+                if ((lastNumberFromID <= 3 || lastNumberFromID >= 8)) 
+                    return true;
+                else
+                    return false;
+            }else {
+                if ((lastNumberFromID <= 3 || lastNumberFromID >= 8)) 
+                    return false;
+                else
+                    return true;
+            }
+            
         }
     }
 }

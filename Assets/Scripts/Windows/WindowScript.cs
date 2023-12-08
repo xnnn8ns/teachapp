@@ -52,7 +52,7 @@ public class WindowScript : MonoBehaviour
     private void SetHeaders()
     {
         if(_isStartTestText)
-            _textHeader.text = LangAsset.GetValueByKey("PassingTest");
+            _textHeader.text = LangAsset.GetValueByKey("StartTest");
         else
             _textHeader.text = LangAsset.GetValueByKey("PassingTest");
         _textCountHeader.text = LangAsset.GetValueByKey("QuizInTest");

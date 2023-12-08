@@ -196,7 +196,8 @@ namespace Mkey
             for (int i = 0; i < 10; i++)
             {
                 bPrefs[i] = BackgroundPrefabs[currentBackground];
-                sPrefs[i] = BackgroundImages[currentSprite];
+                if(BackgroundImages.Count > currentSprite)
+                    sPrefs[i] = BackgroundImages[currentSprite];
                 alPrefs[i] = AnimatorControllerLeft[currentALAnim];
                 arPrefs[i] = AnimatorControllerRight[currentARAnim];
                 currentBackground++;

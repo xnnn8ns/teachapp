@@ -1830,7 +1830,8 @@ public class AlgorithmTestContriller : MonoBehaviour
 
     private static Question FillNewQuestionForShelfTest(List<string> codeWords, List<string> answersWords, int topic, int level, int step, int difficulty, int score)
     {
-        string title = "Какой результат будет после выполнения следующего кода:";
+        //string title = "Какой результат будет после выполнения следующего кода:";
+        string title = LangAsset.GetValueByKey("WhatResultAfterCode");
         return FillNewQuestion(QuestionType.ShelfTest, title, codeWords, answersWords, level, topic, step, difficulty, score);
     }
 

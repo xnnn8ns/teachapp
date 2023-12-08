@@ -67,30 +67,8 @@ namespace Mkey
 
         void Start()
         {
-            //Debug.Log("Map controller started");
-            //if (mapMaker == null) mapMaker = GetComponent<MapMaker>();
-
-            //if (mapMaker == null)
-            //{
-            //    Debug.LogError("No <MapMaker> component. Add <MapMaker.>");
-            //    return;
-            //}
-
-            //if (mapMaker.biomes == null)
-            //{
-            //    Debug.LogError("No Maps. Add Biomes to MapMaker.");
-            //    return;
-            //}
-
-            //content = GetComponent<RectTransform>();
-            //if (!content)
-            //{
-            //    Debug.LogError("No RectTransform component. Use RectTransform for MapMaker.");
-            //    return;
-            //}
 
             FillTheoryDataFromJSON();
-
 
             Biome[] list = GetComponentsInChildren<Biome>();
             List<Biome> bList = new List<Biome>();
@@ -151,6 +129,8 @@ namespace Mkey
                     ClickLevelButton(id, true);
                 });
             }
+            Application.targetFrameRate = 45;
+            Debug.Log(Application.targetFrameRate);
         }
 
         private void FillTheoryDataFromJSON()

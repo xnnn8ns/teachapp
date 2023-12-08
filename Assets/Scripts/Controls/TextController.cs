@@ -43,7 +43,7 @@ public class TextController : MonoBehaviour
 
     private void Start()
     {
-        theoryTitleText.text = "Раздел " + (Settings.Current_Topic).ToString();
+        theoryTitleText.text = LangAsset.GetValueByKey("Section") + " " + (Settings.Current_Topic).ToString();
         //ShowWebView();
         InitTextTypeTest();
         //StartCoroutine(GetDataFromAPIOld());
