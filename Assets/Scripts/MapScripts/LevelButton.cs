@@ -34,6 +34,9 @@ namespace Mkey
         public bool IsNeedMissRebuild = false;
         public int ID = 0;
 
+        public Slider slider;
+        public GameObject sliderFill;
+
         internal void SetIsActive(int id, bool active, int activeStarsCount, int passCount, bool isPassed, ETypeLevel typeLevel = ETypeLevel.simple)
         {
             ID = id;
@@ -49,6 +52,7 @@ namespace Mkey
             bool isMirror = IsMirror(id);
             // Debug.Log(id);
             // Debug.Log(lastNumberFromID);
+            slider?.gameObject.SetActive(false);
             if (isPassed)
             {
                 if(typeLevel == ETypeLevel.final)
@@ -123,14 +127,23 @@ namespace Mkey
             }
             if (typeLevel == ETypeLevel.simple)
             {
+                int valueSlider = 0;
                 if (passCount == 0)
-                    numberText.text = "0%";
+                    valueSlider = 0;
                 else if (passCount == 1)
-                    numberText.text = "30%";
+                    valueSlider = 40;
                 else if (passCount == 2)
-                    numberText.text = "60%";
+                    valueSlider = 70;
                 else
-                    numberText.text = "100%";
+                    valueSlider = 100;
+                if(valueSlider > 0)
+                    numberText.text = valueSlider.ToString() + " %";
+                slider.gameObject.SetActive(true);
+                slider.value = valueSlider/100f;
+                if(valueSlider > 0)
+                    sliderFill.SetActive(true);
+                else
+                    sliderFill.SetActive(false);    
             }
             else if(typeLevel != ETypeLevel.mission1
                     && typeLevel != ETypeLevel.mission2)
@@ -142,6 +155,13 @@ namespace Mkey
                 LeftStarEmpty.SetActive(false);
                 MiddleStarEmpty.SetActive(false);
                 RightStarEmpty.SetActive(false);
+                RectTransform rect = targetImage.GetComponent<RectTransform>();
+                Vector2 size = new Vector2(50, 50);
+                if(typeLevel == ETypeLevel.final)
+                {
+                    size = new Vector2(100, 100);
+                }
+                rect.sizeDelta = size;
             }
             else if (typeLevel == ETypeLevel.mission1
                    || typeLevel == ETypeLevel.mission2)
