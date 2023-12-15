@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 
-public class PointAnimation : MonoBehaviour
+public class PointAnimation2 : MonoBehaviour
 {
     public TextMeshProUGUI textComponent; // ?????? ?? ????????? ??????
     public string loadingText ; // ????? ????????
@@ -29,13 +29,13 @@ public class PointAnimation : MonoBehaviour
             lastUpdateTime = Time.time;
         }
     }
-    // изменил компонент текста - со стандартных точек на точки юникода (круглые)
+
     private void UpdateLoadingText()
     {
         textComponent.text = loadingText;
         for (int i = 0; i < dotCount; i++)
         {
-            textComponent.text += "•";
+            textComponent.text += ".";
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class AnimationLoadText : MonoBehaviour
+public class AnimationLoadText2 : MonoBehaviour
 {
     public TextMeshProUGUI textComponent; // ?????? ?? ????????? ??????
     public string[] textArray; // ?????? ???????
@@ -42,19 +42,11 @@ public class AnimationLoadText : MonoBehaviour
             StartCoroutine(TypeText(textArrayForType[currentTextIndex]));
         
     }
-    // изменил данный способ печати текста - если встречается тире - ставим абзац
+
     IEnumerator TypeText(string text)
     {
         isTyping = true;
         textComponent.text = "";
-
-        // Разделение текста на две части по символу тире
-        string[] parts = text.Split('-');
-        if (parts.Length > 1)
-        {
-            // Объединение двух частей обратно, добавление символа новой строки между ними
-            text = parts[0] + "-\n" + parts[1].Trim();
-        }
 
         for (int charIndex = 0; charIndex < text.Length; charIndex++)
         {
