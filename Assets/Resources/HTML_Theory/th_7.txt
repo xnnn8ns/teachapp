@@ -1,31 +1,29 @@
-<b><size=50><color=#8B01AE>Тема:</color><color=#8B01AE>Условия</color></size></b>
+Sometimes, depending on the data entered, it will depend on what the program will do next. Conditional constructions are used for this purpose.
 
-Иногда в зависимости от введенных данных, будет зависеть, что дальше будет выполнять программа. Для этого используются условные конструкции.
-
-<b><color=#5B0B70>Конструкция:</color></b>
-if Условие:
-    Блок инструкций 1
+<b><color=#FFFFFF>Construction:</color></b>
+if Condition:
+    Instruction block 1
 else:
-    Блок инструкций 2
+    Instruction block 2 
 
-Блок инструкций 1 будет выполнен, если Условие истинно. Если Условие ложно, будет выполнен Блок инструкций 2.
-В условной инструкции может отсутствовать слово else и последующий блок.
+Instruction block 1 will be executed if the Condition is true. If the Condition is false, Instruction Block 2 will be executed.
+The conditional statement may be missing the word else and the subsequent block.
 
-<b><color=#5B0B70>Пример:</color></b>
+<b><color=#FFFFFF>Example:</color></b>
 y = int(input())
 if y < 0:
     y = -x
 print(y)
 
 
-Для выделения блока инструкций, относящихся к инструкции if или else в языке Питон используются отступы. Все инструкции, которые относятся 
-к одному блоку, должны иметь равную величину отступа, то есть одинаковое число пробелов в начале строки.
-Рекомендуется использовать отступ в 4 пробела и не рекомедуется использовать в качестве отступа символ табуляции.
+Python uses indentation to highlight a block of instructions related to an if or else statement. All instructions that relate to 
+for one block, they must have an equal amount of indentation, that is, the same number of spaces at the beginning of the line.
+It is recommended to use an indentation of 4 spaces and it is not recommended to use a tab character as an indentation.
 
-Иногда условий больше, чем одно условие, которое должно проверяться за один раз, для этого используются вложенные конструкции.
-Получаем вложенное ветвление – после одной развилки в ходе исполнения программы появляется другая развилка. 
+Sometimes there are more conditions than one condition that must be checked at a time, nested constructs are used for this.
+We get a nested branching – after one fork, another fork appears during the execution of the program.
 
-<b><color=#5B0B70>Пример:</color></b>
+<b><color=#FFFFFF>Example:</color></b>
 x = int(input())
 y = int(input())
 if x > 0:

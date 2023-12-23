@@ -1,24 +1,21 @@
-<b><size=50><color=#8B01AE>Тема:</color><color=#8B01AE>Цикл for</color></size></b>
+Another type of loop is represented by the "for" construction. This loop goes through a set of values, puts each value in a variable, and then in the loop we can perform various actions with this variable.
 
-Другой тип циклов представляет конструкция for. Этот цикл пробегается по набору значений, помещает каждое значение в переменную, и затем в цикле мы можем с этой переменной производить различные действия.
+<b><color=#FFFFFF>Construction:</color></b>
+for variable in set_of_values:
+    Instructions
 
+After the keyword "for" comes the name of the variable in which the values will be placed. Then, after the in operator, a set of values and a colon are specified.
+And from the next line there is a block of cycle instructions, which must also be indented from the beginning of the cycle.When executing a loop, Python sequentially gets all the values from the set and passes them to a variable.
+When all the values from the set are sorted, the loop ends its work.
+As a set of values, for example, you can consider a string that essentially represents a set of characters.
 
-<b><color=#5B0B70>Конструкция:</color></b>
-for переменная in набор_значений:
-    инструкции
-
-После ключевого слова for идет название переменной, в которую будут помещаться значения. Затем после оператора in указывается набор значений и двоеточие.
-А со следующей строки располагается блок инструкций цикла, которые также должны иметь отступы от начала цикла.При выполнении цикла Python последовательно получает все значения из набора и передает их переменную. 
-Когда все значения из набора будут перебраны, цикл завершает свою работу.
-В качестве набора значений, например, можно рассматривать строку, которая по сути представляет набор символов.
-
-<b><b><color=#5B0B70>Пример:</color></b></b>
+<b><b><color=#FFFFFF>Example:</color></b></b>
 mes = "Hello"
  
 for c in meы:
     print(c)
 
-<color=#5B0B70>Результат:</color>
+<color=#FFFFFF>Result:</color>
 H
 e
 l

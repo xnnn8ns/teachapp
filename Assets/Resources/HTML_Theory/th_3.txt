@@ -1,19 +1,17 @@
-<b><size=50><color=#8B01AE>Тема:</color>   <color=#8B01AE>Арифметические операторы</color></size></b>
+<color=#FFFFFF>Arithmetic operators</color> include: <b>addition (+), subtraction (-), multiplication (*), division (/)</b>.
 
-К <color=#5B0B70>арифметическим операторам</color> относятся: <b>сложение (+), вычитание (-), умножение (*), деление (/) </b>.
+<b><color=#FFFFFF>Example:</color></b>
+addition= 7+3
+the value of the result variable will be 10
 
-<b><color=#5B0B70>Пример:</color></b>
-сложение= 7+3
-значение переменной результат будет равно 10
+subtraction= 8-6
+the value of the variable subtraction will be 2
 
-вычитание= 8-6
-значение переменной вычитание будет равно 2
+multiplication = 4*2
+the value of the variable multiplication will be 8
 
-умножение = 4*2
-значение переменной умножение  будет равно 8
+division = 9/3
+the value of the variable division will be 3
 
-деление = 9/3
-значение переменной деление  будет равно 3
-
-Для деления нужно помнить, что тип данных переменной, в которую записывается результат деления, должен быть 
-<b>тип данных <color=#5B0B70>float</color></b> (число с плавающей точкой).
+For division, it must be remembered that the data type of the variable into which the result of division is written must be
+<b>data type <color=#FFFFFF>float</color></b> (floating point number).

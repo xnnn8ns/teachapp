@@ -1,15 +1,13 @@
-<b><size=50><color=#8B01AE>Тема:</color>   <color=#8B01AE>Типа данных</color></size></b>
+<color=#FFFFFF>Data types</color> are needed in order to determine exactly what information can be stored in the container.
+Different data types are used for numbers, text, and others.
 
-<color=#5B0B70>Типы данных</color> нужны для того, чтоб определить, какую именно информацию можно хранить в контейнере.
-Для чисел, текста и других вещей используются разные типы данных.
+For <b>integers</b> the data type is <b>int</b> (165).
+For <b>floating point numbers</b> the data type is <b>float</b> (187.756).
+For <b>text</b> the data type is  <b>str</b> ("Milk").
+For <b>collection of items</b> the data type is <b>list</b> (["apple", "pear", "orange"] )
 
-Для <b>целых чисел</b> используется тип данных <b>int</b> (165). 
-Для <b>чисел с плавающей точкой</b> тип данных <b>float</b> (187.756).
-Для <b>текста</b> тип данных <b>str</b> ("Молоко").
-Для <b>коллекции элементов</b> тип данных <b>list</b> (["яблоко", "груша", "апельсин"] )
+If imagine that variables are closed boxes with things, then the data type is like stickers on the boxes that say what is there. 
 
-Если представить, что переменные это закрытые коробки с вещами, то тип данных это как стикеры на коробках, которые говорят, что там находится.  
-
-<b><color=#5B0B70>Пример:</color></b>
+<b><color=#FFFFFF>Example:</color></b>
 int x=14
 str a 

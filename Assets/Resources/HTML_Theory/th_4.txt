@@ -1,21 +1,19 @@
-<b><size=50><color=#8B01AE>Тема:</color><color=#8B01AE>Операторы сравнения</color></size></b>
+Sometimes there is a need for a program to compare one with another in order to understand what the program will do next or which variable to take.
+Conditional expressions are divided into comparison operators and logical operators.
 
-Иногда есть необходимость в программе сравнения одного с другим, чтоб понять, что дальше будет делать программ или какую переменную брать. 
-Условные выражения делятся на операторов сравнения и логические операторы.
+Comparison operators return True or False values.
 
-Операторы сравнения возвращают значения True или False
+<b><color=#FFFFFF>Comparison operators:</color></b>
+<b>==</b> Returns True if both operands are equal. Otherwise it returns False.
+<b>!=</b> Returns True if both operands are NOT equal. Otherwise it returns False.
+<b>></b> (more than) Returns True if the first operand is larger than the second.
+<b><</b> (less than) Returns True if the first operand is smaller than the second.
+<b>>=</b> (greater than or equal to) Returns True if the first operand is greater than or equal to the second.
+<b><=</b> (less than or equal to) Returns True if the first operand is less than or equal to the second.
 
-<b><color=#5B0B70>Операторы сравнения:</color></b>
-<b>==</b> Возвращает True, если оба операнда равны. Иначе возвращает False.
-<b>!=</b> Возвращает True, если оба операнда НЕ равны. Иначе возвращает False.
-<b>></b> (больше чем) Возвращает True, если первый операнд больше второго.
-<b><</b>(меньше чем) Возвращает True, если первый операнд меньше второго.
-<b>>=</b>(больше или равно) Возвращает True, если первый операнд больше или равен второму.
-<b><=</b>(меньше или равно) Возвращает True, если первый операнд меньше или равен второму.
-
-<b><color=#5B0B70>Пример:</color></b>
+<b><color=#FFFFFF>Example:</color></b>
 a = 3
 b = 7
-res = a == b  # сохраняем результат операции в переменную
-print(res)  # False - 4 не равно 5
+res = a == b  # saving the result of the operation to a variable
+print(res)  # False - 4 is not equal to 5
 print(a != b)  # True

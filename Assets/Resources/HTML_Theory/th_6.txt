@@ -1,30 +1,27 @@
-<b><size=50><color=#8B01AE>Тема:</color><color=#8B01AE>Ввод и вывод данных</color></size></b>
+After the program is running, you always want to see the result, what happened there
+The output allows you to see, use, and pass on the result of the program.
 
-После работы программы всегда хочется увидеть результат, что же там получилось 
-Вывод позволяет увидеть, использовать, передать дальше результат работы программы.
+<color=#FFFFFF>Output function</color> print()
+This function displays what it has in parentheses. You can specify specific variables, the number of them can be different
 
-<color=#5B0B70>Функция вывода</color> print()
-Эта функция выводит на экран то, что у нее в скобках. Можно указывать конкретные переменные, количество их может быть разным
+<b><color=#FFFFFF>Example:</color></b>
+print(574.4) we will see on the screen 574.4
+print("a=", 7) we will see on the screen "a=", 7
+print("hello" + " " + "world") we will see on the screen : hello world
+print("Hello \n World") On the screen, the word "Hello World" will be written under each other
+print(6+5) Will output 11
 
-<b><color=#5B0B70>Пример:</color></b>
-print(574.4) на экране увидим 574.4
-print("a=", 7) на экране увидим "a=", 7
-print("hello" + " " + "world") На экране увидим : hello world
-print("Hello \n World") На экране слово Hello World написаны буду друг под другом
-print(6+5) Выведет 11
+The arguments of the function (what is in parentheses) are separated by commas. In the output, instead of commas, the values are separated by a space.
 
-Аргументы функции (то, что в скобках), разделяются между собой запятыми. В выводе вместо запятых значения разделены пробелом. 
+<color=#FFFFFF>Input function</color>input()
+When this function is called, the program stops its execution and waits for the user to enter something.
+After pressing Enter, the input() function will pick up the entered text and pass it to the program.
+The entered value can be assigned to a variable.
 
-<color=#5B0B70>Функция вывода</color>input()
-Когда вызывается эта функция, программа останавливает свое выполнение и ждет, когда пользователь введет что-то. 
-После нажатия Enter, функция input() заберет введенный текст и передаст его программе.
-Введенное значение можно присвоить переменной. 
-
-<b><color=#5B0B70>Пример:</color></b>
+<b><color=#FFFFFF>Example:</color></b>
 a = input()
-User_name = input('Ваше имя: ') #На экране появится подсказка "Ваше имя"
-summa = int(input("Сколько стоит? ")) #преобразование введенной строки в целое число
+User_name = input('Your name: ') #The prompt "Your name" will appear on the screen
+summa = int(input("How much does it cost? ")) #converting the entered string to an integer
 
-Все данные , введенные с клавиатуры, считаются типом данных str, даже если вы вводите число. Чтоб в дальнейшем можно было использовать для вычисления,
-их преобразовывают в числа.  
+All data entered from the keyboard is considered the "str" data type, even if you enter a number. So that they can be used for calculation in the future, they are converted into numbers.
 

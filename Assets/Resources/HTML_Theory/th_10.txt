@@ -1,8 +1,6 @@
-<b><size=50><color=#8B01AE>Тема:</color><color=#8B01AE>Вложенные циклы</color></size></b>
+Some loops may contain other loops within themselves.
 
-Одни циклы внутри себя могут содержать другие циклы.
-
-<b><color=#5B0B70>Пример:</color></b>
+<b><color=#FFFFFF>Example:</color></b>
 i = 1
 j = 1
 while i < 10:
@@ -12,30 +10,30 @@ while i < 10:
     print("\n")
     j = 1
     i += 1
-Внешний цикл while i < 10: срабатывает 9 раз пока переменная i не станет равна 10. Внутри этого цикла срабатывает внутренний цикл while j < 10:. 
-Внутренний цикл также срабатывает 9 раз пока переменная j не станет равна 10. Причем все 9 итераций внутреннего цикла срабатывают в рамках одной итерации внешнего цикла.
+The outer loop "while i < 10:" is triggered 9 times until the variable "i" becomes equal to 10. Inside this loop, the inner loop "while j < 10:" is triggered.
+The inner loop also fires 9 times until the variable "j" becomes 10. Moreover, all 9 iterations of the inner cycle are triggered within one iteration of the outer cycle.
 
-В каждой итерации внутреннего цикла на консоль будет выводится произведение чисел i и j. Затем значение переменной j увеличивается на единицу. Когда внутренний цикл закончил работу, 
-значений переменной j сбрасывается в 1, а значение переменной i увеличивается на единицу и происходит переход к следующей итерации внешнего цикла. И все повторяется, пока переменная i не станет равна 10. 
-Соответственно внутренний цикл сработает всего 81 раз для всех итераций внешнего цикла. В итоге мы получим следующий консольный вывод:
+In each iteration of the inner loop, the product of the numbers "i" and "j" will be output to the console. Then the value of the variable "j" is increased by one. When the inner loop has finished working,
+the values of the variable "j" are reset to 1, and the value of the variable "i" is increased by one and the transition to the next iteration of the outer loop takes place. And everything repeats until the variable "i" becomes 10.
+Accordingly, the inner loop will fire only 81 times for all iterations of the outer loop. As a result, we will get the following console output:
 
 
 
-Выход из цикла break и continue
-Для управления циклом мы можем использовать специальные операторы break и continue. Оператор break осуществляет выход из цикла. А оператор continue выполняет переход к следующей итерации цикла.
-Оператор break может использоваться, если в цикле образуются условия, которые несовместимы с его дальнейшим выполнением.
+Exiting the "break" and "continue" loop
+To control the loop, we can use special break and continue operators. The break operator exits the loop. And the continue statement jumps to the next iteration of the loop.
+The break statement can be used if conditions are formed in the loop that are incompatible with its further execution.
 
-<b><color=#5B0B70>Пример:</color></b>
+<b><color=#FFFFFF>Example:</color></b>
 number = 0
 while number < 5:
     number += 1
-    if number == 3 :    # если number = 3, выходим из цикла
+    if number == 3 :    # if number = 3, exit the loop
         break
     print(f"number = {number}")
-Здесь цикл while проверяет условие number < 5. И пока number не равно 5, предполагается, что значение number будет выводиться на консоль. Однако внутри цикла также проверяется другое условие: if number == 3. 
-То есть, если значение number равно 3, то с помощью оператора break выходим из цикла. И в итоге мы получим следующий консольный вывод:
+Here the "while" loop checks the condition "number < 5". And as long as "number" is not equal to 5, it is assumed that the value of number will be output to the console. However, another condition is also checked inside the loop: "if number == 3".
+That is, if the value of number is 3, then we exit the loop using the break operator. And as a result, we will get the following console output:
 
-<color=#5B0B70>Результат:</color>
+<color=#FFFFFF>Result:</color>
 number = 1
 number = 2
 

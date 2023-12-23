@@ -1,36 +1,34 @@
-<b><size=50><color=#8B01AE>Тема:</color><color=#8B01AE>Логические переменные</color></size></b>
+Python has the following logical operators:<color=#FFFFFF><b>and</b>(logical multiplication),<b>or</b>(logical addition),<b>not</b>(logical negation).</color>
 
-В Python имеются следующие логические операторы:<color=#5B0B70><b>and</b>(логическое умножение),<b>or</b>(логическое сложение),<b>not</b>(логическое отрицание).</color>
+<color=#FFFFFF>and</color>(и):
+This operator returns TRUE only if all variables have the value TRUE.
+If at least one of the variables is FALSE, then the value will be FALSE.
 
-<color=#5B0B70>and</color>(и):
-Этот оператор возвращает значение TRUE только если все переменные имеют значение TRUE. 
-Если хотя бы одна из переменных будет FALSE , то и значение будет FALSE.
-
-<b><color=#5B0B70>Пример:</color></b>
+<b><color=#FFFFFF>Example:</color></b>
 age = 23
 weight = 50
 result = age > 21 and weight == 50
 print(result)  # True
 
-В данном случае оператор and сравнивает результаты двух выражений: age > 21 weight == 50. И если оба этих выражений возвращают True,
-то оператор and также возвращает True (формально возвращается значение последнего операнда).
+In this case, the "and" operator compares the results of two expressions: "age" > 21 "weight" == 50. And if both of these expressions return True,
+then the "and" operator also returns True (formally, the value of the last operand is returned).
 
-<color=#5B0B70>or</color>(или):
+<color=#FFFFFF>or</color>(или):
 
-Этот оператор возвращает значение TRUE если хотя бы одна переменная имеют значение TRUE. 
-Если все из переменных будет FALSE , то только тогда значение будет FALSE.
+This operator returns TRUE if at least one variable has the value TRUE.
+If all of the variables are FALSE, then only the value will be FALSE.
 
-<b><color=#5B0B70>Пример:</color></b>
+<b><color=#FFFFFF>Example:</color></b>
 age = 25
 Married = False
 res = age > 21 or Married
-print(res)  # True, так как выражение age > 21 равно True
+print(res)  # True, since the expression "age" > 21 is True
 
-<color=#5B0B70>not</color>(не)
+<color=#FFFFFF>not</color>(не)
 
-Возвращает True, если выражение равно False и наоборт, возвращает False, если значение True
+Returns True if the expression is False and, conversely, returns False if the value is True
 
-<b><color=#5B0B70>Пример:</color></b>
+<b><color=#FFFFFF>Example:</color></b>
 age = 25
 Married = False
 print(not age > 21)  # False
@@ -39,4 +37,4 @@ print(not 5)  # False
 print(not 0)  # True
 
 
-0 эквивалентент False, 1 эквивалентна True
+0 is equivalent to False, 1 is equivalent to True

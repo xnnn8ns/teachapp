@@ -1,23 +1,21 @@
-<b><size=50><color=#8B01AE>Тема:</color><color=#8B01AE>Цикл while</color></size></b>
+Cycles allow you to perform some action depending on the observance of some condition. The Python language has the following types of loops:
+<b><color=#FFFFFF>while,for</color></b>
 
-Циклы позволяют выполнять некоторое действие в зависимости от соблюдения некоторого условия. В языке Python есть следующие типы циклов:
-<b><color=#8B01AE>while,for</color></b>
+A condition is specified after the while keyword, and as long as this expression returns True, the block of instructions that follows will be executed.
 
-После ключевого слова while указывается условие, и пока это выражение возвращает значение True, будет выполняться блок инструкций, который идет далее.
+<b><color=#FFFFFF>Construction:</color></b>
+while condition_expression:
+    Instructions
 
-<b><color=#5B0B70>Конструкция:</color></b>
-while условное_выражение:
-   инструкции
-
-<b><color=#5B0B70>Пример:</color></b>
+<b><color=#FFFFFF>Example:</color></b>
 num = 0
 while number < 3:
     print("num = {num}")
     num += 1
-print("программа завершена")
+print("the program is completed")
 
-В данном случае цикл while будет выполняться, пока переменная number меньше 3 и выполнится 3 раза. 
-Необходимо помнить о 4 отступах слева у вычислений внутри цикла.
+In this case, the while loop will be executed until the number variable is less than 3 and executed 3 times. 
+It is necessary to remember about the 4 indents on the left of calculations inside the loop.
 
 
 
