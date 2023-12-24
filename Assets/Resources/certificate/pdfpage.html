@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Page</title>
+    <style>
+        html,
+        body,
+        body *,
+        body *::before,
+        body *::after {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            box-sizing: border-box;
+            color: #1b3057;
+        }
+        .main-container {
+            width: 1123px;
+            height: 794px;
+            position: relative;
+            /* background-image: url('cert.jpg');
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            background-size: contain; */
+        }
+        .decoration {
+            position: absolute;
+            z-index: 1;
+        }
+        .decoration--one {
+            width: 318px;
+            top: 0;
+            left: 0;
+        }
+        .decoration--two {
+            width: 323px;
+            top: 0;
+            right: 0;
+        }
+        .decoration--three {
+            width: 340px;
+            bottom: 0;
+            right: 0;
+        }
+        .decoration--four {
+            width: 240px;
+            bottom: 0;
+            left: 0;
+        }
+        .inner {
+            width: 100%;
+            height: 100%;
+            padding-top: 215px;
+            position: relative;
+            z-index: 3;
+            text-align: center;
+        }
+        .title {
+            margin-bottom: 45px;
+            font-size: 36px;
+            text-transform: uppercase;
+        }
+        .subtitle {
+            margin-bottom: 130px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+        .text {
+            font-size: 18px;
+            line-height: 120%;
+            letter-spacing: -0.015em;
+        }
+        .signature-container-wrapper {
+            margin-top: 90px;
+            text-align: center;
+        }
+        .signature-container {
+            width: 268px;
+            padding-top: 13px;
+            display: inline-block;
+            border-top: 5px solid #bbe3e1;
+        }
+        .name {
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 120%;
+        }
+        .post {
+            font-size: 14px;
+            font-style: italic;
+            line-height: 120%;
+        }
+        .copyright {
+            margin-top: 94px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: -0.01em;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <main class="main-container">
+        <img class="decoration decoration--one" src="decoration1.jpg">
+        <img class="decoration decoration--two" src="decoration2.jpg">
+        <img class="decoration decoration--three" src="decoration3.jpg">
+        <img class="decoration decoration--four" src="decoration4.jpg">
+
+        <div class="inner">
+            <h1 class="title">Сертификат</h1>
+            <div class="subtitle">Выдан</div>
+
+            <p class="text">за прохождение курса по Основам синтаксиса Python в Академии ИТ в размере 108 часов.<br>15 ноября 2023 г.</p>
+            <div class="signature-container-wrapper">
+                <div class="signature-container">
+                    <div class="name">Иванов Степан Сергеевич</div>
+                    <div class="post">Директор академии</div>
+                </div>
+                <div class="signature-container" style="margin-left: 32px;">
+                    <div class="name">Севостьянов Иван Петрович</div>
+                    <div class="post">Заместитель директора</div>
+                </div>
+            </div>
+            <div class="copyright">Академия ИТ</div>
+        </div>
+        
+    </main>
+</body>
+</html>
