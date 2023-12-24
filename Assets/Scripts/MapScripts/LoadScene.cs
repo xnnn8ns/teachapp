@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-namespace Mkey
+public class LoadScene : MonoBehaviour
 {
-	public class LoadScene : MonoBehaviour
+	public void LoadPreviousScene()
 	{
-		public void Load(int number)
-        {
-            if (SceneLoader.Instance) SceneLoader.Instance.LoadScene(number);
-        }
+		int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+		if (currentSceneIndex > 0)
+		{
+			SceneManager.LoadScene(currentSceneIndex - 1);
+		}
 	}
 }
