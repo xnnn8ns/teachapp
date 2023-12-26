@@ -129,7 +129,7 @@ namespace Mkey
                     ClickLevelButton(id, true);
                 });
             }
-            Application.targetFrameRate = 45;
+            Application.targetFrameRate = 60;
             Debug.Log(Application.targetFrameRate);
         }
 
