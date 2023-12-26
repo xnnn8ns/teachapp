@@ -326,7 +326,7 @@ MonoBehaviour:
   m_fontSizeMin: 10
   m_fontSizeMax: 70
   m_fontStyle: 5
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2066,11 +2066,11 @@ MonoBehaviour:
   _textHeader: {fileID: 0}
   _textCount: {fileID: 0}
   _textCountHeader: {fileID: 0}
-  _textTime: {fileID: 0}
-  _textTimeHeader: {fileID: 0}
+  _textTime: {fileID: 954151324}
+  _textTimeHeader: {fileID: 1758281372}
   _textScore: {fileID: 0}
   _textScoreHeader: {fileID: 0}
-  _textButtonOKHeader: {fileID: 0}
+  _textButtonOKHeader: {fileID: 64468641}
   _textButtonCancelHeader: {fileID: 0}
   _isStartTestText: 1
   _clickAudio: {fileID: 1784062003}

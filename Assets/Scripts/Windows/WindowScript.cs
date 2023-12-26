@@ -45,21 +45,29 @@ public class WindowScript : MonoBehaviour
         ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
         _textTime.text = ComonFunctions.GetMinetsSecondsFromSeconds(QuestionInitializer.GetSecondsForCurrentQuestionList());
         Debug.Log(buttonData.score.ToString() + "-" + buttonData.passCount);
-        _textScore.text = ComonFunctions.GetScoreForLevel(buttonData.score, buttonData.passCount, (ETypeLevel)buttonData.typeLevel).ToString();
-        _textCount.text = QuestionInitializer.GetQuestionCountCurrentQuestionList().ToString();
+        if (_textScore != null){
+            _textScore.text = ComonFunctions.GetScoreForLevel(buttonData.score, buttonData.passCount, (ETypeLevel)buttonData.typeLevel).ToString();
+            _textCount.text = QuestionInitializer.GetQuestionCountCurrentQuestionList().ToString();
+        }
     }
 
     private void SetHeaders()
     {
-        if(_isStartTestText)
-            _textHeader.text = LangAsset.GetValueByKey("StartTest");
-        else
-            _textHeader.text = LangAsset.GetValueByKey("PassingTest");
-        _textCountHeader.text = LangAsset.GetValueByKey("QuizInTest");
+        if (_textHeader){
+            if(_isStartTestText)
+                _textHeader.text = LangAsset.GetValueByKey("StartTest");
+            else
+                _textHeader.text = LangAsset.GetValueByKey("PassingTest");
+        }
+        if (_textCountHeader)
+            _textCountHeader.text = LangAsset.GetValueByKey("QuizInTest");
+        
         _textTimeHeader.text = LangAsset.GetValueByKey("TimeInTest");
-        _textScoreHeader.text = LangAsset.GetValueByKey("PointsInTest");
+        if (_textScoreHeader)
+            _textScoreHeader.text = LangAsset.GetValueByKey("PointsInTest");
         _textButtonOKHeader.text = LangAsset.GetValueByKey("Start");
-        _textButtonCancelHeader.text = LangAsset.GetValueByKey("Cancel");
+        if (_textButtonCancelHeader)
+            _textButtonCancelHeader.text = LangAsset.GetValueByKey("Cancel");
     }
 
 
