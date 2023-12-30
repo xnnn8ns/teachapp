@@ -2072,6 +2072,7 @@ GameObject:
   - component: {fileID: 8599794350087811087}
   - component: {fileID: 8599794350087811086}
   - component: {fileID: 8599794350087811085}
+  - component: {fileID: 8599794350087811088}
   m_Layer: 5
   m_Name: UIGUI
   m_TagString: Untagged
@@ -2142,6 +2143,21 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &8599794350087811088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8599794350087811084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26717a0b055c3d34eabe16258144f650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - button: {fileID: 1457900688}
+    sceneName: MapScene
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
