@@ -48,9 +48,10 @@ public class CatAnimation : MonoBehaviour
             if (cats[i] != null && animators[i] != null) // Если кот и его аниматор существуют
             {
                 Image catImage = cats[i].GetComponent<Image>(); // Получаем компонент Image
+
                 if (!isLevelCompleted) // Если уровень не пройден
                 {
-                    animators[i].enabled = false; // Останавливаем анимацию
+                    animators[i].speed = 0; // Устанавливаем скорость анимации в 0
                     if (catImage != null) // Если компонент Image существует
                     {
                         catImage.color = Color.gray; // Красим кота в серый цвет
@@ -58,7 +59,7 @@ public class CatAnimation : MonoBehaviour
                 }
                 else
                 {
-                    animators[i].enabled = true; // Включаем анимацию
+                    animators[i].speed = 1; // Возвращаем скорость анимации обратно в 1
                     if (catImage != null) // Если компонент Image существует
                     {
                         catImage.color = Color.white; // Возвращаем коту исходный цвет
