@@ -32,7 +32,7 @@ public class AvatarParser : MonoBehaviour
 
     void Start()
     {
-        dataPath = Path.Combine(Application.dataPath, "Resources/userData.json");
+        dataPath = Path.Combine(Application.dataPath, "Resources/userAvatar.json");
         LoadAvatar(1); // нужен способ определения id игрока
         AvatarSelector.OnAvatarChanged += OnAvatarChanged; // Подписываемся на событие
     }

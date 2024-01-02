@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class AvatarSelect : MonoBehaviour
 {
@@ -21,20 +22,16 @@ public class AvatarSelect : MonoBehaviour
         if (_contentView.childCount > 0)
             return;
         Sprite[] sprites = Resources.LoadAll<Sprite>("Avatars/");
-        //Debug.Log(sprites.Length);
-        //ClearImagesInScroll();
         if (UserData.VKID > 0)
         {
             Sprite spriteVK = ComonFunctions.GetSpriteFromResourceByVKID(UserData.VKID);
             if(spriteVK)
                 sprites = sprites.Concat(new Sprite[] { spriteVK }).ToArray();
-            //sprites.
         }
         foreach (var sprite in sprites)
         {
             GameObject iconObject = Instantiate(_iconAvatar, _contentView);
             iconObject.GetComponent<Image>().sprite = sprite;
-            //Debug.Log(sprite.name);
             bool result = int.TryParse(sprite.name, out int avatarID);
             if(result)
                 iconObject.GetComponent<Avatar>().SetID(avatarID, ClickAvatarCallBack);

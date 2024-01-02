@@ -37,7 +37,7 @@ public class AvatarSelector : MonoBehaviour
 
     void Start()
     {
-        dataPath = Path.Combine(Application.dataPath, "Resources/userData.json");
+        dataPath = Path.Combine(Application.dataPath, "Resources/userAvatar.json");
 
         dropdown.onValueChanged.AddListener(delegate {
             ChangeAvatar(dropdown.value);
