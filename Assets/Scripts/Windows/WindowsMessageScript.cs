@@ -116,7 +116,12 @@ public class WindowsMessageScript : MonoBehaviour
         }
         _textValue.text = _targetScore.ToString();
         _audioScore?.Stop();
+        
         _audioFanFars?.Play();
+        yield return new WaitForSeconds(2f);
+        _audioFanFars?.GetComponent<ParticleSystem>()?.Stop();
+        yield return new WaitForSeconds(1f);
+        _audioFanFars?.Stop();
         yield break;
     }
 

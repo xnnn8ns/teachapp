@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
-public class TestItem : MonoBehaviour, IPointerClickHandler
+public class TestItem : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
 {
 
     private Image _imageBack;
@@ -52,6 +52,11 @@ public class TestItem : MonoBehaviour, IPointerClickHandler
     }
 
     public void OnPointerClick(PointerEventData eventData)
+    {
+        //ClickTest.Invoke(TestIndex);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
     {
         ClickTest.Invoke(TestIndex);
     }

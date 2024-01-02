@@ -55,7 +55,7 @@ public class TransformPhisics : MonoBehaviour
         _draggingTransform.position += _offsetDraggingZ;
 
         bool isClick = false;
-        if (dist < 0.2f && timeStart + 0.25f > Time.time)
+        if (dist < 0.2f && timeStart + 0.5f > Time.time)
             isClick = true;
         //Debug.Log(isClick);
         _questionInitializer.CheckAnswerAfterDrop(_draggingTransform, isClick);

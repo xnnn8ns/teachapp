@@ -16,7 +16,7 @@ PerfectDone;Все верно!;Perfect done!!
 DoneErrors;Есть ошибки!;Done with errors!
 Save;Сохранить;
 UserName;Ваша позиция;Your position
-Blocks;Блоков;Blocks
+Blocks;Блоков: ;Blocks: 
 Theory;Теория;Theory
 PythonBasic;Введение в Python;Introduction to Python
 Loading;ЗАГРУЗКА;LOADING
@@ -42,3 +42,15 @@ Check;Проверить;Check
 WhatResultAfterCode;Какой результат будет после выполнения следующего кода:;What result after executing the code below:
 Section;Раздел;Section
 Continue;Продолжить;
+Subject;Тема;
+Topic1;Переменные;Subject 1: <b>Variables</b> 
+Topic2;Переменные;Topic1
+Topic3;Переменные;Topic1
+Topic4;Переменные;Topic1
+Topic5;Переменные;Topic1
+Topic6;Переменные;Topic1
+Topic7;Переменные;Topic1
+Topic8;Переменные;Topic1
+Topic9;Переменные;Topic1
+Topic10;Переменные;Topic1
+Step;этап из;step from

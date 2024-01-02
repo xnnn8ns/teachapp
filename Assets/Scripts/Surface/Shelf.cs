@@ -307,7 +307,10 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
         }
         else
             _textHint.gameObject.SetActive(false);
-        _textHint.text = LangAsset.GetValueByKey("Blocks") + ": " + _countAnswersToBeOnShelf.ToString();
+        //string str = LangAsset.GetValueByKey("Blocks") + LangAsset.GetValueByKey(_countAnswersToBeOnShelf.ToString());
+
+        _textHint.text = _countAnswersToBeOnShelf.ToString();
+        //_textHint.text = "Blocks" + ": " + _countAnswersToBeOnShelf.ToString();
     }
 
     private void ScaleTextHint()

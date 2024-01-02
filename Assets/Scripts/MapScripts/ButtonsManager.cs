@@ -15,6 +15,8 @@ public class ButtonData
     public bool isPassed;
     public int typeLevel;
     public int topic;
+
+    public int totalForPassCount;
 }
 
 public class ButtonDataList
@@ -43,6 +45,7 @@ public class ButtonsManager : MonoBehaviour
             int scoreCurrent;
             int scoreLevel = 20;
             int scoreFinal = 80;
+            int totalForPassCount = 3;
             for (int i = 1; i <= 120; i++)
             {
                 bool isActiveButton = false;
@@ -53,26 +56,31 @@ public class ButtonsManager : MonoBehaviour
                 {
                     typeLevelButton = (int)ETypeLevel.final;
                     scoreCurrent = scoreFinal + scoreLevel;
+                    totalForPassCount = 1;
                 }
                 else if (levelID == 11)
                 {
                     typeLevelButton = (int)ETypeLevel.mission1;
                     scoreCurrent = 2 * scoreLevel;
+                    totalForPassCount = 1;
                 }
                 else if (levelID == 12)
                 {
                     typeLevelButton = (int)ETypeLevel.mission2;
                     scoreCurrent = 2 * scoreLevel;
+                    totalForPassCount = 1;
                 }
                 else if (levelID == 4 || levelID == 7)
                 {
                     typeLevelButton = (int)ETypeLevel.additional;
                     scoreCurrent = scoreLevel;
+                    totalForPassCount = 1;
                 }
                 else
                 {
                     typeLevelButton = (int)ETypeLevel.simple;
                     scoreCurrent = scoreLevel;
+                    totalForPassCount = 3;
                 }
                 
                 //Debug.Log(i.ToString() + "-" + typeLevelButton.ToString()+"-"+ topicID.ToString()+"-"+ scoreCurrent.ToString());
@@ -83,6 +91,7 @@ public class ButtonsManager : MonoBehaviour
                     isActive = isActiveButton,
                     activeStarsCount = 0,
                     passCount = 0,
+                    totalForPassCount = totalForPassCount,
                     isPassed = false,
                     typeLevel = typeLevelButton,
                     topic = topicID,

@@ -51,7 +51,9 @@ public class WindowsYesNoMessageScript : MonoBehaviour
     {
         if (_textTitle)
             _textTitle.text = LangAsset.GetValueByKey("StopTask");
-        _textButtonYesHeader.text = LangAsset.GetValueByKey("Yes");
-        _textButtonNoHeader.text = LangAsset.GetValueByKey("No");
+        if (_textButtonYesHeader)   
+            _textButtonYesHeader.text = LangAsset.GetValueByKey("Yes");
+        if (_textButtonNoHeader)
+            _textButtonNoHeader.text = LangAsset.GetValueByKey("No");
     }
 }
