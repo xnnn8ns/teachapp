@@ -42,6 +42,12 @@ public class LangAsset : MonoBehaviour
                     case 2:
                         lang.En = row[k];
                         break;
+                    case 3: // поддержка немецкого языка
+                        lang.Ge = row[k];
+                        break;
+                    case 4: // поддержка итальянского языка
+                        lang.It = row[k];
+                        break;
                     default:
                         break;
                 }
@@ -70,10 +76,14 @@ public class LangItem
     public string Key = "";
     public string Ru = "";
     public string En = "";
+    public string Ge = ""; // поддержка немецкого языка
+    public string It = ""; // поддержка итальянского языка
 }
 
 public enum LangLocation
 {
     Ru = 1,
-    En = 2
+    En = 2,
+    Ge = 3,
+    It = 4 
 }
