@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -6,6 +7,17 @@ public class TextManager : MonoBehaviour
 {
     public List<TextMeshProUGUI> TextObjects; // Список текстовых объектов
     public List<string> Keys; // Список ключей
+
+    private void OnEnable()
+    {
+        LangAsset.OnLanguageChanged += UpdateTexts;
+        UpdateTexts();
+    }
+
+    private void OnDisable()
+    {
+        LangAsset.OnLanguageChanged -= UpdateTexts;
+    }
 
     public void UpdateTexts()
     {

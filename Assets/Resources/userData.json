@@ -1,8 +1,12 @@
-{
+[
+  {
     "id": 1,
-    "username": "Федя",
-    "password": "12345678йцукен",
+    "name": "Имя",
+    "username": "Имя пользователя",
+    "email": "email@example.com",
+    "password": "password",
     "levelsCompleted": 0,
     "score": 0,
     "rank": 0
   }
+]

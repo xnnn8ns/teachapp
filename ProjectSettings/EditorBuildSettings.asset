@@ -30,7 +30,7 @@ EditorBuildSettings:
     path: Assets/Scenes/LeaderBoardScenes/SelectTeam.unity
     guid: 259d3611f246d4ad1be5a24c782f53ec
   - enabled: 1
-    path: Assets/Scenes/LeaderBoardScenes/LeaderBoard.unity
+    path: Assets/Scenes/LeaderBoardScenes/Leaderboard.unity
     guid: 3fc8acdd13e6c734bafef6554d6fdbcd
   - enabled: 1
     path: Assets/Scenes/UIScenes/WindowMessageScene.unity

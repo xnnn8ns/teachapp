@@ -1,11 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class LangAsset : MonoBehaviour
 {
     private static List<LangItem> instance;
-    public static LangLocation CurrentLangLocation = LangLocation.En;
+    public static LangLocation CurrentLangLocation
+    {
+        get
+        {
+            string savedLangLocation = PlayerPrefs.GetString("CurrentLangLocation", LangLocation.En.ToString());
+            return Enum.TryParse(savedLangLocation, out LangLocation langLocation) ? langLocation : LangLocation.En;
+        }
+        set
+        {
+            PlayerPrefs.SetString("CurrentLangLocation", value.ToString());
+            OnLanguageChanged?.Invoke();
+        }
+    }
+
+    public static event Action OnLanguageChanged;
 
     private LangAsset()
     { }
@@ -68,6 +83,10 @@ public class LangAsset : MonoBehaviour
             }
         }
         return "";
+    }
+    public static void ChangeLanguage(LangLocation newLangLocation)
+    {
+        CurrentLangLocation = newLangLocation;
     }
 }
 

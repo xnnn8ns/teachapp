@@ -82,8 +82,7 @@ public class ChangeLanguage : MonoBehaviour
         currentLanguageIndex = index;
         string language = languages[index];
         PlayerPrefs.SetString("language", language);
-        LangAsset.CurrentLangLocation = (LangLocation)System.Enum.Parse(typeof(LangLocation), language);
-
-        textManager.UpdateTexts(); // Обновляем тексты
+        LangLocation newLangLocation = (LangLocation)System.Enum.Parse(typeof(LangLocation), language);
+        LangAsset.ChangeLanguage(newLangLocation); // Здесь вызывается событие OnLanguageChanged
     }
 }
