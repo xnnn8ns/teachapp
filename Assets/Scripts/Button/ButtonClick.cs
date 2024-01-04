@@ -18,7 +18,15 @@ public class ButtonClickHandler : MonoBehaviour
     {
         foreach (ButtonSceneMapping mapping in buttons)
         {
-            mapping.button.onClick.AddListener(() => SceneManager.LoadScene(mapping.sceneName));
+            mapping.button.onClick.AddListener(() => StartScene(mapping.sceneName));
         }
+    }
+
+    private void StartScene(string scene)
+    {
+        if (SceneManager.GetActiveScene().name == scene)
+            return;
+
+        SceneManager.LoadScene(scene);
     }
 }

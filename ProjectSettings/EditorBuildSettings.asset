@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/LeaderBoardScenes/SelectTeam.unity
     guid: 259d3611f246d4ad1be5a24c782f53ec
   - enabled: 1
+    path: Assets/Scenes/LeaderBoardScenes/LeaderBoard.unity
+    guid: 3fc8acdd13e6c734bafef6554d6fdbcd
+  - enabled: 1
     path: Assets/Scenes/UIScenes/WindowMessageScene.unity
     guid: a3c692c5730fa9e47baefc418830d282
   - enabled: 1
@@ -50,9 +53,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UIScenes/WindowRepeatErrorScene.unity
     guid: c1c1ce7d7d11d494d998fea8cd7e0667
-  - enabled: 0
-    path: Assets/Scenes/UIScenes/WindowLoadSceneUpdate.unity
-    guid: 5595dac9c878ad54d9e010d6721509d7
   - enabled: 1
     path: Assets/Scenes/PersonalPage/PersonalPageWithSettings.unity
     guid: c458215944c54c4469dda0ad7f711ee6

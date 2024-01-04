@@ -89,6 +89,7 @@ public class AvatarSelector : MonoBehaviour
                 data.Avatar = index;
                 json = JsonUtility.ToJson(data);
                 File.WriteAllText(dataPath, json);
+                PlayerPrefs.SetInt("UserAvatarID", index);
                 OnAvatarChanged?.Invoke(index);
             }
         }

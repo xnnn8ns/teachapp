@@ -2,11 +2,11 @@
     "users": [
         {
             "name": "User1",
-            "score": 10
+            "score": 16
         },
         {
             "name": "User2",
-            "score": 20
+            "score": 25
         },
         {
             "name": "User3",
@@ -19,6 +19,18 @@
         {
             "name": "User5",
             "score": 50
+        },
+        {
+            "name": "User6",
+            "score": 60
+        },
+        {
+            "name": "User7",
+            "score": 70
+        },
+        {
+            "name": "User8",
+            "score": 80
         }
     ]
 }

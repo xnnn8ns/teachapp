@@ -18,6 +18,7 @@ public class Settings : MonoBehaviour
     public const string jsonTestFilePath = "/testRawData.json";
     public const string jsonTaskFilePath = "/taskData.json";
     public const string theoryFilePath = "/theoryTask-";
+    public const string jsonLeaderBoardFilePath = "/leaderBoardData.json";
 
     public static bool IsModalWindowOpened = false;
 
