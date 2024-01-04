@@ -39,7 +39,10 @@ public class SaveUserData : MonoBehaviour
         if (File.Exists(filePath))
         {
             string existingData = File.ReadAllText(filePath);
-            users = JsonConvert.DeserializeObject<List<userData>>(existingData);
+            if (!string.IsNullOrEmpty(existingData) && existingData.StartsWith("[") && existingData.EndsWith("]"))
+            {
+                users = JsonConvert.DeserializeObject<List<userData>>(existingData);
+            }
         }
 
         userData existingUser = users.Find(user => user.username == usernameInputField.text);
@@ -71,9 +74,7 @@ public class SaveUserData : MonoBehaviour
             users.Add(newUser);
             PlayerPrefs.SetInt("id", newUser.id);
         }
-        Debug.Log($"Установка id в PlayerPrefs: {PlayerPrefs.GetInt("id")}");
         PlayerPrefs.Save();
-        Debug.Log($"Текущий id в PlayerPrefs: {PlayerPrefs.GetInt("id")}");
 
         string updatedData = JsonConvert.SerializeObject(users);
 

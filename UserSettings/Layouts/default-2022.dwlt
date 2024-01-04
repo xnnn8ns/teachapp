@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 772.8
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Simulator
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 39
+  controlID: 82
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -189,8 +189,8 @@ MonoBehaviour:
     y: 0
     width: 276.8
     height: 539.2
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -383,9 +383,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: b87b0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 5a2effff6858ffff9c6cffff4a6effff7079ffff1a94ffff80b1ffffb0b2ffff10b4ffff82b5ffffd4b5ffff02b7ffff6ab8ffffbebaffffa0c9ffff22caffff22cbffff6ccbffff9cccffff9ccdffffaeceffff4acfffff0ed0ffff66d0ffff1ed1ffff78d1ffff24d2ffffdcd2ffff70d3ffff16d4ffffced4ffff62d5ffff24d6ffffd0f4ffff7af5ffff34f6ffffaef7ffffbef9ffffd48000000e810000a8810000ac810000bc810000088200001a820000528200001a9f0000309f00004a9f0000689f0000b89f0000d69f00000ea700005ea7000078ac0000b6ac00000eb0000024b000003eb0000050b000005cb00000acb00000b0b00000cab000008855010060570100ae57010090640100ee640100
+      m_ExpandedIDs: 90f7ffff2cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1136,7 +1136,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 221.40002}
     m_SelectedIDs: a87b0000
     m_LastClickedID: 31656
-    m_ExpandedIDs: 000000005a7b0000707b0000727b000058a0000000ca9a3bffffff7f
+    m_ExpandedIDs: 0000000042670000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1164,7 +1164,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000005a7b0000
+    m_ExpandedIDs: 0000000042670000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
