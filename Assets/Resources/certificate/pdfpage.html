@@ -134,12 +134,12 @@
         </div>
 
         <script>
-            fetch('../../Resources/userData.json')
+            fetch('../userData.json')
                 .then(response => response.json())
                 .then(users => {
-                    localStorage.setItem('id', '1');
-                    const id = Number(localStorage.getItem('id')); // Получаем ID пользователя из localStorage и преобразуем его в число
-                    const user = users.find(u => u.id === id);
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const id = urlParams.get('id');
+                    const user = users.find(u => u.id.toString() === id); // Преобразуем ID пользователя в строку перед сравнением
                     if (user) {
                         document.getElementById('user-name').textContent = `${user.username}, ${user.name}`;
                     } else {
