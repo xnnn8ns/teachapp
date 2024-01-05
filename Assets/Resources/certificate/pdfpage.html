@@ -68,6 +68,12 @@
             text-transform: uppercase;
             letter-spacing: 0.2em;
         }
+        .titlename {
+            margin-bottom: 70px;
+            font-size: 20px;
+            letter-spacing: 0.2em;
+            margin-top: -70px;
+        }
         .text {
             font-size: 18px;
             line-height: 120%;
@@ -111,8 +117,8 @@
 
         <div class="inner">
             <h1 class="title">Сертификат</h1>
-            <div class="subtitle">Выдан</div>
-
+            <div class="subtitle">Выдан:</div>
+            <div id="user-name" class="titlename"></div>
             <p class="text">за прохождение курса по Основам синтаксиса Python в Академии ИТ в размере 108 часов.<br>15 ноября 2023 г.</p>
             <div class="signature-container-wrapper">
                 <div class="signature-container">
@@ -126,6 +132,22 @@
             </div>
             <div class="copyright">Академия ИТ</div>
         </div>
+
+        <script>
+            fetch('../../Resources/userData.json')
+                .then(response => response.json())
+                .then(users => {
+                    localStorage.setItem('id', '1');
+                    const id = Number(localStorage.getItem('id')); // Получаем ID пользователя из localStorage и преобразуем его в число
+                    const user = users.find(u => u.id === id);
+                    if (user) {
+                        document.getElementById('user-name').textContent = `${user.username}, ${user.name}`;
+                    } else {
+                        console.error(`Пользователь с ID ${id} не найден`);
+                    }
+                })
+                .catch(error => console.error('Не удалось загрузить или обработать файл userData.json', error));
+        </script>
         
     </main>
 </body>
