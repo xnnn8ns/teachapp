@@ -74,6 +74,10 @@ public class SaveUserData : MonoBehaviour
             users.Add(newUser);
             PlayerPrefs.SetInt("id", newUser.id);
         }
+        string userId = PlayerPrefs.GetInt("id").ToString();
+        Application.ExternalEval($"localStorage.setItem('id', '{userId}');");
+
+
         PlayerPrefs.Save();
 
         string updatedData = JsonConvert.SerializeObject(users);
@@ -95,8 +99,14 @@ public class SaveUserData : MonoBehaviour
         }
         return new string(charArray);
     }
-}
+    public void OpenWebPage() // тест функция для открытия страницы с сертификатом
+    {
+        SaveData();
+        string userId = PlayerPrefs.GetInt("id").ToString();
+        Application.OpenURL($"http://localhost:5500/Assets/Resources/certificate/pdfpage.html?id={userId}");
 
+    }
+}
 public class userData
 {
     public int id;
