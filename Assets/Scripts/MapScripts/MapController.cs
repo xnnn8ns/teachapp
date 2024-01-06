@@ -135,12 +135,14 @@ namespace Mkey
 
         private void FillTheoryDataFromJSON()
         {
-            string corePath = "theory_list";
+            string corePath = "theory_list_en";
 
             if (LangAsset.CurrentLangLocation == LangLocation.En)
                 corePath = "theory_list_en";
+            else if (LangAsset.CurrentLangLocation == LangLocation.Ru)
+                corePath = "theory_list_ru";
 
-            string jsonPath = "/" + "theory_list" + ".json";
+            string jsonPath = Settings.jsonTheoryFilePath;
             
 
 
@@ -150,6 +152,12 @@ namespace Mkey
             {
                 FileStream fs = File.Create(Application.persistentDataPath + jsonPath);
                 fs.Dispose();
+                TextAsset txt = (TextAsset)Resources.Load(corePath, typeof(TextAsset));
+                string jsonTemp = txt.text;
+                File.WriteAllText(Application.persistentDataPath + jsonPath, jsonTemp);
+            }
+            else
+            {
                 TextAsset txt = (TextAsset)Resources.Load(corePath, typeof(TextAsset));
                 string jsonTemp = txt.text;
                 File.WriteAllText(Application.persistentDataPath + jsonPath, jsonTemp);

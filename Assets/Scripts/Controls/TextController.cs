@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using ResponseTheoryJson;
+using ResponseTheoryListJSON;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,6 +18,10 @@ public class TextController : MonoBehaviour
 
     [SerializeField]
     private TMP_Text theoryTitleText;
+    [SerializeField]
+    private TMP_Text theoryTitle1Text;
+    [SerializeField]
+    private TMP_Text theoryTitle2Text;
     [SerializeField]
     private GameObject textItemPrefab;
     [SerializeField]
@@ -43,7 +48,19 @@ public class TextController : MonoBehaviour
 
     private void Start()
     {
+        theoryTitle1Text.text = LangAsset.GetValueByKey("TheorySection");
         theoryTitleText.text = LangAsset.GetValueByKey("Section") + " " + (Settings.Current_Topic).ToString();
+        //theoryTitle2Text.text = LangAsset.GetValueByKey("Section") + " " + (Settings.Current_Topic).ToString();
+        string json = File.ReadAllText(Application.persistentDataPath + Settings.jsonTheoryFilePath);
+        TheoryListJSON _theoryListJSON = JsonConvert.DeserializeObject<TheoryListJSON>(json);
+        foreach (var item in _theoryListJSON.theoryList)
+        {
+            if (item.ID == Settings.Current_Topic)
+            {
+                theoryTitle2Text.text = item.Description;
+                break;
+            }
+        }
         //ShowWebView();
         InitTextTypeTest();
         //StartCoroutine(GetDataFromAPIOld());
@@ -88,27 +105,15 @@ public class TextController : MonoBehaviour
         GameObject newTextItem = Instantiate(textItemPrefab, scrollParent);
         TextAnimation _textCurrentForType = newTextItem.GetComponentInChildren<TextAnimation>();
         //string strType = "Some text here " + indexCurrentText.ToString();
-        string strType = Resources.Load<TextAsset>("HTML_Theory/th_" + (Settings.Current_Topic).ToString()).text;
-        //string testText = @"This is some <b><size=50><color=#ff0000ff>Text</color></size></b>";
-        //string strNew = @strType;
-        //string strType = _theoriesString[indexCurrentTheory];
-        //Debug.Log(strNew);
-        //string strFull = "";
-        //for (int i = 0; i < 3; i++)
-        //    strFull += strType + ", ";
-        //_textType.text = strType;
+        string lang = "en";
+        if(LangAsset.CurrentLangLocation == LangLocation.En)
+            lang = "en";
+        else if (LangAsset.CurrentLangLocation == LangLocation.Ru)
+            lang = "ru";
+
+        string strType = Resources.Load<TextAsset>("HTML_Theory/" + lang + "/th_" + (Settings.Current_Topic).ToString()).text;
         _textCurrentForType.ShowFullText(strType, NextType);
     }
-
-    //private IEnumerator StartInitTextType()
-    //{
-    //    yield return new WaitForSeconds(0.5f);
-    //    while (IsTyping)
-    //    {
-    //        yield return new WaitForSeconds(0.01f);
-    //    }
-    //    yield break;
-    //}
 
     private void NextType()
     {
@@ -133,75 +138,6 @@ public class TextController : MonoBehaviour
         }
         Debug.Log("Next Theory");
     }
-
-    private void GetFromJSON()
-    {
-        string strJSON = "";
-        strJSON = Resources.Load<TextAsset>("HTML_Theory/th_1").text;
-        RawDataTheory treoryFromJSON = null;
-        try
-        {
-            treoryFromJSON = JsonConvert.DeserializeObject<RawDataTheory>(strJSON, Settings.JsonSettings);
-            foreach (var item in treoryFromJSON.RawTheories)
-            {
-                Theory theory = new Theory();
-                theory.Title = item.Title;
-                List<string> texts = new List<string>();
-                foreach (var itemSub in item.RawTexts)
-                    texts.Add(itemSub);
-                
-                theory.SetTextList(texts);
-                //_theories.Add(theory);
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.Log(ex.Message);
-        }
-    }
-
-    private void AddTestText()
-    {
-        string testText = @"This is some <b><size=50><color=#ff0000ff>Text</color></size></b>";
-        Theory theory = new Theory();
-        theory.Title = "Test";
-        List<string> texts = new List<string>();
-        texts.Add(testText);
-
-        theory.SetTextList(texts);
-        //_theories.Add(theory);
-    }
-
-    private void ShowWebView(string content)
-    {
-        //TextAsset mytxtData = (TextAsset)Resources.Load("HTML_Theory/th_1");
-        //string txt = mytxtData.text;
-        webView.gameObject.SetActive(true);
-        
-        webView.OnShouldClose += (view) => OnShouldCloseWebView(view);
-        //webView.Alpha = 1.0f;
-
-        webView.Frame = new Rect(0, -Screen.height * 0.1f, Screen.width, Screen.height);
-        //// Make the web view center in the screen with size 500x500:
-        //var side = 500;
-        //var x = (Screen.width - side) / 2.0f;
-        //var y = (Screen.height - side) / 2.0f;
-        //webView.Frame = new Rect(x, y, side, side);
-        //webView.Load("https://vz.ru/");
-        //webView.OnMessageReceived += (view, message) => RecieveMessage(view, message);
-        webView.LoadHTMLString(content, "", false);
-        webView.SetShowToolbar(
-                false,  // Show or hide?         true  = show
-                false, // With animation?       false = no animation
-                false,  // Is it on top?         true  = top
-                false  // Should adjust insets? true  = avoid overlapping to web view
-            );
-    }
-
-    //private void RecieveMessage(UniWebView webView, UniWebViewMessage message)
-    //{
-    //    ClickReturnFromTheory();
-    //}
 
     private bool OnShouldCloseWebView(UniWebView webView)
     {

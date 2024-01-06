@@ -3326,6 +3326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theoryTitleText: {fileID: 1815350969}
+  theoryTitle1Text: {fileID: 1689875653}
+  theoryTitle2Text: {fileID: 304708438}
   textItemPrefab: {fileID: 5515138942515185777, guid: a96c442dbbd864eb097be6b02dd27a28, type: 3}
   buttonFinishPrefab: {fileID: 5515138942515185777, guid: 4853bcaa01aac4d6999aaa8a61e85903, type: 3}
   headerPrefab: {fileID: 5515138942515185777, guid: 2507e8a1ae215487fbe0ea8f6e9df526, type: 3}
