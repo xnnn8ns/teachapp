@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,9 @@ public class CanvasController : MonoBehaviour
     [SerializeField]
     private Slider _slider;
     [SerializeField]
-    private Text _textButtonCheckHeader;
+    private TextMeshProUGUI _textButtonCheckHeader;
+    [SerializeField]
+    private TextMeshProUGUI _textButtonCheckHeaderDisabled;
 
     private void Start()
     {
@@ -22,6 +25,7 @@ public class CanvasController : MonoBehaviour
 
     private void SetHeaders()
     {
-        _textButtonCheckHeader.text = LangAsset.GetValueByKey("Check");
+        _textButtonCheckHeader.text = LangAsset.GetValueByKey("Continue");
+        _textButtonCheckHeaderDisabled.text = LangAsset.GetValueByKey("Continue");
     }
 }
