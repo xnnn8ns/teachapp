@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class SaveUserData : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class SaveUserData : MonoBehaviour
 
     private void Start()
     {
-        filePath = Path.Combine(Application.dataPath, "Resources/userData.json");
+        filePath = Path.Combine(Application.persistentDataPath, "userData.json");
 
         nameInputField.text = PlayerPrefs.GetString("name", "");
         usernameInputField.text = PlayerPrefs.GetString("username", "");
@@ -68,7 +69,12 @@ public class SaveUserData : MonoBehaviour
                 password = Encrypt(passwordInputField.text),
                 levelsCompleted = 0,
                 score = 0,
-                rank = 0
+                rank = 0,
+                startTime = ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds().ToString(),
+                initialLevelsCompleted = 0,
+                initialScore = 0,
+                lastUpdateDate = DateTime.Now.ToString("yyyy-MM-dd"),
+                elapsedTime = "0"
             };
 
             users.Add(newUser);
@@ -108,13 +114,18 @@ public class SaveUserData : MonoBehaviour
     }
 }
 public class userData
-{
-    public int id;
-    public string name;
-    public string username;
-    public string email;
-    public string password;
-    public int levelsCompleted;
-    public int score;
-    public int rank;
-}
+    {
+        public int id;
+        public string name;
+        public string username;
+        public string email;
+        public string password;
+        public int levelsCompleted;
+        public int score;
+        public int rank;
+        public string startTime;
+        public int initialLevelsCompleted;
+        public int initialScore;
+        public string lastUpdateDate;
+        public string elapsedTime;
+    }
