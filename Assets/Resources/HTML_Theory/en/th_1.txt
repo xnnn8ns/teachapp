@@ -1,17 +1,17 @@
-<color=#FFFFFF>Variables</color> are containers in which various data can be stored. 
+<color=#ffff00ff><b><size=55>Variables</size></b></color> are containers in which various data can be stored. 
 
-Variable names can only consist of <b>latin letters, numbers, and underscores.</b> 
-The name of the variable <b>cannot</b> start with a digit. 
+Variable names can only consist of <color=#ffff00ff><b>latin letters, numbers, and underscores.</b></color> 
+The name of the variable <color=#ffff00ff><b>cannot</b></color> start with a digit. 
 
-The language is also <b>case sensitive</b>,  the variables  <b>Tom</b> and <b>tom</b> are different variables.
+The language is also <color=#ffff00ff><b>case sensitive</b></color>,  the variables  <color=#add8e6ff><b><size=55>Tom</size></b></color> and <color=#add8e6ff><b><size=55>tom</size></b></color> are different variables.
 
 And besides, the name of the variable should not match the keywords of the language..
 
-<b>Keywords:</b>
+<color=#ffff00ff><b><size=55>Keywords:</size></b></color>
 false, true, none, else, if, import,pass, class,return,def,and,or,yield
 
-<b><color=#FFFFFF>Example:</color></b>
+<color=#ffff00ff><b><size=55>Example:</size></b></color>
 Correctly named variables look like this:
-_Pole, N1ame, mas 
+<color=#add8e6ff><b>_Pole, N1ame, mas</b></color>
 
 

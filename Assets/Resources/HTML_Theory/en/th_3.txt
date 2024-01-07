@@ -1,17 +1,17 @@
-<color=#FFFFFF>Arithmetic operators</color> include: <b>addition (+), subtraction (-), multiplication (*), division (/)</b>.
+<color=#ffff00ff><b><size=55>Arithmetic operators</size></b></color> include: <color=#add8e6ff><b>addition (+), subtraction (-), multiplication (*), division (/)</b></color>.
 
-<b><color=#FFFFFF>Example:</color></b>
-addition= 7+3
+<color=#ffff00ff><b><size=55>Example:</size></b></color>
+<color=#add8e6ff><b>addition= 7+3</b></color> 
 the value of the result variable will be 10
 
-subtraction= 8-6
+<color=#add8e6ff><b>subtraction= 8-6</b></color> 
 the value of the variable subtraction will be 2
 
-multiplication = 4*2
+<color=#add8e6ff><b>multiplication = 4*2</b></color> 
 the value of the variable multiplication will be 8
 
-division = 9/3
+<color=#add8e6ff><b>division = 9/3</b></color> 
 the value of the variable division will be 3
 
 For division, it must be remembered that the data type of the variable into which the result of division is written must be
-<b>data type <color=#FFFFFF>float</color></b> (floating point number).
+<color=#ffff00ff><b><size=55>data type</size></b></color> <color=#add8e6ff><b>float</b></color> (floating point number).

@@ -182,7 +182,7 @@ namespace Mkey
             int lengthAL = AnimatorControllerLeft.Count;
             int lengthAR = AnimatorControllerRight.Count;
             if (BackgroundPrefabs == null || lengthp == 0) return;
-            Debug.Log(lengthp);
+            Debug.Log(lengthAL);
             //save  biomes prefabs
             GameObject[] bPrefs = new GameObject[length];
             Sprite[] sPrefs = new Sprite[10];
