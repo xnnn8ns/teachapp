@@ -963,7 +963,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1659296808}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: RegisterUserData, Assembly-CSharp
         m_MethodName: HideErrorWindow
         m_Mode: 1
@@ -4109,7 +4109,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1659296800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 564dec556f707f24aa2d74e4e902ab76, type: 3}
+  m_Script: {fileID: 11500000, guid: ce7ba2b8e7671b74ab9bff6073eab24d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nameInputField: {fileID: 811082203}
