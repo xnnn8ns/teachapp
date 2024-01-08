@@ -1,7 +1,7 @@
-Some loops may contain other loops within themselves.
+<b><color=#ffff00ff><size=55>Some loops</size></color></b> can contain other loops within themselves.
 
-<b><color=#FFFFFF>Example:</color></b>
-i = 1
+<b><color=#ffff00ff><size=55>Example:</size></color></b>
+<b><color=#add8e6ff>i = 1
 j = 1
 while i < 10:
     while j < 10:
@@ -9,32 +9,32 @@ while i < 10:
         j += 1
     print("\n")
     j = 1
-    i += 1
-The outer loop "while i < 10:" is triggered 9 times until the variable "i" becomes equal to 10. Inside this loop, the inner loop "while j < 10:" is triggered.
-The inner loop also fires 9 times until the variable "j" becomes 10. Moreover, all 9 iterations of the inner cycle are triggered within one iteration of the outer cycle.
+    i += 1</color></b>
 
-In each iteration of the inner loop, the product of the numbers "i" and "j" will be output to the console. Then the value of the variable "j" is increased by one. When the inner loop has finished working,
-the values of the variable "j" are reset to 1, and the value of the variable "i" is increased by one and the transition to the next iteration of the outer loop takes place. And everything repeats until the variable "i" becomes 10.
-Accordingly, the inner loop will fire only 81 times for all iterations of the outer loop. As a result, we will get the following console output:
+The outer loop <b><color=#add8e6ff>while i < 10:</color></b> triggers <b>9 times</b> until the variable i becomes <b>equal to 10</b>. Inside this loop, the inner loop <b><color=#add8e6ff>while j < 10:</color></b> triggers.
+The inner loop also <b>triggers 9 times</b> until the variable j becomes equal to 10. Moreover, all 9 iterations of the inner loop <b>occur within</b> one iteration of the outer loop.
 
+In <b><color=#add8e6ff>each iteration</color></b> of the inner loop, the product of the numbers i and j <b>will be output</b> to the console. Then the value of the variable j <b>increases</b> by one. When the inner loop <b>has finished</b> its work,
+the value of the variable j <b>is reset</b> to 1, the value of the variable i <b>increases</b> by one and the transition to the <b><color=#add8e6ff>next iteration</color></b> of the outer loop occurs. And everything repeats until the variable i <b>becomes equal to 10</b>.
 
+Accordingly, the inner loop will trigger <b>a total of 81 times</b> for all iterations of the outer loop. In the end, we will get the following console <b>output</b>:
 
-Exiting the "break" and "continue" loop
-To control the loop, we can use special break and continue operators. The break operator exits the loop. And the continue statement jumps to the next iteration of the loop.
-The break statement can be used if conditions are formed in the loop that are incompatible with its further execution.
+<b><color=#ffff00ff><size=55>Exiting the loop with break and continue</size></color></b>
+To control the loop, we can use special operators <b><color=#add8e6ff>break</color></b> and <b><color=#add8e6ff>continue</color></b>. The operator <b><color=#add8e6ff>break</color></b> performs <b>exit from the loop</b>. And the operator <b><color=#add8e6ff>continue</color></b> performs <b>transition</b> to the next iteration of the loop.
 
-<b><color=#FFFFFF>Example:</color></b>
+The operator <b><color=#add8e6ff>break</color></b> can be used if conditions are formed in the loop that are <b>incompatible</b> with its further execution.
+
+<b><color=#ffff00ff><size=55>Example:</size></color></b>
 number = 0
 while number < 5:
     number += 1
-    if number == 3 :    # if number = 3, exit the loop
+    if number == 3 :    <b><color=#add8e6ff># if number = 3, we exit the loop</color></b>
         break
     print(f"number = {number}")
-Here the "while" loop checks the condition "number < 5". And as long as "number" is not equal to 5, it is assumed that the value of number will be output to the console. However, another condition is also checked inside the loop: "if number == 3".
-That is, if the value of number is 3, then we exit the loop using the break operator. And as a result, we will get the following console output:
 
-<color=#FFFFFF>Result:</color>
-number = 1
-number = 2
+Here the loop <b><color=#add8e6ff>while</color></b> checks the condition <b><color=#add8e6ff>number < 5</color></b>. And as long as <b><color=#add8e6ff>number</color></b> is not equal to 5, it is assumed that the value of <b><color=#add8e6ff>number</color></b> will be output to the console. However, another condition is also checked inside the loop: <b><color=#add8e6ff>if number == 3</color></b>. 
+That is, if the value of <b><color=#add8e6ff>number</color></b> is equal to 3, then we exit the loop using the operator <b><color=#add8e6ff>break</color></b>. And in the end, we will get the following console <b>output</b>:
 
-
+<b><color=#ffff00ff><size=55>Result:</size></color></b>
+<b><color=#add8e6ff>number = 1
+number = 2</color></b>

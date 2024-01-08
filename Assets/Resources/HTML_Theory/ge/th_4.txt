@@ -1,19 +1,20 @@
-Sometimes there is a need for a program to compare one with another in order to understand what the program will do next or which variable to take.
-Conditional expressions are divided into comparison operators and logical operators.
+Manchmal gibt es eine <b><color=#ffff00ff><size=55>Notwendigkeit im Programm zum Vergleich</size></color></b> von einem mit einem anderen, um zu verstehen, was das Programm als nächstes tun wird oder welche Variable zu nehmen.
 
-Comparison operators return True or False values.
+<b><color=#ffff00ff><size=55>Bedingungsausdrücke sind unterteilt in</size></color></b><b><color=#add8e6ff> Vergleichsoperatoren und logische Operatoren.</color></b>
 
-<b><color=#FFFFFF>Comparison operators:</color></b>
-<b>==</b> Returns True if both operands are equal. Otherwise it returns False.
-<b>!=</b> Returns True if both operands are NOT equal. Otherwise it returns False.
-<b>></b> (more than) Returns True if the first operand is larger than the second.
-<b><</b> (less than) Returns True if the first operand is smaller than the second.
-<b>>=</b> (greater than or equal to) Returns True if the first operand is greater than or equal to the second.
-<b><=</b> (less than or equal to) Returns True if the first operand is less than or equal to the second.
+Vergleichsoperatoren <b><color=#add8e6ff>geben immer die Werte True oder False zurück</color></b>
 
-<b><color=#FFFFFF>Example:</color></b>
+<b><color=#ffff00ff><size=55>Vergleichsoperatoren:</size></color></b>
+<b><color=#add8e6ff>==</color></b> Gibt True zurück, wenn beide Operanden gleich sind. Andernfalls gibt es False zurück.
+<b><color=#add8e6ff>!=</color></b> Gibt True zurück, wenn beide Operanden NICHT gleich sind. Andernfalls gibt es False zurück.
+<b><color=#add8e6ff>> (mehr als)</color></b> Gibt True zurück, wenn der erste Operand größer als der zweite ist.
+<b><color=#add8e6ff>< (weniger als)</color></b> Gibt True zurück, wenn der erste Operand kleiner als der zweite ist.
+<b><color=#add8e6ff>>= (größer oder gleich)</color></b> Gibt True zurück, wenn der erste Operand größer oder gleich dem zweiten ist.
+<b><color=#add8e6ff><= (weniger oder gleich)</color></b> Gibt True zurück, wenn der erste Operand kleiner oder gleich dem zweiten ist.
+
+<b><color=#ffff00ff><size=55>Beispiel:</size></color></b>
 a = 3
 b = 7
-res = a == b  # saving the result of the operation to a variable
-print(res)  # False - 4 is not equal to 5
-print(a != b)  # True
+res = a == b <b><color=#add8e6ff> # speichern Sie das Ergebnis der Operation in einer Variablen </color></b>
+print(res) <b><color=#add8e6ff> # False - 4 ist nicht gleich 5 </color></b>
+print(a != b) <b><color=#add8e6ff> # True</color></b>

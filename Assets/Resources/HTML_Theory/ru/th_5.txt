@@ -1,40 +1,38 @@
-В Python имеются следующие логические операторы:<color=#5B0B70><b>and</b>(логическое умножение),<b>or</b>(логическое сложение),<b>not</b>(логическое отрицание).</color>
+<color=#ffff00ff><b><size=55>В Python имеются следующие логические операторы:</size></b></color>
+<color=#add8e6ff><b>and</b></color>(логическое умножение),<color=#add8e6ff><b>or</b></color>(логическое сложение),<color=#add8e6ff><b>not</b></color>(логическое отрицание).
 
-<color=#5B0B70>and</color>(и):
-Этот оператор возвращает значение TRUE только если все переменные имеют значение TRUE. 
-Если хотя бы одна из переменных будет FALSE , то и значение будет FALSE.
+<color=#add8e6ff><b>and(и)</b></color>:
+Этот оператор возвращает значение <b>TRUE</b> только если все переменные имеют значение <b>TRUE</b>. 
+Если хотя бы одна из переменных будет <b>FALSE</b> , то и значение будет <b>FALSE</b>.
 
-<b><color=#5B0B70>Пример:</color></b>
+<color=#ffff00ff><b><size=55>Пример:</size></b></color>
 age = 23
 weight = 50
 result = age > 21 and weight == 50
-print(result)  # True
+print(result) <color=#add8e6ff><b> # True</b></color>
 
-В данном случае оператор and сравнивает результаты двух выражений: age > 21 weight == 50. И если оба этих выражений возвращают True,
-то оператор and также возвращает True (формально возвращается значение последнего операнда).
+В данном случае оператор <color=#add8e6ff><b>and</b></color> сравнивает результаты двух выражений: <color=#add8e6ff><b>age > 21</b></color> <color=#add8e6ff><b>weight == 50</b></color>. И если оба этих выражений возвращают <b>True</b>,
+то оператор <color=#add8e6ff><b>and</b></color> также возвращает <b>True</b> (формально возвращается значение последнего операнда).
 
-<color=#5B0B70>or</color>(или):
+<color=#add8e6ff><b>or(или)</b></color>:
+Этот оператор возвращает значение <b>TRUE</b> если хотя бы одна переменная имеют значение <b>TRUE</b>. 
+Если все из переменных будет <b>FALSE</b> , то только тогда значение будет <b>FALSE</b>.
 
-Этот оператор возвращает значение TRUE если хотя бы одна переменная имеют значение TRUE. 
-Если все из переменных будет FALSE , то только тогда значение будет FALSE.
-
-<b><color=#5B0B70>Пример:</color></b>
-age = 25
+<color=#ffff00ff><b><size=55>Пример:</size></b></color>
+<color=#add8e6ff><b>age = 25
 Married = False
 res = age > 21 or Married
-print(res)  # True, так как выражение age > 21 равно True
+print(res)  # True, так как выражение age > 21</b></color>
 
-<color=#5B0B70>not</color>(не)
+<color=#add8e6ff><b>not(не)</b></color>
+Возвращает <b>True</b>, если выражение равно <b>False</b> и, наоборот, возвращает <b>False</b>, если значение <b>True</b>
 
-Возвращает True, если выражение равно False и, наоборот, возвращает False, если значение True
-
-<b><color=#5B0B70>Пример:</color></b>
+<color=#ffff00ff><b><size=55>Пример:</size></b></color>
 age = 25
 Married = False
-print(not age > 21)  # False
-print(not Married)  # True
-print(not 5)  # False
-print(not 0)  # True
+print(not age > 21) <color=#add8e6ff><b> # False </b></color>
+print(not Married) <color=#add8e6ff><b> # True </b></color>
+print(not 5) <color=#add8e6ff><b> # False </b></color>
+print(not 0) <color=#add8e6ff><b> # True</b></color>
 
-
-0 эквивалент False, 1 эквивалентна True
+<color=#ffff00ff><b><size=55>0 эквивалент False, 1 эквивалентна True</size></b></color>

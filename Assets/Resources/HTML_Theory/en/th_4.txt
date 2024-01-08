@@ -1,19 +1,20 @@
-Sometimes there is a need for a program to compare one with another in order to understand what the program will do next or which variable to take.
-Conditional expressions are divided into comparison operators and logical operators.
+Sometimes there is a <b><color=#ffff00ff><size=55>need in the program for comparison</size></color></b> of one with another, to understand what the program will do next or which variable to take.
 
-Comparison operators return True or False values.
+<b><color=#ffff00ff><size=55>Conditional expressions are divided into</size></color></b><b><color=#add8e6ff> comparison operators and logical operators.</color></b>
 
-<b><color=#FFFFFF>Comparison operators:</color></b>
-<b>==</b> Returns True if both operands are equal. Otherwise it returns False.
-<b>!=</b> Returns True if both operands are NOT equal. Otherwise it returns False.
-<b>></b> (more than) Returns True if the first operand is larger than the second.
-<b><</b> (less than) Returns True if the first operand is smaller than the second.
-<b>>=</b> (greater than or equal to) Returns True if the first operand is greater than or equal to the second.
-<b><=</b> (less than or equal to) Returns True if the first operand is less than or equal to the second.
+Comparison operators <b><color=#add8e6ff>always return True or False values</color></b>
 
-<b><color=#FFFFFF>Example:</color></b>
+<b><color=#ffff00ff><size=55>Comparison operators:</size></color></b>
+<b><color=#add8e6ff>==</color></b> Returns True if both operands are equal. Otherwise, it returns False.
+<b><color=#add8e6ff>!=</color></b> Returns True if both operands are NOT equal. Otherwise, it returns False.
+<b><color=#add8e6ff>> (more than)</color></b> Returns True if the first operand is greater than the second.
+<b><color=#add8e6ff>< (less than)</color></b> Returns True if the first operand is less than the second.
+<b><color=#add8e6ff>>= (greater than or equal to)</color></b> Returns True if the first operand is greater than or equal to the second.
+<b><color=#add8e6ff><= (less than or equal to)</color></b> Returns True if the first operand is less than or equal to the second.
+
+<b><color=#ffff00ff><size=55>Example:</size></color></b>
 a = 3
 b = 7
-res = a == b  # saving the result of the operation to a variable
-print(res)  # False - 4 is not equal to 5
-print(a != b)  # True
+res = a == b <b><color=#add8e6ff> # save the result of the operation in a variable </color></b>
+print(res) <b><color=#add8e6ff> # False - 4 is not equal to 5 </color></b>
+print(a != b) <b><color=#add8e6ff> # True</color></b>

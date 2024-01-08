@@ -1,21 +1,18 @@
-Cycles allow you to perform some action depending on the observance of some condition. The Python language has the following types of loops:
-<b><color=#FFFFFF>while,for</color></b>
+<b><color=#ffff00ff><size=55>Schleifen</size></color></b> ermöglichen es, eine bestimmte Aktion in Abhängigkeit von der Einhaltung einer bestimmten <b>Bedingung</b> auszuführen. In der Python-Sprache gibt es folgende <b><color=#add8e6ff>Arten von Schleifen:</color></b>
+<b><color=#ffff00ff><size=55>while, for</size></color></b>
 
-A condition is specified after the while keyword, and as long as this expression returns True, the block of instructions that follows will be executed.
+Nach dem Schlüsselwort <b>while</b> wird eine Bedingung angegeben, und solange dieser Ausdruck den Wert <b>True</b> zurückgibt, wird der Anweisungsblock ausgeführt, der danach kommt.
 
-<b><color=#FFFFFF>Construction:</color></b>
-while condition_expression:
-    Instructions
+<b><color=#ffff00ff><size=55>Konstruktion:</size></color></b>
+<b>while bedingter Ausdruck:
+   Anweisungen</b>
 
-<b><color=#FFFFFF>Example:</color></b>
-num = 0
-while number < 3:
+<b><color=#ffff00ff><size=55>Beispiel:</size></color></b>
+<color=#add8e6ff><b>num = 0
+while num < 3:
     print("num = {num}")
     num += 1
-print("the program is completed")
+print("Programm beendet")</b></color>
 
-In this case, the while loop will be executed until the number variable is less than 3 and executed 3 times. 
-It is necessary to remember about the 4 indents on the left of calculations inside the loop.
-
-
-
+In diesem Fall wird die <b>while</b>-Schleife ausgeführt, solange die Variable <b>num</b> kleiner als 3 ist und <b>3 Mal</b> ausgeführt wird.
+<color=#add8e6ff><b>Es ist wichtig zu beachten</b></color>, dass die Berechnungen innerhalb der Schleife 4 Einrückungen von links haben sollten.
