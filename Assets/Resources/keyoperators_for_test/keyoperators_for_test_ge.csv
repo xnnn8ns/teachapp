@@ -1,0 +1,21 @@
++;Addition;1
+-;Subtraktion;1
+*;Multiplikation;1
+/;Division;1
+**;Aufrichten;2
+//;Teilung ohne Rückstand;4
+%;Der Rest der Division;4
+<;Vergleich: weniger;4
+>;Vergleich: weniger;4
+<=;Vergleich: kleiner oder gleich;4
+>=;Vergleich: größer oder gleich;4
+==;Gleich;4
+!=;Ist nicht gleich;4
+=;Zuweisung;1
++=;Addition und Zuweisung;2
+-=;Subtraktion und Zuweisung;2
+/=;Division und Zuweisung;3
+*=;Multiplikation und Zuweisung;3
+%=;Modulo-Teilung und Zuweisung;4
+**=;Potenzsteigerung und Zuweisung;4
+//=;Division mit Rest und Zuweisung;4

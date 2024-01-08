@@ -1,0 +1,35 @@
+class;Schlüsselwort für die Klassendefinition;7
+from;Klasse aus Modul importieren;8
+or;Boolescher Operator, um einen von zwei Werten auszuführen: oder;5
+global;Variable außerhalb des aktuellen Gültigkeitsbereichs festlegen;8
+def;Das Schlüsselwort, das zur Definition der Funktion verwendet wird;6
+if;Anweisung zum Schreiben eines bedingten Codeblocks;7
+and;Boolescher Operator, um zwei Werte auszuführen: und;5
+import;Module und Klassen in das aktuelle Programm importieren;9
+while;Einen Block ausführen, bis der Ausdruck wahr ist;8
+lambda;Wird verwendet, um Lambda-Ausdrücke zu erstellen;8
+for;Durchlaufen der Elemente der Sequenz;9
+not;Logische Operation not: nicht;5
+False;Wert für den binären Operator: False;1
+True;Wert für den binären Operator: true;1
+None;Kein Objekttyp definiert;5
+continue;Setzt die nächste Schleife in for und while fort.;8
+pass;Codeausführung überspringen;9
+raise;Ausnahmen im Programm erstellen;9
+del;Objekte, Variablen, Listen usw. löschen;6
+return;In der Funktion gibt der Wert zurück;6
+as;Einen Namen für den Import angeben;6
+elif;Wird zusammen mit der if-Anweisung für die Operation "else if" verwendet;7
+in;Überprüft, ob ein Wert im Array vorhanden ist;5
+try;Ausnahmebehandlung;7
+assert;Einfügen von Debug-Assertionen;7
+else;Wird mit if-elif-Bedingungen verwendet, wenn keine der Bedingungen wahr ist;7
+is;Überprüfen, ob zwei Variablen auf dasselbe Objekt verweisen;5
+async;Wird in der Couroutine-Funktion verwendet, mit E / A-Modul und await;8
+with;Umschließt den Ausführungsblock mit Methoden, wenn die Funktionen enter und exit implementiert werden;8
+except;Behandeln von Ausnahmen im try-Block;7
+finally;Wird mit try-except verwendet. Der Code in diesem Block wird unter allen Bedingungen ausgeführt;5
+nonlocal;Zugriff auf außerhalb des Gültigkeitsbereichs definierte Variablen;6
+yield;Rückgabe von Werten aus einer Funktion nacheinander;8
+break;Stoppt die Ausführung der for- und while-Schleife;8
+await;Asynchrone Verarbeitung von Codeblöcken;8

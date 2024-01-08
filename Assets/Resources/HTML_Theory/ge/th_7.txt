@@ -1,0 +1,40 @@
+Sometimes, depending on the data entered, it will depend on what the program will do next. Conditional constructions are used for this purpose.
+
+<b><color=#FFFFFF>Construction:</color></b>
+if Condition:
+    Instruction block 1
+else:
+    Instruction block 2 
+
+Instruction block 1 will be executed if the Condition is true. If the Condition is false, Instruction Block 2 will be executed.
+The conditional statement may be missing the word else and the subsequent block.
+
+<b><color=#FFFFFF>Example:</color></b>
+y = int(input())
+if y < 0:
+    y = -x
+print(y)
+
+
+Python uses indentation to highlight a block of instructions related to an if or else statement. All instructions that relate to 
+for one block, they must have an equal amount of indentation, that is, the same number of spaces at the beginning of the line.
+It is recommended to use an indentation of 4 spaces and it is not recommended to use a tab character as an indentation.
+
+Sometimes there are more conditions than one condition that must be checked at a time, nested constructs are used for this.
+We get a nested branching – after one fork, another fork appears during the execution of the program.
+
+<b><color=#FFFFFF>Example:</color></b>
+x = int(input())
+y = int(input())
+if x > 0:
+    if y > 0:               # x > 0, y > 0
+        print("+ и +")
+    else:                   # x > 0, y < 0
+        print("+ -")
+else:
+    if y > 0:               # x < 0, y > 0
+        print("- +")
+    else:                   # x < 0, y < 0
+        print("- -")
+
+

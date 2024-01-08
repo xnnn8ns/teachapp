@@ -158,7 +158,18 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static void ImportKeyOperatorsForTest()
     {
         GetKeyOperatorsForTest().Clear();
-        var dataset = Resources.Load<TextAsset>("keyoperators_for_test");
+
+        string lang = "en";
+        if (LangAsset.CurrentLangLocation == LangLocation.En)
+            lang = "en";
+        else if (LangAsset.CurrentLangLocation == LangLocation.Ru)
+            lang = "ru";
+        else if (LangAsset.CurrentLangLocation == LangLocation.Ge)
+            lang = "ge";
+        else if (LangAsset.CurrentLangLocation == LangLocation.It)
+            lang = "it";
+
+        var dataset = Resources.Load<TextAsset>("keyoperators_for_test/keyoperators_for_test_" + lang);
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
@@ -175,7 +186,18 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static void ImportKeyBuildInsForTest()
     {
         GetKeyBuildInsForTest().Clear();
-        var dataset = Resources.Load<TextAsset>("keywords_build_in_for_test");
+
+        string lang = "en";
+        if (LangAsset.CurrentLangLocation == LangLocation.En)
+            lang = "en";
+        else if (LangAsset.CurrentLangLocation == LangLocation.Ru)
+            lang = "ru";
+        else if (LangAsset.CurrentLangLocation == LangLocation.Ge)
+            lang = "ge";
+        else if (LangAsset.CurrentLangLocation == LangLocation.It)
+            lang = "it";
+
+        var dataset = Resources.Load<TextAsset>("keywords_build_in_for_test/keywords_build_in_for_test_" + lang);
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
@@ -192,7 +214,18 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static void ImportKeyWordsForTest()
     {
         GetKeyWordsForTest().Clear();
-        var dataset = Resources.Load<TextAsset>("keywords_for_test");
+
+        string lang = "en";
+        if (LangAsset.CurrentLangLocation == LangLocation.En)
+            lang = "en";
+        else if (LangAsset.CurrentLangLocation == LangLocation.Ru)
+            lang = "ru";
+        else if (LangAsset.CurrentLangLocation == LangLocation.Ge)
+            lang = "ge";
+        else if (LangAsset.CurrentLangLocation == LangLocation.It)
+            lang = "it";
+
+        var dataset = Resources.Load<TextAsset>("keywords_for_test/keywords_for_test_" + lang);
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
@@ -282,7 +315,18 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static void ImportKeyBuildInFunc()
     {
         GetKeyBuildInFunc().Clear();
-        var dataset = Resources.Load<TextAsset>("keywords_build_in_for_test");
+
+        string lang = "en";
+        if (LangAsset.CurrentLangLocation == LangLocation.En)
+            lang = "en";
+        else if (LangAsset.CurrentLangLocation == LangLocation.Ru)
+            lang = "ru";
+        else if (LangAsset.CurrentLangLocation == LangLocation.Ge)
+            lang = "ge";
+        else if (LangAsset.CurrentLangLocation == LangLocation.It)
+            lang = "it";
+
+        var dataset = Resources.Load<TextAsset>("keywords_build_in_for_test/keywords_build_in_for_test_" + lang);
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {

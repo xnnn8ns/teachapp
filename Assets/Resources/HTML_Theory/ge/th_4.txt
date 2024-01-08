@@ -1,0 +1,19 @@
+Sometimes there is a need for a program to compare one with another in order to understand what the program will do next or which variable to take.
+Conditional expressions are divided into comparison operators and logical operators.
+
+Comparison operators return True or False values.
+
+<b><color=#FFFFFF>Comparison operators:</color></b>
+<b>==</b> Returns True if both operands are equal. Otherwise it returns False.
+<b>!=</b> Returns True if both operands are NOT equal. Otherwise it returns False.
+<b>></b> (more than) Returns True if the first operand is larger than the second.
+<b><</b> (less than) Returns True if the first operand is smaller than the second.
+<b>>=</b> (greater than or equal to) Returns True if the first operand is greater than or equal to the second.
+<b><=</b> (less than or equal to) Returns True if the first operand is less than or equal to the second.
+
+<b><color=#FFFFFF>Example:</color></b>
+a = 3
+b = 7
+res = a == b  # saving the result of the operation to a variable
+print(res)  # False - 4 is not equal to 5
+print(a != b)  # True

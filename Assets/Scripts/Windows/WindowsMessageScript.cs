@@ -61,7 +61,8 @@ public class WindowsMessageScript : MonoBehaviour
 
     public void ClickOK()
     {
-        _clickAudio?.Play();
+        //_clickAudio?.Play();
+        Vibration.VibratePop();
         StopAllCoroutines();
         if(_audioScore)
             _audioScore?.Stop();

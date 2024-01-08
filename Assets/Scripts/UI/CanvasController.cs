@@ -12,6 +12,8 @@ public class CanvasController : MonoBehaviour
     private TextMeshProUGUI _textButtonCheckHeader;
     [SerializeField]
     private TextMeshProUGUI _textButtonCheckHeaderDisabled;
+    [SerializeField]
+    private TextMeshProUGUI _textButtonResultHeaderDisabled;
 
     private void Start()
     {
@@ -27,5 +29,6 @@ public class CanvasController : MonoBehaviour
     {
         _textButtonCheckHeader.text = LangAsset.GetValueByKey("Continue");
         _textButtonCheckHeaderDisabled.text = LangAsset.GetValueByKey("Continue");
+        _textButtonResultHeaderDisabled.text = LangAsset.GetValueByKey("Continue");
     }
 }

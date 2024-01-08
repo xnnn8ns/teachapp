@@ -1,0 +1,40 @@
+Python has the following logical operators:<color=#FFFFFF><b>and</b>(logical multiplication),<b>or</b>(logical addition),<b>not</b>(logical negation).</color>
+
+<color=#FFFFFF>and</color>(и):
+This operator returns TRUE only if all variables have the value TRUE.
+If at least one of the variables is FALSE, then the value will be FALSE.
+
+<b><color=#FFFFFF>Example:</color></b>
+age = 23
+weight = 50
+result = age > 21 and weight == 50
+print(result)  # True
+
+In this case, the "and" operator compares the results of two expressions: "age" > 21 "weight" == 50. And if both of these expressions return True,
+then the "and" operator also returns True (formally, the value of the last operand is returned).
+
+<color=#FFFFFF>or</color>(или):
+
+This operator returns TRUE if at least one variable has the value TRUE.
+If all of the variables are FALSE, then only the value will be FALSE.
+
+<b><color=#FFFFFF>Example:</color></b>
+age = 25
+Married = False
+res = age > 21 or Married
+print(res)  # True, since the expression "age" > 21 is True
+
+<color=#FFFFFF>not</color>(не)
+
+Returns True if the expression is False and, conversely, returns False if the value is True
+
+<b><color=#FFFFFF>Example:</color></b>
+age = 25
+Married = False
+print(not age > 21)  # False
+print(not Married)  # True
+print(not 5)  # False
+print(not 0)  # True
+
+
+0 is equivalent to False, 1 is equivalent to True

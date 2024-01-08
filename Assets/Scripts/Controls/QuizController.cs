@@ -17,7 +17,8 @@ public class QuizController : MonoBehaviour
 
     public void ClickReturnFromQuiz()
     {
-        _clickAudio?.Play();
+        //_clickAudio?.Play();
+        Vibration.VibratePop();
         Scene scene = SceneManager.GetSceneByName("WindowYesNowScene");
         if (scene.isLoaded)
             return;

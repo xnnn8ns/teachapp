@@ -1,0 +1,35 @@
+print();Ausgabefunktion (drucken);1
+range();eine Folge von Zahlen, von 0 bis N;2
+dir();Liste der Objektnamen;5
+divmod();privat und der Rest der Division von zwei Zahlen;3
+enumerate();erzeugt Tupel aus zwei Elementen;5
+format();Formatierung (z. B. Strings);4
+globals();globale Namen (als Wörterbuch);4
+locals();lokale Namen (als Wörterbuch);4
+help();ruft die integrierte Hilfe auf;2
+input();Benutzereingabe einer Zeichenfolge;2
+open();Öffnen einer Datei und Zurückgeben eines Objekts;6
+type();Rückgabe des Objekttyps;2
+str();Umwandlung in String;2
+int();Umwandlung in eine Zahl;2
+float();Umwandlung in eine Gleitkommazahl;2
+complex();Umwandlung in eine komplexe Zahl;3
+bool();Umwandlung in booleschen Typ;2
+tuple();Umwandlung zu Tupel;3
+dict();Umwandlung in ein Wörterbuch;3
+list();Umwandlung in eine Liste;3
+set();Umwandlung zu Menge;3
+slice();slice erstellen;6
+bin();Umwandlung einer ganzen Zahl in eine binäre Zeichenfolge;6
+hex();Umwandlung einer ganzen Zahl in eine hexadezimale Zeichenfolge;7
+oct();Umwandlung einer ganzen Zahl in eine oktale Zeichenfolge;7
+pow();Multiplizieren einer Zahl;3
+abs();Rückgabe des Zahlenmoduls;3
+round();auf die angegebene Anzahl von Dezimalstellen runden;3
+len();Ausgabe der Anzahl der Elemente in einem Objekt;4
+min();Ausgabe des minimalen Elements der Sequenz;3
+max();Ausgabe des maximalen Elements der Sequenz;3
+sorted();Gibt eine neue sortierte Liste zurück;7
+sum();Ausgabe der Summe der Elemente der Sequenz;3
+next();gibt das nächste Iteratorelement zurück;5
+chr();Rückgabe eines Zeichens nach numerischer Darstellung;2

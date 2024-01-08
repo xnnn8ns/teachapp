@@ -141,6 +141,8 @@ namespace Mkey
                 corePath = "theory_list_en";
             else if (LangAsset.CurrentLangLocation == LangLocation.Ru)
                 corePath = "theory_list_ru";
+            else if (LangAsset.CurrentLangLocation == LangLocation.Ge)
+                corePath = "theory_list_ge";
 
             string jsonPath = Settings.jsonTheoryFilePath;
             
@@ -276,7 +278,8 @@ namespace Mkey
 
         private void ClickCurrentLevelButton(int clickIndex, bool isMissionClicked = false)
         {
-            _clickAudio?.Play();
+            //_clickAudio?.Play();
+            Vibration.VibratePop();
             Scene scene = SceneManager.GetSceneByName("WindowScene");
             if (scene.isLoaded)
                 return;
@@ -290,7 +293,8 @@ namespace Mkey
 
         private void ClickPassButton(int clickIndex, bool isMissionClicked = false)
         {
-            _clickAudio?.Play();
+            //_clickAudio?.Play();
+            Vibration.VibratePop();
             Debug.Log("ClickPassButton");
             Scene scene = SceneManager.GetSceneByName("WindowScene");
             if (scene.isLoaded)
@@ -305,7 +309,8 @@ namespace Mkey
 
         private void ClickFutureButton()
         {
-            _clickAudio?.Play();
+            //_clickAudio?.Play();
+            Vibration.VibratePop();
             Scene scene = SceneManager.GetSceneByName("WindowSimpliMessageScene");
             if (scene.isLoaded)
                 return;

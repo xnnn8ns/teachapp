@@ -7711,6 +7711,7 @@ MonoBehaviour:
   _slider: {fileID: 402140778}
   _textButtonCheckHeader: {fileID: 634196591}
   _textButtonCheckHeaderDisabled: {fileID: 526457402}
+  _textButtonResultHeaderDisabled: {fileID: 501898947}
 --- !u!1 &2077029324
 GameObject:
   m_ObjectHideFlags: 0

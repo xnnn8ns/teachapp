@@ -1,0 +1,21 @@
+Cycles allow you to perform some action depending on the observance of some condition. The Python language has the following types of loops:
+<b><color=#FFFFFF>while,for</color></b>
+
+A condition is specified after the while keyword, and as long as this expression returns True, the block of instructions that follows will be executed.
+
+<b><color=#FFFFFF>Construction:</color></b>
+while condition_expression:
+    Instructions
+
+<b><color=#FFFFFF>Example:</color></b>
+num = 0
+while number < 3:
+    print("num = {num}")
+    num += 1
+print("the program is completed")
+
+In this case, the while loop will be executed until the number variable is less than 3 and executed 3 times. 
+It is necessary to remember about the 4 indents on the left of calculations inside the loop.
+
+
+

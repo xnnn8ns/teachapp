@@ -1,0 +1,26 @@
+Another type of loop is represented by the "for" construction. This loop goes through a set of values, puts each value in a variable, and then in the loop we can perform various actions with this variable.
+
+<b><color=#FFFFFF>Construction:</color></b>
+for variable in set_of_values:
+    Instructions
+
+After the keyword "for" comes the name of the variable in which the values will be placed. Then, after the in operator, a set of values and a colon are specified.
+And from the next line there is a block of cycle instructions, which must also be indented from the beginning of the cycle.When executing a loop, Python sequentially gets all the values from the set and passes them to a variable.
+When all the values from the set are sorted, the loop ends its work.
+As a set of values, for example, you can consider a string that essentially represents a set of characters.
+
+<b><b><color=#FFFFFF>Example:</color></b></b>
+mes = "Hello"
+ 
+for c in meы:
+    print(c)
+
+<color=#FFFFFF>Result:</color>
+H
+e
+l
+l
+o
+
+
+

@@ -162,7 +162,8 @@ namespace Mkey
         {
             if (Settings.IsModalWindowOpened)
                 return;
-            _clickAudio?.Play();
+            //_clickAudio?.Play();
+            Vibration.VibratePop();
             Settings.Current_Topic = ID;
             SceneManager.LoadScene("WebWidget", LoadSceneMode.Single);
         }

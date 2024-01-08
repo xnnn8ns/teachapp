@@ -1,0 +1,27 @@
+After the program is running, you always want to see the result, what happened there
+The output allows you to see, use, and pass on the result of the program.
+
+<color=#FFFFFF>Output function</color> print()
+This function displays what it has in parentheses. You can specify specific variables, the number of them can be different
+
+<b><color=#FFFFFF>Example:</color></b>
+print(574.4) we will see on the screen 574.4
+print("a=", 7) we will see on the screen "a=", 7
+print("hello" + " " + "world") we will see on the screen : hello world
+print("Hello \n World") On the screen, the word "Hello World" will be written under each other
+print(6+5) Will output 11
+
+The arguments of the function (what is in parentheses) are separated by commas. In the output, instead of commas, the values are separated by a space.
+
+<color=#FFFFFF>Input function</color>input()
+When this function is called, the program stops its execution and waits for the user to enter something.
+After pressing Enter, the input() function will pick up the entered text and pass it to the program.
+The entered value can be assigned to a variable.
+
+<b><color=#FFFFFF>Example:</color></b>
+a = input()
+User_name = input('Your name: ') #The prompt "Your name" will appear on the screen
+summa = int(input("How much does it cost? ")) #converting the entered string to an integer
+
+All data entered from the keyboard is considered the "str" data type, even if you enter a number. So that they can be used for calculation in the future, they are converted into numbers.
+

@@ -1,0 +1,21 @@
++;Addition;1
+-;Subtraction;1
+*;Multiplication;1
+/;Division;1
+**;Exponentiation;2
+//;Division without remainder;4
+%;Remainder of the division;4
+<;Comparison: less than;4
+>;Comparison: less than;4
+<=;Comparison: less than or equal to;4
+>=;Comparison: greater than or equal to;4
+==;Equals;4
+!=;Not equal to;4
+=;Assignment;1
++=;Addition and assignment;2
+-=;Subtraction and assignment;2
+/=;Division and assignment;3
+*=;Multiplication and assignment;3
+%=;Modulo division and assignment;4
+**=;Exponentiation and assignment;4
+//=;Division with remainder and assignment;4

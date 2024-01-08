@@ -1,0 +1,21 @@
++; Addizione; 1
+-; Sottrazione; 1
+*; Moltiplicazione; 1
+/; Divisione; 1
+**; Elevamento a Potenza; 2
+//; Divisione senza resto; 4
+%; Resto della divisione; 4
+<; Confronto: meno; 4
+>; Confronto: meno; 4
+<=; Confronto: minore o uguale a; 4
+>=; Confronto: maggiore o uguale a; 4
+== ; Uguale a; 4
+!=; Non uguale a; 4
+=; Assegnazione; 1
++=; Addizione e assegnazione; 2
+-=; Sottrazione e assegnazione; 2
+/=; Divisione e assegnazione; 3
+*=; Moltiplicazione e assegnazione; 3
+%=; Divisione modulo e assegnazione; 4
+**=; Elevamento a potenza e assegnazione; 4
+//=; Divisione con resto e assegnazione; 4

@@ -1,0 +1,35 @@
+print();funzione di output (stampa);1
+range();sequenza di numeri, da 0 a N;2
+dir();elenco dei nomi degli oggetti;5
+divmod();quoziente e resto della divisione di due numeri;3
+enumerate();genera tuple di due elementi;5
+format();formattazione (ad esempio stringhe);4
+globals();nomi globali (come dizionario);4
+locals();nomi locali (come dizionario);4
+help();chiamerà la guida in linea;2
+input();input dell'utente stringa;2
+open();aprire il file e restituirlo oggetto;6
+type();ritorno del tipo di oggetto;2
+str();conversione in stringa;2
+int();conversione in numero;2
+float();conversione in float;2
+complex();conversione in numero complesso;3
+bool();conversione al tipo booleano;2
+tuple();conversione a tupla;3
+dict();conversione al dizionario;3
+list();cast alla lista;3
+set();conversione a set;3
+slice();creazione di una fetta;6
+bin();cast di un numero intero a una stringa binaria;6
+hex();cast di un numero intero in una stringa esadecimale;7
+oct();cast di un numero intero in una stringa ottale;7
+pow();elevare un numero a una potenza;3
+abs();ritorno del modulo di numero;3
+round();arrotondamento al numero specificato di cifre decimali;3
+Len();output del numero di elementi nell'oggetto;4
+min();Uscita dell'elemento minimo della sequenza;3
+max();uscita dell'elemento massimo della sequenza;3
+sorted();restituisce un nuovo elenco ordinato;7
+sum();output della somma degli elementi della sequenza;3
+next();ritorno successivo elemento iteratore;5
+chr();ritorno di carattere per rappresentazione numerica;2

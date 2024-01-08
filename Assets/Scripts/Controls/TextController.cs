@@ -110,6 +110,8 @@ public class TextController : MonoBehaviour
             lang = "en";
         else if (LangAsset.CurrentLangLocation == LangLocation.Ru)
             lang = "ru";
+        else if (LangAsset.CurrentLangLocation == LangLocation.Ge)
+            lang = "ge";
 
         string strType = Resources.Load<TextAsset>("HTML_Theory/" + lang + "/th_" + (Settings.Current_Topic).ToString()).text;
         _textCurrentForType.ShowFullText(strType, NextType);
@@ -147,7 +149,8 @@ public class TextController : MonoBehaviour
 
     public void ClickReturnFromTheory()
     {
-        _clickAudio?.Play();
+        //_clickAudio?.Play();
+        Vibration.VibratePop();
         SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
     }
 
