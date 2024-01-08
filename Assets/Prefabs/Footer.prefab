@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6595258577484600700}
   - component: {fileID: 783811692893612494}
   - component: {fileID: 1610455824537333768}
+  - component: {fileID: 8999546750044681377}
   m_Layer: 0
   m_Name: ChestOpen
   m_TagString: Untagged
@@ -120,6 +121,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8999546750044681377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350909512552225740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26717a0b055c3d34eabe16258144f650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - button: {fileID: 1610455824537333768}
+    sceneName: DayTask
 --- !u!1 &1468471695956539423
 GameObject:
   m_ObjectHideFlags: 0
