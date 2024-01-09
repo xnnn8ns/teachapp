@@ -1,0 +1,38 @@
+<color=#ffff00ff><b><size=55>In Python ci sono i seguenti operatori logici:</size></b></color>
+<color=#add8e6ff><b>and</b></color> (moltiplicazione logica), <color=#add8e6ff><b>or</b></color> (somma logica), <color=#add8e6ff><b>not</b></color> (negazione logica).
+
+<color=#add8e6ff><b>and (e)</b></color>:
+Questo operatore restituisce il valore <b>TRUE</b> solo se tutte le variabili hanno il valore <b>TRUE</b>.
+Se almeno una delle variabili è <b>FALSE</b>, allora il valore sarà <b>FALSE</b>.
+
+<color=#ffff00ff><b><size=55>Esempio:</size></b></color>
+età = 23
+peso = 50
+risultato = età > 21 and peso == 50
+print(risultato) <color=#add8e6ff><b> # True</b></color>
+
+In questo caso, l'operatore <color=#add8e6ff><b>and</b></color> confronta i risultati di due espressioni: <color=#add8e6ff><b>età > 21</b></color> e <color=#add8e6ff><b>peso == 50</b></color>. E se entrambe queste espressioni restituiscono <b>True</b>,
+allora l'operatore <color=#add8e6ff><b>and</b></color> restituisce anche <b>True</b> (formalmente viene restituito il valore dell'ultimo operando).
+
+<color=#add8e6ff><b>or (o)</b></color>:
+Questo operatore restituisce il valore <b>TRUE</b> se almeno una variabile ha il valore <b>TRUE</b>.
+Se tutte le variabili sono <b>FALSE</b>, allora solo allora il valore sarà <b>FALSE</b>.
+
+<color=#ffff00ff><b><size=55>Esempio:</size></b></color>
+<color=#add8e6ff><b>età = 25
+Sposato = False
+res = età > 21 or Sposato
+print(res)  # True, poiché l'espressione età > 21 è vera</b></color>
+
+<color=#add8e6ff><b>not (non)</b></color>
+Restituisce <b>True</b> se l'espressione è <b>False</b> e, al contrario, restituisce <b>False</b> se il valore è <b>True</b>.
+
+<color=#ffff00ff><b><size=55>Esempio:</size></b></color>
+età = 25
+Sposato = False
+print(not età > 21) <color=#add8e6ff><b> # False </b></color>
+print(not Sposato) <color=#add8e6ff><b> # True </b></color>
+print(not 5) <color=#add8e6ff><b> # False </b></color>
+print(not 0) <color=#add8e6ff><b> # True</b></color>
+
+<color=#ffff00ff><b><size=55>0 è equivalente a False, 1 è equivalente a True</size></b></color>

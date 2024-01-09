@@ -1,17 +1,15 @@
-<color=#ffff00ff><b><size=55>Variables</size></b></color> are containers in which various data can be stored. 
+<color=#ffff00ff><b><size=55>Variablen</size></b></color> sind Behälter, in denen verschiedene Daten gespeichert werden können.
 
-Variable names can only consist of <color=#ffff00ff><b>latin letters, numbers, and underscores.</b></color> 
-The name of the variable <color=#ffff00ff><b>cannot</b></color> start with a digit. 
+Variablennamen können nur aus <color=#ffff00ff><b>lateinischen Buchstaben, Zahlen und Unterstrichen</b></color> bestehen.
+Der Name der Variable <color=#ffff00ff><b>kann nicht</b></color> mit einer Ziffer beginnen.
 
-The language is also <color=#ffff00ff><b>case sensitive</b></color>,  the variables  <color=#add8e6ff><b><size=55>Tom</size></b></color> and <color=#add8e6ff><b><size=55>tom</size></b></color> are different variables.
+Die Sprache ist auch <color=#ffff00ff><b>case-sensitiv</b></color>, die Variablen <color=#add8e6ff><b><size=55>Tom</size></b></color> und <color=#add8e6ff><b><size=55>tom</size></b></color> sind verschiedene Variablen.
 
-And besides, the name of the variable should not match the keywords of the language..
+Außerdem sollte der Name der Variable nicht mit den Schlüsselwörtern der Sprache übereinstimmen.
 
-<color=#ffff00ff><b><size=55>Keywords:</size></b></color>
-false, true, none, else, if, import,pass, class,return,def,and,or,yield
+<color=#ffff00ff><b><size=55>Schlüsselwörter:</size></b></color>
+falsch, wahr, keiner, sonst, wenn, importieren, passieren, Klasse, zurückgeben, def, und, oder, ergeben
 
-<color=#ffff00ff><b><size=55>Example:</size></b></color>
-Correctly named variables look like this:
+<color=#ffff00ff><b><size=55>Beispiel:</size></b></color>
+Korrekt benannte Variablen sehen so aus:
 <color=#add8e6ff><b>_Pole, N1ame, mas</b></color>
-
-

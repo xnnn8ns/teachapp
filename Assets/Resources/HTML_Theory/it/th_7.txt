@@ -1,0 +1,37 @@
+A volte, a seconda dei dati inseriti, dipenderà cosa farà il programma successivamente. Per questo vengono utilizzate le <b><color=#add8e6ff>strutture condizionali</color></b>.
+
+<b><color=#ffff00ff><size=55>Struttura:</size></color></b>
+<b>if Condizione:</b>
+    <b><color=#add8e6ff>Blocco di istruzioni 1</color></b>
+<b>else:</b>
+    <b><color=#add8e6ff>Blocco di istruzioni 2</color></b>
+
+Il <b><color=#add8e6ff>Blocco di istruzioni 1</color></b> verrà eseguito se la <b>Condizione</b> è vera. Se la <b>Condizione</b> è falsa, verrà eseguito il <b><color=#add8e6ff>Blocco di istruzioni 2</color></b>.
+Nell'istruzione condizionale può mancare la parola <b>else</b> e il blocco successivo.
+
+<b><color=#ffff00ff><size=55>Esempio:</size></color></b>
+<b><color=#add8e6ff>y = int(input())
+if y < 0:
+    y = -x
+print(y)</color></b>
+
+Per <b><color=#add8e6ff>identificare il blocco di istruzioni</color></b> relative all'istruzione <b>if</b> o <b>else</b> in Python, vengono utilizzati i <b>rientri</b>. Tutte le istruzioni che appartengono
+ad uno stesso blocco devono avere la stessa dimensione del rientro, cioè lo <b>stesso numero di spazi</b> all'inizio della riga.
+Si raccomanda di utilizzare un rientro di <b>4 spazi</b> e si sconsiglia di utilizzare il <b>simbolo di tabulazione</b> come rientro.
+
+A volte ci sono più di una <b>condizione</b> che deve essere controllata alla volta, per questo vengono utilizzate le <b><color=#add8e6ff>strutture nidificate</color></b>.
+Si ottiene un <b>branching nidificato</b> - dopo una biforcazione nel corso dell'esecuzione del programma, appare un'altra biforcazione.
+
+<b><color=#ffff00ff><size=55>Esempio:</size></color></b>
+x = int(input())
+y = int(input())
+if x > 0:
+    if y > 0:               <color=#add8e6ff><b># x > 0, y > 0</b></color>
+        print("+ e +")
+    else:                   <color=#add8e6ff><b># x > 0, y < 0</b></color>
+        print("+ -")
+else:
+    if y > 0:               <color=#add8e6ff><b># x < 0, y > 0</b></color>
+        print("- +")
+    else:                   <color=#add8e6ff><b># x < 0, y < 0</b></color>
+        print("- -")

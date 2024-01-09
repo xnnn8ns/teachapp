@@ -1,0 +1,18 @@
+<b><color=#ffff00ff><size=55>I cicli</size></color></b> permettono di eseguire un'azione a seconda del rispetto di una certa <b>condizione</b>. In Python ci sono i seguenti <b><color=#add8e6ff>tipi di cicli:</color></b>
+<b><color=#ffff00ff><size=55>while, for</size></color></b>
+
+Dopo la parola chiave <b>while</b> viene specificata la condizione, e finché questa espressione restituisce il valore <b>True</b>, verrà eseguito il blocco di istruzioni che segue.
+
+<b><color=#ffff00ff><size=55>Struttura:</size></color></b>
+<b>while espressione_condizionale:
+   istruzioni</b>
+
+<b><color=#ffff00ff><size=55>Esempio:</size></color></b>
+<color=#add8e6ff><b>num = 0
+while num < 3:
+    print("num = {num}")
+    num += 1
+print("programma terminato")</b></color>
+
+In questo caso, il ciclo <b>while</b> verrà eseguito finché la variabile <b>num</b> è minore di 3 e verrà eseguito <b>3 volte</b>.
+<color=#add8e6ff><b>È importante ricordare</b></color> i 4 spazi di rientro a sinistra dei calcoli all'interno del ciclo.

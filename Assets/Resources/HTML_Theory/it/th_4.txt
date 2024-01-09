@@ -1,0 +1,20 @@
+A volte c'è la <b><color=#ffff00ff><size=55>necessità nel programma di confrontare</size></color></b> una cosa con un'altra, per capire cosa farà il programma o quale variabile prenderà.
+
+<b><color=#ffff00ff><size=55>Le espressioni condizionali sono divise in</size></color></b> <b><color=#add8e6ff>operatori di confronto e operatori logici.</color></b>
+
+Gli operatori di confronto <b><color=#add8e6ff>ritornano sempre valori True o False</color></b>
+
+<b><color=#ffff00ff><size=55>Operatori di confronto:</size></color></b>
+<b><color=#add8e6ff>==</color></b> Ritorna True se entrambi gli operandi sono uguali. Altrimenti ritorna False.
+<b><color=#add8e6ff>!=</color></b> Ritorna True se entrambi gli operandi NON sono uguali. Altrimenti ritorna False.
+<b><color=#add8e6ff>> (maggiore di)</color></b> Ritorna True se il primo operando è maggiore del secondo.
+<b><color=#add8e6ff>< (minore di)</color></b> Ritorna True se il primo operando è minore del secondo.
+<b><color=#add8e6ff>>= (maggiore o uguale a)</color></b> Ritorna True se il primo operando è maggiore o uguale al secondo.
+<b><color=#add8e6ff><= (minore o uguale a)</color></b> Ritorna True se il primo operando è minore o uguale al secondo.
+
+<b><color=#ffff00ff><size=55>Esempio:</size></color></b>
+a = 3
+b = 7
+res = a == b <b><color=#add8e6ff> # salviamo il risultato dell'operazione in una variabile </color></b>
+print(res) <b><color=#add8e6ff> # False - 4 non è uguale a 5 </color></b>
+print(a != b) <b><color=#add8e6ff> # True</color></b>

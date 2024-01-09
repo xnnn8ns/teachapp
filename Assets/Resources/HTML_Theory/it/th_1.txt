@@ -1,0 +1,15 @@
+<color=#ffff00ff><b><size=55>Variabili</size></b></color> - sono contenitori in cui possono essere memorizzati vari dati.
+
+I nomi delle variabili possono consistere solo in <color=#ffff00ff><b>lettere latine, numeri e il simbolo del sottolineato.</b></color>
+Il nome della variabile <color=#ffff00ff><b>non può</b></color> iniziare con un numero.
+
+Inoltre, il linguaggio è sensibile <color=#ffff00ff><b>al caso</b></color>, le variabili <color=#add8e6ff><b><size=55>Tom</size></b></color> e <color=#add8e6ff><b><size=55>tom</size></b></color> sono variabili diverse.
+
+E inoltre, il nome della variabile non deve coincidere con le parole chiave del linguaggio.
+
+<color=#ffff00ff><b><size=55>Parole chiave:</size></b></color>
+false, true, none, else, if, import, pass, class, return, def, and, or, yield
+
+<color=#ffff00ff><b><size=55>Esempio:</size></b></color>
+Le variabili correttamente denominate appaiono così:
+<color=#add8e6ff><b>_Pole, N1ame, mas</b></color>
