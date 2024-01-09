@@ -136,6 +136,7 @@ MonoBehaviour:
   buttons:
   - button: {fileID: 1610455824537333768}
     sceneName: DayTask
+    isSingle: 0
 --- !u!1 &1468471695956539423
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +221,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1398826643022879567}
-  - component: {fileID: 3252582325024720219}
   m_Layer: 0
   m_Name: Footer
   m_TagString: Untagged
@@ -250,18 +250,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.12, y: -0.60602}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &3252582325024720219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1797381020380182757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e40af992a64cc42928b9f7ea70e37ea8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2168028721911157144
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,6 +386,7 @@ MonoBehaviour:
   buttons:
   - button: {fileID: 8858182689953025013}
     sceneName: LeaderBoard
+    isSingle: 0
 --- !u!1 &3745542122644430141
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,6 +718,7 @@ MonoBehaviour:
   buttons:
   - button: {fileID: 7768278658257434924}
     sceneName: MapScene
+    isSingle: 1
 --- !u!1 &7751584566314431645
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,6 +855,7 @@ MonoBehaviour:
   buttons:
   - button: {fileID: 3857510665639687146}
     sceneName: DefaultPersonalPage
+    isSingle: 0
 --- !u!1 &8437573407791200921
 GameObject:
   m_ObjectHideFlags: 0

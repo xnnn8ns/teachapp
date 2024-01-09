@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/QuizScenes/WebWidget.unity
     guid: c3a79eccdb53f48d8b447f1bb42d92e4
   - enabled: 1
+    path: Assets/Scenes/DayTaskScene/DayTask.unity
+    guid: 751622211123afe4c9ce07707dddb65d
+  - enabled: 1
     path: Assets/Scenes/AuthScenese/UserForm.unity
     guid: daa305e6017d145529f65ecccd4036a7
   - enabled: 1

@@ -5590,7 +5590,7 @@ Canvas:
   m_GameObject: {fileID: 1784061998}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
@@ -5639,8 +5639,10 @@ MonoBehaviour:
   buttons:
   - button: {fileID: 309274316}
     sceneName: MapScene
+    isSingle: 1
   - button: {fileID: 1150969935}
     sceneName: MapScene
+    isSingle: 1
 --- !u!1001 &1824646328
 PrefabInstance:
   m_ObjectHideFlags: 0
