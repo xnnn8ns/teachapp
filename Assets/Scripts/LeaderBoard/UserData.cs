@@ -19,6 +19,11 @@ public class UserData : MonoBehaviour
     public static int CurrentTeamUserAdminID = 0;
     public static int Score = 0;
     public static string Token = "";
+    public static int Rank = 0;
+    public static int InitialLevel = 0;
+    public static int InitialScore = 0;
+    public static long LastUpdateDate = 0;
+    public static int ElapsedTime = 0;
 
     public static void SetToken(string token)
     {
@@ -59,8 +64,14 @@ public class UserData : MonoBehaviour
         CurrentTeamName = PlayerPrefs.GetString("CurrentTeamName", "");
         CurrentTeamUserAdminID = PlayerPrefs.GetInt("CurrentTeamUserAdminID", 0);
         Score = PlayerPrefs.GetInt("Score", 0);
-        //Debug.Log("1 Score: " + Score);
-    }
+        LastUpdateDate = long.Parse(PlayerPrefs.GetString("LastUpdateDate", "0"));
+        Rank = PlayerPrefs.GetInt("Rank", 0);
+        InitialLevel = PlayerPrefs.GetInt("InitialLevelsCompleted", 0);
+        InitialScore = PlayerPrefs.GetInt("InitialScore", 0);
+        ElapsedTime = PlayerPrefs.GetInt("ElapsedTime", 0);
+
+        UpdateUserForNewDay();
+}
 
     public static bool IsHaveLoginUserData()
     {
@@ -84,5 +95,31 @@ public class UserData : MonoBehaviour
     {
         Score = score;
         PlayerPrefs.SetInt("Score", Score);
+    }
+
+    public static void SetLastUpdateDate()
+    {
+        LastUpdateDate = DateTimeOffset.Now.ToUnixTimeSeconds();
+        PlayerPrefs.SetString("LastUpdateDate", LastUpdateDate.ToString());
+        //Debug.Log(LastUpdateDate);
+    }
+
+    public static void SetElapsedTime()
+    {
+        PlayerPrefs.SetInt("ElapsedTime", ElapsedTime);
+    }
+
+    public static void UpdateUserForNewDay()
+    {
+        if (ComonFunctions.UnixTimeStampToDateTime(LastUpdateDate).Date < DateTime.Today)
+        {
+            InitialScore = Score;
+            ElapsedTime = 0;
+            InitialLevel = DataLoader.GetCurrentLevel();
+            LastUpdateDate = DateTimeOffset.Now.ToUnixTimeSeconds();
+            SetLastUpdateDate();
+            Debug.Log("UpdateUserForNewDay()");
+        }
+
     }
 }

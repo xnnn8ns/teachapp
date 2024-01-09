@@ -6,6 +6,7 @@ using ResponseJson;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using System;
 
 public class ComonFunctions : MonoBehaviour
 {
@@ -317,5 +318,14 @@ public class ComonFunctions : MonoBehaviour
 
         return 0;
     }
+
+    public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+    {
+        // Unix timestamp is seconds past epoch
+        DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+        dateTime = dateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+        return dateTime;
+    }
+
 }
 

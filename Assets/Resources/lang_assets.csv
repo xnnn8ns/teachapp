@@ -65,7 +65,7 @@ TheorySection;Справочник раздела;Theory by section;Theorie nach
 DayTask;Задание дня;Day task;Tagesaufgabe;Compito del giorno
 Registration;Регистрация;Registration;Registrierung;Registrazione
 ErrorMessage(Regs);Пользователь с таким именем пользователя или электронной почтой уже существует;A user with this username or email already exists;Ein Benutzer mit diesem Benutzernamen oder dieser E-Mail-Adresse ist bereits vorhanden;Un utente con questo nome utente o e-mail esiste già
-TimeTask;Общее время занятия более 10 минут  \n\nВаш прогресс:;Total time of the lesson is more than 10 minutes  \n\nYour progress:;Die Gesamtzeit der Lektion beträgt mehr als 10 Minuten  \n\nYour progress:;Il tempo totale della lezione è più di 10 minuti  \n\nYour progress:
-LevelTask;Пройти уровень из трех шагов: \n\nВаш прогресс:;Pass the level of three steps: \n\nYour progress:;Bestehen Sie die Stufe von drei Schritten: \n\nIhr Fortschritt:;Passa il livello di tre passaggi: \n\nIl tuo progresso:
-ScoreTask;Набрать 30 очков \n\nВаш прогресс:;Score 30 points \n\nYour progress:;Punkte 30 Punkte \n\nIhr Fortschritt:;Punteggio 30 punti \n\nIl tuo progresso:
+TimeTask;Общее время занятия более 10 минут;Total time of the lesson is more than 10 minutes;Die Gesamtzeit der Lektion beträgt mehr als 10 Minuten;Il tempo totale della lezione è più di 10 minuti
+LevelTask;Пройти уровень из трех шагов;Pass the level of three steps;Bestehen Sie die Stufe von drei Schritten;Passa il livello di tre passaggi
+ScoreTask;Набрать 30 очков;Score 30 points;Punkte 30 Punkte;Punteggio 30 punti:
 Return;Вернуться к заданиям;Return to tasks;Zurück zu den Aufgaben;Ritorna ai compiti

@@ -61,6 +61,8 @@ public class QuestionInitializer : MonoBehaviour
 
     private int _secondsCountToLeft = 100;
     private int _secondsCountOnStart = 100;
+
+    private int _secondsFromSceneStart = 0;
     #endregion
 
     public static void FillQuestionsForCurrentLevel()
@@ -89,6 +91,7 @@ public class QuestionInitializer : MonoBehaviour
 
     private void Awake()
     {
+        _secondsFromSceneStart = (int)Time.timeSinceLevelLoad;
         _clickAudio = GetComponents<AudioSource>()[0];
         _typeAudio = GetComponents<AudioSource>()[1];
         _wrongAnswerAudio = GetComponents<AudioSource>()[2];
@@ -101,6 +104,24 @@ public class QuestionInitializer : MonoBehaviour
         InitQuestion();
         //InitTouchDetector();
         _resultPanelScript.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        if ((int)Time.timeSinceLevelLoad > 0 && (int)Time.timeSinceLevelLoad > _secondsFromSceneStart)
+        {
+            DailyTaskScript.SaveElapsedTime((int)Time.timeSinceLevelLoad - _secondsFromSceneStart);
+            _secondsFromSceneStart = (int)Time.timeSinceLevelLoad;
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        if ((int)Time.timeSinceLevelLoad > 0 && (int)Time.timeSinceLevelLoad > _secondsFromSceneStart)
+        {
+            DailyTaskScript.SaveElapsedTime((int)Time.timeSinceLevelLoad - _secondsFromSceneStart);
+            _secondsFromSceneStart = (int)Time.timeSinceLevelLoad;
+        }
     }
 
     #region Init
