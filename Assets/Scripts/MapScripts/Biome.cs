@@ -36,8 +36,6 @@ namespace Mkey
         private Animator _animLeft;
         [SerializeField]
         private Animator _animRight;
-        [SerializeField]
-        private AudioSource _clickAudio;
 
         #region temp vars
         private List<Vector3> pos;

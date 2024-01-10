@@ -54,8 +54,8 @@ namespace Mkey
 
         private TheoryListJSON _theoryListJSON;
 
-        [SerializeField]
-        private AudioSource _clickAudio;
+        //[SerializeField]
+        //private AudioSource _clickAudio;
 
         private void Awake()
         {
