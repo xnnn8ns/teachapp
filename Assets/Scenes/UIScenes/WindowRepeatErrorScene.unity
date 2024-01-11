@@ -1350,6 +1350,7 @@ MonoBehaviour:
   _textMessage: {fileID: 537380443}
   _textValue: {fileID: 0}
   _textValueHeader: {fileID: 0}
+  _textValueHeaderAddition: {fileID: 689676817}
   _textButtonOKHeader: {fileID: 176959586}
   _audioScore: {fileID: 0}
   _clickAudio: {fileID: 1493532139}

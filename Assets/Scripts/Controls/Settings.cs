@@ -17,6 +17,7 @@ public class Settings : MonoBehaviour
     public const string jsonButtonFilePath = "/buttonData.json";
     public const string jsonTestFilePath = "/testRawData.json";
     public const string jsonTaskFilePath = "/taskData.json";
+    public const string jsonTopicFilePath = "/topicData.json";
     public const string theoryFilePath = "/theoryTask-";
     public const string jsonLeaderBoardFilePath = "/leaderBoardData.json";
     public const string jsonTheoryFilePath = "/theory_list.json";

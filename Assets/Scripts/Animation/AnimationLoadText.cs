@@ -18,10 +18,10 @@ public class AnimationLoadText : MonoBehaviour
     private void Start()
     {
         // ??????? ???????? ????????
-        if (LangAsset.CurrentLangLocation == LangLocation.En)
-            textArrayForType = textArrayEn;
-        else
+        if (LangAsset.CurrentLangLocation == LangLocation.Ru)
             textArrayForType = textArray;
+        else
+            textArrayForType = textArrayEn;
         TypeRandomText();
     }
 

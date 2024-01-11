@@ -16,7 +16,7 @@ None;nessun tipo di oggetto definito;5
 continue;Continua l'esecuzione del ciclo successivo in for E while.;8
 pass;saltare l'esecuzione del codice;9
 raise;creare eccezioni nel programma;9
-del;eliminazione di oggetti, variabili, elenchi, ecc.;
+del;eliminazione di oggetti, variabili, elenchi, ecc.;6
 return;nella funzione return value;6
 as;fornire un nome per l'importazione;6
 elif;viene utilizzato insieme all'istruzione if per l'operazione "else if";7

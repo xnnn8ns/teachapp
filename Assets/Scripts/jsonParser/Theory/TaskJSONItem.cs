@@ -14,11 +14,17 @@ public class TaskJSONItem
     [JsonProperty("solution")]
     public string Content { get; set; }
 
+    [JsonProperty("solution_eng")]
+    public string ContentEn { get; set; }
+
     [JsonProperty("points")]
     public int Points { get; set; }
 
     [JsonProperty("description")]
     public string Title { get; set; }
+
+    [JsonProperty("description_eng")]
+    public string TitleEn { get; set; }
 
     [JsonProperty("topic")]
     public int Topic { get; set; }

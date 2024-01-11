@@ -14,6 +14,8 @@ public class WindowsMessageScript : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _textValueHeader;
     [SerializeField]
+    private TextMeshProUGUI _textValueHeaderAddition;
+    [SerializeField]
     private TextMeshProUGUI _textButtonOKHeader;
     [SerializeField]
     private AudioSource _audioScore;
@@ -139,6 +141,13 @@ public class WindowsMessageScript : MonoBehaviour
         }
         if(!_isErrorExistsForm && _textValueHeader)
             _textValueHeader.text = LangAsset.GetValueByKey("PointsReceived");
+        if (_textValueHeaderAddition)
+        {
+            if (_isErrorExistsForm)
+                _textValueHeaderAddition.text = LangAsset.GetValueByKey("TryBetter");
+            else
+                _textValueHeaderAddition.text = LangAsset.GetValueByKey("Points");
+        }
         if (_isErrorExistsForm)
             _textMessage.text = LangAsset.GetValueByKey("TryAgain");
         else if (_isLevelBlockedForm)

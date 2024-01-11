@@ -14,6 +14,9 @@ public class TestJSONItem
     [JsonProperty("question")]
     public string Question { get; set; }
 
+    [JsonProperty("question_eng")]
+    public string QuestionEn { get; set; }
+
     [JsonProperty("correct_answer")]
     public int CorrectAnswer { get; set; }
 
@@ -31,6 +34,18 @@ public class TestJSONItem
 
     [JsonProperty("topic")]
     public int Topic { get; set; }
+
+    [JsonProperty("answer_1_eng")]
+    public string Answer1En { get; set; }
+
+    [JsonProperty("answer_2_eng")]
+    public string Answer2En { get; set; }
+
+    [JsonProperty("answer_3_eng")]
+    public string Answer3En { get; set; }
+
+    [JsonProperty("answer_4_eng")]
+    public string Answer4En { get; set; }
 
     [JsonProperty("step")]
     public int Step { get; set; }

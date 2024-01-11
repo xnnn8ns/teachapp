@@ -9,11 +9,13 @@ using UnityEngine.Networking;
 using ResponseTaskJSON;
 using Unity.VisualScripting;
 using ResponseTestJSON;
+using ResponseTopicJSON;
 
 public class DataLoader : MonoBehaviour
 {
     private const string apiTaskUrl = "http://45.12.239.30:8000/api/tasks/";
     private const string apiTestUrl = "http://45.12.239.30:8000/api/choicefield/";
+    private const string apiTopicUrl = "http://45.12.239.30:8000/api/topics/";
 
     float timeStartLoad = 0;
 
@@ -145,6 +147,22 @@ public class DataLoader : MonoBehaviour
             }
         }
 
+        using (UnityWebRequest www = UnityWebRequest.Get(apiTopicUrl))
+        {
+            yield return www.SendWebRequest();
+            string json = DownLoadOrCreateFileJson(www, Settings.jsonTopicFilePath);
+            if (json.Length > 0)
+            {
+                TopicJSON response = TopicJSON.FromJson(json);
+                if (response != null && response.Count > 0)
+                {
+                    foreach (var item in response)
+                        ParseJSONTopic(item);
+                }
+
+            }
+        }
+
         UserData.LoadUserData();
         for (int i = 0; i < 10; i++)
         {
@@ -197,26 +215,37 @@ public class DataLoader : MonoBehaviour
     {
         try
         {
+            Question question = new QuestionText();
+            string[] raws = null;
+
             if (task.Content == null)
                 task.Content = "";
-            string[] raws = task.Content.Split("\r\n");
-            if (task.AdditionalBlocks == null)
+            if (task.ContentEn == null)
+                task.ContentEn = "";
+
+            if (LangAsset.CurrentLangLocation == LangLocation.Ru)
             {
-                task.AdditionalBlocks = "";
-                //task.AdditionalBlocks = "8 ! *";
+                question.Title = task.Title;
+                raws = task.Content.Split("\r\n");
             }
+            else
+            {
+                question.Title = task.TitleEn;
+                if (task.ContentEn == "0")
+                    raws = task.Content.Split("\r\n");
+                else
+                    raws = task.ContentEn.Split("\r\n");
+            }
+
+            //string[] raws = task.Content.Split("\r\n");
+            if (task.AdditionalBlocks == null)
+                task.AdditionalBlocks = "";
+
             if (task.AdditionalBlocks.Length == 1 && (task.AdditionalBlocks == "0" || task.AdditionalBlocks == "?"))
                 task.AdditionalBlocks = "";
 
             string[] radditionalBlockRaws = task.AdditionalBlocks.Split("\r\n");
 
-            //Level newLevel = new Level();
-            //newLevel.LevelNumber = task.Topic;
-            //newLevel.TotalCount = raws.Length;
-            //Level.Levels.Add(newLevel);
-
-            Question question = new QuestionText();
-            question.Title = task.Title;
             question.Difficulty = task.Difficulty;
             question.CountShelves = raws.Length;
             question.QuestionType = QuestionType.Shelf;
@@ -300,12 +329,13 @@ public class DataLoader : MonoBehaviour
     {
         try
         {
-            //Level newLevel = new Level();
-            //newLevel.LevelNumber = test.Topic;
-            //Level.Levels.Add(newLevel);
-
             Question question = new QuestionText();
-            question.Title = test.Question;
+
+            if (LangAsset.CurrentLangLocation == LangLocation.Ru)
+                question.Title = test.Question;
+            else
+                question.Title = test.QuestionEn;
+            
             question.Difficulty = test.Difficulty;
             question.CountShelves = 4;
             question.QuestionType = QuestionType.Test;
@@ -321,13 +351,15 @@ public class DataLoader : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 Answer answer = new Answer();
-                string answerQuiz = test.Answer1;
-                if (i == 1)
-                    answerQuiz = test.Answer2;
-                else if (i == 2)
-                    answerQuiz = test.Answer3;
-                else if (i == 3)
-                    answerQuiz = test.Answer4;
+                string answerQuiz = "";
+                string lang = "";
+                if (LangAsset.CurrentLangLocation == LangLocation.Ru)
+                    lang = "";
+                else
+                    lang = "En";
+                answerQuiz = test.GetType().GetProperty("Answer" + (i+1).ToString() + lang).GetValue(test).ToString();
+                if(answerQuiz == "0")
+                    answerQuiz = test.GetType().GetProperty("Answer" + (i + 1).ToString()).GetValue(test).ToString();
 
                 answer.Title = answerQuiz;
                 answer.IsRight = test.CorrectAnswer == i + 1;
@@ -338,6 +370,34 @@ public class DataLoader : MonoBehaviour
             //Debug.Log(Question.QuestionsList.Count);
             Question.QuestionsList.Add(question);
             //Debug.Log(Question.QuestionsList.Count);
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(ex.Message);
+        }
+    }
+
+    private void ParseJSONTopic(TopicJSONItem topic)
+    {
+        try
+        {
+            Theory theory = new Theory();
+
+            if (LangAsset.CurrentLangLocation == LangLocation.Ru)
+            {
+                theory.Title = topic.Title;
+                theory.Description = topic.Description;
+            }
+            else
+            {
+                theory.Title = topic.TitleEn;
+                theory.Description = topic.DescriptionEn;
+            }
+
+
+            theory.ID = topic.Number;
+
+            Theory.TheoryList.Add(theory);
         }
         catch (Exception ex)
         {

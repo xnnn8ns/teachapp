@@ -130,7 +130,7 @@ namespace Mkey
                 });
             }
             Application.targetFrameRate = 60;
-            Debug.Log(Application.targetFrameRate);
+            //Debug.Log(Application.targetFrameRate);
         }
 
         private void FillTheoryDataFromJSON()
@@ -145,22 +145,21 @@ namespace Mkey
                 corePath = "theory_list_ge";
 
             string jsonPath = Settings.jsonTheoryFilePath;
-            
 
-
-
+            Debug.Log(corePath);
 
             if (!File.Exists(Application.persistentDataPath + jsonPath))
             {
                 FileStream fs = File.Create(Application.persistentDataPath + jsonPath);
                 fs.Dispose();
-                TextAsset txt = (TextAsset)Resources.Load(corePath, typeof(TextAsset));
+                
+                TextAsset txt = (TextAsset)Resources.Load("Keys/theory/" + corePath, typeof(TextAsset));
                 string jsonTemp = txt.text;
                 File.WriteAllText(Application.persistentDataPath + jsonPath, jsonTemp);
             }
             else
             {
-                TextAsset txt = (TextAsset)Resources.Load(corePath, typeof(TextAsset));
+                TextAsset txt = (TextAsset)Resources.Load("Keys/theory/" + corePath, typeof(TextAsset));
                 string jsonTemp = txt.text;
                 File.WriteAllText(Application.persistentDataPath + jsonPath, jsonTemp);
             }
@@ -255,7 +254,7 @@ namespace Mkey
 
         private void ClickLevelButton(int clickIndex, bool isMissionClicked = false)
         {
-            Debug.Log(clickIndex);
+            //Debug.Log(clickIndex);
             ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
             if (buttonData != null)
             {

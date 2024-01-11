@@ -2401,10 +2401,10 @@ MonoBehaviour:
   buttons:
   - button: {fileID: 733462424}
     sceneName: PersonalPageWithSettings
-    isSingle: 1
+    isSingle: 0
   - button: {fileID: 1124623856}
     sceneName: PersonalPageWithChoiceLanguage
-    isSingle: 1
+    isSingle: 0
   - button: {fileID: 1835752261}
     sceneName: MapScene
     isSingle: 1

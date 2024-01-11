@@ -1,0 +1,54 @@
+{
+    "theoryList": [
+        {
+            "id": 1,
+            "title": "Sezione 1",
+            "description": "Variabili e dati"
+        },
+        {
+            "id": 2,
+            "title": "Sezione 2",
+            "description": "Tipi di dati"
+        },
+        {
+            "id": 3,
+            "title": "Sezione 3",
+            "description": "Operatori aritmetici"
+        },
+        {
+            "id": 4,
+            "title": "Sezione 4",
+            "description": "Operatori di confronto"
+        },
+        {
+            "id": 5,
+            "title": "Sezione 5",
+            "description": "Operatori logici"
+        },
+        {
+            "id": 6,
+            "title": "Sezione 6",
+            "description": "Dati di ingresso e di uscita"
+        },
+        {
+            "id": 7,
+            "title": "Sezione 7",
+            "description": "Condizione"
+        },
+        {
+            "id": 8,
+            "title": "Sezione 8",
+            "description": "While loop"
+        },
+        {
+            "id": 9,
+            "title": "Sezione 9",
+            "description": "For loop"
+        },
+        {
+            "id": 10,
+            "title": "Sezione 10",
+            "description": "Loop annidati"
+        }
+    ]
+}

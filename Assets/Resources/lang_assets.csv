@@ -19,7 +19,7 @@ UserName;Ваша позиция;Your position;Ihre Position;La tua posizione
 Blocks;Блоков: ;Blocks: ;Blöcke: ;Blocchi: 
 Theory;Теория;Theory;Theorie;Teoria
 PythonBasic;Введение в Python;Introduction to Python;Einführung in Python;Introduzione a Python
-Loading;ЗАГРУЗКА;LOADING;LADEN;CARICAMENTO
+Loading;ЗАГРУЗКА;LOADING;LADEN;CARICO
 QuizInTest;Вопросов:;Questions:;Fragen:;Domande:
 PointsInTest;Баллов в тесте:;Points in the test:;Punkte im Test:;Punti nel test:
 TimeInTest;Время:;Time:;Zeit:;Tempo:
@@ -69,3 +69,5 @@ TimeTask;Общее время занятия более 10 минут;Total tim
 LevelTask;Пройти уровень из трех шагов;Pass the level of three steps;Bestehen Sie die Stufe von drei Schritten;Passa il livello di tre passaggi
 ScoreTask;Набрать 30 очков;Score 30 points;Punkte 30 Punkte;Punteggio 30 punti:
 Return;Вернуться к заданиям;Return to tasks;Zurück zu den Aufgaben;Ritorna ai compiti
+Points;баллов;points;punkte;punti
+TryBetter;Нужно больше стараться!;We need to try harder!;Wir müssen uns mehr anstrengen!;Devi provare di più!

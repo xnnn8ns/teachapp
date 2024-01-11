@@ -169,7 +169,7 @@ public class AlgorithmTestContriller : MonoBehaviour
         else if (LangAsset.CurrentLangLocation == LangLocation.It)
             lang = "it";
 
-        var dataset = Resources.Load<TextAsset>("keyoperators_for_test/keyoperators_for_test_" + lang);
+        var dataset = Resources.Load<TextAsset>("keys/keyoperators_for_test/keyoperators_for_test_" + lang);
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
@@ -197,7 +197,7 @@ public class AlgorithmTestContriller : MonoBehaviour
         else if (LangAsset.CurrentLangLocation == LangLocation.It)
             lang = "it";
 
-        var dataset = Resources.Load<TextAsset>("keywords_build_in_for_test/keywords_build_in_for_test_" + lang);
+        var dataset = Resources.Load<TextAsset>("keys/keywords_build_in_for_test/keywords_build_in_for_test_" + lang);
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
@@ -224,12 +224,14 @@ public class AlgorithmTestContriller : MonoBehaviour
             lang = "ge";
         else if (LangAsset.CurrentLangLocation == LangLocation.It)
             lang = "it";
-
-        var dataset = Resources.Load<TextAsset>("keywords_for_test/keywords_for_test_" + lang);
+        //Debug.Log("Keys/keywords_for_test/keywords_for_test_" + lang);
+        var dataset = Resources.Load<TextAsset>("Keys/keywords_for_test/keywords_for_test_" + lang);
+        
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
             var splitRow = splitDataset[i].Split(new char[] { ';' });
+            //Debug.Log(splitRow[0]);
             KeyWord keyWord = new KeyWord();
             keyWord.ID = i;
             keyWord.Title = splitRow[0];
@@ -242,7 +244,7 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static void ImportKeyWordsForAlgo()
     {
         GetKeyWordsForAlgo().Clear();
-        var dataset = Resources.Load<TextAsset>("keywords_list");
+        var dataset = Resources.Load<TextAsset>("keys/keywords_list");
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
@@ -254,7 +256,7 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static void ImportVarNames()
     {
         GetVarNames().Clear();
-        var dataset = Resources.Load<TextAsset>("var_names_list");
+        var dataset = Resources.Load<TextAsset>("keys/var_names_list");
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
@@ -266,7 +268,7 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static void ImportVarStrings()
     {
         GetVarStrings().Clear();
-        var dataset = Resources.Load<TextAsset>("var_string_list");
+        var dataset = Resources.Load<TextAsset>("keys/var_string_list");
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
@@ -278,7 +280,7 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static void ImportKeyComparison()
     {
         GetKeyComparison().Clear();
-        var dataset = Resources.Load<TextAsset>("keywords_comparison");
+        var dataset = Resources.Load<TextAsset>("keys/keywords_comparison");
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
@@ -290,7 +292,7 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static void ImportKeyLogic()
     {
         GetKeyLogic().Clear();
-        var dataset = Resources.Load<TextAsset>("keywords_logic");
+        var dataset = Resources.Load<TextAsset>("keys/keywords_logic");
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
@@ -302,7 +304,7 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static void ImportKeyOperandFunc()
     {
         GetKeyOperandFunc().Clear();
-        var dataset = Resources.Load<TextAsset>("keyoperators_for_func");
+        var dataset = Resources.Load<TextAsset>("keys/keyoperators_for_func");
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
