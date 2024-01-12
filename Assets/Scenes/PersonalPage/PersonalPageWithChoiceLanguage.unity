@@ -699,8 +699,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 22216987}
   - {fileID: 2122465416}
+  - {fileID: 22216987}
   m_Father: {fileID: 1602714820}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.24100001, y: 0.4514721}
@@ -2751,10 +2751,12 @@ MonoBehaviour:
   buttons:
   - button: {fileID: 22216984}
     sceneName: PersonalPageWithSettings
-    isSingle: 1
+    isSingle: 0
+    isNeedBeClosed: 0
   - button: {fileID: 1835752261}
     sceneName: MapScene
-    isSingle: 1
+    isSingle: 0
+    isNeedBeClosed: 1
 --- !u!114 &1602714822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3101,7 +3103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1835752260
 RectTransform:
   m_ObjectHideFlags: 0

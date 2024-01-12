@@ -109,6 +109,11 @@ public class UserData : MonoBehaviour
         PlayerPrefs.SetInt("ElapsedTime", ElapsedTime);
     }
 
+    public static void SetAvatar()
+    {
+        PlayerPrefs.SetInt("UserAvatarID", UserAvatarID);
+    }
+
     public static void UpdateUserForNewDay()
     {
         if (ComonFunctions.UnixTimeStampToDateTime(LastUpdateDate).Date < DateTime.Today)

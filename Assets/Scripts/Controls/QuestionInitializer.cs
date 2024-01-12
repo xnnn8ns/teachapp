@@ -38,7 +38,6 @@ public class QuestionInitializer : MonoBehaviour
     [SerializeField]
     private GameObject _buttonCheckDisabled;
 
-    private AudioSource _clickAudio;
     private AudioSource _typeAudio;
     private AudioSource _wrongAnswerAudio;
     private AudioSource _OKAnswerAudio;
@@ -92,7 +91,7 @@ public class QuestionInitializer : MonoBehaviour
     private void Awake()
     {
         _secondsFromSceneStart = (int)Time.timeSinceLevelLoad;
-        _clickAudio = GetComponents<AudioSource>()[0];
+        //_clickAudio = GetComponents<AudioSource>()[0];
         _typeAudio = GetComponents<AudioSource>()[1];
         _wrongAnswerAudio = GetComponents<AudioSource>()[2];
         _OKAnswerAudio = GetComponents<AudioSource>()[3];

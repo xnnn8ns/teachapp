@@ -163,7 +163,7 @@ namespace Mkey
             //_clickAudio?.Play();
             Vibration.VibratePop();
             Settings.Current_Topic = ID;
-            SceneManager.LoadScene("WebWidget", LoadSceneMode.Single);
+            SceneManager.LoadScene("WebWidget", LoadSceneMode.Additive);
         }
 
         public void FillTitleAndSubTitle(string title, string subTitle)

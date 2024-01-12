@@ -11,6 +11,8 @@ public class Avatar : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        //Debug.Log("Click");
+        //Debug.Log(_action);
         _action?.Invoke(AvatarID);
     }
 

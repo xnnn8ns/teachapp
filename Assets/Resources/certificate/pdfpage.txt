@@ -20,7 +20,7 @@
             width: 1123px;
             height: 794px;
             position: relative;
-            /* background-image: url('cert.jpg');
+            /*background-image: url('cert.jpg');
             background-repeat: no-repeat;
             background-position: 0 0;
             background-size: contain; */
@@ -110,15 +110,15 @@
 </head>
 <body>
     <main class="main-container">
-        <img class="decoration decoration--one" src="decoration1.jpg">
-        <img class="decoration decoration--two" src="decoration2.jpg">
-        <img class="decoration decoration--three" src="decoration3.jpg">
-        <img class="decoration decoration--four" src="decoration4.jpg">
+        <img class="decoration decoration--one" src="http://sg12ngec.beget.tech/webCert/cert/decoration1.jpg">
+        <img class="decoration decoration--two" src="http://sg12ngec.beget.tech/webCert/cert/decoration2.jpg">
+        <img class="decoration decoration--three" src="http://sg12ngec.beget.tech/webCert/cert/decoration3.jpg">
+        <img class="decoration decoration--four" src="http://sg12ngec.beget.tech/webCert/cert/decoration4.jpg">
 
         <div class="inner">
             <h1 class="title">Сертификат</h1>
             <div class="subtitle">Выдан:</div>
-            <div id="user-name" class="titlename"></div>
+            <div id="user-name" class="titlename">Title</div>
             <p class="text">за прохождение курса по Основам синтаксиса Python в Академии ИТ в размере 108 часов.<br>15 ноября 2023 г.</p>
             <div class="signature-container-wrapper">
                 <div class="signature-container">

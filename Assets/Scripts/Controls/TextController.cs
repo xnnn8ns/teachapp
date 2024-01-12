@@ -43,9 +43,6 @@ public class TextController : MonoBehaviour
                                //private int countTheories = 0; //3;
                                //private static bool IsTyping = false;
 
-    [SerializeField]
-    private AudioSource _clickAudio;
-
     private void Start()
     {
         theoryTitle1Text.text = LangAsset.GetValueByKey("TheorySection");
@@ -113,7 +110,8 @@ public class TextController : MonoBehaviour
         else if (LangAsset.CurrentLangLocation == LangLocation.Ge)
             lang = "ge";
 
-        string strType = Resources.Load<TextAsset>("HTML_Theory/" + lang + "/th_" + (Settings.Current_Topic).ToString()).text;
+        //string strType = Resources.Load<TextAsset>("HTML_Theory/" + lang + "/th_" + (Settings.Current_Topic).ToString()).text;
+        string strType = Theory.TheoryList[Settings.Current_Topic - 1].Description;
         _textCurrentForType.ShowFullText(strType, NextType);
     }
 
@@ -151,7 +149,12 @@ public class TextController : MonoBehaviour
     {
         //_clickAudio?.Play();
         Vibration.VibratePop();
-        SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
+        //SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            if (SceneManager.GetSceneAt(i).name == "WebWidget")
+                SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+        }
     }
 
     private IEnumerator GetDataFromAPI(int theoryID)

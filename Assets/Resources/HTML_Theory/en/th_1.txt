@@ -13,5 +13,3 @@ false, true, none, else, if, import,pass, class,return,def,and,or,yield
 <color=#ffff00ff><b><size=55>Example:</size></b></color>
 Correctly named variables look like this:
 <color=#add8e6ff><b>_Pole, N1ame, mas</b></color>
-
-

@@ -54,7 +54,12 @@ public class ChangeLanguage : MonoBehaviour
     {
         if (index == currentLanguageIndex) 
         {
-            SceneManager.LoadScene("DefaultPersonalPage");
+            //SceneManager.LoadScene("DefaultPersonalPage");
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                if (SceneManager.GetSceneAt(i).name == "PersonalPageWithChoiceLanguage")
+                    SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+            }
             return; // Если выбран уже текущий язык, загружаем сцену и выходим из метода
         }
 

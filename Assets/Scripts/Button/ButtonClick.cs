@@ -11,6 +11,7 @@ public class ButtonClickHandler : MonoBehaviour
         public Button button;
         public string sceneName;
         public bool isSingle = true;
+        public bool isNeedBeClosed = true;
     }
 
     public List<ButtonSceneMapping> buttons;
@@ -19,11 +20,11 @@ public class ButtonClickHandler : MonoBehaviour
     {
         foreach (ButtonSceneMapping mapping in buttons)
         {
-            mapping.button.onClick.AddListener(() => StartScene(mapping.sceneName, mapping.isSingle));
+            mapping.button.onClick.AddListener(() => StartScene(mapping.sceneName, mapping.isSingle, mapping.isNeedBeClosed));
         }
     }
 
-    private void StartScene(string scene, bool isSingle)
+    private void StartScene(string scene, bool isSingle, bool isNeedBeClosed)
     {
         Debug.Log(SceneManager.GetActiveScene().name);
         Debug.Log(scene);
@@ -33,15 +34,14 @@ public class ButtonClickHandler : MonoBehaviour
             return;
         bool isSubScene = false;
         Debug.Log("SceneManager.sceneCount " + SceneManager.sceneCount);
-        for (int i = SceneManager.sceneCount - 1; i >= 1; i--)
+        if (isNeedBeClosed)
         {
-            //if (SceneManager.GetSceneAt(i).name != scene && SceneManager.GetSceneAt(i).isSubScene)
-            //{
+            for (int i = SceneManager.sceneCount - 1; i >= 1; i--)
+            {
                 Debug.Log(SceneManager.GetSceneAt(i).name);
                 isSubScene = SceneManager.GetSceneAt(i).isSubScene;
                 SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
-                
-            //}
+            }
         }
         if (isSubScene)
             return;

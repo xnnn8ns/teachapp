@@ -105,12 +105,25 @@ public class SaveUserData : MonoBehaviour
         }
         return new string(charArray);
     }
+
     public void OpenWebPage() // тест функция для открытия страницы с сертификатом
     {
         SaveData();
         string userId = PlayerPrefs.GetInt("id").ToString();
         Application.OpenURL($"http://localhost:5500/Assets/Resources/certificate/pdfpage.html?id={userId}");
 
+    }
+
+    private void WriteHTMLCertificate()
+    {
+        //if (File.Exists(filePath))
+        //{
+        //    string existingData = File.ReadAllText(filePath);
+        //    if (!string.IsNullOrEmpty(existingData) && existingData.StartsWith("[") && existingData.EndsWith("]"))
+        //    {
+        //        users = JsonConvert.DeserializeObject<List<userData>>(existingData);
+        //    }
+        //}
     }
 }
 public class userData
