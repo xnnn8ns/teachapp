@@ -76,14 +76,17 @@ public class WindowsMessageScript : MonoBehaviour
         {
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
-                if (SceneManager.GetSceneAt(i).name == "WindowRepeatErrorScene")
-                    SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
-                if (SceneManager.GetSceneAt(i).name == "WindowSimpliMessageScene")
-                    SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+                if (SceneManager.GetSceneAt(i).name == "WindowRepeatErrorScene" || SceneManager.GetSceneAt(i).name == "WindowSimpliMessageScene")
+                {
+                    SceneManager.LoadScene(_sceneToLoad, LoadSceneMode.Single);
+                    break;
+                }
             }
         }
         else
+        {
             SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
+        }
 
         Settings.IsModalWindowOpened = false;
     }

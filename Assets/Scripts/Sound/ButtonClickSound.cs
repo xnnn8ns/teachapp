@@ -13,6 +13,13 @@ public class ButtonClickSound : MonoBehaviour
 
     void Awake()
     {
+        // Проверяем, есть ли уже AudioListener в сцене
+        if (FindObjectOfType<AudioListener>() == null)
+        {
+            // Если нет, то добавляем его к главной камере
+            Camera.main.gameObject.AddComponent<AudioListener>();
+        }
+        
         // добавляем канвасу AudioSource, если он отсутствует
         Canvas canvas = GetComponentInParent<Canvas>();
         if (canvas != null)

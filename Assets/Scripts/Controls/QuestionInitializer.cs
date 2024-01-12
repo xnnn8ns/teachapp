@@ -884,7 +884,7 @@ public class QuestionInitializer : MonoBehaviour
         int errorCount = PlayerPrefs.GetInt("ErrorCount", 0);
         errorCount++;
         PlayerPrefs.SetInt("ErrorCount", errorCount);
-        SceneManager.LoadScene("WindowRepeatErrorScene", LoadSceneMode.Additive);
+        SceneManager.LoadScene("WindowRepeatErrorScene", LoadSceneMode.Single);
         
     }
 
