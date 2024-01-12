@@ -2,12 +2,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ButtonClickSound : MonoBehaviour
 {
     public AudioClip clickSound; // Звук клика
     public Button[] buttons; // Массив кнопок
     private AudioSource audioSource;
+    private Dictionary<Button, bool> isSoundAdded = new Dictionary<Button, bool>(); // новый словарь для отслеживания, был ли добавлен звук для каждой кнопки
 
     void Awake()
     {
@@ -55,13 +57,22 @@ public class ButtonClickSound : MonoBehaviour
         }
     }
 
+    void AddSoundToButton(Button button)
+    {
+        if (!isSoundAdded.ContainsKey(button) || !isSoundAdded[button])
+        {
+            button.onClick.AddListener(() => OnButtonClick(button));
+            isSoundAdded[button] = true; // обновляем словарь, указывая, что звук был добавлен
+        }
+    }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // при загрузке сцены снова добавляем обработчик событий для каждой кнопки
         buttons = FindObjectsOfType<Button>();
         foreach (Button button in buttons)
         {
-            button.onClick.AddListener(() => OnButtonClick(button));
+            AddSoundToButton(button);
         }
     }
 
@@ -78,12 +89,13 @@ public class ButtonClickSound : MonoBehaviour
         // Добавляем обработчик событий для каждой кнопки
         foreach (Button button in buttons)
         {
-            button.onClick.AddListener(() => OnButtonClick(button));
+            AddSoundToButton(button);
         }
     }
+
     IEnumerator PlaySoundWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        audioSource.Play();
+        audioSource.PlayOneShot(clickSound);
     }
 }
