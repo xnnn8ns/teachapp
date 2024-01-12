@@ -294,6 +294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2798745612446312517}
   - component: {fileID: 2479518931382044284}
+  - component: {fileID: 1226373927776603913}
   m_Layer: 5
   m_Name: TopMenu
   m_TagString: Untagged
@@ -342,6 +343,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   courseTitle: {fileID: 7092877738379625170}
   pointsText: {fileID: 5359369102163208285}
+--- !u!114 &1226373927776603913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719663092097394917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 383c21486f8fff04386851cd1d7f1192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: 9b686e814bddd46b68de4a4507028a7b, type: 3}
+  buttons:
+  - {fileID: 5107188647723129520}
 --- !u!1 &2416375513569492302
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,6 +570,8 @@ MonoBehaviour:
   buttons:
   - button: {fileID: 5107188647723129520}
     sceneName: DefaultPersonalPage
+    isSingle: 0
+    isNeedBeClosed: 1
 --- !u!114 &5559187910400464061
 MonoBehaviour:
   m_ObjectHideFlags: 0
