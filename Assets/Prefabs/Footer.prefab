@@ -137,6 +137,7 @@ MonoBehaviour:
   - button: {fileID: 1610455824537333768}
     sceneName: DayTask
     isSingle: 0
+    isNeedBeClosed: 1
 --- !u!1 &491630599343742654
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +276,7 @@ MonoBehaviour:
   - button: {fileID: 4453793499625642492}
     sceneName: MapScene
     isSingle: 1
+    isNeedBeClosed: 1
 --- !u!1 &1468471695956539423
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,6 +527,7 @@ MonoBehaviour:
   - button: {fileID: 8858182689953025013}
     sceneName: LeaderBoard
     isSingle: 0
+    isNeedBeClosed: 1
 --- !u!1 &3745542122644430141
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,6 +981,7 @@ MonoBehaviour:
   - button: {fileID: 4453793499625642492}
     sceneName: MapScene
     isSingle: 1
+    isNeedBeClosed: 1
 --- !u!1 &5263706034334296143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,6 +1120,7 @@ MonoBehaviour:
   - button: {fileID: 5261396746293479835}
     sceneName: LeaderBoard
     isSingle: 0
+    isNeedBeClosed: 1
 --- !u!1 &6751253655612395333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,6 +1259,7 @@ MonoBehaviour:
   - button: {fileID: 4518783250021797425}
     sceneName: DayTask
     isSingle: 0
+    isNeedBeClosed: 1
 --- !u!1 &7751584566314431645
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,6 +1397,7 @@ MonoBehaviour:
   - button: {fileID: 3857510665639687146}
     sceneName: DefaultPersonalPage
     isSingle: 0
+    isNeedBeClosed: 1
 --- !u!1 &7922171606794804718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,6 +1536,7 @@ MonoBehaviour:
   - button: {fileID: 8053429895148284005}
     sceneName: DefaultPersonalPage
     isSingle: 0
+    isNeedBeClosed: 1
 --- !u!1 &8437573407791200921
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,6 +1546,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2170630081583808378}
+  - component: {fileID: 6733063748726718903}
   m_Layer: 0
   m_Name: Icon
   m_TagString: Untagged
@@ -1569,3 +1578,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -90, y: 0}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &6733063748726718903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8437573407791200921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 383c21486f8fff04386851cd1d7f1192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: 9b686e814bddd46b68de4a4507028a7b, type: 3}
+  buttons:
+  - {fileID: 7768278658257434924}
+  - {fileID: 8858182689953025013}
+  - {fileID: 3857510665639687146}
+  - {fileID: 1610455824537333768}
+  - {fileID: 6379547827220555339}
