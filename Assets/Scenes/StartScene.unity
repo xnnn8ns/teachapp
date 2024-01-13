@@ -155,37 +155,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneSounds:
   - sceneName: WindowMessageScene
-    clip: {fileID: 8300000, guid: fab5ff3421a5c48818f2dc2d03319ada, type: 3}
+    clip: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
+    loop: 0
   - sceneName: WindowRepeatErrorScene
     clip: {fileID: 8300000, guid: b99da9a57308d4ba1bee1cf1d9038376, type: 3}
+    loop: 0
   - sceneName: WindowTimerStopScene
     clip: {fileID: 8300000, guid: a674622f5a26e440384b289e326c60da, type: 3}
+    loop: 0
   - sceneName: WindowYesNowScene
     clip: {fileID: 8300000, guid: b83bf8726a7fac349a54389f0c57cda6, type: 3}
+    loop: 0
   - sceneName: WindowScene
     clip: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
+    loop: 0
   - sceneName: WindowSimpliMessageScene
     clip: {fileID: 8300000, guid: 1d74880bed4586644a16a79a2d9dc8af, type: 3}
+    loop: 0
   - sceneName: QuestionAnswerTestCheckScene
     clip: {fileID: 8300000, guid: c5e2a73ad4706440f93bf05df0b465fe, type: 3}
+    loop: 1
   - sceneName: WebWidget
     clip: {fileID: 8300000, guid: 1d74880bed4586644a16a79a2d9dc8af, type: 3}
+    loop: 0
   - sceneName: DefaultPersonalPage
-    clip: {fileID: 8300000, guid: 35cf7766e9e2aa542811e896fde57989, type: 3}
-  - sceneName: PersonalPageWithSettings
-    clip: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
-  - sceneName: RegistrationScene
-    clip: {fileID: 8300000, guid: 7bd6b897eb5ca4b7d88a205c4a51640c, type: 3}
+    clip: {fileID: 8300000, guid: 2352822feb4caa14ebdbc0c713289f8d, type: 3}
+    loop: 0
   - sceneName: MapSceneTimeOut
     clip: {fileID: 8300000, guid: a674622f5a26e440384b289e326c60da, type: 3}
+    loop: 0
   - sceneName: MapSceneResult
     clip: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
+    loop: 0
   - sceneName: MapScene
-    clip: {fileID: 8300000, guid: 7cc057bed53baf34799f52aab3c84800, type: 3}
+    clip: {fileID: 8300000, guid: 2352822feb4caa14ebdbc0c713289f8d, type: 3}
+    loop: 0
   - sceneName: Leaderboard
-    clip: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
+    clip: {fileID: 8300000, guid: 2352822feb4caa14ebdbc0c713289f8d, type: 3}
+    loop: 0
   - sceneName: DayTask
-    clip: {fileID: 8300000, guid: c5cb2ac29e89dbf43a9b644caaad45e6, type: 3}
+    clip: {fileID: 8300000, guid: 7cc057bed53baf34799f52aab3c84800, type: 3}
+    loop: 0
 --- !u!4 &131631009
 Transform:
   m_ObjectHideFlags: 0
