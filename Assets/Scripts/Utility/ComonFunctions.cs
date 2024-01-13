@@ -182,7 +182,7 @@ public class ComonFunctions : MonoBehaviour
         {
             Debug.Log("Form upload complete!");
             Debug.Log(www.downloadHandler.text);
-            UserData.SetUserData(userID, name, email, password, avatarID, isByVK, VKID, score);
+            UserData.SetUserData(userID, name, name, email, password, avatarID, isByVK, VKID, score);
         }
     }
 

@@ -56,8 +56,8 @@ Topic9;Переменные;Topic1;Thema1;Argomento1
 Topic10;Переменные;Topic1;Thema1;Argomento1
 Step;этап из;step from;Schritt von;passo da
 Settings;Настройки;Settings;Einstellungen;Impostazioni
-Name;Имя;Name;Name;Nome
-Nickname;Имя пользователя;Nickname;Nickname;Soprannome
+Name;ФИО;Full name;Vollständiger Name;Nome completo
+Nickname;Отображяемое имя;Nickname;Nickname;Soprannome
 Email;Электронная почта;Email;Email;E-mail
 Password;Пароль;Password;Passwort;Parola d'ordine
 PersonalPage;Личная страница;Personal page;Persönliche Seite;Pagina personale

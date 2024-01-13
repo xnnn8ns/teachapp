@@ -166,7 +166,7 @@ public class AuthController : MonoBehaviour
                         fullName += " ";
                     fullName += vkResponse.ResponseList[0].UserLastName;
                 }
-                UserData.SetUserData("", fullName, "", "", 0, 1, int.Parse(vkResponse.ResponseList[0].UserID), UserData.Score);
+                UserData.SetUserData("", fullName, fullName, "", "", 0, 1, int.Parse(vkResponse.ResponseList[0].UserID), UserData.Score);
                 StartCoroutine(LogByVK(fullName, "", "", 0, UserData.IsByVK, UserData.VKID, UserData.Score));
                 StartCoroutine(ComonFunctions.Instance.GetIconFromURLByUserID(vkResponse.ResponseList[0].UserID, vkResponse.ResponseList[0].UserPhoto, imagePerson));
             }
@@ -237,7 +237,7 @@ public class AuthController : MonoBehaviour
                 if (int.TryParse(response.ResponseData, out int resultID))
                 {
                     UserData.UserID = resultID.ToString();
-                    UserData.SetUserData(UserData.UserID, name, email, password, avatarID, isByVK, VKID, score);
+                    UserData.SetUserData(UserData.UserID, name, name, email, password, avatarID, isByVK, VKID, score);
                     StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
 
                     SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
@@ -248,6 +248,7 @@ public class AuthController : MonoBehaviour
                 if (nativeResponse != null)
                 {
                     UserData.SetUserData(nativeResponse.ResponseAuth[0].UserID.ToString(),
+                        nativeResponse.ResponseAuth[0].UserFullName,
                         nativeResponse.ResponseAuth[0].UserFullName,
                         nativeResponse.ResponseAuth[0].UserEmail,
                         nativeResponse.ResponseAuth[0].UserPassword,

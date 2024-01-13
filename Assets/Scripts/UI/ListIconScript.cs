@@ -30,8 +30,6 @@ public class ListIconScript : MonoBehaviour
 
     private void GetUserLeaderBoardList()
     {
-        
-
         Sprite[] sprites = Resources.LoadAll<Sprite>("Avatars/");
         UserData.LoadUserData();
         _selectedAvatarID = UserData.UserAvatarID;

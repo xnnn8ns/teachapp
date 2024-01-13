@@ -321,7 +321,7 @@ MonoBehaviour:
   m_HideSoftKeyboard: 0
   m_CharacterValidation: 0
   m_RegexValue: 
-  m_GlobalPointSize: 14
+  m_GlobalPointSize: 12
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1
@@ -517,8 +517,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Enter text...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
+  m_sharedMaterial: {fileID: -7544648239833452575, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -542,7 +542,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65.7
+  m_fontSize: 63.9
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1093,8 +1093,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Enter text...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
+  m_sharedMaterial: {fileID: -7544648239833452575, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1118,7 +1118,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.55
+  m_fontSize: 64.7
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1736,8 +1736,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
+  m_sharedMaterial: {fileID: -7544648239833452575, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2251,7 +2251,7 @@ MonoBehaviour:
   m_HideSoftKeyboard: 0
   m_CharacterValidation: 5
   m_RegexValue: 
-  m_GlobalPointSize: 14
+  m_GlobalPointSize: 12
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
@@ -2285,7 +2285,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1
@@ -2410,8 +2410,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Enter text...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
+  m_sharedMaterial: {fileID: -7544648239833452575, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2435,7 +2435,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.8
+  m_fontSize: 64.95
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3158,8 +3158,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
+  m_sharedMaterial: {fileID: -7544648239833452575, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3487,8 +3487,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Enter text...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
+  m_sharedMaterial: {fileID: -7544648239833452575, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3512,7 +3512,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.85
+  m_fontSize: 65
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4077,9 +4077,11 @@ MonoBehaviour:
   - button: {fileID: 1671135243}
     sceneName: MapScene
     isSingle: 1
+    isNeedBeClosed: 1
   - button: {fileID: 1446659738}
     sceneName: DefaultPersonalPage
     isSingle: 1
+    isNeedBeClosed: 1
 --- !u!114 &1659296807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4344,7 +4346,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1696814556}
   m_TextViewport: {fileID: 2016901168}
   m_TextComponent: {fileID: 657691251}
-  m_Placeholder: {fileID: 272160679}
+  m_Placeholder: {fileID: 883717266}
   m_VerticalScrollbar: {fileID: 0}
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
@@ -4358,7 +4360,7 @@ MonoBehaviour:
   m_HideSoftKeyboard: 0
   m_CharacterValidation: 7
   m_RegexValue: 
-  m_GlobalPointSize: 14
+  m_GlobalPointSize: 12
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
@@ -4392,7 +4394,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1
@@ -4667,8 +4669,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 6ce6c1e423fea4652837b426ee57a67f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
+  m_sharedMaterial: {fileID: -7544648239833452575, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5062,21 +5064,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2046730744}
   m_TextViewport: {fileID: 764744032}
   m_TextComponent: {fileID: 1264483746}
-  m_Placeholder: {fileID: 883717266}
+  m_Placeholder: {fileID: 525165142}
   m_VerticalScrollbar: {fileID: 0}
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
+  m_ContentType: 5
   m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 5
   m_RegexValue: 
-  m_GlobalPointSize: 14
+  m_GlobalPointSize: 12
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
@@ -5110,7 +5112,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: b719cc9c8041d4614b6d788d89556c0f, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1

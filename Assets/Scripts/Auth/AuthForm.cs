@@ -176,7 +176,7 @@ public class AuthForm : MonoBehaviour
 
                 UserData.UserID = nativeResponse.UserID;
                 //Debug.Log(UserData.UserID);
-                UserData.SetUserData(UserData.UserID, name, email, password, avatarID, isByVK, VKID, score);
+                UserData.SetUserData(UserData.UserID, name, name, email, password, avatarID, isByVK, VKID, score);
                 CloseAuthScenes();
                 SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
                 //}
@@ -213,7 +213,7 @@ public class AuthForm : MonoBehaviour
                 if (int.TryParse(nativeResponse.ResponseData, out int resultID))
                 {
                     UserData.UserID = resultID.ToString(); ;
-                    UserData.SetUserData(UserData.UserID, name, email, password, avatarID, isByVK, VKID, score);
+                    UserData.SetUserData(UserData.UserID, name, name, email, password, avatarID, isByVK, VKID, score);
                     CloseAuthScenes();
                     SceneManager.LoadScene("UserForm", LoadSceneMode.Additive);
                 }
@@ -324,6 +324,7 @@ public class AuthForm : MonoBehaviour
     public void ClickLogOut()
     {
         UserData.SetUserData("",
+                   "",
                    "",
                    "",
                    "",

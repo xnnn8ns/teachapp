@@ -8,6 +8,7 @@ using TMPro;
 public class UserData : MonoBehaviour
 {
     public static string UserID = "";
+    public static string UserFullName = "";
     public static string UserName = "";
     public static string UserEmail = "";
     public static string UserPassword = "";
@@ -31,10 +32,19 @@ public class UserData : MonoBehaviour
         PlayerPrefs.SetString("Token", Token);
     }
 
-    public static void SetUserData(string userID, string userName, string userEmail, string userPassword, int userAvatarID, int isByVK, int vkID, int score)
+    public static void SaveUserRegData()
+    {
+        PlayerPrefs.SetString("UserName", UserName);
+        PlayerPrefs.SetString("UserFullName", UserFullName);
+        PlayerPrefs.SetString("UserEmail", UserEmail);
+        PlayerPrefs.SetString("UserPassword", UserPassword);
+    }
+
+    public static void SetUserData(string userID, string userName, string userFullName, string userEmail, string userPassword, int userAvatarID, int isByVK, int vkID, int score)
     {
         UserID = userID;
         UserName = userName;
+        UserFullName = userFullName;
         UserEmail = userEmail;
         UserPassword = userPassword;
         UserAvatarID = userAvatarID;
@@ -43,6 +53,7 @@ public class UserData : MonoBehaviour
         Score = score;
         PlayerPrefs.SetString("UserID", UserID);
         PlayerPrefs.SetString("UserName", UserName);
+        PlayerPrefs.SetString("UserFullName", UserFullName);
         PlayerPrefs.SetString("UserEmail", UserEmail);
         PlayerPrefs.SetString("UserPassword", UserPassword);
         PlayerPrefs.SetInt("UserAvatarID", UserAvatarID);
@@ -54,6 +65,7 @@ public class UserData : MonoBehaviour
     public static void LoadUserData()
     {
         UserID = PlayerPrefs.GetString("UserID", "");
+        UserFullName = PlayerPrefs.GetString("UserFullName", "");
         UserName = PlayerPrefs.GetString("UserName", "");
         UserEmail = PlayerPrefs.GetString("UserEmail", "");
         UserPassword = PlayerPrefs.GetString("UserPassword", "");

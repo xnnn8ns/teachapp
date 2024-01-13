@@ -4,151 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF Page</title>
+
     <style>
-        html,
-        body,
-        body *,
-        body *::before,
-        body *::after {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            box-sizing: border-box;
-            color: #1b3057;
+        @page{margin: 0;}
+        body{
+            margin-bottom:0!important;
         }
-        .main-container {
-            width: 1123px;
-            height: 794px;
-            position: relative;
-            /*background-image: url('cert.jpg');
-            background-repeat: no-repeat;
-            background-position: 0 0;
-            background-size: contain; */
+        * {
+            page-break-after: avoid;
         }
-        .decoration {
-            position: absolute;
-            z-index: 1;
-        }
-        .decoration--one {
-            width: 318px;
-            top: 0;
-            left: 0;
-        }
-        .decoration--two {
-            width: 323px;
-            top: 0;
-            right: 0;
-        }
-        .decoration--three {
-            width: 340px;
-            bottom: 0;
-            right: 0;
-        }
-        .decoration--four {
-            width: 240px;
-            bottom: 0;
-            left: 0;
-        }
-        .inner {
-            width: 100%;
-            height: 100%;
-            padding-top: 215px;
-            position: relative;
-            z-index: 3;
-            text-align: center;
-        }
-        .title {
-            margin-bottom: 45px;
-            font-size: 36px;
-            text-transform: uppercase;
-        }
-        .subtitle {
-            margin-bottom: 130px;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-        }
-        .titlename {
-            margin-bottom: 70px;
-            font-size: 20px;
-            letter-spacing: 0.2em;
-            margin-top: -70px;
-        }
-        .text {
-            font-size: 18px;
-            line-height: 120%;
-            letter-spacing: -0.015em;
-        }
-        .signature-container-wrapper {
-            margin-top: 90px;
-            text-align: center;
-        }
-        .signature-container {
-            width: 268px;
-            padding-top: 13px;
-            display: inline-block;
-            border-top: 5px solid #bbe3e1;
-        }
-        .name {
-            font-size: 14px;
-            font-weight: bold;
-            line-height: 120%;
-        }
-        .post {
-            font-size: 14px;
-            font-style: italic;
-            line-height: 120%;
-        }
-        .copyright {
-            margin-top: 94px;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: -0.01em;
-            color: black;
-        }
+        img{ max-width: none!important; }
     </style>
 </head>
-<body>
-    <main class="main-container">
-        <img class="decoration decoration--one" src="http://sg12ngec.beget.tech/webCert/cert/decoration1.jpg">
-        <img class="decoration decoration--two" src="http://sg12ngec.beget.tech/webCert/cert/decoration2.jpg">
-        <img class="decoration decoration--three" src="http://sg12ngec.beget.tech/webCert/cert/decoration3.jpg">
-        <img class="decoration decoration--four" src="http://sg12ngec.beget.tech/webCert/cert/decoration4.jpg">
-
-        <div class="inner">
-            <h1 class="title">Сертификат</h1>
-            <div class="subtitle">Выдан:</div>
-            <div id="user-name" class="titlename">Title</div>
-            <p class="text">за прохождение курса по Основам синтаксиса Python в Академии ИТ в размере 108 часов.<br>15 ноября 2023 г.</p>
-            <div class="signature-container-wrapper">
-                <div class="signature-container">
-                    <div class="name">Иванов Степан Сергеевич</div>
-                    <div class="post">Директор академии</div>
-                </div>
-                <div class="signature-container" style="margin-left: 32px;">
-                    <div class="name">Севостьянов Иван Петрович</div>
-                    <div class="post">Заместитель директора</div>
-                </div>
-            </div>
-            <div class="copyright">Академия ИТ</div>
-        </div>
-
-        <script>
-            fetch('../userData.json')
-                .then(response => response.json())
-                .then(users => {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const id = urlParams.get('id');
-                    const user = users.find(u => u.id.toString() === id); // Преобразуем ID пользователя в строку перед сравнением
-                    if (user) {
-                        document.getElementById('user-name').textContent = `${user.username}, ${user.name}`;
-                    } else {
-                        console.error(`Пользователь с ID ${id} не найден`);
-                    }
-                })
-                .catch(error => console.error('Не удалось загрузить или обработать файл userData.json', error));
-        </script>
-        
-    </main>
+<body style="height: 100%; margin: 0; padding: 0; font-family: 'Arial', sans-serif; box-sizing: border-box; color: #1b3057;">
+    <!-- <main class="main-container" style="width: 1123px; height: 794px; position: relative;"> -->
+        <!-- <table style="width: 1123px; height: 794px; border: none; border-collapse: collapse;"></table> -->
+        <table style="width: 1123px; height: 794px; padding-top: 150px; border-collapse: collapse;">
+            <tr>
+                <td style="width: 340px;">
+                    <img class="decoration decoration--one" src="http://sg12ngec.beget.tech/webCert/cert/decoration1.jpg" style="width: 318px; top: 0; left: 0; z-index: 1;">
+                </td>
+                <td width="460px" style="text-align: center;">
+                    
+                </td>
+                <td style="width: 323px" valign="top" align="right">
+                    <img class="decoration decoration--two" src="http://sg12ngec.beget.tech/webCert/cert/decoration2.jpg" style="width: 323px; top: 0; right: 0; z-index: 1;">
+                </td>
+            </tr>
+            <tr>
+                <td width="100%" colspan="3">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="text-align: center;">
+                                <h1 class="title" style="width: 100%; font-size: 36px; text-transform: uppercase; text-align: center;">Сертификат</h1> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="45px"></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">
+                                <div class="subtitle" style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.2em;">Выдан</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="130px" align="center">
+                                <p style="font-size: 20px; letter-spacing: 0.2em;">Title</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">
+                                <p class="text" tyle="font-size: 18px; line-height: 120%; letter-spacing: -0.015em;">за прохождение курса по Основам синтаксиса Python в Академии ИТ в размере 108 часов.<br>15 ноября 2023 г.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style="margin-top: 70px; margin-right: auto; margin-left: auto; text-align: center; border: none; border-collapse: collapse;">
+                                    <tr width="568px" align="center">
+                                        <td width="268px" style="width: 268px; border-top: 5px solid #bbe3e1;">
+                                            <div class="signature-container" style="width: 268px; padding-top: 13px; display: inline-block;">
+                                                <div class="name" style="font-size: 14px; font-weight: bold; line-height: 120%;">Иванов Степан Сергеевич</div>
+                                                <div class="post" style="font-size: 14px; font-style: italic; line-height: 120%;">Директор академии</div>
+                                            </div>
+                                        </td>
+                                        <td width="32px"></td>
+                                        <td style="width: 268px; border-top: 5px solid #bbe3e1;">
+                                            <div class="signature-container" style="width: 268px; margin-left: 32px; padding-top: 13px; display: inline-block; ">
+                                                <div class="name" style="font-size: 14px; font-weight: bold; line-height: 120%;">Севостьянов Иван Петрович</div>
+                                                <div class="post" style="font-size: 14px; font-style: italic; line-height: 120%;">Заместитель директора</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">
+                                
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- <div class="inner" style="width: 100%; margin-top: -50px; margin-bottom: -100px; position: relative; z-index: 3; text-align: center;">
+                        
+                        
+            
+                        
+                        
+                        
+                    </div> -->
+                </td>
+            </tr>
+            <tr>
+                <td><img class="decoration decoration--four" src="http://sg12ngec.beget.tech/webCert/cert/decoration4.jpg" style="width: 240px; bottom: 0; left: 0; z-index: 1;"></td>
+                <td width="460px" align="center">
+                    <div class="copyright" style="margin-top: 94px; font-size: 12px; font-weight: bold; letter-spacing: -0.01em; color: black;">Академия ИТ</div>
+                </td>
+                <td><img class="decoration decoration--three" src="http://sg12ngec.beget.tech/webCert/cert/decoration3.jpg" style="width: 340px; bottom: 0; right: 0; z-index: 1;"></td>
+            </tr>
+        </table>
+    <!-- </main> -->
 </body>
 </html>

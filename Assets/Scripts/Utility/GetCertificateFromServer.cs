@@ -32,7 +32,7 @@ public class GetCertificateFromServer : MonoBehaviour
         foreach (var item in lines)
         {
             string updatedStr = item;
-            if (item.Contains("class=\"titlename\""))
+            if (item.Contains(">Title<"))
             {
                 string[] strBlocks = item.Split(">");
                 string newStr = strBlocks[0] + ">";
