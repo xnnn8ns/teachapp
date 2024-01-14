@@ -157,45 +157,98 @@ MonoBehaviour:
   - sceneName: WindowMessageScene
     clip: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
     loop: 0
+    randomize: 1
+    additionalClips:
+    - {fileID: 8300000, guid: 76d66616fade0ce4eaf29c0aa704db1b, type: 3}
+    - {fileID: 8300000, guid: 65d1a8acc6e7ab04c9377d04625f5f50, type: 3}
+    - {fileID: 8300000, guid: e24be4daee1ea55438b4c6e77ef2d932, type: 3}
+    - {fileID: 8300000, guid: acf4ff693dea02a48b9d808f16ef5987, type: 3}
+    - {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
   - sceneName: WindowRepeatErrorScene
     clip: {fileID: 8300000, guid: b99da9a57308d4ba1bee1cf1d9038376, type: 3}
     loop: 0
+    randomize: 1
+    additionalClips:
+    - {fileID: 8300000, guid: 4dc852954c67d1c489b6a7bd28f6805f, type: 3}
+    - {fileID: 8300000, guid: 49030a998b1efd348994ab0f97ae9594, type: 3}
+    - {fileID: 8300000, guid: 43d12af3b7369004994864638516ff11, type: 3}
+    - {fileID: 8300000, guid: 31e53c64c3dacb24a9c64c60cb936592, type: 3}
+    - {fileID: 8300000, guid: b99da9a57308d4ba1bee1cf1d9038376, type: 3}
   - sceneName: WindowTimerStopScene
     clip: {fileID: 8300000, guid: a674622f5a26e440384b289e326c60da, type: 3}
     loop: 0
+    randomize: 0
+    additionalClips: []
   - sceneName: WindowYesNowScene
     clip: {fileID: 8300000, guid: b83bf8726a7fac349a54389f0c57cda6, type: 3}
     loop: 0
+    randomize: 1
+    additionalClips:
+    - {fileID: 8300000, guid: f15fd70c0be012c478e63187edd763cc, type: 3}
+    - {fileID: 8300000, guid: f39203fd913316d41bab84c97d42a130, type: 3}
+    - {fileID: 8300000, guid: 1fa3bc5eb41feeb4ea2c542735f8f047, type: 3}
+    - {fileID: 8300000, guid: b83bf8726a7fac349a54389f0c57cda6, type: 3}
   - sceneName: WindowScene
     clip: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
     loop: 0
+    randomize: 1
+    additionalClips:
+    - {fileID: 8300000, guid: 000d3ea287696304e9d98dc3c03e4b2c, type: 3}
+    - {fileID: 8300000, guid: 0da35f2d73281df459cf41bf11477c8e, type: 3}
+    - {fileID: 8300000, guid: 8f59c65e6d0b06d4eaea21b76f0884fe, type: 3}
+    - {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
   - sceneName: WindowSimpliMessageScene
     clip: {fileID: 8300000, guid: 1d74880bed4586644a16a79a2d9dc8af, type: 3}
     loop: 0
+    randomize: 0
+    additionalClips: []
   - sceneName: QuestionAnswerTestCheckScene
     clip: {fileID: 8300000, guid: c5e2a73ad4706440f93bf05df0b465fe, type: 3}
     loop: 1
-  - sceneName: WebWidget
-    clip: {fileID: 8300000, guid: 1d74880bed4586644a16a79a2d9dc8af, type: 3}
-    loop: 0
+    randomize: 0
+    additionalClips: []
   - sceneName: DefaultPersonalPage
     clip: {fileID: 8300000, guid: 2352822feb4caa14ebdbc0c713289f8d, type: 3}
     loop: 0
+    randomize: 0
+    additionalClips: []
   - sceneName: MapSceneTimeOut
     clip: {fileID: 8300000, guid: a674622f5a26e440384b289e326c60da, type: 3}
     loop: 0
-  - sceneName: MapSceneResult
-    clip: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
-    loop: 0
+    randomize: 0
+    additionalClips: []
   - sceneName: MapScene
-    clip: {fileID: 8300000, guid: 2352822feb4caa14ebdbc0c713289f8d, type: 3}
+    clip: {fileID: 8300000, guid: 3a55fb580032dbd43a9894e13aa1ce02, type: 3}
     loop: 0
+    randomize: 1
+    additionalClips:
+    - {fileID: 8300000, guid: 0edc2915aedddcd4283e2e76f72039a3, type: 3}
+    - {fileID: 8300000, guid: fad806939d3c4974a81c3e993dce2237, type: 3}
+    - {fileID: 8300000, guid: 3a55fb580032dbd43a9894e13aa1ce02, type: 3}
   - sceneName: Leaderboard
     clip: {fileID: 8300000, guid: 2352822feb4caa14ebdbc0c713289f8d, type: 3}
     loop: 0
+    randomize: 1
+    additionalClips:
+    - {fileID: 8300000, guid: 7e9612eda8791bc4b9e12feec8ff7cf2, type: 3}
+    - {fileID: 8300000, guid: 2352822feb4caa14ebdbc0c713289f8d, type: 3}
   - sceneName: DayTask
     clip: {fileID: 8300000, guid: 7cc057bed53baf34799f52aab3c84800, type: 3}
     loop: 0
+    randomize: 1
+    additionalClips:
+    - {fileID: 8300000, guid: 9e97587ac676595478fbd25de2aff2b2, type: 3}
+    - {fileID: 8300000, guid: 2c0536098f9a1644dacccbe9f8b6d5a2, type: 3}
+    - {fileID: 8300000, guid: 7cc057bed53baf34799f52aab3c84800, type: 3}
+  - sceneName: WebWidget
+    clip: {fileID: 8300000, guid: fe55abb63d850174c9d36a812fc12f1c, type: 3}
+    loop: 0
+    randomize: 1
+    additionalClips:
+    - {fileID: 8300000, guid: 66104518864c5184d928fca8f73e06de, type: 3}
+    - {fileID: 8300000, guid: 2f91d55a6f5a62a428ac392346db78ad, type: 3}
+    - {fileID: 8300000, guid: 4e88512942e09ac4189e28619379028f, type: 3}
+    - {fileID: 8300000, guid: fe55abb63d850174c9d36a812fc12f1c, type: 3}
 --- !u!4 &131631009
 Transform:
   m_ObjectHideFlags: 0
@@ -341,6 +394,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 71d2a80cdc6ef498382c752076137c8c, type: 3}
   - {fileID: 8300000, guid: 87890a66193394e3cb7d6284cc6b4344, type: 3}
   - {fileID: 8300000, guid: 5d6e42b338547477aa7a88708f894463, type: 3}
+  - {fileID: 8300000, guid: 7aa29744a2b00ff45971ecc6904b7169, type: 3}
 --- !u!4 &1047086413
 Transform:
   m_ObjectHideFlags: 0

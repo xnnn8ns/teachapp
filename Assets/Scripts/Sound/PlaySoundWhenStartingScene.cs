@@ -9,6 +9,8 @@ public class SceneSound
     public string sceneName;
     public AudioClip clip;
     public bool loop;
+    public bool randomize;
+    public AudioClip[] additionalClips;
 }
 
 public class PlaySoundWhenStartingScene : MonoBehaviour
@@ -50,8 +52,16 @@ public class PlaySoundWhenStartingScene : MonoBehaviour
         if (sceneSoundDictionary.TryGetValue(currentSceneName, out SceneSound sceneSound))
         {
             audioSource.Stop();
-            audioSource.clip = sceneSound.clip;
-            audioSource.pitch = 0.5f;
+            if (sceneSound.randomize && sceneSound.additionalClips.Length > 0)
+            {
+                audioSource.clip = sceneSound.additionalClips[Random.Range(0, sceneSound.additionalClips.Length)];
+            }
+            else
+            {
+                audioSource.clip = sceneSound.clip;
+            }
+            audioSource.pitch = 1.1f;
+            audioSource.volume = 0.10f;
             audioSource.loop = sceneSound.loop;
             audioSource.Play();
         }
