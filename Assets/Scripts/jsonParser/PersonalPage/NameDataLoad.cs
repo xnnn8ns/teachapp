@@ -21,11 +21,14 @@ public class NameDataLoad : MonoBehaviour
     private Image imageAvatar;
     [SerializeField]
     private Image imagePlusAvatar;
+    [SerializeField]
+    private GameObject flagParent;
 
 
     private void Start()
     {
         LoadUserData();
+        flagParent.SetActive(false);
     }
 
     private void LoadUserData()
@@ -41,5 +44,12 @@ public class NameDataLoad : MonoBehaviour
         {
             imagePlusAvatar.enabled = true;
         }
+    }
+
+    public void ClickFlag()
+    {
+        flagParent.SetActive(!flagParent.activeSelf);
+        if (flagParent.activeSelf)
+            flagParent.GetComponent<ChangeLanguage>()?.LoadFlags();
     }
 }

@@ -12,8 +12,9 @@ public class TopPanel : MonoBehaviour
 
     private void Start()
     {
-        SetPoints();
-        SetTitle();
+        //SetPoints();
+        //SetTitle();
+        UpdateTitles();
     }
 
     private void SetPoints()
@@ -24,5 +25,11 @@ public class TopPanel : MonoBehaviour
     private void SetTitle()
     {
         courseTitle.text = LangAsset.GetValueByKey("PythonBasic");
+    }
+
+    public void UpdateTitles()
+    {
+        SetPoints();
+        SetTitle();
     }
 }

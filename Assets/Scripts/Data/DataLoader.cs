@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using UnityEngine.Networking;
 using ResponseTaskJSON;
-using Unity.VisualScripting;
 using ResponseTestJSON;
 using ResponseTopicJSON;
 
@@ -377,7 +376,7 @@ public class DataLoader : MonoBehaviour
         }
     }
 
-    private void ParseJSONTopic(TopicJSONItem topic)
+    private static void ParseJSONTopic(TopicJSONItem topic)
     {
         try
         {
@@ -396,12 +395,35 @@ public class DataLoader : MonoBehaviour
 
 
             theory.ID = topic.Number;
-
+            //Debug.Log(theory.Description);
             Theory.TheoryList.Add(theory);
         }
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
+        }
+    }
+
+    public static void UpdateLang()
+    {
+        Theory.TheoryList.Clear();
+
+        string newFile = Settings.jsonTopicFilePath.Replace("/", "");
+        newFile = newFile.Replace(".json", "");
+        TextAsset txt = (TextAsset)Resources.Load(newFile, typeof(TextAsset));
+
+        string json = txt.text;
+        Debug.Log("UpdateLang");
+        Debug.Log(json.Length);
+        if (json.Length > 0)
+        {
+            TopicJSON response = TopicJSON.FromJson(json);
+            if (response != null && response.Count > 0)
+            {
+                foreach (var item in response)
+                    ParseJSONTopic(item);
+            }
+
         }
     }
 }

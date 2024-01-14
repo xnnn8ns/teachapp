@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class ChangeLanguage : MonoBehaviour
 {
@@ -14,8 +13,12 @@ public class ChangeLanguage : MonoBehaviour
     private int currentLanguageIndex; // Индекс текущего языка
     private Vector3[] initialPositions; // Начальные позиции кнопок
 
-    void Start()
+    [SerializeField]
+    private Image TargetFlag;
+
+    public void LoadFlags()
     {
+        Debug.Log("Start");
         // Заполняем массив кнопок и сохраняем начальные позиции
         flagButtons = new Button[flags.Length];
         initialPositions = new Vector3[flags.Length];
@@ -52,18 +55,20 @@ public class ChangeLanguage : MonoBehaviour
 
     public void OnClick(int index)
     {
-        if (index == currentLanguageIndex) 
-        {
-            //SceneManager.LoadScene("DefaultPersonalPage");
-            for (int i = 0; i < SceneManager.sceneCount; i++)
-            {
-                if (SceneManager.GetSceneAt(i).name == "PersonalPageWithChoiceLanguage")
-                    SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
-            }
-            return; // Если выбран уже текущий язык, загружаем сцену и выходим из метода
-        }
+        Debug.Log(index);
+        //if (index == currentLanguageIndex) 
+        //{
+        //    //SceneManager.LoadScene("DefaultPersonalPage");
+        //    for (int i = 0; i < SceneManager.sceneCount; i++)
+        //    {
+        //        if (SceneManager.GetSceneAt(i).name == "PersonalPageWithChoiceLanguage")
+        //            SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+        //    }
+        //    return; // Если выбран уже текущий язык, загружаем сцену и выходим из метода
+        //}
 
         // Проверяем, что индекс не выходит за границы массива
+        Debug.Log(initialPositions.Length);
         if (currentLanguageIndex >= 0 && currentLanguageIndex < initialPositions.Length)
         {
             // Возвращаем текущий главный флаг на его исходную позицию
@@ -89,5 +94,18 @@ public class ChangeLanguage : MonoBehaviour
         PlayerPrefs.SetString("language", language);
         LangLocation newLangLocation = (LangLocation)System.Enum.Parse(typeof(LangLocation), language);
         LangAsset.ChangeLanguage(newLangLocation); // Здесь вызывается событие OnLanguageChanged
+        TargetFlag.sprite = flags[currentLanguageIndex].GetComponent<Image>().sprite;
+
+        FindObjectOfType<Mkey.MapController>()?.UpdateLang();
+        TopPanel[] listPanel = FindObjectsOfType<TopPanel>();
+        if(listPanel != null)
+        {
+            foreach (var item in listPanel)
+            {
+                item.UpdateTitles();
+            }
+        }
+        DataLoader.UpdateLang();
     }
+
 }

@@ -54,6 +54,8 @@ namespace Mkey
 
         private TheoryListJSON _theoryListJSON;
 
+        List<Biome> bList = new List<Biome>();
+
         //[SerializeField]
         //private AudioSource _clickAudio;
 
@@ -71,7 +73,7 @@ namespace Mkey
             FillTheoryDataFromJSON();
 
             Biome[] list = GetComponentsInChildren<Biome>();
-            List<Biome> bList = new List<Biome>();
+            bList = new List<Biome>();
             foreach (var item in list)
             {
                 bList.Add(item);
@@ -131,6 +133,16 @@ namespace Mkey
             }
             Application.targetFrameRate = 60;
             //Debug.Log(Application.targetFrameRate);
+        }
+
+        public void UpdateLang()
+        {
+            Debug.Log("UpdateLang");
+            FillTheoryDataFromJSON();
+            for (int i = 0; i < bList.Count; i++)
+            {
+                bList[i].FillTitleAndSubTitle(_theoryListJSON.theoryList[i].Title, _theoryListJSON.theoryList[i].Description);
+            }
         }
 
         private void FillTheoryDataFromJSON()
