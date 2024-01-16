@@ -10,9 +10,12 @@ public class ButtonClickSound : MonoBehaviour
     public Button[] buttons; // Массив кнопок
     private AudioSource audioSource;
     private Dictionary<Button, bool> isSoundAdded = new Dictionary<Button, bool>(); // новый словарь для отслеживания, был ли добавлен звук для каждой кнопки
+    private FastSceneTransition fastSceneTransition;
 
     void Awake()
     {
+        fastSceneTransition = FindObjectOfType<FastSceneTransition>();
+        
         // Проверяем, есть ли уже AudioListener в сцене
         if (FindObjectOfType<AudioListener>() == null)
         {
@@ -61,6 +64,7 @@ public class ButtonClickSound : MonoBehaviour
         if (audioSource != null && this != null)
         {
             StartCoroutine(PlaySoundWithDelay(0.1f));
+            fastSceneTransition.StartFastSceneTransition(SceneManager.GetActiveScene().name);
         }
     }
 
