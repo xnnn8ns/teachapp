@@ -104,5 +104,6 @@ public class ButtonClickSound : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         audioSource.PlayOneShot(clickSound);
+        Vibration.VibratePop();
     }
 }

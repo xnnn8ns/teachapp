@@ -43,6 +43,7 @@ public class ButtonClickHandler : MonoBehaviour
                 SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
             }
         }
+        Settings.IsModalWindowOpened = false;
         if (isSubScene)
             return;
         if (SceneManager.GetActiveScene().name == scene)

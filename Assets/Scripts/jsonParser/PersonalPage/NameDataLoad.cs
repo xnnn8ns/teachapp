@@ -6,13 +6,6 @@ using UnityEngine.UI;
 
 public class NameDataLoad : MonoBehaviour
 {
-    [System.Serializable]
-    public class userData
-    {
-        public int id;
-        public string username;
-        public string name;
-    }
     [SerializeField]
     private TMP_Text usernameText;
     [SerializeField]

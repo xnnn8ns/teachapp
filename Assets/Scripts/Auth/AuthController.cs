@@ -109,18 +109,18 @@ public class AuthController : MonoBehaviour
 
     private void ParseParams(string value)
     {
-        value = value.Replace('#', '?');
-        Uri myUri = new Uri(value);
-        Debug.Log(value);
-        string user_id = HttpUtility.ParseQueryString(myUri.Query).Get("user_id");
-        if (user_id != null && user_id != "null")
-        {
-            string access_token = HttpUtility.ParseQueryString(myUri.Query).Get("access_token");
-            Debug.Log(access_token);
-            Debug.Log(user_id);
-            StartCoroutine(GetVKUserID(user_id, access_token));
-            //CloseWebForm();
-        }
+        //value = value.Replace('#', '?');
+        //Uri myUri = new Uri(value);
+        //Debug.Log(value);
+        //string user_id = HttpUtility.ParseQueryString(myUri.Query).Get("user_id");
+        //if (user_id != null && user_id != "null")
+        //{
+        //    string access_token = HttpUtility.ParseQueryString(myUri.Query).Get("access_token");
+        //    Debug.Log(access_token);
+        //    Debug.Log(user_id);
+        //    StartCoroutine(GetVKUserID(user_id, access_token));
+        //    //CloseWebForm();
+        //}
         
     }
 

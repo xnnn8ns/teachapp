@@ -736,6 +736,7 @@ GameObject:
   - component: {fileID: 3388728526576460257}
   - component: {fileID: 7869522936071166016}
   - component: {fileID: 7074005354754970222}
+  - component: {fileID: 9161456169699204068}
   m_Layer: 0
   m_Name: BellParent
   m_TagString: Untagged
@@ -760,7 +761,7 @@ RectTransform:
   m_Father: {fileID: 2170630081583808378}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.84, y: -0.25}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -846,6 +847,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &9161456169699204068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4590120568265558743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26717a0b055c3d34eabe16258144f650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - button: {fileID: 7074005354754970222}
+    sceneName: NewsScene
+    isSingle: 0
+    isNeedBeClosed: 1
 --- !u!1 &4759759036069404849
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,7 +898,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1, y: 72}
+  m_AnchoredPosition: {x: -1, y: -3}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5697782883690888419
@@ -1924,6 +1942,8 @@ MonoBehaviour:
     image: {fileID: 4221719083565599207}
   - sceneName: DayTask
     image: {fileID: 3640526626041553098}
+  - sceneName: NewsScene
+    image: {fileID: 7867140363553489566}
 --- !u!1 &8846910231969583405
 GameObject:
   m_ObjectHideFlags: 0

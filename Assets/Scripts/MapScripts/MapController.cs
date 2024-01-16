@@ -275,11 +275,11 @@ namespace Mkey
                     ClickPassButton(clickIndex, isMissionClicked);
                     return;
                 }
-                //if (!buttonData.isActive)
-                //{
-                //    ClickFutureButton();
-                //    return;
-                //}
+                if (!buttonData.isActive)
+                {
+                    ClickFutureButton();
+                    return;
+                }
             }
             ClickCurrentLevelButton(clickIndex, isMissionClicked);
 
@@ -321,13 +321,14 @@ namespace Mkey
         private void ClickFutureButton()
         {
             //_clickAudio?.Play();
+            Debug.Log("ClickFutureButton");
             Vibration.VibratePop();
             Scene scene = SceneManager.GetSceneByName("WindowSimpliMessageScene");
             if (scene.isLoaded)
                 return;
-            PlayerPrefs.SetString("MessageForWindow", "Данный уровень\nпока не доступен");
+            //PlayerPrefs.SetString("MessageForWindow", "Данный уровень\nпока не доступен");
             SceneManager.LoadScene("WindowSimpliMessageScene", LoadSceneMode.Additive);
-            Debug.Log("ClickFutureButton");
+            Debug.Log("ClickFutureButton2");
             Settings.IsModalWindowOpened = true;
         }
 

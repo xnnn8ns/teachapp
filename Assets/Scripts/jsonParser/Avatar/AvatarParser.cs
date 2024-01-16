@@ -9,31 +9,9 @@ public class AvatarParser : MonoBehaviour
     public Sprite[] avatars; // Массив всех возможных аватарок
     private string dataPath;
 
-    [System.Serializable]
-    public class UserData
-    {
-        [SerializeField]
-        private int id;
-        [SerializeField]
-        private int avatar;
-
-        public int ID
-        {
-            get { return id; }
-            set { id = value; }
-        }
-
-        public int Avatar
-        {
-            get { return avatar; }
-            set { avatar = value; }
-        }
-    }
-
     void Start()
     {
-        dataPath = Path.Combine(Application.dataPath, "Resources/userAvatar.json");
-        LoadAvatar(1); // нужен способ определения id игрока
+        LoadAvatar(UserData.UserAvatarID); // нужен способ определения id игрока
         AvatarSelector.OnAvatarChanged += OnAvatarChanged; // Подписываемся на событие
     }
 
@@ -48,14 +26,6 @@ public class AvatarParser : MonoBehaviour
     }
     void LoadAvatar(int id)
     {
-        if (File.Exists(dataPath))
-        {
-            string json = File.ReadAllText(dataPath);
-            UserData data = JsonUtility.FromJson<UserData>(json);
-            if (data.ID == id)
-            {
-                avatarImage.sprite = avatars[data.Avatar];
-            }
-        }
+        ComonFunctions.LoadAvatarFromResourceByID(avatarImage, UserData.UserAvatarID);
     }
 }

@@ -66,13 +66,14 @@ public class WindowsMessageScript : MonoBehaviour
         //_clickAudio?.Play();
         Vibration.VibratePop();
         StopAllCoroutines();
-        if(_audioScore)
+        Settings.IsModalWindowOpened = false;
+        if (_audioScore)
             _audioScore?.Stop();
         if (_audioFanFars)
             _audioFanFars?.Stop();
         if (_textValue)
             _textValue.text = _targetScore.ToString();
-        if (_needUnloadCurrentScene)
+        if (!_needUnloadCurrentScene)
         {
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
@@ -85,10 +86,15 @@ public class WindowsMessageScript : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
+            //SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
+            for (int i = SceneManager.sceneCount - 1; i >= 1; i--)
+            {
+                SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
+                Debug.Log("UnloadSceneAsync");
+            }
         }
 
-        Settings.IsModalWindowOpened = false;
+        
     }
 
     private IEnumerator ArisePonts(int targetValue)
