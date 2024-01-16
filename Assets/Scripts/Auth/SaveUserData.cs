@@ -17,8 +17,6 @@ public class SaveUserData : MonoBehaviour
     private TMP_InputField emailInputField;
     [SerializeField]
     private TMP_InputField passwordInputField;
-    [SerializeField]
-    private Button savebutton;
 
 
     private void Start()
@@ -27,7 +25,6 @@ public class SaveUserData : MonoBehaviour
         usernameInputField.text = UserData.UserName;
         emailInputField.text = UserData.UserEmail;
         passwordInputField.text = UserData.UserPassword;
-        savebutton.onClick.AddListener(SaveData);
     }
 
     public void SaveData()
@@ -35,9 +32,24 @@ public class SaveUserData : MonoBehaviour
         UserData.UserFullName = nameInputField.text;
         UserData.UserName = usernameInputField.text;
         UserData.UserEmail = emailInputField.text;
-        UserData.UserPassword = passwordInputField.text;
+        UserData.UserPassword = Encrypt(passwordInputField.text);
 
         UserData.SaveUserRegData();
+    }
+
+    private string Encrypt(string str)
+    {
+        char[] charArray = str.ToCharArray();
+        for (int i = 0; i < charArray.Length; i++)
+        {
+            charArray[i] = (char)(charArray[i] ^ 129);
+        }
+        return new string(charArray);
+    }
+
+    public void DeleteAccount()
+    {
+        UserData.DeleteAllData();
     }
 
 }

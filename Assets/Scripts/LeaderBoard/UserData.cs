@@ -40,6 +40,11 @@ public class UserData : MonoBehaviour
         PlayerPrefs.SetString("UserPassword", UserPassword);
     }
 
+    public static void DeleteAllData()
+    {
+        SetUserData("", "", "", "", "", 0,0,0,Score);
+    }
+
     public static void SetUserData(string userID, string userName, string userFullName, string userEmail, string userPassword, int userAvatarID, int isByVK, int vkID, int score)
     {
         UserID = userID;

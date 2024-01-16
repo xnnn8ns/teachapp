@@ -66,6 +66,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PersonalPage/DefaultPersonalPage.unity
     guid: 76c0e02e624591a4cbc02d3b7361d1a1
   - enabled: 1
+    path: Assets/Scenes/PersonalPage/RegistrationScene.unity
+    guid: 95f4fbcf22fd93c48902902073f44b89
+  - enabled: 1
     path: Assets/Scenes/News/NewsScene.unity
     guid: f4e02fbfd130840a1b1cca90dceb1c6c
   m_configObjects: {}

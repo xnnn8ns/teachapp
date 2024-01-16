@@ -18,7 +18,8 @@ public class GetCertificateFromServer : MonoBehaviour
 
     public void GetHtmlFile(string filePath = "pdfpage.html")
     {
-        StartCoroutine(PostHtmlFile(filePath));
+        //**************************************** Comment for a time
+        //StartCoroutine(PostHtmlFile(filePath));
     }
 
     private string GetWriteNewCertificate()
