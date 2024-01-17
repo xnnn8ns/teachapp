@@ -170,7 +170,15 @@ public class DataLoader : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
         }
         
-        SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
+        SceneTransition sceneTransition = FindObjectOfType<SceneTransition>();
+        if (sceneTransition != null)
+        {
+            sceneTransition.StartSceneTransition("MapScene");
+        }
+        else
+        {
+            SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
+        }
         if(UserData.UserID != "")
             StartCoroutine(ComonFunctions.Instance.GetUserTeamID(UserData.UserID));
     }

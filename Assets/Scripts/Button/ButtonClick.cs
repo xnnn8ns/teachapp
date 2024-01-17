@@ -12,6 +12,7 @@ public class ButtonClickHandler : MonoBehaviour
         public string sceneName;
         public bool isSingle = true;
         public bool isNeedBeClosed = true;
+        public bool showTransition = false;
     }
 
     public List<ButtonSceneMapping> buttons;
@@ -20,11 +21,11 @@ public class ButtonClickHandler : MonoBehaviour
     {
         foreach (ButtonSceneMapping mapping in buttons)
         {
-            mapping.button.onClick.AddListener(() => StartScene(mapping.sceneName, mapping.isSingle, mapping.isNeedBeClosed));
+            mapping.button.onClick.AddListener(() => StartScene(mapping.sceneName, mapping.isSingle, mapping.isNeedBeClosed, mapping.showTransition));
         }
     }
 
-    private void StartScene(string scene, bool isSingle, bool isNeedBeClosed)
+    private void StartScene(string scene, bool isSingle, bool isNeedBeClosed, bool showTransition)
     {
         Debug.Log(SceneManager.GetActiveScene().name);
         Debug.Log(scene);
@@ -49,9 +50,23 @@ public class ButtonClickHandler : MonoBehaviour
         if (SceneManager.GetActiveScene().name == scene)
             return;
         Debug.Log("Load " + isSingle);
-        if (isSingle)
-            SceneManager.LoadScene(scene, LoadSceneMode.Single);
+
+        if (showTransition)
+        {
+            // Загружаем сцену с переходом
+            SceneTransition sceneTransition = FindObjectOfType<SceneTransition>();
+            if (sceneTransition != null)
+            {
+                sceneTransition.StartSceneTransition(scene);
+            }
+        }
         else
-            SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+        {
+            // Загружаем сцену обычным способом
+            if (isSingle)
+                SceneManager.LoadScene(scene, LoadSceneMode.Single);
+            else
+                SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+        }
     }
 }

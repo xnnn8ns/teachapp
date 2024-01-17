@@ -30,7 +30,15 @@ public class WindowsYesNoMessageScript : MonoBehaviour
 
     public void ClickOK()
     {
-        SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
+        SceneTransition sceneTransition = FindObjectOfType<SceneTransition>();
+        if (sceneTransition != null)
+        {
+            sceneTransition.StartSceneTransition(_sceneToLoad);
+        }
+        else
+        {
+            SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
+        }
     }
 
     public void ClickCancel()

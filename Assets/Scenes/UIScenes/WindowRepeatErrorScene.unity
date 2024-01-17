@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37100333, g: 0.3785126, b: 0.3573835, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1010,19 +1010,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 176959586}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1493532138}
-        m_TargetAssemblyTypeName: WindowsMessageScript, Assembly-CSharp
-        m_MethodName: ClickOK
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1160263854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1369,6 +1357,7 @@ GameObject:
   - component: {fileID: 1493532134}
   - component: {fileID: 1493532139}
   - component: {fileID: 1493532138}
+  - component: {fileID: 1493532140}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1585,6 +1574,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1493532140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493532133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26717a0b055c3d34eabe16258144f650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - button: {fileID: 1160263853}
+    sceneName: QuestionAnswerTestCheckScene
+    isSingle: 1
+    isNeedBeClosed: 1
+    showTransition: 0
 --- !u!1 &1969793003
 GameObject:
   m_ObjectHideFlags: 0
