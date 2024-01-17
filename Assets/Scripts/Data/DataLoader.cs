@@ -9,8 +9,10 @@ using UnityEngine.Networking;
 using ResponseTaskJSON;
 using ResponseTestJSON;
 using ResponseTopicJSON;
+using AppodealAds.Unity.Api;
+using AppodealAds.Unity.Common;
 
-public class DataLoader : MonoBehaviour
+public class DataLoader : MonoBehaviour, IAppodealInitializationListener
 {
     private const string apiTaskUrl = "http://45.12.239.30:8000/api/tasks/";
     private const string apiTestUrl = "http://45.12.239.30:8000/api/choicefield/";
@@ -20,11 +22,16 @@ public class DataLoader : MonoBehaviour
 
     private void Start()
     {
+        int adTypes = Appodeal.INTERSTITIAL | Appodeal.BANNER | Appodeal.REWARDED_VIDEO | Appodeal.MREC;
+        string appKey = "08da1daed1a552ca313efa4e43ee794ef9ae3e3150f65e41";
+        Appodeal.initialize(appKey, adTypes, this);
+
         SceneManager.LoadScene("WindowLevelLoading", LoadSceneMode.Additive);
         timeStartLoad = Time.time;
         StartCoroutine(GetTestTaskDataFromAPI());
     }
 
+    public void onInitializationFinished(List<string> errors) { }
 
     public static void SaveCurrentLevel()
     {
