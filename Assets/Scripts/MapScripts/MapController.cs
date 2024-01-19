@@ -299,7 +299,14 @@ namespace Mkey
             Settings.IsMisionClicked = isMissionClicked;
             PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
 
-            SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
+            if (LastLevel.IsLastLevelCompleted)
+            {
+                SceneManager.LoadScene("WindowLastScene", LoadSceneMode.Single);
+            }
+            else
+            {
+                SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
+            }
         }
 
         private void ClickPassButton(int clickIndex, bool isMissionClicked = false)
@@ -315,7 +322,14 @@ namespace Mkey
             Settings.IsMisionClicked = isMissionClicked;
             PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
 
-            SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
+            if (LastLevel.IsLastLevelCompleted)
+            {
+                SceneManager.LoadScene("WindowLastScene", LoadSceneMode.Single);
+            }
+            else
+            {
+                SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
+            }
         }
 
         private void ClickFutureButton()
