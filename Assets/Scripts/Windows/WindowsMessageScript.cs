@@ -77,7 +77,7 @@ public class WindowsMessageScript : MonoBehaviour
         {
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
-                if (SceneManager.GetSceneAt(i).name == "WindowRepeatErrorScene" || SceneManager.GetSceneAt(i).name == "WindowSimpliMessageScene")
+                if (SceneManager.GetSceneAt(i).name == "WindowRepeatErrorScene" || SceneManager.GetSceneAt(i).name == "WindowSimpliMessageScene" || SceneManager.GetSceneAt(i).name == "WindowMessageScene")
                 {
                     SceneManager.LoadScene(_sceneToLoad, LoadSceneMode.Single);
                     break;
@@ -128,8 +128,10 @@ public class WindowsMessageScript : MonoBehaviour
         }
         _textValue.text = _targetScore.ToString();
         _audioScore?.Stop();
-        
-        _audioFanFars?.Play();
+
+        if (_audioFanFars) {
+            _audioFanFars?.Play();
+        }
         yield return new WaitForSeconds(2f);
         _audioFanFars?.GetComponent<ParticleSystem>()?.Stop();
         yield return new WaitForSeconds(1f);

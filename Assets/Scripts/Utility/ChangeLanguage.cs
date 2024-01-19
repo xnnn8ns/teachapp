@@ -18,7 +18,7 @@ public class ChangeLanguage : MonoBehaviour
 
     public void LoadFlags()
     {
-        Debug.Log("Start");
+        //Debug.Log("Start");
         // Заполняем массив кнопок и сохраняем начальные позиции
         flagButtons = new Button[flags.Length];
         initialPositions = new Vector3[flags.Length];
@@ -55,32 +55,18 @@ public class ChangeLanguage : MonoBehaviour
 
     public void OnClick(int index)
     {
-        Debug.Log(index);
-        //if (index == currentLanguageIndex) 
-        //{
-        //    //SceneManager.LoadScene("DefaultPersonalPage");
-        //    for (int i = 0; i < SceneManager.sceneCount; i++)
-        //    {
-        //        if (SceneManager.GetSceneAt(i).name == "PersonalPageWithChoiceLanguage")
-        //            SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
-        //    }
-        //    return; // Если выбран уже текущий язык, загружаем сцену и выходим из метода
-        //}
-
-        // Проверяем, что индекс не выходит за границы массива
-        Debug.Log(initialPositions.Length);
         if (currentLanguageIndex >= 0 && currentLanguageIndex < initialPositions.Length)
         {
             // Возвращаем текущий главный флаг на его исходную позицию
             flags[currentLanguageIndex].transform.localPosition = initialPositions[currentLanguageIndex];
         }
 
-        // Если текущий главный флаг - русский, перемещаем его на позицию выбранного флага
+        // Если текущий главный флаг - английский, перемещаем его на позицию выбранного флага
         if (currentLanguageIndex == 0)
         {
             flags[0].transform.localPosition = initialPositions[index];
         }
-        else if (index != 0) // Если выбранный флаг не русский, перемещаем русский флаг на позицию выбранного флага
+        else if (index != 0) // Если выбранный флаг не английский, перемещаем русский флаг на позицию выбранного флага
         {
             flags[0].transform.localPosition = initialPositions[index];
         }

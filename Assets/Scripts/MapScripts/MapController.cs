@@ -3,10 +3,12 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 using System.IO;
 using Newtonsoft.Json;
 using ResponseTheoryListJSON;
+using AppodealAds.Unity.Api;
+using AppodealAds.Unity.Common;
+using System;
 
 namespace Mkey
 {
@@ -350,6 +352,51 @@ namespace Mkey
         {
             PlayerPrefs.SetFloat("ScrollYPointFocus", sRect.normalizedPosition.y);
             //Debug.Log("PrintOnDisable: script was disabled");
+        }
+
+        private int showAds = 0;
+        private DateTime lastTime = DateTime.Now;
+
+        private float timeUpdate = 0;
+
+        private void Update()
+        {
+            if (timeUpdate + 2 < Time.timeSinceLevelLoad)
+            {
+                CheckAds();
+                timeUpdate = Time.timeSinceLevelLoad;
+            } 
+        }
+
+        private void CheckAds()
+        {
+            //Debug.Log("CheckAds(): " + SceneManager.sceneCount);
+            if (SceneManager.sceneCount > 1)
+                return;
+            
+            if (DateTime.Now.Subtract(lastTime).TotalSeconds > 60 && showAds == 0)
+            {
+                showAds++;
+                lastTime = DateTime.Now;
+                if (Appodeal.isLoaded(Appodeal.REWARDED_VIDEO))
+                {
+                    Appodeal.show(Appodeal.REWARDED_VIDEO);
+                    Debug.Log("Appodeal.REWARDED_VIDEO");
+                }
+                Debug.Log("Appodeal.lastTime");
+            }
+            if (DateTime.Now.Subtract(lastTime).TotalSeconds > 600 && showAds > 0)
+            {
+                showAds++;
+                lastTime = DateTime.Now;
+                if (Appodeal.isLoaded(Appodeal.REWARDED_VIDEO))
+                {
+                    Appodeal.show(Appodeal.REWARDED_VIDEO);
+                    Debug.Log("Appodeal.REWARDED_VIDEO");
+                }
+                Debug.Log("Appodeal.lastTime");
+            }
+
         }
     }
 }

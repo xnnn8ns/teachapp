@@ -1476,7 +1476,7 @@ MonoBehaviour:
   _isTimeExpiredForm: 0
   _audioFanFars: {fileID: 0}
   _needFillData: 0
-  _needUnloadCurrentScene: 1
+  _needUnloadCurrentScene: 0
   _sceneToLoad: 
 --- !u!82 &1493532139
 AudioSource:
