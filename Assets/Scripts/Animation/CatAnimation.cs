@@ -1,71 +1,52 @@
-using System.Collections;
+using Mkey;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CatAnimation : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject[] levelButtons;
-
-    [SerializeField]
-    private Animator[] animators;
-
-    [SerializeField]
-    private GameObject[] cats;
-
-    private bool isLevelCompleted; // Булевое значение, true - если все первые звезды активны
-
-    void Start()
-    {
-        // Инициализируем массивы
-        animators = new Animator[cats.Length];
-
-        // Для каждого кота
-        for (int i = 0; i < cats.Length; i++)
-        {
-            // Получаем компонент Animator и добавляем его в массив
-            animators[i] = cats[i].GetComponent<Animator>();
-        }
-    }
-
     void Update()
     {
-        // Проверяем, активны ли все первые звезды
-        isLevelCompleted = true; // Предполагаем, что все уровни пройдены
-        foreach (GameObject levelButton in levelButtons)
-        {
-            GameObject star = levelButton.transform.Find("StarLeft").gameObject; // Находим объект StarLeft
-            if (star != null && !star.activeSelf) // Если звезда существует и не активна
-            {
-                isLevelCompleted = false; // Уровень не пройден
-                break; // Выходим из цикла, так как уже нашли неактивную звезду
-            }
-        }
+        MapController mapController = MapController.Instance;
+        List<Biome> biomes = new List<Biome>(FindObjectsOfType<Biome>());
+        biomes.Sort((a, b) => (int)(b.transform.position.y - a.transform.position.y));
 
-        for (int i = 0; i < cats.Length; i++) // Проходим по всем котам
-        {
-            if (cats[i] != null && animators[i] != null) // Если кот и его аниматор существуют
-            {
-                Image catImage = cats[i].GetComponent<Image>(); // Получаем компонент Image
+        bool isPreviousBlockCompleted = true;
 
-                if (!isLevelCompleted) // Если уровень не пройден
+        foreach (Biome biome in biomes)
+        {
+            bool isBlockCompleted = true;
+            foreach (LevelButton button in biome.levelButtons)
+            {
+                bool isLevelActive = button.Interactable;
+                if (!isLevelActive)
                 {
-                    animators[i].speed = 0; // Устанавливаем скорость анимации в 0
-                    if (catImage != null) // Если компонент Image существует
-                    {
-                        catImage.color = Color.gray; // Красим кота в серый цвет
-                    }
-                }
-                else
-                {
-                    animators[i].speed = 1; // Возвращаем скорость анимации обратно в 1
-                    if (catImage != null) // Если компонент Image существует
-                    {
-                        catImage.color = Color.white; // Возвращаем коту исходный цвет
-                    }
+                    isBlockCompleted = false;
+                    break;
                 }
             }
+
+            Animator[] anims = biome.GetComponentsInChildren<Animator>();
+
+            if (isPreviousBlockCompleted)
+            {
+                foreach (Animator anim in anims)
+                {
+                    anim.speed = 1;
+                    anim.GetComponent<Image>().color = Color.white;
+                }
+            }
+            else
+            {
+                foreach (Animator anim in anims)
+                {
+                    anim.speed = 0;
+                    anim.Play(0, 0, 0);
+                    anim.GetComponent<Image>().color = Color.gray;
+                }
+            }
+
+            isPreviousBlockCompleted = isBlockCompleted;
         }
     }
 }

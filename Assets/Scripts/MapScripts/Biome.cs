@@ -36,6 +36,9 @@ namespace Mkey
         private Animator _animLeft;
         [SerializeField]
         private Animator _animRight;
+        public Animator AnimLeft { get { return _animLeft; } }
+        public Animator AnimRight { get { return _animRight; } }
+        public List<LevelButton> LevelButtons { get { return levelButtons; } }
 
         #region temp vars
         private List<Vector3> pos;

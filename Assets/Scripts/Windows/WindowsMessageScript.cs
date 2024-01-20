@@ -89,8 +89,12 @@ public class WindowsMessageScript : MonoBehaviour
             //SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
             for (int i = SceneManager.sceneCount - 1; i >= 1; i--)
             {
-                SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
-                Debug.Log("UnloadSceneAsync");
+                Scene scene = SceneManager.GetSceneAt(i);
+                if (scene.name != "DontDestroyOnLoad")
+                {
+                    SceneManager.UnloadSceneAsync(scene);
+                    Debug.Log("UnloadSceneAsync");
+                }
             }
         }
 
