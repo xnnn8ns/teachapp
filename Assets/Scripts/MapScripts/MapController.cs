@@ -299,14 +299,15 @@ namespace Mkey
             Debug.Log(clickIndex);
             Settings.Current_ButtonOnMapID = clickIndex;
             Settings.IsMisionClicked = isMissionClicked;
-            PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
 
+            //LastLevel.IsLastLevelCompleted = true;
             if (LastLevel.IsLastLevelCompleted)
             {
                 SceneManager.LoadScene("WindowLastScene", LoadSceneMode.Single);
             }
             else
             {
+                PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
                 SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
             }
         }

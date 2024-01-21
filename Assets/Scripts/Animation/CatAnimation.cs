@@ -1,11 +1,25 @@
 using Mkey;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CatAnimation : MonoBehaviour
 {
-    void Update()
+    private void OnEnable()
+    {
+        //CheckIsNeedAnimate();
+        StartCoroutine(StartCheckIsNeedAnimate());
+    }
+
+    private IEnumerator StartCheckIsNeedAnimate()
+    {
+        yield return new WaitForSeconds(0.1f);
+        CheckIsNeedAnimate();
+        yield break;
+    }
+
+    private void CheckIsNeedAnimate()
     {
         MapController mapController = MapController.Instance;
         List<Biome> biomes = new List<Biome>(FindObjectsOfType<Biome>());
