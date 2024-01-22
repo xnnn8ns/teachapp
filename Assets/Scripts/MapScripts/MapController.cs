@@ -272,6 +272,12 @@ namespace Mkey
             ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
             if (buttonData != null)
             {
+                // Если это последний уровень, переключаемся на WindowLastScene
+                if (clickIndex == LastLevel.lastLevelIndex)
+                {
+                    SwitchToLastLevel(); // в настоящем не работает
+                    return;
+                }
                 if (buttonData.isPassed)
                 {
                     ClickPassButton(clickIndex, isMissionClicked);
@@ -284,9 +290,6 @@ namespace Mkey
                 }
             }
             ClickCurrentLevelButton(clickIndex, isMissionClicked);
-
-
-            //SceneManager.LoadScene("QuestionAnswerTestCheckScene", LoadSceneMode.Single);
         }
 
         private void ClickCurrentLevelButton(int clickIndex, bool isMissionClicked = false)
@@ -300,16 +303,8 @@ namespace Mkey
             Settings.Current_ButtonOnMapID = clickIndex;
             Settings.IsMisionClicked = isMissionClicked;
 
-            //LastLevel.IsLastLevelCompleted = true;
-            if (LastLevel.IsLastLevelCompleted)
-            {
-                SceneManager.LoadScene("WindowLastScene", LoadSceneMode.Single);
-            }
-            else
-            {
-                PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
-                SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
-            }
+            PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
+            SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
         }
 
         private void ClickPassButton(int clickIndex, bool isMissionClicked = false)
@@ -325,14 +320,7 @@ namespace Mkey
             Settings.IsMisionClicked = isMissionClicked;
             PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
 
-            if (LastLevel.IsLastLevelCompleted)
-            {
-                SceneManager.LoadScene("WindowLastScene", LoadSceneMode.Single);
-            }
-            else
-            {
-                SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
-            }
+            SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
         }
 
         private void ClickFutureButton()
@@ -347,6 +335,16 @@ namespace Mkey
             SceneManager.LoadScene("WindowSimpliMessageScene", LoadSceneMode.Additive);
             Debug.Log("ClickFutureButton2");
             Settings.IsModalWindowOpened = true;
+        }
+
+        private void SwitchToLastLevel()
+        {
+            // Создаем экземпляр класса LastLevel и вызываем метод InitializeLastLevel
+            LastLevel lastLevel = new LastLevel();
+            StartCoroutine(lastLevel.InitializeLastLevel());
+
+            // Переключаемся на WindowLastScene
+            SceneManager.LoadScene("WindowLastScene", LoadSceneMode.Single);
         }
 
         void OnDisable()

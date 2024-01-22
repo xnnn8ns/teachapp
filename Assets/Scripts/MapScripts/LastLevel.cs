@@ -2,58 +2,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
+using Mkey;
 
 public class LastLevel : MonoBehaviour
 {
     public static bool IsLastLevelCompleted = false;
+    public static int lastLevelIndex = -1;
+    public Sprite certificateSprite;
+    private LevelButton previousLevel;
 
-    void Awake()
+    void Start()
     {
-        // Получить все дочерние объекты
-        List<GameObject> levelBlocks = new List<GameObject>();
-        foreach (Transform child in transform)
-        {
-            if (child.name.Contains("Lvl-"))
-            {
-                levelBlocks.Add(child.gameObject);
-            }
-        }
-
-        // Отсортировать их по положению по оси Y
-        levelBlocks.Sort((a, b) => (int)(b.transform.position.y - a.transform.position.y));
-
-        // Получить последний объект
-        GameObject lastLevelBlock = levelBlocks[0];
-
-        // Найти все дочерние объекты с именем "LevelButtons(Clone)"
-        List<GameObject> levels = new List<GameObject>();
-        foreach (Transform child in lastLevelBlock.transform)
-        {
-            if (child.name.Contains("LevelButtons(Clone)"))
-            {
-                levels.Add(child.gameObject);
-            }
-        }
-
-        // Отсортировать их по положению по оси Y
-        levels.Sort((a, b) => (int)(a.transform.position.y - b.transform.position.y));
-
-        // Получить последний уровень
-        GameObject lastLevel = levels[0];
-
-        // глобальная булевая переменная для хранения данных о прохождение последнего уровня
-        IsLastLevelCompleted = IsLevelCompleted(lastLevel);
+        StartCoroutine(InitializeLastLevel());
     }
 
-    bool IsLevelCompleted(GameObject level)
+    public IEnumerator InitializeLastLevel()
     {
-        // Проверить, активен ли компонент "StarLeft"
-        Transform child = level.transform.Find("StarLeft");
-        if (child != null)
-        {
-            return child.gameObject.activeSelf;
-        }
+        yield return new WaitForSeconds(0.1f);
+        List<Biome> biomes = new List<Biome>(FindObjectsOfType<Biome>());
+        biomes.Sort((a, b) => (int)(b.transform.position.y - a.transform.position.y));
 
-        return false;
+        Biome lastBiome = biomes[biomes.Count - 1]; // последний биом
+        LevelButton lastLevel = lastBiome.levelButtons[lastBiome.levelButtons.Count - 1]; // последний уровень
+
+        // Обновляем lastLevelIndex
+        lastLevelIndex = lastBiome.levelButtons.Count - 1;
+
+        IsLastLevelCompleted = lastLevel.Interactable;
+        if (certificateSprite != null)
+        {
+            // Получаем дочерний объект ImageButton
+            Image imageButton = lastLevel.transform.Find("ImageButton").GetComponent<Image>();
+            imageButton.sprite = certificateSprite;
+            // Если предыдущий уровень не пройден, делаем текущий уровень серым
+            if (previousLevel != null && !previousLevel.Interactable)
+            {
+                imageButton.color = Color.gray;
+            }
+            // Если предыдущий уровень пройден, возвращаем текущему уровню его исходный цвет
+            else
+            {
+                imageButton.color = Color.white;
+            }
+        }
     }
 }

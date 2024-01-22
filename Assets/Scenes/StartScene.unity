@@ -249,6 +249,15 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 2f91d55a6f5a62a428ac392346db78ad, type: 3}
     - {fileID: 8300000, guid: 4e88512942e09ac4189e28619379028f, type: 3}
     - {fileID: 8300000, guid: fe55abb63d850174c9d36a812fc12f1c, type: 3}
+  - sceneName: WindowLastScene
+    clip: {fileID: 8300000, guid: acf4ff693dea02a48b9d808f16ef5987, type: 3}
+    loop: 0
+    randomize: 1
+    additionalClips:
+    - {fileID: 8300000, guid: fab5ff3421a5c48818f2dc2d03319ada, type: 3}
+    - {fileID: 8300000, guid: 7478151cf36724a7dada558f746c3633, type: 3}
+    - {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
+    - {fileID: 8300000, guid: acf4ff693dea02a48b9d808f16ef5987, type: 3}
 --- !u!4 &131631009
 Transform:
   m_ObjectHideFlags: 0

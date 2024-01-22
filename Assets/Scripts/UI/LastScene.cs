@@ -7,15 +7,38 @@ public class LastScene : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject newWindow;
+    [SerializeField] private GameObject alreadyRequestedWindow;
+    [SerializeField] private Button requestCertButton;
+    [SerializeField] private Button certLinkButton;
+    [SerializeField] private GameObject errorWindow;
+    private bool hasRequestedCertificate = false;
+    
+    private void Start()
+    {
+        if (PlayerPrefs.GetInt("HasRequestedCertificate", 0) == 1)
+        {
+            requestCertButton.gameObject.SetActive(false);
+            certLinkButton.gameObject.SetActive(true);
+            certLinkButton.onClick.AddListener(() => Application.OpenURL("https://www.yandex.ru")); // временная ссылка
+        }
+    }
 
     public void RequestCertClick()
     {
-        // делаем panel полностью прозрачным
-        Color c = panel.GetComponent<Image>().color;
-        c.a = 0f;
-        panel.GetComponent<Image>().color = c;
-        panel.SetActive(true);
-        StartCoroutine(ShowPanel());
+        if (hasRequestedCertificate)
+        {
+            alreadyRequestedWindow.SetActive(true);
+            StartCoroutine(HideAlreadyRequestedWindow());
+        }
+        else
+        {
+            // делаем panel полностью прозрачным
+            Color c = panel.GetComponent<Image>().color;
+            c.a = 0f;
+            panel.GetComponent<Image>().color = c;
+            panel.SetActive(true);
+            StartCoroutine(ShowPanel());
+        }
     }
 
     IEnumerator ShowPanel()
@@ -42,22 +65,26 @@ public class LastScene : MonoBehaviour
                     textComponent.text = UserData.UserFullName;
                 }
             }
-            else if (child.name == "Email")
-            {
-                var textComponent = child.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-                if (textComponent != null)
-                {
-                    textComponent.text = UserData.UserEmail;
-                }
-            }
         }
+    }
+
+    IEnumerator HideAlreadyRequestedWindow()
+    {
+        yield return new WaitForSeconds(2f); // задержка перед деактивацией окна
+        alreadyRequestedWindow.SetActive(false);
     }
 
     public void AllCorrectClick()
     {
+        if (string.IsNullOrEmpty(UserData.UserFullName))
+        {
+            errorWindow.SetActive(true); // активируем окно ошибки
+            return;
+        }
+
+        hasRequestedCertificate = true;
         StartCoroutine(AllCorrectClickCoroutine());
-        // код для сохранения данных о пользователе, который создал запрос на сертификат
-        // и обработка этого запроса
+        // код для обработки запроса пользователя на сертификат
     }
 
     IEnumerator AllCorrectClickCoroutine()
@@ -135,5 +162,18 @@ public class LastScene : MonoBehaviour
         }
 
         newWindow.SetActive(false); // деактивируем объект newWindow
+    }
+
+    void OnApplicationQuit()
+    {
+        if (hasRequestedCertificate)
+        {
+            PlayerPrefs.SetInt("HasRequestedCertificate", 1);
+        }
+    }
+
+    public void CloseErrorWindow()
+    {
+        errorWindow.SetActive(false);
     }
 }
