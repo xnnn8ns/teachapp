@@ -329,9 +329,6 @@ namespace Mkey
             Settings.IsMisionClicked = isMissionClicked;
             PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
 
-<<<<<<< HEAD
-            SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
-=======
             if (LastLevel.IsLastLevelCompleted)
             {
                 SceneManager.LoadScene("WindowLastScene", LoadSceneMode.Single);
@@ -341,7 +338,6 @@ namespace Mkey
                 SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
             }
             Vibration.VibratePop();
->>>>>>> d6b291f (Appodeal uodates)
         }
 
         private void ClickFutureButton()

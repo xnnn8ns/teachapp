@@ -57,7 +57,7 @@ Topic10;Переменные;Topic1;Thema1;Argomento1
 Step;этап из;step from;Schritt von;passo da
 Settings;Настройки;Settings;Einstellungen;Impostazioni
 Name;ФИО;Full name;Vollständiger Name;Nome completo
-Nickname;Отображяемое имя;Nickname;Nickname;Soprannome
+Nickname;Ник (максимум 25);Nickname (max 25);Nickname (max 25);Soprannome (max 25)
 Email;Электронная почта;Email;Email;E-mail
 Password;Пароль;Password;Passwort;Parola d'ordine
 PersonalPage;Личная страница;Personal page;Persönliche Seite;Pagina personale
