@@ -71,7 +71,7 @@ namespace Mkey
 
         void Start()
         {
-
+            
             FillTheoryDataFromJSON();
 
             Biome[] list = GetComponentsInChildren<Biome>();
@@ -107,7 +107,7 @@ namespace Mkey
             if (scrollToActiveButton) StartCoroutine(SetMapPositionToAciveButton()); //this script reverse prefabs 
             ButtonsManager = GameObject.FindObjectOfType<ButtonsManager>();
 
-            
+
             CreateAllButtonsInJson();
             VereficationAllButtons();
 
@@ -135,6 +135,7 @@ namespace Mkey
             }
             Application.targetFrameRate = 60;
             //Debug.Log(Application.targetFrameRate);
+            Settings.IsModalWindowOpened = false;
         }
 
         public void UpdateLang()
@@ -268,7 +269,6 @@ namespace Mkey
 
         private void ClickLevelButton(int clickIndex, bool isMissionClicked = false)
         {
-            //Debug.Log(clickIndex);
             ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
             if (buttonData != null)
             {
@@ -295,7 +295,7 @@ namespace Mkey
         private void ClickCurrentLevelButton(int clickIndex, bool isMissionClicked = false)
         {
             //_clickAudio?.Play();
-            Vibration.VibratePop();
+            
             Scene scene = SceneManager.GetSceneByName("WindowScene");
             if (scene.isLoaded)
                 return;
@@ -303,14 +303,23 @@ namespace Mkey
             Settings.Current_ButtonOnMapID = clickIndex;
             Settings.IsMisionClicked = isMissionClicked;
 
-            PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
-            SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
+            //LastLevel.IsLastLevelCompleted = true;
+            if (LastLevel.IsLastLevelCompleted)
+            {
+                SceneManager.LoadScene("WindowLastScene", LoadSceneMode.Single);
+            }
+            else
+            {
+                PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
+                SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
+            }
+            Vibration.VibratePop();
         }
 
         private void ClickPassButton(int clickIndex, bool isMissionClicked = false)
         {
             //_clickAudio?.Play();
-            Vibration.VibratePop();
+            
             Debug.Log("ClickPassButton");
             Scene scene = SceneManager.GetSceneByName("WindowScene");
             if (scene.isLoaded)
@@ -320,21 +329,34 @@ namespace Mkey
             Settings.IsMisionClicked = isMissionClicked;
             PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
 
+<<<<<<< HEAD
             SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
+=======
+            if (LastLevel.IsLastLevelCompleted)
+            {
+                SceneManager.LoadScene("WindowLastScene", LoadSceneMode.Single);
+            }
+            else
+            {
+                SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
+            }
+            Vibration.VibratePop();
+>>>>>>> d6b291f (Appodeal uodates)
         }
 
         private void ClickFutureButton()
         {
             //_clickAudio?.Play();
             Debug.Log("ClickFutureButton");
-            Vibration.VibratePop();
+            
             Scene scene = SceneManager.GetSceneByName("WindowSimpliMessageScene");
             if (scene.isLoaded)
                 return;
             //PlayerPrefs.SetString("MessageForWindow", "Данный уровень\nпока не доступен");
             SceneManager.LoadScene("WindowSimpliMessageScene", LoadSceneMode.Additive);
             Debug.Log("ClickFutureButton2");
-            Settings.IsModalWindowOpened = true;
+            Vibration.VibratePop();
+            //Settings.IsModalWindowOpened = true;
         }
 
         private void SwitchToLastLevel()

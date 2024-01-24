@@ -64,7 +64,7 @@ public class WindowsMessageScript : MonoBehaviour
     public void ClickOK()
     {
         //_clickAudio?.Play();
-        Vibration.VibratePop();
+        
         StopAllCoroutines();
         Settings.IsModalWindowOpened = false;
         if (_audioScore)
@@ -97,8 +97,8 @@ public class WindowsMessageScript : MonoBehaviour
                 }
             }
         }
+        Vibration.VibratePop();
 
-        
     }
 
     private IEnumerator ArisePonts(int targetValue)

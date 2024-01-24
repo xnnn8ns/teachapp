@@ -18,13 +18,13 @@ public class QuizController : MonoBehaviour
     public void ClickReturnFromQuiz()
     {
         //_clickAudio?.Play();
-        Vibration.VibratePop();
+        
         Scene scene = SceneManager.GetSceneByName("WindowYesNowScene");
         if (scene.isLoaded)
             return;
         PlayerPrefs.SetString("SceneToLoad", "MapScene");
         SceneManager.LoadScene("WindowYesNowScene", LoadSceneMode.Additive);
-
+        Vibration.VibratePop();
         //FindObjectOfType<WindowsYesNoMessageScript>()?.FillWindowData(ClickReturnFromQuizOld,"Прекратить задание1");
     }
 

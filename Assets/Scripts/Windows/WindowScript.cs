@@ -113,14 +113,16 @@ public class WindowScript : MonoBehaviour
     public void ClickCancel()
     {
         //_clickAudio?.Play();
-        Vibration.VibratePop();
+        
         SceneManager.UnloadSceneAsync("WindowScene", UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
+        Vibration.VibratePop();
     }
 
     public void ClickOK()
     {
         //_clickAudio?.Play();
-        Vibration.VibratePop();
+        
         SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
+        Vibration.VibratePop();
     }
 }

@@ -23,7 +23,12 @@ public class DataLoader : MonoBehaviour, IAppodealInitializationListener
     private void Start()
     {
         int adTypes = Appodeal.INTERSTITIAL | Appodeal.BANNER | Appodeal.REWARDED_VIDEO | Appodeal.MREC;
-        string appKey = "08da1daed1a552ca313efa4e43ee794ef9ae3e3150f65e41";
+        string appKey = "d855dcc5d86d58599d85835161b2e36ba59739faccb88b06";
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            appKey = "d855dcc5d86d58599d85835161b2e36ba59739faccb88b06";
+        }
+
         Appodeal.initialize(appKey, adTypes, this);
 
         SceneManager.LoadScene("WindowLevelLoading", LoadSceneMode.Additive);

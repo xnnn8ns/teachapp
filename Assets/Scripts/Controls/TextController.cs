@@ -148,13 +148,14 @@ public class TextController : MonoBehaviour
     public void ClickReturnFromTheory()
     {
         //_clickAudio?.Play();
-        Vibration.VibratePop();
+        
         //SceneManager.LoadScene("MapScene", LoadSceneMode.Single);
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             if (SceneManager.GetSceneAt(i).name == "WebWidget")
                 SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
         }
+        Vibration.VibratePop();
     }
 
     private IEnumerator GetDataFromAPI(int theoryID)

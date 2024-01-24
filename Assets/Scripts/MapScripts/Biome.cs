@@ -161,10 +161,10 @@ namespace Mkey
 
         public void ClickLevelHeadButton()
         {
-            if (Settings.IsModalWindowOpened)
-                return;
-            //_clickAudio?.Play();
-            Vibration.VibratePop();
+            //if (Settings.IsModalWindowOpened)
+            //    return;
+            ////_clickAudio?.Play();
+            //Vibration.VibratePop();
             Settings.Current_Topic = ID;
             SceneManager.LoadScene("WebWidget", LoadSceneMode.Additive);
         }

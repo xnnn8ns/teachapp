@@ -510,7 +510,7 @@ public class QuestionInitializer : MonoBehaviour
     public void ClickCheckAnswerForQuestion()
     {
         //_clickAudio?.Play();
-        Vibration.VibratePop();
+        
         StopAnimationTextType();
         StopAllCoroutines();
         bool isRight = false;
@@ -546,6 +546,7 @@ public class QuestionInitializer : MonoBehaviour
         }
 
         StartCoroutine(SetRightAnswerOnScreen(isRight));
+        Vibration.VibratePop();
     }
 
     private IEnumerator SetOpenOnStartRightAnswer()
@@ -772,18 +773,20 @@ public class QuestionInitializer : MonoBehaviour
     private void ClickImageTest()
     {
         //_clickAudio?.Play();
-        Vibration.VibratePop();
+        
         Debug.Log("ClickImageTest");
         _buttonCheck.SetActive(true);
         _buttonCheckDisabled.SetActive(false);
+        Vibration.VibratePop();
     }
 
     public void StopAnimationTextType()
     {
         //_clickAudio?.Play();
-        Vibration.VibratePop();
+        
         _questionText?.GetComponent<TextAnimation>()?.ClickButtonFinishReadingByUser();
         _typeAudio?.Stop();
+        Vibration.VibratePop();
     }
 
     private bool CheckIsLevelCompleted()
