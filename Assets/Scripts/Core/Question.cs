@@ -233,6 +233,7 @@ public abstract class Question : Information
 
     public static List<Question> GetQuestionListForLevel(int topic, int buttonOnMapID, int passCount, ETypeLevel eTypeLevel)
     {
+        UnityEngine.Debug.Log("GetQuestionListForLevel");
         UnityEngine.Debug.Log(topic);
         UnityEngine.Debug.Log(buttonOnMapID);
         List<Question> qList;
@@ -242,7 +243,7 @@ public abstract class Question : Information
         UnityEngine.Debug.Log("qList: " + qList.Count);
         //foreach (var item in qList)
         //    UnityEngine.Debug.Log(item.Score);
-        UnityEngine.Debug.Log(qList.Count);
+        //UnityEngine.Debug.Log(qList.Count);
         while (qList.Count < 6)
             AddRandomQuestions(topic, qList, buttonOnMapID, passCount);
         //UnityEngine.Debug.Log(qList.Count);

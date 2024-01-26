@@ -22,6 +22,14 @@ public class AlgorithmTestContriller : MonoBehaviour
 
     #region KeyMethods
 
+    public static void AlgoUpdateLang()
+    {
+        _keyWordsForTestList = null;
+        _keyOperatorsForTestList = null;
+        _keyBuildInsForTestList = null;
+        _algoInfoList = null;
+    }
+
     private static List<AlgoInfo> GetAlgoInfoList()
     {
         if (_algoInfoList == null)

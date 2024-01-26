@@ -82,6 +82,7 @@ public class ChangeLanguage : MonoBehaviour
         LangAsset.ChangeLanguage(newLangLocation); // Здесь вызывается событие OnLanguageChanged
         TargetFlag.sprite = flags[currentLanguageIndex].GetComponent<Image>().sprite;
 
+        AlgorithmTestContriller.AlgoUpdateLang();
         FindObjectOfType<Mkey.MapController>()?.UpdateLang();
         TopPanel[] listPanel = FindObjectsOfType<TopPanel>();
         if(listPanel != null)

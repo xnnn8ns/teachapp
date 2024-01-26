@@ -67,6 +67,7 @@ public class QuestionInitializer : MonoBehaviour
     public static void FillQuestionsForCurrentLevel()
     {
         //_scoreValue = 0;
+        Debug.Log("FillQuestionsForCurrentLevel");
         _questionsCurrentLevel.Clear();
         _currentQuestionIndex = 0;
         //Debug.Log(Settings.Current_ButtonOnMapID);
@@ -250,6 +251,9 @@ public class QuestionInitializer : MonoBehaviour
     private void InitQuestionTitleAndAnswers()
     {
         TextAnimation txtAnim = _questionText.GetComponent<TextAnimation>();
+        Debug.Log("_questionsCurrentLevel.Count: " + _questionsCurrentLevel.Count);
+        Debug.Log("_currentQuestionIndex: " + _currentQuestionIndex);
+        Debug.Log("_questionsCurrentLevel[_currentQuestionIndex].Title: " + _questionsCurrentLevel[_currentQuestionIndex].Title);
         txtAnim.StartType(_questionsCurrentLevel[_currentQuestionIndex].Title, FinishTypeTextCallBack);
         switch (_questionsCurrentLevel[_currentQuestionIndex].QuestionType)
         {

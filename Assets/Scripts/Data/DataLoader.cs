@@ -128,7 +128,7 @@ public class DataLoader : MonoBehaviour, IAppodealInitializationListener
         {
             //Debug.Log("SendWebRequest");
             yield return www.SendWebRequest();
-            string json = DownLoadOrCreateFileJson(www, Settings.jsonTestFilePath);
+            string json = DownLoadOrCreateFileJson(www, Settings.jsonTaskFilePath);
             if (json.Length > 0)
             {
                 TaskJSON response = TaskJSON.FromJson(json);
@@ -145,7 +145,7 @@ public class DataLoader : MonoBehaviour, IAppodealInitializationListener
         using (UnityWebRequest www = UnityWebRequest.Get(apiTestUrl))
         {
             yield return www.SendWebRequest();
-            string json = DownLoadOrCreateFileJson(www, Settings.jsonTaskFilePath);
+            string json = DownLoadOrCreateFileJson(www, Settings.jsonTestFilePath);
             if (json.Length > 0)
             {
                 TestJSON response = TestJSON.FromJson(json);
@@ -230,18 +230,17 @@ public class DataLoader : MonoBehaviour, IAppodealInitializationListener
         return json;
     }
 
-    private void ParseJSONTask(TaskJSONItem task)
+    private static void ParseJSONTask(TaskJSONItem task)
     {
         try
         {
             Question question = new QuestionText();
             string[] raws = null;
-
+            Debug.Log(task.Title + "-" + task.TitleEn);
             if (task.Content == null)
                 task.Content = "";
             if (task.ContentEn == null)
                 task.ContentEn = "";
-
             if (LangAsset.CurrentLangLocation == LangLocation.Ru)
             {
                 question.Title = task.Title;
@@ -336,7 +335,8 @@ public class DataLoader : MonoBehaviour, IAppodealInitializationListener
             }
             question.SetAnswerList(answers);
             Question.QuestionsList.Add(question);
-
+            
+            
         }
         catch (Exception ex)
         {
@@ -344,7 +344,7 @@ public class DataLoader : MonoBehaviour, IAppodealInitializationListener
         }
     }
 
-    private void ParseJSONTest(TestJSONItem test)
+    private static void ParseJSONTest(TestJSONItem test)
     {
         try
         {
@@ -427,7 +427,7 @@ public class DataLoader : MonoBehaviour, IAppodealInitializationListener
     public static void UpdateLang()
     {
         Theory.TheoryList.Clear();
-
+        Question.QuestionsList.Clear();
         string newFile = Settings.jsonTopicFilePath.Replace("/", "");
         newFile = newFile.Replace(".json", "");
         TextAsset txt = (TextAsset)Resources.Load(newFile, typeof(TextAsset));
@@ -445,5 +445,35 @@ public class DataLoader : MonoBehaviour, IAppodealInitializationListener
             }
 
         }
+
+        string newFileTask = Settings.jsonTaskFilePath.Replace("/", "");
+        newFileTask = newFileTask.Replace(".json", "");
+        TextAsset txtTask = (TextAsset)Resources.Load(newFileTask, typeof(TextAsset));
+
+        json = txtTask.text;
+        Debug.Log(json);
+        TaskJSON responseTask = TaskJSON.FromJson(json);
+        if (responseTask != null && responseTask.Count > 0)
+        {
+            //Debug.Log("responseTask: " + responseTask.Count);
+            foreach (var item in responseTask)
+                ParseJSONTask(item);
+        }
+
+
+        newFile = Settings.jsonTestFilePath.Replace("/", "");
+        newFile = newFile.Replace(".json", "");
+        txt = (TextAsset)Resources.Load(newFile, typeof(TextAsset));
+
+        json = txt.text;
+
+        TestJSON responseTest = TestJSON.FromJson(json);
+        if (responseTest != null && responseTest.Count > 0)
+        {
+            foreach (var item in responseTest)
+                ParseJSONTest(item);
+        }
+
+        QuestionInitializer.FillQuestionsForCurrentLevel();
     }
 }
