@@ -27,6 +27,10 @@ public class ButtonClickHandler : MonoBehaviour
 
     private void StartScene(string scene, bool isSingle, bool isNeedBeClosed, bool showTransition)
     {
+        if (!SceneTransitionManager.Instance.CanTransition())
+            return;
+        SceneTransitionManager.Instance.UpdateLastTransitionTime();
+
         Debug.Log(SceneManager.GetActiveScene().name);
         Debug.Log(scene);
         if (SceneManager.GetActiveScene().name == scene && SceneManager.sceneCount == 1)

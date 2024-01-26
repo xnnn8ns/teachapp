@@ -65,6 +65,8 @@ TheorySection;Справочник раздела;Theory by section;Theorie nach
 DayTask;Задание дня;Day task;Tagesaufgabe;Compito del giorno
 Registration;Регистрация;Registration;Registrierung;Registrazione
 ErrorMessage(Regs);Пользователь с таким именем пользователя или электронной почтой уже существует;A user with this username or email already exists;Ein Benutzer mit diesem Benutzernamen oder dieser E-Mail-Adresse ist bereits vorhanden;Un utente con questo nome utente o e-mail esiste già
+ErrorMessage(NullRegs);Все поля должны быть заполнены;All fields must be filled in;Alle Felder müssen ausgefüllt sein;Tutti i campi devono essere compilati
+SuccessMessage;Поздравляем! Вы успешно зарегестрировались; Congratulations! You have successfully registered; Herzlichen Glückwunsch! Sie haben sich erfolgreich registriert; Congratulazioni! Ti sei registrato con successo
 TimeTask;Общее время занятия более 10 минут;Total time of the lesson is more than 10 minutes;Die Gesamtzeit der Lektion beträgt mehr als 10 Minuten;Il tempo totale della lezione è più di 10 minuti
 LevelTask;Пройти уровень из трех шагов;Pass the level of three steps;Bestehen Sie die Stufe von drei Schritten;Passa il livello di tre passaggi
 ScoreTask;Набрать 30 очков;Score 30 points;Punkte 30 Punkte;Punteggio 30 punti:

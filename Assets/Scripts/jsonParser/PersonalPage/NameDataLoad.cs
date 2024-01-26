@@ -60,6 +60,7 @@ public class NameDataLoad : MonoBehaviour
         else
         {
             SceneManager.LoadScene("RegistrationScene", LoadSceneMode.Additive);
+            SceneManager.UnloadSceneAsync("DefaultPersonalPage");
         }
     }
 }

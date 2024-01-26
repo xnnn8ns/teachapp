@@ -3075,7 +3075,7 @@ MonoBehaviour:
   - button: {fileID: 733462424}
     sceneName: PersonalPageWithSettings
     isSingle: 0
-    isNeedBeClosed: 0
+    isNeedBeClosed: 1
     showTransition: 0
   - button: {fileID: 1835752261}
     sceneName: MapScene

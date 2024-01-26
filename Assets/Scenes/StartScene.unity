@@ -379,6 +379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 877744804}
   - component: {fileID: 877744803}
+  - component: {fileID: 877744805}
   m_Layer: 0
   m_Name: SceneTransition
   m_TagString: Untagged
@@ -414,6 +415,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &877744805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877744802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e75f568e444a59846bd341ca1dad3206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1532115385
 GameObject:
   m_ObjectHideFlags: 0

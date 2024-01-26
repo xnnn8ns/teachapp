@@ -61,7 +61,7 @@ public class PlaySoundWhenStartingScene : MonoBehaviour
                 audioSource.clip = sceneSound.clip;
             }
             audioSource.pitch = 1.1f;
-            audioSource.volume = 0.10f;
+            audioSource.volume = 0.80f;
             audioSource.loop = sceneSound.loop;
             audioSource.Play();
         }
