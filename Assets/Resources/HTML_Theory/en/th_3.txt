@@ -2,7 +2,7 @@
 
 <color=#ffff00ff><b><size=55>Example:</size></b></color>
 <color=#add8e6ff><b>addition= 7+3</b></color> 
-the value of the result variable will be 10
+the value of the variable additions will be 10
 
 <color=#add8e6ff><b>subtraction= 8-6</b></color> 
 the value of the variable subtraction will be 2

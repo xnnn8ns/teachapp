@@ -17,7 +17,7 @@ The inner loop also <b>triggers 9 times</b> until the variable j becomes equal t
 In <b><color=#add8e6ff>each iteration</color></b> of the inner loop, the product of the numbers i and j <b>will be output</b> to the console. Then the value of the variable j <b>increases</b> by one. When the inner loop <b>has finished</b> its work,
 the value of the variable j <b>is reset</b> to 1, the value of the variable i <b>increases</b> by one and the transition to the <b><color=#add8e6ff>next iteration</color></b> of the outer loop occurs. And everything repeats until the variable i <b>becomes equal to 10</b>.
 
-Accordingly, the inner loop will trigger <b>a total of 81 times</b> for all iterations of the outer loop. In the end, we will get the following console <b>output</b>:
+Accordingly, the inner loop will trigger <b>a total of 81 times</b> for all iterations of the outer loop. In the end, we will get the following console <b>output</b> - multiplication table.
 
 <b><color=#ffff00ff><size=55>Exiting the loop with break and continue</size></color></b>
 To control the loop, we can use special operators <b><color=#add8e6ff>break</color></b> and <b><color=#add8e6ff>continue</color></b>. The operator <b><color=#add8e6ff>break</color></b> performs <b>exit from the loop</b>. And the operator <b><color=#add8e6ff>continue</color></b> performs <b>transition</b> to the next iteration of the loop.

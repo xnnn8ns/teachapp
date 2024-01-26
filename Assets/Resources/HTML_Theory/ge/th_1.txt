@@ -5,7 +5,7 @@ Der Name der Variable <color=#ffff00ff><b>kann nicht</b></color> mit einer Ziffe
 
 Die Sprache ist auch <color=#ffff00ff><b>case-sensitiv</b></color>, die Variablen <color=#add8e6ff><b><size=55>Tom</size></b></color> und <color=#add8e6ff><b><size=55>tom</size></b></color> sind verschiedene Variablen.
 
-Außerdem sollte der Name der Variable nicht mit den Schlüsselwörtern der Sprache übereinstimmen.
+Außerdem sollte der Name der Variable nicht mit den Schlüsselwörtern der Sprache Programmiersprache.
 
 <color=#ffff00ff><b><size=55>Schlüsselwörter:</size></b></color>
 falsch, wahr, keiner, sonst, wenn, importieren, passieren, Klasse, zurückgeben, def, und, oder, ergeben

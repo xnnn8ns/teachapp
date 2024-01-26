@@ -5,7 +5,7 @@
 
 Также язык чувствителен <color=#ffff00ff><b>к регистру</b></color>, переменные  <color=#add8e6ff><b><size=55>Tom</size></b></color> и <color=#add8e6ff><b><size=55>tom</size></b></color> - это разные переменные.
 
-И кроме того, название переменной не должно совпадать с ключевыми словами языка.
+И кроме того, название переменной не должно совпадать с ключевыми словами языка программирования.
 
 <color=#ffff00ff><b><size=55>Ключевые слова:</size></b></color>
 false, true, none, else, if, import,pass, class,return,def,and,or,yield

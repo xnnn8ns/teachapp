@@ -17,7 +17,7 @@ print(y)</color></b>
 
 <b><color=#add8e6ff>Zur Hervorhebung des Anweisungsblocks</color></b>, der sich auf die Anweisung <b>if</b> oder <b>else</b> bezieht, werden in Python <b>Einzüge</b> verwendet. Alle Anweisungen, die sich
 auf einen Block beziehen, müssen den gleichen Einzug haben, d.h. <b>die gleiche Anzahl von Leerzeichen</b> am Anfang der Zeile.
-Es wird <b>empfohlen</b>, einen Einzug von <b>4 Leerzeichen</b> zu verwenden und es wird <b><color=#add8e6ff>nicht empfohlen</color></b>, das <b>Tabulatorzeichen</b> als Einzug zu verwenden.
+Es wird <color=#add8e6ff><b>empfohlen</color></b>, einen Einzug von <b>4 Leerzeichen</b> zu verwenden und es wird <b><color=#add8e6ff>nicht empfohlen</color></b>, das <b>Tabulatorzeichen</b> als Einzug zu verwenden.
 
 Manchmal gibt es mehr als eine <b>Bedingung</b>, die auf einmal überprüft werden muss, dafür werden <b><color=#add8e6ff>verschachtelte Konstruktionen</color></b> verwendet.
 Wir erhalten <b>verschachtelte Verzweigungen</b> - nach einer Verzweigung im Verlauf der Programmausführung erscheint eine weitere Verzweigung.

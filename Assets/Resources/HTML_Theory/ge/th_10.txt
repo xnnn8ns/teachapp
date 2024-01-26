@@ -17,7 +17,7 @@ Die innere Schleife wird ebenfalls <b>9 mal</b> ausgeführt, bis die Variable j 
 In <b><color=#add8e6ff>jeder Iteration</color></b> der inneren Schleife wird das Produkt der Zahlen i und j <b>auf der Konsole ausgegeben</b>. Dann wird der Wert der Variable j <b>um eins erhöht</b>. Wenn die innere Schleife <b>beendet</b> ist,
 wird der Wert der Variable j <b>auf 1 zurückgesetzt</b>, der Wert der Variable i wird <b>um eins erhöht</b> und es geht zur <b><color=#add8e6ff>nächsten Iteration</color></b> der äußeren Schleife. Und alles wiederholt sich, bis die Variable i <b>gleich 10</b> ist.
 
-Dementsprechend wird die innere Schleife <b>insgesamt 81 mal</b> für alle Iterationen der äußeren Schleife ausgeführt. Am Ende erhalten wir die folgende Konsolenausgabe:
+Dementsprechend wird die innere Schleife <b>insgesamt 81 mal</b> für alle Iterationen der äußeren Schleife ausgeführt. Am Ende erhalten wir die folgende <b>Konsolenausgabe</b> - Multiplikationstabelle.
 
 <b><color=#ffff00ff><size=55>Ausstieg aus der Schleife break und continue</size></color></b>
 Zur Steuerung der Schleife können wir die speziellen Operatoren <b><color=#add8e6ff>break</color></b> und <b><color=#add8e6ff>continue</color></b> verwenden. Der Operator <b><color=#add8e6ff>break</color></b> führt zum <b>Ausstieg aus der Schleife</b>. Der Operator <b><color=#add8e6ff>continue</color></b> führt zum <b>Übergang</b> zur nächsten Iteration der Schleife.

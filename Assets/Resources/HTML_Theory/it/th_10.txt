@@ -17,7 +17,7 @@ Il ciclo interno viene anche eseguito <b>9 volte</b> fino a quando la variabile 
 In <b><color=#add8e6ff>ogni iterazione</color></b> del ciclo interno, il prodotto dei numeri i e j viene stampato sulla console. Poi il valore della variabile j viene <b>incrementato</b> di uno. Quando il ciclo interno ha <b>finito</b> il suo lavoro,
 il valore della variabile j viene <b>resettato</b> a 1, il valore della variabile i viene <b>incrementato</b> di uno e si passa alla <b><color=#add8e6ff>prossima iterazione</color></b> del ciclo esterno. E tutto si ripete fino a quando la variabile i non diventa uguale a 10.
 
-Di conseguenza, il ciclo interno verrà eseguito <b>un totale di 81 volte</b> per tutte le iterazioni del ciclo esterno. Alla fine otterremo il seguente output sulla console:
+Di conseguenza, il ciclo interno verrà eseguito <b>un totale di 81 volte</b> per tutte le iterazioni del ciclo esterno. Alla fine otterremo il seguente <b>output</b> sulla console - tabella di moltiplicazione.
 
 <b><color=#ffff00ff><size=55>Uscita dal ciclo break e continue</size></color></b>
 Per controllare il ciclo possiamo utilizzare gli operatori speciali <b><color=#add8e6ff>break</color></b> e <b><color=#add8e6ff>continue</color></b>. L'operatore <b><color=#add8e6ff>break</color></b> esegue l'<b>uscita dal ciclo</b>. Mentre l'operatore <b><color=#add8e6ff>continue</color></b> esegue il <b>passaggio</b> alla prossima iterazione del ciclo.

@@ -17,7 +17,7 @@ print(y)</color></b>
 
 <b><color=#add8e6ff>To highlight the instruction block</color></b> related to the <b>if</b> or <b>else</b> instruction in Python, <b>indents</b> are used. All instructions that belong
 to one block must have the same indent, that is, <b>the same number of spaces</b> at the beginning of the line.
-It is <b>recommended</b> to use an indent of <b>4 spaces</b> and it is <b><color=#add8e6ff>not recommended</color></b> to use the <b>tab character</b> as an indent.
+It is <color=#add8e6ff><b>recommended</color></b> to use an indent of <b>4 spaces</b> and it is <b><color=#add8e6ff>not recommended</color></b> to use the <b>tab character</b> as an indent.
 
 Sometimes there are more than one <b>condition</b> that needs to be checked at a time, for this <b><color=#add8e6ff>nested constructs</color></b> are used.
 We get <b>nested branching</b> - after one fork in the course of program execution, another fork appears.

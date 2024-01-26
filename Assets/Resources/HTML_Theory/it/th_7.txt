@@ -17,7 +17,7 @@ print(y)</color></b>
 
 Per <b><color=#add8e6ff>identificare il blocco di istruzioni</color></b> relative all'istruzione <b>if</b> o <b>else</b> in Python, vengono utilizzati i <b>rientri</b>. Tutte le istruzioni che appartengono
 ad uno stesso blocco devono avere la stessa dimensione del rientro, cioè lo <b>stesso numero di spazi</b> all'inizio della riga.
-Si raccomanda di utilizzare un rientro di <b>4 spazi</b> e si sconsiglia di utilizzare il <b>simbolo di tabulazione</b> come rientro.
+<color=#add8e6ff><b>Si raccomanda</color></b> di utilizzare un rientro di <b>4 spazi</b> e si sconsiglia di utilizzare il <b>simbolo di tabulazione</b> come rientro.
 
 A volte ci sono più di una <b>condizione</b> che deve essere controllata alla volta, per questo vengono utilizzate le <b><color=#add8e6ff>strutture nidificate</color></b>.
 Si ottiene un <b>branching nidificato</b> - dopo una biforcazione nel corso dell'esecuzione del programma, appare un'altra biforcazione.

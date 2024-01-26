@@ -19,10 +19,10 @@ Questo operatore restituisce il valore <b>TRUE</b> se almeno una variabile ha il
 Se tutte le variabili sono <b>FALSE</b>, allora solo allora il valore sarà <b>FALSE</b>.
 
 <color=#ffff00ff><b><size=55>Esempio:</size></b></color>
-<color=#add8e6ff><b>età = 25
+età = 25
 Sposato = False
 res = età > 21 or Sposato
-print(res)  # True, poiché l'espressione età > 21 è vera</b></color>
+print(res) <color=#add8e6ff><b> # True, poiché l'espressione età > 21 è vera</b></color>
 
 <color=#add8e6ff><b>not (non)</b></color>
 Restituisce <b>True</b> se l'espressione è <b>False</b> e, al contrario, restituisce <b>False</b> se il valore è <b>True</b>.

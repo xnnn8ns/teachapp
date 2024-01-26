@@ -5,7 +5,7 @@ Il nome della variabile <color=#ffff00ff><b>non può</b></color> iniziare con un
 
 Inoltre, il linguaggio è sensibile <color=#ffff00ff><b>al caso</b></color>, le variabili <color=#add8e6ff><b><size=55>Tom</size></b></color> e <color=#add8e6ff><b><size=55>tom</size></b></color> sono variabili diverse.
 
-E inoltre, il nome della variabile non deve coincidere con le parole chiave del linguaggio.
+E inoltre, il nome della variabile non deve coincidere con le parole chiave del linguaggio di programmazione.
 
 <color=#ffff00ff><b><size=55>Parole chiave:</size></b></color>
 false, true, none, else, if, import, pass, class, return, def, and, or, yield

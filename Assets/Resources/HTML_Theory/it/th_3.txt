@@ -2,7 +2,7 @@ Gli <color=#ffff00ff><b><size=55>operatori aritmetici</size></b></color> includo
 
 <color=#ffff00ff><b><size=55>Esempio:</size></b></color>
 <color=#add8e6ff><b>addizione = 7+3</b></color>
-il valore della variabile risultato sarà 10
+il valore della variabile addizione sarà 10
 
 <color=#add8e6ff><b>sottrazione = 8-6</b></color>
 il valore della variabile sottrazione sarà 2

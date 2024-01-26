@@ -5,7 +5,7 @@ The name of the variable <color=#ffff00ff><b>cannot</b></color> start with a dig
 
 The language is also <color=#ffff00ff><b>case sensitive</b></color>,  the variables  <color=#add8e6ff><b><size=55>Tom</size></b></color> and <color=#add8e6ff><b><size=55>tom</size></b></color> are different variables.
 
-And besides, the name of the variable should not match the keywords of the language..
+And besides, the name of the variable should not match the keywords of the programming language.
 
 <color=#ffff00ff><b><size=55>Keywords:</size></b></color>
 false, true, none, else, if, import,pass, class,return,def,and,or,yield

@@ -15,14 +15,14 @@ print(result) <color=#add8e6ff><b> # True</b></color>
 то оператор <color=#add8e6ff><b>and</b></color> также возвращает <b>True</b> (формально возвращается значение последнего операнда).
 
 <color=#add8e6ff><b>or(или)</b></color>:
-Этот оператор возвращает значение <b>TRUE</b> если хотя бы одна переменная имеют значение <b>TRUE</b>. 
+Этот оператор возвращает значение <b>TRUE</b> если хотя бы одна переменная имеет значение <b>TRUE</b>. 
 Если все из переменных будет <b>FALSE</b> , то только тогда значение будет <b>FALSE</b>.
 
 <color=#ffff00ff><b><size=55>Пример:</size></b></color>
-<color=#add8e6ff><b>age = 25
+age = 25
 Married = False
 res = age > 21 or Married
-print(res)  # True, так как выражение age > 21</b></color>
+print(res) <color=#add8e6ff><b> # True, так как выражение age > 21</b></color>
 
 <color=#add8e6ff><b>not(не)</b></color>
 Возвращает <b>True</b>, если выражение равно <b>False</b> и, наоборот, возвращает <b>False</b>, если значение <b>True</b>
