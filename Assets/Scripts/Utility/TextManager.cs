@@ -24,7 +24,7 @@ public class TextManager : MonoBehaviour
         List<LangItem> langItems = LangAsset.getInstance();
         for (int i = 0; i < TextObjects.Count; i++) // Используем цикл for, чтобы иметь доступ к индексу
         {
-            TextMeshProUGUI textObject = TextObjects[i];
+            TMP_Text textObject = TextObjects[i];
             string key = Keys[i]; // Получаем ключ для этого текстового объекта
 
             // Находим соответствующий LangItem для этого ключа

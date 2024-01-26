@@ -19,6 +19,8 @@ public class RegisterUserData : MonoBehaviour
     [SerializeField]
     private GameObject errorNullData; // Окно ошибки для пустых полей
     [SerializeField]
+    private GameObject errorBadWords; // Окно ошибки для плохих слов
+    [SerializeField]
     private GameObject successRegistrationWindow; // Окно подтверждения регистрации
     [SerializeField]
     private Button okButton; // Кнопка "ОК" в окне подтверждения регистрации
@@ -28,9 +30,26 @@ public class RegisterUserData : MonoBehaviour
     private TMP_InputField emailInputField;
     [SerializeField]
     private TMP_InputField passwordInputField;
+    private HashSet<string> bannedWords;
 
     private void Start()
     {
+        // Загрузим и разделим текстовые файлы
+        TextAsset txtEnglishAsset = Resources.Load<TextAsset>("BadWords/en");
+        TextAsset txtRussianAsset = Resources.Load<TextAsset>("BadWords/ru");
+        TextAsset txtItalianAsset = Resources.Load<TextAsset>("BadWords/it");
+        TextAsset txtGermanAsset = Resources.Load<TextAsset>("BadWords/ge");
+        string txtEnglish = txtEnglishAsset.text;
+        string txtRussian = txtRussianAsset.text;
+        string txtItalian = txtItalianAsset.text;
+        string txtGerman = txtGermanAsset.text;
+        List<string> wordsEnglish = txtEnglish.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        List<string> wordsRussian = txtRussian.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        List<string> wordsItalian = txtItalian.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        List<string> wordsGerman = txtGerman.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+        // Объединим списки слов и создадим HashSet для быстрой проверки
+        bannedWords = new HashSet<string>(wordsEnglish.Concat(wordsRussian).Concat(wordsItalian).Concat(wordsGerman));
     }
 
     public void RegisterData()
@@ -38,7 +57,17 @@ public class RegisterUserData : MonoBehaviour
         // Проверяем, что все поля заполнены
         if (string.IsNullOrEmpty(nameInputField.text) || string.IsNullOrEmpty(usernameInputField.text) || string.IsNullOrEmpty(emailInputField.text) || string.IsNullOrEmpty(passwordInputField.text))
         {
-            ShowErrorNullData("Все поля должны быть заполнены");
+            ShowErrorNullData();
+            return;
+        }
+
+        // Проверяем ввод пользователя на наличие плохих слов
+        string lowerCaseName = nameInputField.text.ToLower();
+        string lowerCaseUsername = usernameInputField.text.ToLower();
+        string lowerCaseEmail = emailInputField.text.ToLower();
+        if (bannedWords.Any(word => lowerCaseName.Contains(word)) || bannedWords.Any(word => lowerCaseUsername.Contains(word)) || bannedWords.Any(word => lowerCaseEmail.Contains(word)))
+        {
+            ShowErrorBadWords();
             return;
         }
 
@@ -60,16 +89,19 @@ public class RegisterUserData : MonoBehaviour
         return new string(charArray);
     }
 
-    public void ShowErrorWindow(string message)
+    public void ShowErrorWindow()
     {
         errorWindow.SetActive(true);
-        errorWindow.transform.Find("Image/ErrorMessage").GetComponent<TMPro.TextMeshProUGUI>().text = message;
     }
 
-    public void ShowErrorNullData(string message)
+    public void ShowErrorNullData()
     {
         errorNullData.SetActive(true);
-        errorNullData.transform.Find("Image/ErrorMessage").GetComponent<TMPro.TextMeshProUGUI>().text = message;
+    }
+
+    public void ShowErrorBadWords()
+    {
+        errorBadWords.SetActive(true);
     }
 
     public void HideErrorWindow()
@@ -85,6 +117,11 @@ public class RegisterUserData : MonoBehaviour
     public void ShowSuccessRegistrationWindow()
     {
         successRegistrationWindow.SetActive(true);
+    }
+    
+    public void HideErrorBadWords()
+    {
+        errorBadWords.SetActive(false);
     }
 
     public void OnOkButtonClicked()
