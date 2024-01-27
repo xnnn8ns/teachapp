@@ -55,8 +55,8 @@ public class QuestionInitializer : MonoBehaviour
     //private static int _scoreValue = 0;
     private static float _shelfHeightScale = 0.56f;
 
-    private float _heightUpperShelf = 2.5f;
-    private float _heightBelowShelf = -3f;
+    private static float _heightUpperShelf = 2.5f;
+    private static float _heightBelowShelf = -2.9f;
 
     private int _secondsCountToLeft = 100;
     private int _secondsCountOnStart = 100;
@@ -66,8 +66,10 @@ public class QuestionInitializer : MonoBehaviour
 
     public static void FillQuestionsForCurrentLevel()
     {
+        _heightUpperShelf = Screen.height / 700f;
         //_scoreValue = 0;
         Debug.Log("FillQuestionsForCurrentLevel");
+        //Debug.Log(Screen.height);
         _questionsCurrentLevel.Clear();
         _currentQuestionIndex = 0;
         //Debug.Log(Settings.Current_ButtonOnMapID);
@@ -169,7 +171,7 @@ public class QuestionInitializer : MonoBehaviour
 
         GameObject shelfAnswerPrefab = Instantiate(_shelfPrefab);
         shelfAnswerPrefab.transform.position = new Vector3(0, _heightBelowShelf, -0.01f);
-        shelfAnswerPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), 3, 1);
+        shelfAnswerPrefab.transform.localScale = new Vector3(ComonFunctions.GetScaleForShelf(), 2.8f, 1);
         _shelfRawAnswers = shelfAnswerPrefab?.GetComponent<Shelf>();
         _shelfRawAnswers.SetAsRawShelf();
         //_materialFull

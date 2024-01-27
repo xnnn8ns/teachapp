@@ -236,7 +236,7 @@ public class DataLoader : MonoBehaviour, IAppodealInitializationListener
         {
             Question question = new QuestionText();
             string[] raws = null;
-            Debug.Log(task.Title + "-" + task.TitleEn);
+            //Debug.Log(task.Title + "-" + task.TitleEn);
             if (task.Content == null)
                 task.Content = "";
             if (task.ContentEn == null)
@@ -451,7 +451,7 @@ public class DataLoader : MonoBehaviour, IAppodealInitializationListener
         TextAsset txtTask = (TextAsset)Resources.Load(newFileTask, typeof(TextAsset));
 
         json = txtTask.text;
-        Debug.Log(json);
+        //Debug.Log(json);
         TaskJSON responseTask = TaskJSON.FromJson(json);
         if (responseTask != null && responseTask.Count > 0)
         {

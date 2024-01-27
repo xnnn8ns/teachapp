@@ -34,10 +34,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1012122203966940242}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 90}
-  m_SizeDelta: {x: 90, y: 96}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 90, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6595258577484600700
 CanvasRenderer:
@@ -138,6 +138,7 @@ MonoBehaviour:
     sceneName: DayTask
     isSingle: 0
     isNeedBeClosed: 1
+    showTransition: 0
 --- !u!1 &491630599343742654
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,6 +279,7 @@ MonoBehaviour:
     sceneName: MapScene
     isSingle: 1
     isNeedBeClosed: 1
+    showTransition: 0
 --- !u!1 &1468471695956539423
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,10 +427,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 611045559543853389}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.55, y: 0}
-  m_AnchorMax: {x: 0.55, y: 0}
-  m_AnchoredPosition: {x: 0, y: 90}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0.55, y: 0.5}
+  m_AnchorMax: {x: 0.55, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 85, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2154479591566605043
 CanvasRenderer:
@@ -529,6 +531,7 @@ MonoBehaviour:
     sceneName: LeaderBoard
     isSingle: 0
     isNeedBeClosed: 1
+    showTransition: 0
 --- !u!1 &3745542122644430141
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,10 +640,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4833932305397603408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.52, y: 0}
-  m_AnchorMax: {x: 0.52, y: 0}
-  m_AnchoredPosition: {x: 0, y: 90}
-  m_SizeDelta: {x: 90, y: 96}
+  m_AnchorMin: {x: 0.54, y: 0.5}
+  m_AnchorMax: {x: 0.54, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 85, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &335827538435404860
 CanvasRenderer:
@@ -760,8 +763,8 @@ RectTransform:
   - {fileID: 2177718985063396445}
   m_Father: {fileID: 2170630081583808378}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.84, y: -0.25}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.85, y: -0.25}
+  m_AnchorMax: {x: 1.025, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -864,6 +867,7 @@ MonoBehaviour:
     sceneName: NewsScene
     isSingle: 0
     isNeedBeClosed: 1
+    showTransition: 0
 --- !u!1 &4759759036069404849
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,10 +977,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8291686835668485743}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 90}
-  m_SizeDelta: {x: 90, y: 90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 85, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4323895191834245727
 CanvasRenderer:
@@ -1077,6 +1081,7 @@ MonoBehaviour:
     sceneName: MapScene
     isSingle: 1
     isNeedBeClosed: 1
+    showTransition: 0
 --- !u!1 &5263706034334296143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,6 +1222,7 @@ MonoBehaviour:
     sceneName: LeaderBoard
     isSingle: 0
     isNeedBeClosed: 1
+    showTransition: 0
 --- !u!1 &6751253655612395333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,7 +1260,7 @@ RectTransform:
   m_Father: {fileID: 2170630081583808378}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.62, y: -0.25}
-  m_AnchorMax: {x: 0.84, y: 1}
+  m_AnchorMax: {x: 0.86, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1357,6 +1363,7 @@ MonoBehaviour:
     sceneName: DayTask
     isSingle: 0
     isNeedBeClosed: 1
+    showTransition: 0
 --- !u!1 &7652853307808440128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,10 +1473,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4563608093449952482}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 90}
-  m_SizeDelta: {x: 90, y: 90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 90, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &829216302522260644
 CanvasRenderer:
@@ -1570,6 +1577,7 @@ MonoBehaviour:
     sceneName: DefaultPersonalPage
     isSingle: 0
     isNeedBeClosed: 1
+    showTransition: 0
 --- !u!1 &7864329815731972289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1587,7 +1595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &677894213003832187
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1860,6 +1868,7 @@ MonoBehaviour:
     sceneName: DefaultPersonalPage
     isSingle: 0
     isNeedBeClosed: 1
+    showTransition: 0
 --- !u!1 &8437573407791200921
 GameObject:
   m_ObjectHideFlags: 0
