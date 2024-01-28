@@ -25,6 +25,7 @@ public class UserData : MonoBehaviour
     public static int InitialScore = 0;
     public static long LastUpdateDate = 0;
     public static int ElapsedTime = 0;
+    public static int lastUserPosition = -1;
 
     public static void SetToken(string token)
     {
@@ -65,6 +66,7 @@ public class UserData : MonoBehaviour
         PlayerPrefs.SetInt("IsByVK", IsByVK);
         PlayerPrefs.SetInt("VKID", VKID);
         PlayerPrefs.SetInt("Score", Score);
+        PlayerPrefs.SetInt("LastUserPosition", lastUserPosition);
     }
 
     public static void LoadUserData()
@@ -86,6 +88,7 @@ public class UserData : MonoBehaviour
         InitialLevel = PlayerPrefs.GetInt("InitialLevelsCompleted", 0);
         InitialScore = PlayerPrefs.GetInt("InitialScore", 0);
         ElapsedTime = PlayerPrefs.GetInt("ElapsedTime", 0);
+        lastUserPosition = PlayerPrefs.GetInt("LastUserPosition", -1);
 
         UpdateUserForNewDay();
 }

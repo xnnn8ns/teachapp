@@ -33,6 +33,9 @@ public class LeaderBoardScript : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI teamNameText;
+    private int lastUserPosition = -1;
+    public bool userMovedUp { get; private set; }
+    public bool userMovedDown { get; private set; }
 
     private void Start()
     {
@@ -396,6 +399,44 @@ public class LeaderBoardScript : MonoBehaviour
             }
             else
                 ComonFunctions.LoadAvatarFromResourceByID(avatar, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID);
+            
+            // сравниваем прогресс пользователя
+            if (data.id == UserData.UserID)
+            {
+                if (PlayerPrefs.HasKey("LastUserPosition"))
+                {
+                    lastUserPosition = PlayerPrefs.GetInt("LastUserPosition");
+                }
+                else
+                {
+                    lastUserPosition = int.MaxValue;
+                }
+
+                int newUserPosition = position;
+
+                Debug.Log("Current position: " + newUserPosition);
+                Debug.Log("Last saved position: " + lastUserPosition);
+
+                if (newUserPosition < lastUserPosition)
+                {
+                    Debug.Log("Поздравляем! Вы поднялись на " + lastUserPosition + " место!");
+                    userMovedUp = true;
+                }
+                else if (newUserPosition > lastUserPosition)
+                {
+                    Debug.Log("Вы опустились на " + (newUserPosition - lastUserPosition) + " место!");
+                    userMovedDown = true;
+                }
+                else if (newUserPosition == lastUserPosition)
+                {
+                    Debug.Log("Вы не сдвинулись с места!");
+                }
+
+                lastUserPosition = newUserPosition;
+                PlayerPrefs.SetInt("LastUserPosition", lastUserPosition);
+                PlayerPrefs.Save();
+                StartCoroutine(SetScrollPosition(position));
+            }
 
             if (position != 1)
                 gold.enabled = false;
@@ -407,6 +448,20 @@ public class LeaderBoardScript : MonoBehaviour
             obj.Add(leaderboardItem);
             position++;
         }
+    }
+
+    // метод для установки позиции скролла так, чтобы пользователь видел себя по середине экрана
+    IEnumerator SetScrollPosition(int position)
+    {
+        // Ждем следующего кадра
+        yield return null;
+
+        ScrollRect scrollRect = this.transform.parent.parent.GetComponent<ScrollRect>();
+        float itemHeight = this.transform.GetChild(0).GetComponent<RectTransform>().rect.height; // Высота каждого элемента
+        float halfVisibleHeight = scrollRect.GetComponent<RectTransform>().rect.height / 2; // Половина высоты видимой области
+        float startPosition = scrollRect.content.localPosition.y; // Начальная позиция
+        float desiredPosition = startPosition + (itemHeight * position) - halfVisibleHeight;
+        scrollRect.content.localPosition = new Vector2(scrollRect.content.localPosition.x, desiredPosition);
     }
 
     private List<LeaderboardData> GetOrCreateFileLeaderBoard(string filePathSave)

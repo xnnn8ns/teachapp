@@ -5640,9 +5640,13 @@ MonoBehaviour:
   - button: {fileID: 309274316}
     sceneName: MapScene
     isSingle: 1
+    isNeedBeClosed: 1
+    showTransition: 0
   - button: {fileID: 1150969935}
     sceneName: MapScene
     isSingle: 1
+    isNeedBeClosed: 1
+    showTransition: 0
 --- !u!1001 &1824646328
 PrefabInstance:
   m_ObjectHideFlags: 0
