@@ -37,6 +37,12 @@ public class QuestionInitializer : MonoBehaviour
     private GameObject _buttonCheck;
     [SerializeField]
     private GameObject _buttonCheckDisabled;
+    [SerializeField]
+    private Transform _topMenu;
+    [SerializeField]
+    private RectTransform _textType;
+    [SerializeField]
+    private RectTransform _catImg;
 
     private AudioSource _typeAudio;
     private AudioSource _wrongAnswerAudio;
@@ -55,7 +61,7 @@ public class QuestionInitializer : MonoBehaviour
     //private static int _scoreValue = 0;
     private static float _shelfHeightScale = 0.56f;
 
-    private static float _heightUpperShelf = 2.5f;
+    private static float _heightUpperShelf = 2.4f;
     private static float _heightBelowShelf = -2.9f;
 
     private int _secondsCountToLeft = 100;
@@ -66,7 +72,6 @@ public class QuestionInitializer : MonoBehaviour
 
     public static void FillQuestionsForCurrentLevel()
     {
-        _heightUpperShelf = Screen.height / 700f;
         //_scoreValue = 0;
         Debug.Log("FillQuestionsForCurrentLevel");
         //Debug.Log(Screen.height);
@@ -93,6 +98,40 @@ public class QuestionInitializer : MonoBehaviour
 
     private void Awake()
     {
+        //if (Screen.height < 1700)
+        //{
+        //    _heightUpperShelf = Screen.height / 700f;
+        //}
+        
+        //float yOffset = Screen.safeArea.yMin / 1.9f;
+        float yOffset = (Screen.height - Screen.safeArea.yMax) / 1.8f;
+        RectTransform rect = _topMenu.GetComponent<RectTransform>();
+        Vector3 pos = rect.position;
+        pos.y -= yOffset;
+        rect.position = pos;
+        Debug.Log("Screen.safeArea.yMin: " + Screen.safeArea.yMin);
+        Debug.Log("Screen.safeArea.yMax: " + Screen.safeArea.yMin);
+        Debug.Log("yOffset: " + yOffset);
+        Debug.Log("Screen.safeArea): " + Screen.safeArea);
+
+        pos = _textType.position;
+        pos.y -= yOffset;
+        _textType.position = pos;
+
+        pos = _catImg.position;
+        pos.y -= yOffset;
+        _catImg.position = pos;
+
+        if (yOffset > 0)
+        {
+            _heightUpperShelf -= yOffset / 250f;
+        }
+        else if (Screen.height < 1700)
+        {
+
+            _heightUpperShelf = 1.9f;
+        }
+
         _secondsFromSceneStart = (int)Time.timeSinceLevelLoad;
         //_clickAudio = GetComponents<AudioSource>()[0];
         _typeAudio = GetComponents<AudioSource>()[1];
