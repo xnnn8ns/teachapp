@@ -8,7 +8,7 @@ using TMPro;
 public class GetCertificateFromServer : MonoBehaviour
 {
     [SerializeField]
-    private TMP_InputField nameInputField;
+    private TextMeshProUGUI nameInputField;
     //void Start()
     //{
     //    //GetWriteNewCertificate();
@@ -19,7 +19,7 @@ public class GetCertificateFromServer : MonoBehaviour
     public void GetHtmlFile(string filePath = "pdfpage.html")
     {
         //**************************************** Comment for a time
-        //StartCoroutine(PostHtmlFile(filePath));
+        StartCoroutine(PostHtmlFile(filePath));
     }
 
     private string GetWriteNewCertificate()
@@ -53,7 +53,7 @@ public class GetCertificateFromServer : MonoBehaviour
     {
         string url = "https://d5dlcdt4eicv4aq51qqd.apigw.yandexcloud.net/";
         //string fullPath = Path.Combine(Application.persistentDataPath, "Resources/certificate", filePath);
-        //Debug.Log(fullPath);
+        Debug.Log(filePath);
 
         // string htmlContent = Resources.Load<TextAsset>(Path.GetFileNameWithoutExtension(fullPath)).text;
         //string htmlContent = Resources.Load<TextAsset>("certificate/pdfpage").text;

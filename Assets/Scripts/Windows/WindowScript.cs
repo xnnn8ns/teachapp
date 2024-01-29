@@ -56,7 +56,8 @@ public class WindowScript : MonoBehaviour
     {
         QuestionInitializer.FillQuestionsForCurrentLevel();
         ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
-        _textTime.text = ComonFunctions.GetMinetsSecondsFromSeconds(QuestionInitializer.GetSecondsForCurrentQuestionList());
+        if(_textTime != null)
+            _textTime.text = ComonFunctions.GetMinetsSecondsFromSeconds(QuestionInitializer.GetSecondsForCurrentQuestionList());
         Debug.Log(buttonData.score.ToString() + "-" + buttonData.passCount);
         if (_textScore != null)
             _textScore.text = ComonFunctions.GetScoreForLevel(buttonData.score, buttonData.passCount, (ETypeLevel)buttonData.typeLevel).ToString();
@@ -71,8 +72,8 @@ public class WindowScript : MonoBehaviour
         if(_textTotalCount != null)
             _textTotalCount.text = buttonData.totalForPassCount.ToString();
 
-        
-        _slider.value = (buttonData.passCount + 1.2f )/3.0f;
+        if(_slider != null)
+            _slider.value = (buttonData.passCount + 1.2f )/3.0f;
     }
 
     private void SetHeaders()
@@ -99,11 +100,13 @@ public class WindowScript : MonoBehaviour
             _textCountHeader.text = LangAsset.GetValueByKey("Step");
 
         }
-        
-        _textTimeHeader.text = LangAsset.GetValueByKey("TimeInTest");
+
+        if(_textTimeHeader)
+            _textTimeHeader.text = LangAsset.GetValueByKey("TimeInTest");
         if (_textScoreHeader)
             _textScoreHeader.text = LangAsset.GetValueByKey("PointsInTest");
-        _textButtonOKHeader.text = LangAsset.GetValueByKey("Continue");
+        if(_textButtonOKHeader)
+            _textButtonOKHeader.text = LangAsset.GetValueByKey("Continue");
         if (_textButtonCancelHeader)
             _textButtonCancelHeader.text = LangAsset.GetValueByKey("Cancel");
     }

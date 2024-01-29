@@ -11,6 +11,7 @@ public class LastScene : MonoBehaviour
     [SerializeField] private Button requestCertButton;
     [SerializeField] private Button certLinkButton;
     [SerializeField] private GameObject errorWindow;
+    [SerializeField] private GetCertificateFromServer certificateFromServer;
     private bool hasRequestedCertificate = false;
     
     private void Start()
@@ -76,6 +77,7 @@ public class LastScene : MonoBehaviour
 
     public void AllCorrectClick()
     {
+        Debug.Log("AllCorrectClick");
         if (string.IsNullOrEmpty(UserData.UserFullName))
         {
             errorWindow.SetActive(true); // активируем окно ошибки
@@ -84,6 +86,8 @@ public class LastScene : MonoBehaviour
 
         hasRequestedCertificate = true;
         StartCoroutine(AllCorrectClickCoroutine());
+        certificateFromServer.GetHtmlFile();
+        Debug.Log("GetHtmlFile");
         // код для обработки запроса пользователя на сертификат
     }
 
