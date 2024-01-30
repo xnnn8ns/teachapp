@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.IO;
 using TMPro;
+using System;
 
 public class GetCertificateFromServer : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI nameInputField;
+
+    public Action _action;
     //void Start()
     //{
     //    //GetWriteNewCertificate();
@@ -16,9 +19,10 @@ public class GetCertificateFromServer : MonoBehaviour
 
     //}
 
-    public void GetHtmlFile(string filePath = "pdfpage.html")
+    public void GetHtmlFile(Action action, string filePath = "pdfpage.html")
     {
         //**************************************** Comment for a time
+        _action = action;
         StartCoroutine(PostHtmlFile(filePath));
     }
 
@@ -72,13 +76,25 @@ public class GetCertificateFromServer : MonoBehaviour
             }
             else
             {
-                Debug.Log("HTML file successfully sent to server.");
-                var file = webRequest.downloadHandler.data;
-                FileStream nFile = new FileStream(Application.persistentDataPath + "/certificate-python.pdf", FileMode.Create);
-                nFile.Write(file, 0, file.Length);
-                nFile.Close();
+                Debug.Log("HTML file successfully sent to server: " + webRequest.downloadHandler.text);
+                string urlPDF = GetURLFromJSONResponse(webRequest.downloadHandler.text);
+                Debug.Log(urlPDF);
+                PlayerPrefs.SetString("Certificate1", urlPDF);
+                _action.Invoke();
+                //var file = webRequest.downloadHandler.data;
+                //FileStream nFile = new FileStream(Application.persistentDataPath + "/certificate-python.pdf", FileMode.Create);
+                //nFile.Write(file, 0, file.Length);
+                //nFile.Close();
             }
         }
         Debug.Log("end"); 
+    }
+
+    public static string GetURLFromJSONResponse(string json)
+    {
+        //string str = json.Split(":")[1];
+        string str = json.Substring(9, json.Length - 11);
+        str = str.Replace(@"\/", "/");
+        return str;
     }
 }

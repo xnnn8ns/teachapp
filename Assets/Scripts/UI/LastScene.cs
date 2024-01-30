@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using TMPro;
 
 public class LastScene : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class LastScene : MonoBehaviour
     [SerializeField] private Button certLinkButton;
     [SerializeField] private GameObject errorWindow;
     [SerializeField] private GetCertificateFromServer certificateFromServer;
+    [SerializeField] private TextMeshProUGUI buttonName;
     private bool hasRequestedCertificate = false;
+
     
     private void Start()
     {
@@ -20,7 +23,12 @@ public class LastScene : MonoBehaviour
         {
             requestCertButton.gameObject.SetActive(false);
             certLinkButton.gameObject.SetActive(true);
-            certLinkButton.onClick.AddListener(() => Application.OpenURL("https://www.yandex.ru")); // временная ссылка
+            string url = PlayerPrefs.GetString("Certificate1", "");
+            if (url.Length > 8)
+            {
+                buttonName.text = LangAsset.GetValueByKey("RefPDF");
+                certLinkButton.onClick.AddListener(() => Application.OpenURL(url));
+            }
         }
     }
 
@@ -86,7 +94,7 @@ public class LastScene : MonoBehaviour
 
         hasRequestedCertificate = true;
         StartCoroutine(AllCorrectClickCoroutine());
-        certificateFromServer.GetHtmlFile();
+        certificateFromServer.GetHtmlFile(CertificateReady);
         Debug.Log("GetHtmlFile");
         // код для обработки запроса пользователя на сертификат
     }
@@ -179,5 +187,19 @@ public class LastScene : MonoBehaviour
     public void CloseErrorWindow()
     {
         errorWindow.SetActive(false);
+    }
+
+    public void CertificateReady()
+    {
+        PlayerPrefs.SetInt("HasRequestedCertificate", 1);
+        hasRequestedCertificate = true;
+        requestCertButton.gameObject.SetActive(false);
+        certLinkButton.gameObject.SetActive(true);
+        string url = PlayerPrefs.GetString("Certificate1", "");
+        if (url.Length > 8)
+        {
+            buttonName.text = LangAsset.GetValueByKey("RefPDF");
+            certLinkButton.onClick.AddListener(() => Application.OpenURL(url));
+        }
     }
 }
