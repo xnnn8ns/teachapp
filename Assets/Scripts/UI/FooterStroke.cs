@@ -11,9 +11,14 @@ public class FooterStroke : MonoBehaviour
         public string sceneName;
         public Image image;
     }
+    [System.Serializable]
+    public class SceneImageWithBackground : SceneImage
+    {
+        public Image backgroundImage;
+    }
 
     [SerializeField]
-    private List<SceneImage> sceneImages = new List<SceneImage>();
+    private List<SceneImageWithBackground> sceneImages = new List<SceneImageWithBackground>();
     private string activeSceneName;
 
     void Start()
@@ -21,6 +26,10 @@ public class FooterStroke : MonoBehaviour
         foreach (var sceneImage in sceneImages)
         {
             sceneImage.image.gameObject.SetActive(false);
+            if (sceneImage.backgroundImage != null)
+            {
+                sceneImage.backgroundImage.gameObject.SetActive(false);
+            }
         }
 
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
@@ -76,6 +85,10 @@ public class FooterStroke : MonoBehaviour
             {
                 bool isActiveScene = sceneImage.sceneName == activeSceneName;
                 sceneImage.image.gameObject.SetActive(isActiveScene);
+                if (sceneImage.backgroundImage != null)
+                {
+                    sceneImage.backgroundImage.gameObject.SetActive(isActiveScene);
+                }
             }
         }
     }
