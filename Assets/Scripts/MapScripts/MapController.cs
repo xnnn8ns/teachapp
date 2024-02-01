@@ -273,21 +273,21 @@ namespace Mkey
             if (buttonData != null)
             {
                 // Если это последний уровень, переключаемся на WindowLastScene
-                //if (clickIndex == LastLevel.lastLevelIndex)
-                //{
+                if (clickIndex == LastLevel.lastLevelIndex)
+                {
                     SwitchToLastLevel(); // в настоящем не работает
                     return;
-                //}
-                //if (buttonData.isPassed)
-                //{
-                //    ClickPassButton(clickIndex, isMissionClicked);
-                //    return;
-                //}
-                //if (!buttonData.isActive)
-                //{
-                //    ClickFutureButton();
-                //    return;
-                //}
+                }
+                if (buttonData.isPassed)
+                {
+                    ClickPassButton(clickIndex, isMissionClicked);
+                    return;
+                }
+                if (!buttonData.isActive)
+                {
+                    ClickFutureButton();
+                    return;
+                }
             }
             ClickCurrentLevelButton(clickIndex, isMissionClicked);
         }
