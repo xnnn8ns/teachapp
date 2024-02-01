@@ -27,7 +27,12 @@ public class LastLevel : MonoBehaviour
         LevelButton lastLevel = lastBiome.levelButtons[lastBiome.levelButtons.Count - 1]; // последний уровень
 
         // Обновляем lastLevelIndex
-        lastLevelIndex = lastBiome.levelButtons.Count - 1;
+        int totalLevelCount = 0;
+        foreach (Biome biome in biomes)
+        {
+            totalLevelCount += biome.levelButtons.Count;
+        }
+        lastLevelIndex = totalLevelCount - 1;
 
         IsLastLevelCompleted = lastLevel.Interactable;
         if (certificateSprite != null)

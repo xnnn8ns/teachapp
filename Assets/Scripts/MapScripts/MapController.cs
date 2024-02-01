@@ -203,13 +203,38 @@ namespace Mkey
                 ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
                 //Debug.Log(buttonData.id);
                 if (buttonData != null)
+                {
+                    // Если уровень пройден
+                    if (buttonData.passCount >= 1)
+                    {
+                        buttonData.isPassed = true;
+                        // Если уровень пройден, но не на 3 звезды, оставляем его активным
+                        if (buttonData.activeStarsCount < 3)
+                        {
+                            buttonData.isActive = true;
+                        }
+                        else
+                        {
+                            // Если уровень пройден на 3 звезды, делаем его неактивным
+                            buttonData.isActive = false;
+                        }
+                    }
+                    // исключение для уровней подарков, кубков. Их пройти нужно лишь раз
+                    if (buttonData.totalForPassCount == 1 && buttonData.passCount >= 1)
+                    {
+                        buttonData.isActive = false;
+                        buttonData.isPassed = true;
+                        buttonData.activeStarsCount = 3;
+                    }
+                    DataLoader.SaveLevelResults(buttonData.id, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, buttonData.passCount);
                     SetButtonActive(buttonData.id, i - 1, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, buttonData.passCount, (ETypeLevel)buttonData.typeLevel);
+                }
                 
                 clickIndex++;
                 if(i % 10 == 0)
                     clickIndex = clickIndex + 2;
             }
-            //levelCount = 0;
+
             clickIndex = 11;
             for (int i = 1; i <= MapMissionButtons.Count; i++)
             {
@@ -272,10 +297,15 @@ namespace Mkey
             ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
             if (buttonData != null)
             {
+                if (!buttonData.isActive)
+                {
+                    ClickFutureButton();
+                    return;
+                }
                 // Если это последний уровень, переключаемся на WindowLastScene
                 if (clickIndex == LastLevel.lastLevelIndex)
                 {
-                    SwitchToLastLevel(); // в настоящем не работает
+                    SwitchToLastLevel();
                     return;
                 }
                 if (buttonData.isPassed)
@@ -283,11 +313,7 @@ namespace Mkey
                     ClickPassButton(clickIndex, isMissionClicked);
                     return;
                 }
-                if (!buttonData.isActive)
-                {
-                    ClickFutureButton();
-                    return;
-                }
+                
             }
             ClickCurrentLevelButton(clickIndex, isMissionClicked);
         }
