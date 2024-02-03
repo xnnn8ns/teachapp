@@ -73,7 +73,8 @@ public class RegisterUserData : MonoBehaviour
 
         System.Random rand = new System.Random();
         int randID = rand.Next(1, 999999);
-        UserData.SetUserData(randID.ToString(), nameInputField.text, usernameInputField.text, emailInputField.text, Encrypt(passwordInputField.text), 1, 0, 0, 0);
+         // в SetUserData сначала сохраняет ник, затем полное имя; Изменил порядок переменных
+        UserData.SetUserData(randID.ToString(), usernameInputField.text, nameInputField.text, emailInputField.text, Encrypt(passwordInputField.text), 1, 0, 0, 0);
 
         PlayerPrefs.Save();
         ShowSuccessRegistrationWindow();
