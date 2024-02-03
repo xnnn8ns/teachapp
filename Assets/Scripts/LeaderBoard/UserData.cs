@@ -26,6 +26,7 @@ public class UserData : MonoBehaviour
     public static long LastUpdateDate = 0;
     public static int ElapsedTime = 0;
     public static int lastUserPosition = -1;
+    public static bool HasReceivedReward = false;
 
     public static void SetToken(string token)
     {
@@ -67,6 +68,7 @@ public class UserData : MonoBehaviour
         PlayerPrefs.SetInt("VKID", VKID);
         PlayerPrefs.SetInt("Score", Score);
         PlayerPrefs.SetInt("LastUserPosition", lastUserPosition);
+        PlayerPrefs.SetInt("HasReceivedReward", HasReceivedReward ? 1 : 0);
     }
 
     public static void LoadUserData()
@@ -89,6 +91,7 @@ public class UserData : MonoBehaviour
         InitialScore = PlayerPrefs.GetInt("InitialScore", 0);
         ElapsedTime = PlayerPrefs.GetInt("ElapsedTime", 0);
         lastUserPosition = PlayerPrefs.GetInt("LastUserPosition", -1);
+        HasReceivedReward = PlayerPrefs.GetInt("HasReceivedReward", 0) == 1;
 
         UpdateUserForNewDay();
 }
@@ -138,13 +141,37 @@ public class UserData : MonoBehaviour
     {
         if (ComonFunctions.UnixTimeStampToDateTime(LastUpdateDate).Date < DateTime.Today)
         {
+            // Обновление начального счета и уровня
             InitialScore = Score;
-            ElapsedTime = 0;
             InitialLevel = DataLoader.GetCurrentLevel();
+
+            ElapsedTime = 0;
+            SetElapsedTime();
+            ButtonData currentLevelData = DataLoader.GetLevelData(DataLoader.GetCurrentLevel());
+            if (currentLevelData != null && currentLevelData.passCount > 0)
+            {
+                // Если игрок уже начал проходить текущий уровень, устанавливаем следующий уровень как цель
+                InitialLevel = DataLoader.GetCurrentLevel() + 1;
+            }
+            else
+            {
+                // Если игрок еще не начал проходить текущий уровень, оставляем его как цель
+                InitialLevel = DataLoader.GetCurrentLevel();
+            }
             LastUpdateDate = DateTimeOffset.Now.ToUnixTimeSeconds();
             SetLastUpdateDate();
+            HasReceivedReward = false;
             Debug.Log("UpdateUserForNewDay()");
-        }
 
+            // Сохранение начального счета и уровня в PlayerPrefs
+            PlayerPrefs.SetInt("InitialScore", InitialScore);
+            PlayerPrefs.SetInt("InitialLevel", InitialLevel);
+        }
+    }
+
+    public static void SetHasReceivedReward(bool hasReceivedReward)
+    {
+        HasReceivedReward = hasReceivedReward;
+        PlayerPrefs.SetInt("HasReceivedReward", HasReceivedReward ? 1 : 0);
     }
 }

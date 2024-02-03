@@ -25,6 +25,10 @@ public class TextManager : MonoBehaviour
         for (int i = 0; i < TextObjects.Count; i++) // Используем цикл for, чтобы иметь доступ к индексу
         {
             TMP_Text textObject = TextObjects[i];
+            if (textObject == null) // Проверяем, не равен ли объект null
+            {
+                continue; // Если равен, пропускаем эту итерацию цикла
+            }
             string key = Keys[i]; // Получаем ключ для этого текстового объекта
 
             // Находим соответствующий LangItem для этого ключа

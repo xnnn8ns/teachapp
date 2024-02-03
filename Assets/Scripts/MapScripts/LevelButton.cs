@@ -56,16 +56,15 @@ namespace Mkey
             if (isPassed)
             {
                 if(typeLevel == ETypeLevel.final)
-                    targetImage.sprite = FinalStatePassed.sprite;
+                    targetImage.sprite = FinalStatePassed?.sprite;
                 else if (typeLevel == ETypeLevel.additional)
-                    targetImage.sprite = AdditionStatePassed.sprite;
+                    targetImage.sprite = AdditionStatePassed?.sprite;
                 else {
                     if (isMirror) 
-                       targetImage.sprite = PassStateMirror.sprite; 
+                       targetImage.sprite = PassStateMirror?.sprite; 
                     else
-                        targetImage.sprite = PassState.sprite;
+                        targetImage.sprite = PassState?.sprite;
                 }
-
             }
             
 
