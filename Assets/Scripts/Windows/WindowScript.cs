@@ -39,7 +39,7 @@ public class WindowScript : MonoBehaviour
 
     private string _sceneToLoad = "";
 
-    private void Start()
+    private void Awake()
     {
         _sceneToLoad = PlayerPrefs.GetString("SceneToLoad");
         StartCoroutine(CallMethodsAfterOneFrame());
@@ -49,7 +49,7 @@ public class WindowScript : MonoBehaviour
     {
         yield return null;
         FillWindowData();
-        SetHeaders();
+        yield return StartCoroutine(SetHeaders());
     }
 
     private void FillWindowData()
@@ -76,7 +76,7 @@ public class WindowScript : MonoBehaviour
             _slider.value = (buttonData.passCount + 1.2f )/3.0f;
     }
 
-    private void SetHeaders()
+    private IEnumerator SetHeaders()
     {
         if (_textHeader){
             if(_isStartTestText){
@@ -109,9 +109,9 @@ public class WindowScript : MonoBehaviour
             _textButtonOKHeader.text = LangAsset.GetValueByKey("Continue");
         if (_textButtonCancelHeader)
             _textButtonCancelHeader.text = LangAsset.GetValueByKey("Cancel");
+
+        yield return null; // Добавляем задержку, чтобы дать время для загрузки текста
     }
-
-
 
     public void ClickCancel()
     {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Linq;
 
 public class AlgorithmTestContriller : MonoBehaviour
 {
@@ -1948,8 +1949,17 @@ public class AlgorithmTestContriller : MonoBehaviour
 
     private static string GetWrongStringFromKeyWords(List<string> stopWords)
     {
+        if (_keyWordsForAlgo == null)
+        {
+            _keyWordsForAlgo = new List<string>(); // Инициализируем _keyWordsForAlgo, если он равен null
+        }
+        if (_keyWordsForAlgo.Count == 0 || _keyWordsForAlgo.All(word => stopWords.Contains(word)))
+        {
+            return ""; // Возвращаем пустую строку, если список _keyWordsForAlgo пуст или все его слова содержатся в списке stopWords
+        }
+
         bool containsWord = true;
-        string strWord = GetKeyWordsForAlgo()[0];
+        string strWord = _keyWordsForAlgo[0];
         int maxRound = 100;
         System.Random rand = new System.Random();
         while (containsWord)

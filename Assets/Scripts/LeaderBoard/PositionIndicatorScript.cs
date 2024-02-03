@@ -22,8 +22,8 @@ public class PositionIndicatorScript : MonoBehaviour
         // Получить текущую позицию пользователя из PlayerPrefs
         int userPosition = PlayerPrefs.GetInt("LastUserPosition");
 
-        // Если позиция пользователя - первая или последняя, не делать ничего
-        if (userPosition == 1 || userPosition == transform.childCount)
+        // Если позиция пользователя - первая-третья или последняя, не делать ничего
+        if (userPosition == 1 || userPosition == 2 || userPosition == 3 || userPosition == transform.childCount)
         {
             return;
         }

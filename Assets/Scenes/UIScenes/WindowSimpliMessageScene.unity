@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37100333, g: 0.3785126, b: 0.3573835, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -511,11 +511,13 @@ MonoBehaviour:
   _textMessage: {fileID: 837188454}
   _textValue: {fileID: 0}
   _textValueHeader: {fileID: 0}
+  _textValueHeaderAddition: {fileID: 0}
   _textButtonOKHeader: {fileID: 813978756}
   _audioScore: {fileID: 446781810}
   _clickAudio: {fileID: 1913769842}
   _isErrorExistsForm: 0
   _isLevelBlockedForm: 1
+  _isTimeExpiredForm: 0
   _audioFanFars: {fileID: 0}
   _needFillData: 0
   _needUnloadCurrentScene: 1
@@ -1209,7 +1211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1770182310
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 public class ButtonClickHandler : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class ButtonClickHandler : MonoBehaviour
         public bool isSingle = true;
         public bool isNeedBeClosed = true;
         public bool showTransition = false;
+        public bool deactivateOnStart = false;
     }
 
     public List<ButtonSceneMapping> buttons;
@@ -21,8 +23,19 @@ public class ButtonClickHandler : MonoBehaviour
     {
         foreach (ButtonSceneMapping mapping in buttons)
         {
+            if (mapping.deactivateOnStart) // Проверяем, должна ли кнопка быть деактивирована при старте
+            {
+                mapping.button.interactable = false; // Сначала делаем кнопку неактивной
+                StartCoroutine(EnableButtonAfterDelay(mapping.button, 0.2f)); // Затем активируем ее через 0.2 секунды
+            }
             mapping.button.onClick.AddListener(() => StartScene(mapping.sceneName, mapping.isSingle, mapping.isNeedBeClosed, mapping.showTransition));
         }
+    }
+
+    private IEnumerator EnableButtonAfterDelay(Button button, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        button.interactable = true;
     }
 
     private void StartScene(string scene, bool isSingle, bool isNeedBeClosed, bool showTransition)

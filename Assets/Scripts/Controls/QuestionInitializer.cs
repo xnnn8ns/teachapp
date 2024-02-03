@@ -878,16 +878,36 @@ public class QuestionInitializer : MonoBehaviour
             PlayerPrefs.SetFloat("PassSeconds", _secondsCountToLeft);
             PlayerPrefs.SetInt("PassQuestionCount", GetQuestionCountCurrentQuestionList());
 
-            if (buttonData.passCount > 2)
+            DataLoader.SaveLevelResults(currentLevel, buttonData.isActive, isPassed, buttonData.activeStarsCount, buttonData.passCount);
+
+            if (buttonData.passCount >= buttonData.totalForPassCount)
             {
                 Settings.Current_ButtonOnMapID++;
                 DataLoader.SaveCurrentLevel();
                 isPassed = true;
+
+                // Получаем данные следующего уровня
+                ButtonData nextButtonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
+
+                // Если следующий уровень уже существует, но не активен, делаем его активным
+                if (nextButtonData != null && !nextButtonData.isActive)
+                {
+                    nextButtonData.isActive = true;
+                    DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, nextButtonData.isActive, nextButtonData.isPassed, nextButtonData.activeStarsCount, nextButtonData.passCount);
+                }
+                // Если следующего уровня еще не существует, создаем его и делаем активным
+                else if (nextButtonData == null)
+                {
+                    DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, true, false, 0, 0);
+                }
             }
-            DataLoader.SaveLevelResults(currentLevel, !isPassed, isPassed, buttonData.activeStarsCount, buttonData.passCount);
-            
-            if (isPassed) // set next level = true -- isActive, to show on map
+
+            if (isPassed && buttonData.activeStarsCount == 3 && buttonData.passCount == 3) // set next level = true -- isActive, to show on map
+            {
+                // Проверяем, был ли текущий уровень полностью пройден
                 DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, true, false, 0, 0);
+            }
+            
             Debug.Log("UpdateUser: " + UserData.Score);
             if (UserData.UserID != "")
                 StartCoroutine(ComonFunctions.Instance.UpdateUser(UserData.UserID, UserData.UserName, UserData.UserEmail, UserData.UserPassword, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID, UserData.Score));

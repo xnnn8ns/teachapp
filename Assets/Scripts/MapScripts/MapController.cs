@@ -207,7 +207,6 @@ namespace Mkey
                     // Если уровень пройден
                     if (buttonData.passCount >= 1)
                     {
-                        buttonData.isPassed = true;
                         // Если уровень пройден, но не на 3 звезды, оставляем его активным
                         if (buttonData.activeStarsCount < 3)
                         {
@@ -217,6 +216,7 @@ namespace Mkey
                         {
                             // Если уровень пройден на 3 звезды, делаем его неактивным
                             buttonData.isActive = false;
+                            buttonData.isPassed = true;
                         }
                     }
                     // исключение для уровней подарков, кубков. Их пройти нужно лишь раз
