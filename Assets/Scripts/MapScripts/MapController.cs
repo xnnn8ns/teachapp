@@ -57,6 +57,7 @@ namespace Mkey
         private TheoryListJSON _theoryListJSON;
 
         List<Biome> bList = new List<Biome>();
+        [SerializeField] private LastLevel lastLevel;
 
         //[SerializeField]
         //private AudioSource _clickAudio;
@@ -246,6 +247,25 @@ namespace Mkey
                 clickIndex++;
                 if (i % 2 == 0)
                     clickIndex = clickIndex + 10;
+            }
+
+            // берем метод из скрипта lastlevel.cs 
+            List<LevelButton> firstLevels = lastLevel.GetFirstLevelsOfEachBlock();
+
+            // проходимся по каждому первому уровню из массива первых уровней и проверяем на прогрессию
+            foreach (LevelButton firstLevel in firstLevels)
+            {
+                ButtonData buttonData = DataLoader.GetLevelData(firstLevel.ID);
+                if (buttonData != null)
+                {
+                    // Проверяем, имеет ли уровень прогресс
+                    if (buttonData.passCount == 0 && !buttonData.isPassed && !buttonData.isActive)
+                    {
+                        buttonData.isActive = true;
+                        DataLoader.SaveLevelResults(buttonData.id, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, buttonData.passCount);
+                        firstLevel.SetIsActive(buttonData.id, buttonData.isActive, buttonData.activeStarsCount, buttonData.passCount, buttonData.isPassed, (ETypeLevel)buttonData.typeLevel);
+                    }
+                }
             }
         }
 

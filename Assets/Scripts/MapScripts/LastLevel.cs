@@ -52,4 +52,21 @@ public class LastLevel : MonoBehaviour
             }
         }
     }
+
+    public List<LevelButton> GetFirstLevelsOfEachBlock()
+    {
+        List<LevelButton> firstLevels = new List<LevelButton>();
+        List<Biome> biomes = new List<Biome>(FindObjectsOfType<Biome>());
+
+        foreach (Biome biome in biomes)
+        {
+            if (biome.levelButtons.Count > 0)
+            {
+                LevelButton firstLevel = biome.levelButtons[0];
+                firstLevels.Add(firstLevel);
+            }
+        }
+
+        return firstLevels;
+    }
 }
