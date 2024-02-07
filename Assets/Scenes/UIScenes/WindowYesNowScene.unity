@@ -1127,7 +1127,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8599794350087811089}
         m_TargetAssemblyTypeName: WindowsYesNoMessageScript, Assembly-CSharp
-        m_MethodName: ClickOK
+        m_MethodName: ClickCancel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1655,6 +1655,7 @@ MonoBehaviour:
     isSingle: 1
     isNeedBeClosed: 1
     showTransition: 0
+    deactivateOnStart: 0
 --- !u!114 &8599794350087811089
 MonoBehaviour:
   m_ObjectHideFlags: 0

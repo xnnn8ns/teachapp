@@ -12,6 +12,8 @@ public class ChangeLanguage : MonoBehaviour
     private Button[] flagButtons; // Кнопки флагов
     private int currentLanguageIndex; // Индекс текущего языка
     private Vector3[] initialPositions; // Начальные позиции кнопок
+    private float lastClickTime = 0f; // Время последнего нажатия
+    private float clickDelay = 0.33f; // Задержка между нажатиями
 
     [SerializeField]
     private Image TargetFlag;
@@ -55,6 +57,15 @@ public class ChangeLanguage : MonoBehaviour
 
     public void OnClick(int index)
     {
+        // Если с момента последнего нажатия прошло меньше 0.25 секунды, игнорируем нажатие
+        if (Time.time - lastClickTime < clickDelay)
+        {
+            return;
+        }
+
+        // Обновляем время последнего нажатия
+        lastClickTime = Time.time;
+
         if (currentLanguageIndex >= 0 && currentLanguageIndex < initialPositions.Length)
         {
             // Возвращаем текущий главный флаг на его исходную позицию
