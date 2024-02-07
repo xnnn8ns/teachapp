@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class CatAnimation : MonoBehaviour
 {
+    [SerializeField] private LastLevel lastLevel;
+
     private void OnEnable()
     {
         //CheckIsNeedAnimate();
@@ -21,28 +23,22 @@ public class CatAnimation : MonoBehaviour
 
     private void CheckIsNeedAnimate()
     {
+        List<LevelButton> firstLevels = lastLevel.GetFirstLevelsOfEachBlock();
+
         MapController mapController = MapController.Instance;
         List<Biome> biomes = new List<Biome>(FindObjectsOfType<Biome>());
         biomes.Sort((a, b) => (int)(b.transform.position.y - a.transform.position.y));
 
-        bool isPreviousBlockCompleted = true;
-
-        foreach (Biome biome in biomes)
+        for (int i = 0; i < biomes.Count; i++)
         {
-            bool isBlockCompleted = true;
-            foreach (LevelButton button in biome.levelButtons)
-            {
-                bool isLevelActive = button.Interactable;
-                if (!isLevelActive)
-                {
-                    isBlockCompleted = false;
-                    break;
-                }
-            }
+            Biome biome = biomes[i];
+            LevelButton firstLevel = biome.levelButtons[0];
+            ButtonData buttonData = DataLoader.GetLevelData(firstLevel.ID);
+            bool isFirstLevelCompleted = i == 0 || (firstLevels.Contains(firstLevel) && firstLevel.Interactable && buttonData != null && buttonData.passCount > 0);
 
             Animator[] anims = biome.GetComponentsInChildren<Animator>();
 
-            if (isPreviousBlockCompleted)
+            if (isFirstLevelCompleted)
             {
                 foreach (Animator anim in anims)
                 {
@@ -59,8 +55,6 @@ public class CatAnimation : MonoBehaviour
                     anim.GetComponent<Image>().color = Color.gray;
                 }
             }
-
-            isPreviousBlockCompleted = isBlockCompleted;
         }
     }
 }
