@@ -227,6 +227,7 @@ namespace Mkey
                         buttonData.isPassed = true;
                         buttonData.activeStarsCount = 3;
                     }
+                    //Debug.Log("buttonData.id: " + buttonData.id + " --- buttonData.isPassed: " + buttonData.isPassed);
                     DataLoader.SaveLevelResults(buttonData.id, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, buttonData.passCount);
                     SetButtonActive(buttonData.id, i - 1, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, buttonData.passCount, (ETypeLevel)buttonData.typeLevel);
                 }
@@ -433,11 +434,17 @@ namespace Mkey
 
         private void CheckAds()
         {
-            //Debug.Log("CheckAds(): " + SceneManager.sceneCount);
+            Debug.Log("CheckAds(): " + SceneManager.sceneCount);
             if (SceneManager.sceneCount > 1)
                 return;
-            
-            if (DateTime.Now.Subtract(lastTime).TotalSeconds > 60 && showAds == 0)
+            Debug.Log("DateTime.Now.Subtract(lastTime).TotalSeconds: " + DateTime.Now.Subtract(lastTime).TotalSeconds);
+            Debug.Log("showAds: " + showAds);
+            DateTime dt = DataLoader.GetLastTimeShowAds();
+            int secondDiff = (int)(DateTime.Now - dt).TotalSeconds;
+            Debug.Log("dt: " + dt);
+            Debug.Log("secondDiff: " + secondDiff);
+
+            if (secondDiff > 30 && showAds == 0)
             {
                 showAds++;
                 lastTime = DateTime.Now;
@@ -445,10 +452,11 @@ namespace Mkey
                 {
                     Appodeal.show(Appodeal.REWARDED_VIDEO);
                     Debug.Log("Appodeal.REWARDED_VIDEO");
+                    DataLoader.SaveLastTimeShowAds(DateTime.Now);
                 }
                 Debug.Log("Appodeal.lastTime");
             }
-            if (DateTime.Now.Subtract(lastTime).TotalSeconds > 600 && showAds > 0)
+            if (secondDiff > 600 && showAds > 0)
             {
                 showAds++;
                 lastTime = DateTime.Now;
@@ -456,7 +464,12 @@ namespace Mkey
                 {
                     Appodeal.show(Appodeal.REWARDED_VIDEO);
                     Debug.Log("Appodeal.REWARDED_VIDEO");
+                }else if (Appodeal.isLoaded(Appodeal.INTERSTITIAL))
+                {
+                    Appodeal.show(Appodeal.INTERSTITIAL);
+                    Debug.Log("Appodeal.INTERSTITIAL");
                 }
+                DataLoader.SaveLastTimeShowAds(DateTime.Now);
                 Debug.Log("Appodeal.lastTime");
             }
 
