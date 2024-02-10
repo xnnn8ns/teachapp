@@ -61,7 +61,7 @@ public class PlaySoundWhenStartingScene : MonoBehaviour
                 audioSource.clip = sceneSound.clip;
             }
             audioSource.pitch = 1.1f;
-            audioSource.volume = 0.80f;
+            audioSource.volume = UserData.SoundEnabled ? 0.8f : 0; // Используем настройки звука (вкл или выкл из userData)
             audioSource.loop = sceneSound.loop;
             audioSource.Play();
         }

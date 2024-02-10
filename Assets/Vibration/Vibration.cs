@@ -82,14 +82,18 @@ public static class Vibration
     public static void VibrateIOS(ImpactFeedbackStyle style)
     {
 #if UNITY_IOS
-        _impactOccurred(style.ToString());
+        if (UserData.VibrationEnabled) {
+            _impactOccurred(style.ToString());
+        }
 #endif
     }
 
     public static void VibrateIOS(NotificationFeedbackStyle style)
     {
 #if UNITY_IOS
-        _notificationOccurred(style.ToString());
+        if (UserData.VibrationEnabled) {
+            _notificationOccurred(style.ToString());
+        }
 #endif
     }
 
@@ -97,7 +101,9 @@ public static class Vibration
     
     {
 #if UNITY_IOS
-        _selectionChanged();
+        if (UserData.VibrationEnabled) {
+            _selectionChanged();
+        }
 #endif
     }    
 
@@ -109,7 +115,7 @@ public static class Vibration
     ///</summary>
     public static void VibratePop ()
     {
-        if ( Application.isMobilePlatform ) {
+        if ( Application.isMobilePlatform && UserData.VibrationEnabled) {
 #if UNITY_IOS
         _VibratePop ();
 #elif UNITY_ANDROID
@@ -122,7 +128,7 @@ public static class Vibration
     ///</summary>
     public static void VibratePeek ()
     {
-        if ( Application.isMobilePlatform ) {
+        if ( Application.isMobilePlatform && UserData.VibrationEnabled) {
 #if UNITY_IOS
         _VibratePeek ();
 #elif UNITY_ANDROID
@@ -135,7 +141,7 @@ public static class Vibration
     ///</summary>
     public static void VibrateNope ()
     {
-        if ( Application.isMobilePlatform ) {
+        if ( Application.isMobilePlatform && UserData.VibrationEnabled) {
 #if UNITY_IOS
         _VibrateNope ();
 #elif UNITY_ANDROID
@@ -154,7 +160,7 @@ public static class Vibration
     public static void VibrateAndroid ( long milliseconds )
     {
 
-        if ( Application.isMobilePlatform ) {
+        if ( Application.isMobilePlatform && UserData.VibrationEnabled) {
             if ( AndroidVersion >= 26 ) {
                 AndroidJavaObject createOneShot = vibrationEffect.CallStatic<AndroidJavaObject> ( "createOneShot", milliseconds, -1 );
                 vibrator.Call ( "vibrate", createOneShot );
@@ -171,7 +177,7 @@ public static class Vibration
     ///</summary>
     public static void VibrateAndroid ( long[] pattern, int repeat )
     {
-        if ( Application.isMobilePlatform ) {
+        if ( Application.isMobilePlatform && UserData.VibrationEnabled) {
             if ( AndroidVersion >= 26 ) {
                 long[] amplitudes;
                 AndroidJavaObject createWaveform = vibrationEffect.CallStatic<AndroidJavaObject> ( "createWaveform", pattern, repeat );
@@ -226,9 +232,9 @@ public static class Vibration
     {
 #if UNITY_ANDROID || UNITY_IOS
         
-        if ( Application.isMobilePlatform ) {
-            Handheld.Vibrate ();
-        }
+    if (Application.isMobilePlatform && UserData.VibrationEnabled) {
+        Handheld.Vibrate ();
+    }
 
 #endif
     }

@@ -103,7 +103,13 @@ public class ButtonClickSound : MonoBehaviour
     IEnumerator PlaySoundWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        audioSource.PlayOneShot(clickSound);
-        Vibration.VibratePop();
+        if (UserData.SoundEnabled)
+        {
+            audioSource.PlayOneShot(clickSound);
+        }
+        if (UserData.VibrationEnabled)
+        {
+            Vibration.VibratePop();
+        }
     }
 }

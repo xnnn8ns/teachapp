@@ -315,7 +315,7 @@ namespace Mkey
                     yield return wff;
                 }
 
-                if (aC)
+                if (aC && UserData.SoundEnabled)
                 {
                     aSt.clip = aC;
                     aSt.Play();

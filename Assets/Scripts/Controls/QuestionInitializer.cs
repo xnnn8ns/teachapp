@@ -311,8 +311,11 @@ public class QuestionInitializer : MonoBehaviour
                 InitAnswersForTest();
                 break;
         }            
-        _typeAudio?.Play();
-        //Debug.Log("_typeAudio Play");
+        if (UserData.SoundEnabled)
+        {
+            _typeAudio?.Play();
+            //Debug.Log("_typeAudio Play");
+        }
     }
 
     private void FinishTypeTextCallBack()
@@ -665,12 +668,14 @@ public class QuestionInitializer : MonoBehaviour
         string strTitle;
         if (isRight)
         {
-            _OKAnswerAudio.Play();
+            if (UserData.SoundEnabled)
+                _OKAnswerAudio.Play();
             strTitle = LangAsset.GetValueByKey("PerfectDone");
         }
         else
         {
-            _wrongAnswerAudio.Play();
+            if (UserData.SoundEnabled)
+                _wrongAnswerAudio.Play();
             strTitle = LangAsset.GetValueByKey("DoneErrors");
         }
         _resultPanelScript.SetActive(true);
@@ -958,7 +963,8 @@ public class QuestionInitializer : MonoBehaviour
 
     public void ClickCatImage()
     {
-        _clickCatImageAudio.Play();
+        if (UserData.SoundEnabled)
+            _clickCatImageAudio.Play();
     }
 
     #endregion

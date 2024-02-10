@@ -67,10 +67,13 @@ public class WindowsMessageScript : MonoBehaviour
         
         StopAllCoroutines();
         Settings.IsModalWindowOpened = false;
-        if (_audioScore)
-            _audioScore?.Stop();
-        if (_audioFanFars)
-            _audioFanFars?.Stop();
+        if (UserData.SoundEnabled)
+        {
+            if (_audioScore)
+                _audioScore?.Stop();
+            if (_audioFanFars)
+                _audioFanFars?.Stop();
+        }
         if (_textValue)
             _textValue.text = _targetScore.ToString();
         if (!_needUnloadCurrentScene)
@@ -97,7 +100,10 @@ public class WindowsMessageScript : MonoBehaviour
                 }
             }
         }
-        Vibration.VibratePop();
+        if (UserData.VibrationEnabled)
+        {
+            Vibration.VibratePop();
+        }
 
     }
 

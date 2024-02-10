@@ -27,6 +27,8 @@ public class UserData : MonoBehaviour
     public static int ElapsedTime = 0;
     public static int lastUserPosition = -1;
     public static bool HasReceivedReward = false;
+    public static bool SoundEnabled = true;
+    public static bool VibrationEnabled = true;
 
     public static void SetToken(string token)
     {
@@ -45,6 +47,8 @@ public class UserData : MonoBehaviour
     public static void DeleteAllData()
     {
         SetUserData("", "", "", "", "", 0,0,0,Score);
+        SoundEnabled = true;
+        VibrationEnabled = true;
     }
 
     public static void SetUserData(string userID, string userName, string userFullName, string userEmail, string userPassword, int userAvatarID, int isByVK, int vkID, int score)
@@ -69,6 +73,8 @@ public class UserData : MonoBehaviour
         PlayerPrefs.SetInt("Score", Score);
         PlayerPrefs.SetInt("LastUserPosition", lastUserPosition);
         PlayerPrefs.SetInt("HasReceivedReward", HasReceivedReward ? 1 : 0);
+        PlayerPrefs.SetInt("SoundEnabled", SoundEnabled ? 1 : 0);
+        PlayerPrefs.SetInt("VibrationEnabled", VibrationEnabled ? 1 : 0);
     }
 
     public static void LoadUserData()
@@ -92,6 +98,8 @@ public class UserData : MonoBehaviour
         ElapsedTime = PlayerPrefs.GetInt("ElapsedTime", 0);
         lastUserPosition = PlayerPrefs.GetInt("LastUserPosition", -1);
         HasReceivedReward = PlayerPrefs.GetInt("HasReceivedReward", 0) == 1;
+        SoundEnabled = PlayerPrefs.GetInt("SoundEnabled", 1) == 1;
+        VibrationEnabled = PlayerPrefs.GetInt("VibrationEnabled", 1) == 1;
 
         UpdateUserForNewDay();
 }
@@ -173,5 +181,11 @@ public class UserData : MonoBehaviour
     {
         HasReceivedReward = hasReceivedReward;
         PlayerPrefs.SetInt("HasReceivedReward", HasReceivedReward ? 1 : 0);
+    }
+
+    public static void SaveSoundAndVibrationSettings()
+    {
+        PlayerPrefs.SetInt("SoundEnabled", SoundEnabled ? 1 : 0);
+        PlayerPrefs.SetInt("VibrationEnabled", VibrationEnabled ? 1 : 0);
     }
 }
