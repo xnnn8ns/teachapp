@@ -100,7 +100,8 @@ public class UserData : MonoBehaviour
         HasReceivedReward = PlayerPrefs.GetInt("HasReceivedReward", 0) == 1;
         SoundEnabled = PlayerPrefs.GetInt("SoundEnabled", 1) == 1;
         VibrationEnabled = PlayerPrefs.GetInt("VibrationEnabled", 1) == 1;
-
+        AudioListener.volume = SoundEnabled ? 1 : 0;
+        
         UpdateUserForNewDay();
 }
 
@@ -187,5 +188,6 @@ public class UserData : MonoBehaviour
     {
         PlayerPrefs.SetInt("SoundEnabled", SoundEnabled ? 1 : 0);
         PlayerPrefs.SetInt("VibrationEnabled", VibrationEnabled ? 1 : 0);
+        AudioListener.volume = UserData.SoundEnabled ? 1 : 0;
     }
 }

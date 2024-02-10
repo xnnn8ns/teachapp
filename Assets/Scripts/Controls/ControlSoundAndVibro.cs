@@ -27,6 +27,7 @@ public class ControlSoundAndVibro : MonoBehaviour
     public void ToggleSound()
     {
         UserData.SoundEnabled = !UserData.SoundEnabled;
+        AudioListener.volume = UserData.SoundEnabled ? 1 : 0;
         UserData.SaveSoundAndVibrationSettings(); // сохраняем изменения
         UpdateIcons();
     }

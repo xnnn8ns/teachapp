@@ -46,7 +46,7 @@ public class ButtonClickSound : MonoBehaviour
             {
                 Debug.LogError("Click sound is null");
             }
-            audioSource.volume = 0.5f; // Установка громкости в 50%
+            audioSource.volume = UserData.SoundEnabled ? 0.5f : 0;
             StartCoroutine(LoadAudioAndSetupButtons()); // Предварительная загрузка звукового клипа
         }
         else

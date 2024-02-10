@@ -4307,14 +4307,14 @@ RectTransform:
   - {fileID: 927487879}
   - {fileID: 630173517}
   - {fileID: 1671135242}
+  - {fileID: 1195180964}
+  - {fileID: 300099816}
   - {fileID: 1402122246}
   - {fileID: 432028992}
   - {fileID: 277969388}
   - {fileID: 741567775}
   - {fileID: 1446659737}
   - {fileID: 111314194}
-  - {fileID: 1195180964}
-  - {fileID: 300099816}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

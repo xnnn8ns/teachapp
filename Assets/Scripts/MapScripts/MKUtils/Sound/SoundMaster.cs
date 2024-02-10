@@ -440,7 +440,9 @@ namespace Mkey
             GameObject aS = new GameObject();
             aS.transform.position = pos;
             aS.transform.parent = transform;
-            return aS.AddComponent<AudioSource>();
+            AudioSource audioSource = aS.AddComponent<AudioSource>();
+            audioSource.volume = AudioListener.volume;
+            return audioSource;
         }
         #endregion private
     }
