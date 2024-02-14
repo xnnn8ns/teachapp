@@ -720,6 +720,7 @@ MonoBehaviour:
     isSingle: 0
     isNeedBeClosed: 1
     showTransition: 0
+    deactivateOnStart: 0
 --- !u!114 &246770278
 MonoBehaviour:
   m_ObjectHideFlags: 0

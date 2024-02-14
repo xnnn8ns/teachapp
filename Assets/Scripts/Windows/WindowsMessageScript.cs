@@ -143,9 +143,11 @@ public class WindowsMessageScript : MonoBehaviour
             _audioFanFars?.Play();
         }
         yield return new WaitForSeconds(2f);
-        _audioFanFars?.GetComponent<ParticleSystem>()?.Stop();
+        if(_audioFanFars != null)
+            _audioFanFars?.GetComponent<ParticleSystem>()?.Stop();
         yield return new WaitForSeconds(1f);
-        _audioFanFars?.Stop();
+        if (_audioFanFars != null)
+            _audioFanFars?.Stop();
         yield break;
     }
 

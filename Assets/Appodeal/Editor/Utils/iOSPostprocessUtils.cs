@@ -120,14 +120,16 @@ namespace Appodeal.Unity.Editor.Utils
                 return;
             }
 
-            if (string.IsNullOrEmpty(AppodealSettings.Instance.AdMobIosAppId))
+            string admobAppId = AppodealSettings.Instance.AdMobIosAppId;
+
+            if (String.IsNullOrEmpty(admobAppId))
             {
                 Debug.LogError(
                     "Admob App ID is not set via 'Appodeal/Appodeal Settings' tool.\nThe app may crash on startup!");
                 return;
             }
 
-            if (!AppodealSettings.Instance.AdMobIosAppId.StartsWith("ca-app-pub-"))
+            if (!admobAppId.StartsWith("ca-app-pub-") || admobAppId == AppodealUnityUtils.AdMobAppIdPlaceholder)
             {
                 Debug.LogError(
                         "Incorrect value. The app may crash on startup." +
@@ -137,7 +139,7 @@ namespace Appodeal.Unity.Editor.Utils
 
             if (!CheckContainsKey(path, "GADApplicationIdentifier"))
             {
-                AddKeyToPlist(path, "GADApplicationIdentifier", AppodealSettings.Instance.AdMobIosAppId);
+                AddKeyToPlist(path, "GADApplicationIdentifier", admobAppId);
             }
         }
 

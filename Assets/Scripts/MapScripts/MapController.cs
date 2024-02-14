@@ -12,7 +12,7 @@ using System;
 
 namespace Mkey
 {
-    public class MapController : MonoBehaviour
+    public class MapController : MonoBehaviour, IAppodealInitializationListener
     {
         private List<LevelButton> mapLevelButtons;
         public List<LevelButton> MapLevelButtons
@@ -59,6 +59,8 @@ namespace Mkey
         List<Biome> bList = new List<Biome>();
         [SerializeField] private LastLevel lastLevel;
 
+        private static bool IS_ADS_INITED = false;
+
         //[SerializeField]
         //private AudioSource _clickAudio;
 
@@ -72,7 +74,6 @@ namespace Mkey
 
         void Start()
         {
-            
             FillTheoryDataFromJSON();
 
             Biome[] list = GetComponentsInChildren<Biome>();
@@ -137,6 +138,31 @@ namespace Mkey
             Application.targetFrameRate = 60;
             //Debug.Log(Application.targetFrameRate);
             Settings.IsModalWindowOpened = false;
+            InitAds();
+        }
+
+        private void InitAds()
+        {
+            int adTypes = Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO | Appodeal.BANNER | Appodeal.MREC;
+            string appKey = "d855dcc5d86d58599d85835161b2e36ba59739faccb88b06";
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                appKey = "d855dcc5d86d58599d85835161b2e36ba59739faccb88b06";
+            }
+            Appodeal.initialize(appKey, adTypes, this);
+        }
+
+        public void onInitializationFinished(List<string> errors) {
+            //Debug.Log("Appodeal.onInitializationFinished errors:");
+            //foreach (var item in errors)
+            //{
+            //    Debug.LogError(item);
+            //}
+            IS_ADS_INITED = true;
+            Debug.Log("Appodeal.onInitializationFinished, REWARDED_VIDEO: " + Appodeal.isInitialized(Appodeal.REWARDED_VIDEO));
+            Debug.Log("Appodeal.onInitializationFinished, INTERSTITIAL: " + Appodeal.isInitialized(Appodeal.INTERSTITIAL));
+            Debug.Log("Appodeal.onInitializationFinished, BANNER: " + Appodeal.isInitialized(Appodeal.BANNER));
+
         }
 
         public void UpdateLang()
@@ -315,9 +341,19 @@ namespace Mkey
 
         private void ClickLevelButton(int clickIndex, bool isMissionClicked = false)
         {
+            Debug.Log("ClickLevelButton");
             ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
             if (buttonData != null)
             {
+                Debug.Log("ClickLevelButton-activeStarsCount: " + buttonData.activeStarsCount);
+                Debug.Log("ClickLevelButton-isActive: " + buttonData.isActive);
+                //Debug.Log("ClickLevelButton-lastLevelIndex: " + LastLevel.lastLevelIndex);
+                Debug.Log("ClickLevelButton-isPassed: " + buttonData.isPassed);
+                Debug.Log("ClickLevelButton-id: " + buttonData.id);
+                Debug.Log("ClickLevelButton-level: " + buttonData.level);
+                Debug.Log("ClickLevelButton-passCount: " + buttonData.passCount);
+                Debug.Log("ClickLevelButton-totalForPassCount: " + buttonData.totalForPassCount);
+                Debug.Log("ClickLevelButton-typeLevel: " + buttonData.typeLevel);
                 if (!buttonData.isActive)
                 {
                     ClickFutureButton();
@@ -342,11 +378,12 @@ namespace Mkey
         private void ClickCurrentLevelButton(int clickIndex, bool isMissionClicked = false)
         {
             //_clickAudio?.Play();
-            
+            Debug.Log("ClickCurrentLevelButton-clickIndex: " + clickIndex);
             Scene scene = SceneManager.GetSceneByName("WindowScene");
+            Debug.Log("ClickCurrentLevelButton-scene.isLoaded: " + scene.isLoaded);
+            Debug.Log("ClickCurrentLevelButton-LastLevel.IsLastLevelCompleted: " + LastLevel.IsLastLevelCompleted);
             if (scene.isLoaded)
                 return;
-            Debug.Log(clickIndex);
             Settings.Current_ButtonOnMapID = clickIndex;
             Settings.IsMisionClicked = isMissionClicked;
 
@@ -425,7 +462,7 @@ namespace Mkey
 
         private void Update()
         {
-            if (timeUpdate + 2 < Time.timeSinceLevelLoad)
+            if (IS_ADS_INITED && timeUpdate + 3 < Time.timeSinceLevelLoad)
             {
                 CheckAds();
                 timeUpdate = Time.timeSinceLevelLoad;
@@ -446,33 +483,37 @@ namespace Mkey
 
             if (secondDiff > 30 && showAds == 0)
             {
-                showAds++;
-                lastTime = DateTime.Now;
-                if (Appodeal.isLoaded(Appodeal.REWARDED_VIDEO))
-                {
-                    Appodeal.show(Appodeal.REWARDED_VIDEO);
-                    Debug.Log("Appodeal.REWARDED_VIDEO");
-                    DataLoader.SaveLastTimeShowAds(DateTime.Now);
-                }
-                Debug.Log("Appodeal.lastTime");
+                ShowAds();
             }
             if (secondDiff > 600 && showAds > 0)
             {
-                showAds++;
-                lastTime = DateTime.Now;
-                if (Appodeal.isLoaded(Appodeal.REWARDED_VIDEO))
-                {
-                    Appodeal.show(Appodeal.REWARDED_VIDEO);
-                    Debug.Log("Appodeal.REWARDED_VIDEO");
-                }else if (Appodeal.isLoaded(Appodeal.INTERSTITIAL))
-                {
-                    Appodeal.show(Appodeal.INTERSTITIAL);
-                    Debug.Log("Appodeal.INTERSTITIAL");
-                }
-                DataLoader.SaveLastTimeShowAds(DateTime.Now);
-                Debug.Log("Appodeal.lastTime");
+                ShowAds();
             }
 
+        }
+
+        private void ShowAds()
+        {
+            //Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO
+            
+            showAds++;
+            lastTime = DateTime.Now;
+            //Debug.Log("Appodeal.isLoaded, REWARDED_VIDEO: " + Appodeal.isInitialized(Appodeal.REWARDED_VIDEO));
+            //Debug.Log("Appodeal.onInitializationFinished, INTERSTITIAL: " + Appodeal.isInitialized(Appodeal.INTERSTITIAL));
+            //Debug.Log("Appodeal.onInitializationFinished, BANNER: " + Appodeal.isInitialized(Appodeal.BANNER));
+            if (Appodeal.isLoaded(Appodeal.REWARDED_VIDEO))
+            {
+                Appodeal.show(Appodeal.REWARDED_VIDEO);
+                Debug.Log("Appodeal.REWARDED_VIDEO");
+                DataLoader.SaveLastTimeShowAds(DateTime.Now);
+            }
+            else if (Appodeal.isLoaded(Appodeal.INTERSTITIAL))
+            {
+                Appodeal.show(Appodeal.INTERSTITIAL);
+                Debug.Log("Appodeal.INTERSTITIAL");
+                DataLoader.SaveLastTimeShowAds(DateTime.Now);
+            }
+            Debug.Log("Appodeal.lastTime");
         }
     }
 }

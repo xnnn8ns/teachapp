@@ -2,17 +2,16 @@
 using System.Diagnostics.CodeAnalysis;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
-using ConsentManager.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ConsentManager.ConsentManagerDemo.Scripts
+namespace AppodealAds.Demo.Scripts
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "ParameterHidesMember")]
     public class AppodealDemo : MonoBehaviour, IAppodealInitializationListener, IInAppPurchaseValidationListener,
                                 IBannerAdListener, IInterstitialAdListener, IRewardedVideoAdListener, IMrecAdListener,
-                                IConsentFormListener, IConsentInfoUpdateListener, IAdRevenueListener
+                                IAdRevenueListener
     {
         #region Constants
 
@@ -28,7 +27,6 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
         [SerializeField] public Toggle tgLogging;
         [SerializeField] public Button btnShowInterstitial;
         [SerializeField] public Button btnShowRewardedVideo;
-        [SerializeField] public GameObject consentManagerPanel;
         [SerializeField] public GameObject appodealPanel;
 
         #endregion
@@ -47,20 +45,12 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
 
         #endregion
 
-        private Consent currentConsent;
-        private ConsentForm consentForm;
-        private ConsentManager consentManager;
-
         private void Start()
         {
-            consentManagerPanel.gameObject.SetActive(true);
-            appodealPanel.gameObject.SetActive(false);
+            appodealPanel.gameObject.SetActive(true);
 
             btnShowInterstitial.GetComponentInChildren<Text>().text = CACHE_INTERSTITIAL;
             btnShowRewardedVideo.GetComponentInChildren<Text>().text = CACHE_REWARDED_VIDEO;
-
-            consentManager = ConsentManager.getInstance();
-            consentManager.setStorage(ConsentManager.Storage.SHARED_PREFERENCE);
         }
 
         private void OnDestroy()
@@ -68,126 +58,9 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
             Appodeal.destroy(Appodeal.BANNER);
         }
 
-        public void RequestConsentInfoUpdate()
-        {
-            consentManager?.requestConsentInfoUpdate(appKey, this);
-        }
-
-        public void SetCustomVendor()
-        {
-            var customVendor = new Vendor.Builder(
-                    "Appodeal Test",
-                    "com.appodeal.test",
-                    "https://customvendor.com")
-                .setPurposeIds(new List<int> {100, 200, 300})
-                .setFeatureIds(new List<int> {400, 500, 600})
-                .setLegitimateInterestPurposeIds(new List<int> {700, 800, 900})
-                .build();
-
-            consentManager?.setCustomVendor(customVendor);
-
-            var vendor = consentManager?.getCustomVendor("com.appodeal.test");
-            if (vendor == null) return;
-            Debug.Log("Vendor getName: " + vendor.getName());
-            Debug.Log("Vendor getBundle: " + vendor.getBundle());
-            Debug.Log("Vendor getPolicyUrl: " + vendor.getPolicyUrl());
-            foreach (var purposeId in vendor.getPurposeIds())
-            {
-                Debug.Log("Vendor getPurposeIds: " + purposeId);
-            }
-
-            foreach (var featureId in vendor.getFeatureIds())
-            {
-                Debug.Log("Vendor getFeatureIds: " + featureId);
-            }
-
-            foreach (var legitimateInterestPurposeId in vendor.getLegitimateInterestPurposeIds())
-            {
-                Debug.Log("Vendor getLegitimateInterestPurposeIds: " + legitimateInterestPurposeId);
-            }
-        }
-
-        public void ShouldShowForm()
-        {
-            Debug.Log("shouldShowConsentDialog: " + consentManager.shouldShowConsentDialog());
-        }
-
-        public void GetConsentZone()
-        {
-            Debug.Log("getConsentZone: " + consentManager.getConsentZone());
-        }
-
-        public void GetConsentStatus()
-        {
-            Debug.Log("getConsentStatus: " + consentManager.getConsentStatus());
-        }
-
-        public void LoadConsentForm()
-        {
-            consentForm = ConsentForm.GetInstance(this);
-            consentForm?.load();
-        }
-
-        public void IsLoadedConsentForm()
-        {
-            if (consentForm != null)
-            {
-                Debug.Log("isLoadedConsentForm:  " + consentForm.isLoaded());
-            }
-        }
-
-        public void ShowFormAsActivity()
-        {
-            if (consentForm != null)
-            {
-                consentForm.show();
-            }
-            else
-            {
-                Debug.Log("showForm - false");
-            }
-        }
-
-        public void ShowFormAsDialog()
-        {
-            if (consentForm != null)
-            {
-                consentForm.show();
-            }
-            else
-            {
-                Debug.Log("showForm - false");
-            }
-        }
-
-        public void PrintIABString()
-        {
-            Debug.Log("Consent IAB String is: " + consentManager.getConsent().getIabConsentString());
-        }
-
-        public void PrintCurrentConsent()
-        {
-            if (consentManager.getConsent() == null) return;
-            Debug.Log("consent.hasConsentForVendor() - " + consentManager.getConsent().hasConsentForVendor("com.appodeal.test"));
-            Debug.Log("consent.getStatus() - " + consentManager.getConsent().getStatus());
-            Debug.Log("consent.getZone() - " + consentManager.getConsent().getZone());
-        }
-
-        public void PrintAuthorizationStatus()
-        {
-            if (consentManager.getConsent() == null) return;
-            Debug.Log($"AuthorizationStatus - {consentManager.getConsent().getAuthorizationStatus()} ");
-        }
-
-        public void ShowAppodealLogic()
-        {
-            consentManagerPanel.SetActive(false);
-            appodealPanel.SetActive(true);
-        }
-
         public void Initialize()
         {
-            InitWithConsent(currentConsent != null);
+            InitWithConsent(tgTesting.isOn);
         }
 
         public void InitWithConsent(bool isConsent)
@@ -233,16 +106,12 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
 
             if (isConsent)
             {
-                Appodeal.updateConsent(currentConsent);
-            }
-            else
-            {
-                Appodeal.updateCcpaConsent(Appodeal.CcpaUserConsent.OptOut);
-                Appodeal.updateGdprConsent(Appodeal.GdprUserConsent.NonPersonalized);
+                Appodeal.updateCcpaConsent(Appodeal.CcpaUserConsent.OptIn);
+                Appodeal.updateGdprConsent(Appodeal.GdprUserConsent.Personalized);
             }
 
             int adTypes = Appodeal.INTERSTITIAL | Appodeal.BANNER | Appodeal.REWARDED_VIDEO | Appodeal.MREC;
-            Appodeal.initialize(appKey, adTypes, (IAppodealInitializationListener) this);
+            Appodeal.initialize(appKey, adTypes, this);
         }
 
         public void ShowInterstitial()
@@ -380,66 +249,6 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
         public void onInAppPurchaseValidationFailed(string json)
         {
             Debug.Log($"onInAppPurchaseValidationFailed(string json:\n{json})");
-        }
-
-        #endregion
-
-        #region ConsentFormListener
-
-        public void onConsentFormLoaded()
-        {
-            Debug.Log("ConsentFormListener - onConsentFormLoaded");
-        }
-
-        public void onConsentFormError(ConsentManagerException exception)
-        {
-            Debug.Log($"ConsentFormListener - onConsentFormError, reason - {exception.getReason()}");
-        }
-
-        public void onConsentFormOpened()
-        {
-            Debug.Log("ConsentFormListener - onConsentFormOpened");
-        }
-
-        public void onConsentFormClosed(Consent consent)
-        {
-            currentConsent = consent;
-            Debug.Log($"ConsentFormListener - onConsentFormClosed, consentStatus - {consent.getStatus()}");
-        }
-
-        #endregion
-
-        #region ConsentInfoUpdateListener
-
-        public void onConsentInfoUpdated(Consent consent)
-        {
-            currentConsent = consent;
-            Debug.Log("onConsentInfoUpdated");
-        }
-
-        public void onFailedToUpdateConsentInfo(ConsentManagerException error)
-        {
-            Debug.Log($"onFailedToUpdateConsentInfo");
-
-            if (error == null) return;
-            Debug.Log($"onFailedToUpdateConsentInfo Reason: {error.getReason()}");
-
-            switch (error.getCode())
-            {
-                case 0:
-                    Debug.Log("onFailedToUpdateConsentInfo - UNKNOWN");
-                    break;
-                case 1:
-                    Debug.Log(
-                        "onFailedToUpdateConsentInfo - INTERNAL - Error on SDK side. Includes JS-bridge or encoding/decoding errors");
-                    break;
-                case 2:
-                    Debug.Log("onFailedToUpdateConsentInfo - NETWORKING - HTTP errors, parse request/response ");
-                    break;
-                case 3:
-                    Debug.Log("onFailedToUpdateConsentInfo - INCONSISTENT - Incorrect SDK API usage");
-                    break;
-            }
         }
 
         #endregion

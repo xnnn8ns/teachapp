@@ -61,8 +61,10 @@ public class QuestionInitializer : MonoBehaviour
     //private static int _scoreValue = 0;
     private static float _shelfHeightScale = 0.56f;
 
-    private static float _heightUpperShelf = 2.4f;
+    private const float _constHeightUpperShelf = 2.4f;
+    private static float _heightUpperShelf = 0;
     private static float _heightBelowShelf = -2.9f;
+    private static float yOffset = 0;
 
     private int _secondsCountToLeft = 100;
     private int _secondsCountOnStart = 100;
@@ -102,9 +104,9 @@ public class QuestionInitializer : MonoBehaviour
         //{
         //    _heightUpperShelf = Screen.height / 700f;
         //}
-        
+
         //float yOffset = Screen.safeArea.yMin / 1.9f;
-        float yOffset = (Screen.height - Screen.safeArea.yMax) / 1.8f;
+        yOffset = (Screen.height - Screen.safeArea.yMax) / 1.8f;
         RectTransform rect = _topMenu.GetComponent<RectTransform>();
         Vector3 pos = rect.position;
         pos.y -= yOffset;
@@ -122,15 +124,7 @@ public class QuestionInitializer : MonoBehaviour
         pos.y -= yOffset;
         _catImg.position = pos;
 
-        if (yOffset > 0)
-        {
-            _heightUpperShelf -= yOffset / 250f;
-        }
-        else if (Screen.height < 1700)
-        {
-
-            _heightUpperShelf = 1.9f;
-        }
+        SetOffsetShelves();
 
         _secondsFromSceneStart = (int)Time.timeSinceLevelLoad;
         //_clickAudio = GetComponents<AudioSource>()[0];
@@ -145,6 +139,21 @@ public class QuestionInitializer : MonoBehaviour
         InitQuestion();
         //InitTouchDetector();
         _resultPanelScript.SetActive(false);
+    }
+
+    private void SetOffsetShelves()
+    {
+        _heightUpperShelf = _constHeightUpperShelf;
+
+        if (yOffset > 0)
+        {
+            _heightUpperShelf -= yOffset / 250f;
+        }
+        else if (Screen.height < 1700)
+        {
+
+            _heightUpperShelf = 1.9f;
+        }
     }
 
     private void OnDisable()
@@ -199,6 +208,8 @@ public class QuestionInitializer : MonoBehaviour
         _answers.Clear();
         _shelvesForCheck.Clear();
 
+        SetOffsetShelves();
+
         for (int i = 0; i < countShelves; i++)
         {
             GameObject shelfQuestionPrefab = Instantiate(_shelfPrefab);
@@ -225,6 +236,7 @@ public class QuestionInitializer : MonoBehaviour
         _answers.Clear();
         _shelvesForCheck.Clear();
         _imageCheckerShelfTest.gameObject.SetActive(true);
+        SetOffsetShelves();
         for (int i = 0; i < countShelves; i++)
         {
             GameObject shelfQuestionPrefab = Instantiate(_shelfPrefab);
@@ -249,6 +261,7 @@ public class QuestionInitializer : MonoBehaviour
         int countTestShelves = _questionsCurrentLevel[_currentQuestionIndex].GetAnswerCount();
         _answers.Clear();
         _shelvesForCheck.Clear();
+        SetOffsetShelves();
 
         for (int i = 0; i < countTestShelves; i++)
         {
@@ -460,7 +473,7 @@ public class QuestionInitializer : MonoBehaviour
     {
         for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
-            if (!_shelvesForCheck[i].GetIsShelfFull(answerSurface) && _shelvesForCheck[i].IsEnabled && _shelvesForCheck[i].Equals(_shelfDefault))
+            if (_shelvesForCheck[i].IsEnabled && _shelvesForCheck[i].Equals(_shelfDefault))
             {
                 _shelvesForCheck[i].AddAnswerToShelfByDrag(answerSurface, true);
                 //Debug.Log("CheckShelfForRightCompleted: " +
@@ -471,7 +484,7 @@ public class QuestionInitializer : MonoBehaviour
 
         for (int i = 0; i < _shelvesForCheck.Count; i++)
         {
-            if (!_shelvesForCheck[i].GetIsShelfFull(answerSurface) && _shelvesForCheck[i].IsEnabled)
+            if (_shelvesForCheck[i].IsEnabled)
             {
                 _shelvesForCheck[i].AddAnswerToShelfByDrag(answerSurface, true);
                 //Debug.Log("CheckShelfForRightCompleted-Click: " +

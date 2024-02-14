@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class Settings : MonoBehaviour
 {
-    public const float SCALE_CHAR = 0.2f;// 0.166f;
+    public const float SCALE_CHAR = 0.20f;// 0.166f;
+    public const float SCALE_CHAR_LESS = 0.15f;
+    public const float SCALE_CHAR_SINGLE = 0.12f;
     public const float SCALE_SURFACE_MAX_SHELF = 4.0f;// 1.25f;
     public const float SCALE_SURFACE_MAX = 1.75f;// 1.25f;
-    public const float SCALE_SURFACE_MIN = 0.4f;// 0.25f;
+    public const float SCALE_SURFACE_MIN = 0.3f;// 0.25f;
 
     public static bool IsNeedDragDropTouchDetector = false;
     public static bool IsTurnOnClickPointerListener = false;

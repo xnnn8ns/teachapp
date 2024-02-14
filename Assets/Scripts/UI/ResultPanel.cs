@@ -37,5 +37,6 @@ public class ResultPanel : MonoBehaviour
     public void ClickButtonNext()
     {
         action?.Invoke();
+        Vibration.VibratePop();
     }
 }

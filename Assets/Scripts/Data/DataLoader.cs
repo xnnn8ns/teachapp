@@ -9,10 +9,8 @@ using UnityEngine.Networking;
 using ResponseTaskJSON;
 using ResponseTestJSON;
 using ResponseTopicJSON;
-using AppodealAds.Unity.Api;
-using AppodealAds.Unity.Common;
 
-public class DataLoader : MonoBehaviour, IAppodealInitializationListener
+public class DataLoader : MonoBehaviour
 {
     private const string apiTaskUrl = "http://45.12.239.30:8000/api/tasks/";
     private const string apiTestUrl = "http://45.12.239.30:8000/api/choicefield/";
@@ -22,22 +20,12 @@ public class DataLoader : MonoBehaviour, IAppodealInitializationListener
 
     private void Start()
     {
-        int adTypes = Appodeal.INTERSTITIAL | Appodeal.BANNER | Appodeal.REWARDED_VIDEO | Appodeal.MREC;
-        string appKey = "d855dcc5d86d58599d85835161b2e36ba59739faccb88b06";
-        if (Application.platform == RuntimePlatform.Android)
-        {
-            appKey = "d855dcc5d86d58599d85835161b2e36ba59739faccb88b06";
-        }
-
-        Appodeal.initialize(appKey, adTypes, this);
-
         SceneManager.LoadScene("WindowLevelLoading", LoadSceneMode.Additive);
         timeStartLoad = Time.time;
         StartCoroutine(GetTestTaskDataFromAPI());
     }
 
-    public void onInitializationFinished(List<string> errors) { }
-
+    
     public static void SaveCurrentLevel()
     {
         PlayerPrefs.SetInt("ButtonOnMapID", Settings.Current_ButtonOnMapID);

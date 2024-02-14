@@ -40,7 +40,22 @@ public class AnswerSurface : Surface
     private void SetScaleForContent()
     {
         int contentCount = _answer.Title.Length;
-        float lenthScale = Settings.SCALE_CHAR * contentCount;
+        float scaleChar = Settings.SCALE_CHAR;
+
+        if (_answer.Title.Contains("\"")
+            || _answer.Title.Contains("\'")
+            || _answer.Title.Contains("(")
+            || _answer.Title.Contains(")")
+            || _answer.Title.Contains(",")
+            || _answer.Title.Contains(".")
+            || _answer.Title.Contains(":"))
+        {
+            if(contentCount <= 1)
+                scaleChar = Settings.SCALE_CHAR_SINGLE;
+            else if (contentCount <= 8)
+                scaleChar = Settings.SCALE_CHAR_LESS;
+        }
+        float lenthScale = scaleChar * contentCount;
         if (lenthScale > Settings.SCALE_SURFACE_MAX)
             lenthScale = Settings.SCALE_SURFACE_MAX;
         if (lenthScale < Settings.SCALE_SURFACE_MIN)

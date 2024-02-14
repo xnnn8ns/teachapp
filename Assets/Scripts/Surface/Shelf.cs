@@ -101,6 +101,14 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
         int countRows = 0;
 
+        float marginRightX = 0.05f;// 0.05f;
+        if (!_isRawAnswersShelf)
+        {
+            marginRightX = 0.02f;// 
+            if (GetIsShelfFull(marginRightX))
+                marginRightX = 0.00f;
+        }
+
         foreach (var item in _questionsShelved)
         {
             Vector3 startPoint = _shelfArea.position;
@@ -112,7 +120,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
 
             startPoint.x += widthRaw;
 
-            widthRaw += item.transform.localScale.x + 0.05f;
+            widthRaw += item.transform.localScale.x + marginRightX;
 
             if (widthRaw > 4.9f && _isRawAnswersShelf) // for auto set on next line if this full
             {
@@ -122,7 +130,7 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
                 startPoint.x += 0.05f;
                 startPoint.x -= _shelfArea.localScale.x / 2;
                 startPoint.x += widthRaw;
-                widthRaw += item.transform.localScale.x + 0.05f;
+                widthRaw += item.transform.localScale.x + marginRightX;
             }
 
             float yPosition = startPoint.y - 0.55f * countRows + _shelfArea.transform.localScale.y / 2 - 0.28f;
@@ -236,29 +244,23 @@ public class Shelf : MonoBehaviour, IPointerClickHandler
         ClickShelf.Invoke(_shelfChecker.activeSelf, this);
     }
 
-    public bool GetIsShelfFull(AnswerSurface additionalAnswerSurface)
+    private bool GetIsShelfFull(float marginRightX)
     {
-        return false;
-        //float widthRaw = 0f;
-        //foreach (var item in _questionsShelved)
-        //{
-        //    Vector3 startPoint = _shelfArea.position;
-
-        //    startPoint.x += 0.075f;
-
-
-        //    startPoint.x -= _shelfArea.localScale.x / 2;
-
-        //    startPoint.x += widthRaw;
-
-        //    widthRaw += item.transform.localScale.x + 0.05f;
-
-        //    if (widthRaw + additionalAnswerSurface.transform.localScale.x > 4.9f)
-        //    {
-        //        return true;
-        //    }
-        //}
         //return false;
+        float widthRaw = 0f;
+        foreach (var item in _questionsShelved)
+        {
+            Vector3 startPoint = _shelfArea.position;
+            startPoint.x += 0.05f;
+
+            startPoint.x -= _shelfArea.localScale.x / 2;
+            startPoint.x += widthRaw;
+            widthRaw += item.transform.localScale.x + marginRightX;
+
+            if (widthRaw > 4.9f)
+                return true;
+        }
+        return false;
     }
 
     public void SetCompleted()
