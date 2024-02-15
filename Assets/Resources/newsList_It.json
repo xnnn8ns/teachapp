@@ -1,0 +1,33 @@
+{
+    "version": 0,
+    "news": [
+        {
+            "id": "1",
+            "title": "Prima notizia",
+            "text": "Questo è il testo della prima notizia",
+            "image": "image1.png",
+            "icon": null
+        },
+        {
+            "id": "2",
+            "title": "Seconda notizia",
+            "text": "Questo è il testo della seconda notizia",
+            "image": null,
+            "icon": "icon2.png"
+        },
+        {
+            "id": "3",
+            "title": "Terza notizia",
+            "text": "Questo è il testo della terza notizia",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "4",
+            "title": "Quarta notizia",
+            "text": "Questo è il testo della quarta notizia",
+            "image": null,
+            "icon": null
+        }
+    ]
+}
