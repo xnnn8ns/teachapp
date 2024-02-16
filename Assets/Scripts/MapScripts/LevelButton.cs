@@ -98,10 +98,10 @@ namespace Mkey
                     numberText.color = Color.black;
                 }
             }
-            else
-            {
-                numberText.color = Color.yellow;
-            }
+            //else
+            //{
+            //    numberText.color = Color.yellow;
+            //}
 
 
             if (!isPassed && !active)
@@ -126,7 +126,7 @@ namespace Mkey
             }
             if (typeLevel == ETypeLevel.simple)
             {
-                int valueSlider = 0;
+                int valueSlider;
                 if (passCount == 0)
                     valueSlider = 0;
                 else if (passCount == 1)
@@ -170,7 +170,8 @@ namespace Mkey
             //button.GetComponent<Image>().sprite = imgButton.sprite;
             //if(LockText) LockText.SetActive(active || isPassed);
             numberText.gameObject.SetActive(active || isPassed);
-
+            //numberText.gameObject.SetActive(true);
+            Debug.Log("ID: " + ID + " --- numberText: " + numberText.text + " --- IsActive: " + active + " --- isPassed: " + isPassed);
         }
     
         private int GetLastNumber(int numbers)
