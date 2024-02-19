@@ -138,19 +138,19 @@ namespace Mkey
             Application.targetFrameRate = 60;
             //Debug.Log(Application.targetFrameRate);
             Settings.IsModalWindowOpened = false;
-            InitAds();
+            //InitAds();
         }
 
-        private void InitAds()
-        {
-            int adTypes = Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO | Appodeal.BANNER | Appodeal.MREC;
-            string appKey = "d855dcc5d86d58599d85835161b2e36ba59739faccb88b06";
-            if (Application.platform == RuntimePlatform.Android)
-            {
-                appKey = "d855dcc5d86d58599d85835161b2e36ba59739faccb88b06";
-            }
-            Appodeal.initialize(appKey, adTypes, this);
-        }
+        //private void InitAds()
+        //{
+        //    int adTypes = Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO | Appodeal.BANNER | Appodeal.MREC;
+        //    string appKey = "d855dcc5d86d58599d85835161b2e36ba59739faccb88b06";
+        //    if (Application.platform == RuntimePlatform.Android)
+        //    {
+        //        appKey = "d855dcc5d86d58599d85835161b2e36ba59739faccb88b06";
+        //    }
+        //    Appodeal.initialize(appKey, adTypes, this);
+        //}
 
         public void onInitializationFinished(List<string> errors) {
             //Debug.Log("Appodeal.onInitializationFinished errors:");
