@@ -246,6 +246,7 @@ MonoBehaviour:
   ID: 0
   slider: {fileID: 1261815656443416198}
   sliderFill: {fileID: 6423004735039646191}
+  currentLevelParticles: {fileID: 7174302620966370134}
 --- !u!1 &1397203345223996
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,7 +2046,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1844191813266838, guid: 968c924d2be019d4b9e67647551eec3e, type: 3}
       propertyPath: m_Name
-      value: CFX4 Aura Bubble C
+      value: ParticlesCurrentStep
       objectReference: {fileID: 0}
     - target: {fileID: 1844191813266838, guid: 968c924d2be019d4b9e67647551eec3e, type: 3}
       propertyPath: m_IsActive
@@ -2104,6 +2105,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 968c924d2be019d4b9e67647551eec3e, type: 3}
+--- !u!1 &7174302620966370134 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1844191813266838, guid: 968c924d2be019d4b9e67647551eec3e, type: 3}
+  m_PrefabInstance: {fileID: 7176120355721303744}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7177037659994858550 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4299952606933750, guid: 968c924d2be019d4b9e67647551eec3e, type: 3}

@@ -37,6 +37,9 @@ namespace Mkey
         public Slider slider;
         public GameObject sliderFill;
 
+        [SerializeField]
+        private GameObject currentLevelParticles;
+
         internal void SetIsActive(int id, bool active, int activeStarsCount, int passCount, bool isPassed, ETypeLevel typeLevel = ETypeLevel.simple)
         {
             ID = id;
@@ -53,6 +56,7 @@ namespace Mkey
             // Debug.Log(id);
             // Debug.Log(lastNumberFromID);
             slider?.gameObject.SetActive(false);
+            SetActivityForCurrentLevelParticles(false);
             if (isPassed)
             {
                 if(typeLevel == ETypeLevel.final)
@@ -142,7 +146,10 @@ namespace Mkey
                 if(valueSlider > 0)
                     sliderFill.SetActive(true);
                 else
-                    sliderFill.SetActive(false);    
+                    sliderFill.SetActive(false);
+                Debug.Log("Settings.Current_ButtonOnMapID: " + Settings.Current_ButtonOnMapID);
+                if(active && !isPassed && passCount < 3 && passCount > 0)
+                    SetActivityForCurrentLevelParticles(true);
             }
             else if(typeLevel != ETypeLevel.mission1
                     && typeLevel != ETypeLevel.mission2)
@@ -161,6 +168,8 @@ namespace Mkey
                     size = new Vector2(100, 100);
                 }
                 rect.sizeDelta = size;
+                //if (ID == Settings.Current_ButtonOnMapID)
+                //    SetActivityForCurrentLevelParticles(true);
             }
             else if (typeLevel == ETypeLevel.mission1
                    || typeLevel == ETypeLevel.mission2)
@@ -172,6 +181,7 @@ namespace Mkey
             numberText.gameObject.SetActive(active || isPassed);
             //numberText.gameObject.SetActive(true);
             Debug.Log("ID: " + ID + " --- numberText: " + numberText.text + " --- IsActive: " + active + " --- isPassed: " + isPassed);
+            
         }
     
         private int GetLastNumber(int numbers)
@@ -179,6 +189,13 @@ namespace Mkey
             numbers -= (Settings.GetTopicFromButtonOnMapID(numbers)-1)*2;
             char[] numbersList = ConvertIntToCharArray(numbers);
             return int.Parse(numbersList[numbersList.Length - 1].ToString());
+        }
+
+        public void SetActivityForCurrentLevelParticles(bool isActive)
+        {
+            if (currentLevelParticles == null)
+                return;
+            currentLevelParticles.SetActive(isActive);
         }
 
         private char[] ConvertIntToCharArray(int number)
