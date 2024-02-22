@@ -30,7 +30,6 @@ namespace Mkey
         public Image FinalStatePassed;
         public Text numberText;
         public bool Interactable { get; private set; }
-        private ETypeLevel _typeLevel = ETypeLevel.simple;
         public bool IsNeedMissRebuild = false;
         public int ID = 0;
 
@@ -40,11 +39,10 @@ namespace Mkey
         [SerializeField]
         private GameObject currentLevelParticles;
 
-        internal void SetIsActive(int id, bool active, int activeStarsCount, int passCount, bool isPassed, ETypeLevel typeLevel = ETypeLevel.simple)
+        internal void SetIsActive(int id, bool active, int activeStarsCount, int passCount, bool isPassed, ETypeLevel typeLevel, int topic)
         {
             ID = id;
             numberText.text = "";
-            _typeLevel = typeLevel;
             //targetImage = targetImage.GetComponent<Image>();
             if (LeftStar) LeftStar.SetActive(activeStarsCount > 0);// && isPassed);
             if (MiddleStar) MiddleStar.SetActive(activeStarsCount > 1);// && isPassed);
@@ -60,9 +58,9 @@ namespace Mkey
             if (isPassed)
             {
                 if(typeLevel == ETypeLevel.final)
-                    targetImage.sprite = FinalStatePassed?.sprite;
+                    targetImage.sprite = FinalState?.sprite;
                 else if (typeLevel == ETypeLevel.additional)
-                    targetImage.sprite = AdditionStatePassed?.sprite;
+                    targetImage.sprite = AdditionState?.sprite;
                 else {
                     if (isMirror) 
                        targetImage.sprite = PassStateMirror?.sprite; 
@@ -148,7 +146,9 @@ namespace Mkey
                 else
                     sliderFill.SetActive(false);
                 Debug.Log("Settings.Current_ButtonOnMapID: " + Settings.Current_ButtonOnMapID);
-                if(active && !isPassed && passCount < 3 && passCount > 0)
+                Debug.Log("Settings.Current_Topic: " + Settings.Current_Topic);
+                Debug.Log("topic: " + topic);
+                if (active && !isPassed && passCount < 3 && topic == Settings.Current_Topic)
                     SetActivityForCurrentLevelParticles(true);
             }
             else if(typeLevel != ETypeLevel.mission1
@@ -168,7 +168,7 @@ namespace Mkey
                     size = new Vector2(100, 100);
                 }
                 rect.sizeDelta = size;
-                //if (ID == Settings.Current_ButtonOnMapID)
+                //if (active && !isPassed && passCount == 0)
                 //    SetActivityForCurrentLevelParticles(true);
             }
             else if (typeLevel == ETypeLevel.mission1
@@ -180,7 +180,7 @@ namespace Mkey
             //if(LockText) LockText.SetActive(active || isPassed);
             numberText.gameObject.SetActive(active || isPassed);
             //numberText.gameObject.SetActive(true);
-            Debug.Log("ID: " + ID + " --- numberText: " + numberText.text + " --- IsActive: " + active + " --- isPassed: " + isPassed);
+            //Debug.Log("ID: " + ID + " --- numberText: " + numberText.text + " --- IsActive: " + active + " --- isPassed: " + isPassed);
             
         }
     

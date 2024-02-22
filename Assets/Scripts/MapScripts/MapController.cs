@@ -255,7 +255,7 @@ namespace Mkey
                     }
                     //Debug.Log("buttonData.id: " + buttonData.id + " --- buttonData.isPassed: " + buttonData.isPassed);
                     DataLoader.SaveLevelResults(buttonData.id, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, buttonData.passCount);
-                    SetButtonActive(buttonData.id, i - 1, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, buttonData.passCount, (ETypeLevel)buttonData.typeLevel);
+                    SetButtonActive(buttonData.id, i - 1, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, buttonData.passCount, (ETypeLevel)buttonData.typeLevel, buttonData.topic);
                 }
                 
                 clickIndex++;
@@ -269,7 +269,7 @@ namespace Mkey
                 //Debug.Log(clickIndex);
                 ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
                 if (buttonData != null)
-                    SetButtonMissionActive(buttonData.id, i - 1, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, buttonData.passCount, (ETypeLevel)buttonData.typeLevel);
+                    SetButtonMissionActive(buttonData.id, i - 1, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, buttonData.passCount, (ETypeLevel)buttonData.typeLevel, buttonData.topic);
                 
                 clickIndex++;
                 if (i % 2 == 0)
@@ -279,7 +279,7 @@ namespace Mkey
             // берем метод из скрипта lastlevel.cs 
             List<LevelButton> firstLevels = lastLevel.GetFirstLevelsOfEachBlock();
 
-            // проходимся по каждому первому уровню из массива первых уровней и проверяем на прогрессию
+            //проходимся по каждому первому уровню из массива первых уровней и проверяем на прогрессию
             foreach (LevelButton firstLevel in firstLevels)
             {
                 ButtonData buttonData = DataLoader.GetLevelData(firstLevel.ID);
@@ -290,7 +290,7 @@ namespace Mkey
                     {
                         buttonData.isActive = true;
                         DataLoader.SaveLevelResults(buttonData.id, buttonData.isActive, buttonData.isPassed, buttonData.activeStarsCount, buttonData.passCount);
-                        firstLevel.SetIsActive(buttonData.id, buttonData.isActive, buttonData.activeStarsCount, buttonData.passCount, buttonData.isPassed, (ETypeLevel)buttonData.typeLevel);
+                        firstLevel.SetIsActive(buttonData.id, buttonData.isActive, buttonData.activeStarsCount, buttonData.passCount, buttonData.isPassed, (ETypeLevel)buttonData.typeLevel, 0);
                     }
                 }
             }
@@ -316,16 +316,16 @@ namespace Mkey
             }
         }
 
-        private void SetButtonActive(int id, int index, bool active, bool isPassed,int _activeStarsCount, int passCount, ETypeLevel typeLevel = ETypeLevel.simple)
+        private void SetButtonActive(int id, int index, bool active, bool isPassed,int _activeStarsCount, int passCount, ETypeLevel typeLevel, int topic)
         {
             //Debug.Log(index.ToString()+"-"+ MapLevelButtons.Count.ToString());
-            MapLevelButtons[index].SetIsActive(id, active, _activeStarsCount, passCount, isPassed, typeLevel);
+            MapLevelButtons[index].SetIsActive(id, active, _activeStarsCount, passCount, isPassed, typeLevel, topic);
         }
 
-        private void SetButtonMissionActive(int id, int index, bool active, bool isPassed, int _activeStarsCount, int passCount, ETypeLevel typeLevel = ETypeLevel.simple)
+        private void SetButtonMissionActive(int id, int index, bool active, bool isPassed, int _activeStarsCount, int passCount, ETypeLevel typeLevel, int topic)
         {
             //Debug.Log(index.ToString() + "-" + MapMissionButtons.Count.ToString());
-            MapMissionButtons[index].SetIsActive(id, active, _activeStarsCount, passCount, isPassed, typeLevel);
+            MapMissionButtons[index].SetIsActive(id, active, _activeStarsCount, passCount, isPassed, typeLevel, topic);
         }
 
         public void SetControlActivity(bool activity)

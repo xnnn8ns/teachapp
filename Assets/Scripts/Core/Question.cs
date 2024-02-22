@@ -239,34 +239,59 @@ public abstract class Question : Information
         List<Question> qList;
         List<Question> questionsTopic = GetQuestionListForTopic(buttonOnMapID);
         //UnityEngine.Debug.Log("levelID: " + levelID);
+        int countQuiz = GetRequestCountQuestionsForTopic(topic);
+
         qList = GetQuestionListForLevelFromTopic(topic, questionsTopic, buttonOnMapID);
+
+        if(qList.Count > countQuiz)
+        {
+            while (qList.Count > countQuiz)
+                qList.RemoveAt(qList.Count-1);
+        }
+        
         UnityEngine.Debug.Log("qList: " + qList.Count);
         //foreach (var item in qList)
         //    UnityEngine.Debug.Log(item.Score);
         //UnityEngine.Debug.Log(qList.Count);
-        while (qList.Count < 6)
-            AddRandomQuestions(topic, qList, buttonOnMapID, passCount);
+        while (qList.Count < countQuiz)
+            AddRandomQuestions(topic, qList, buttonOnMapID, passCount, countQuiz);
         //UnityEngine.Debug.Log(qList.Count);
         foreach (var item in qList)
             item.TypeLevel = eTypeLevel;
-        
+        UnityEngine.Debug.Log("qList.Count: " + qList.Count);
         return qList;
     }
+
+    private static int GetRequestCountQuestionsForTopic(int topic)
+    {
+        if (topic <= 1)
+            return 2;
+        else if (topic <= 2)
+            return 3;
+        else if (topic <= 4)
+            return 4;
+        else if (topic <= 6)
+            return 5;
+        else if (topic <= 8)
+            return 6;
+        else
+            return 7;
+    } 
 
     private static void AddRandomQuestions2(int topic, List<Question> qList, int levelID, int passCount)
     {
         qList.Insert(0, AlgorithmTestContriller.GetQuestionFromAlgo(topic, levelID, passCount));
     }
 
-    private static void AddRandomQuestions(int topic, List<Question> qList, int levelID, int stepID)
+    private static void AddRandomQuestions(int topic, List<Question> qList, int levelID, int stepID, int countQuiz)
     {
-        if(qList.Count < 7)
+        if(qList.Count < countQuiz)
             qList.Insert(0, AlgorithmTestContriller.Test_0_KeyWords(topic, levelID, stepID));
-        if (qList.Count < 7)
+        if (qList.Count < countQuiz)
             qList.Insert(0, AlgorithmTestContriller.Test_1_KeyOperators(topic, levelID, stepID));
-        if (qList.Count < 7)
+        if (qList.Count < countQuiz)
             qList.Insert(0, AlgorithmTestContriller.Test_2_KeyBuildIns(topic, levelID, stepID));
-        if (qList.Count < 7)
+        if (qList.Count < countQuiz)
         {
             //qList.Insert(0, AlgorithmTestContriller.Algo0_3(topic, levelID, stepID));
 
