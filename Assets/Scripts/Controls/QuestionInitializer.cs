@@ -70,6 +70,7 @@ public class QuestionInitializer : MonoBehaviour
     private int _secondsCountOnStart = 100;
 
     private int _secondsFromSceneStart = 0;
+    public bool NeedPlayAnimBar = false;
     #endregion
 
     public static void FillQuestionsForCurrentLevel()
@@ -604,6 +605,7 @@ public class QuestionInitializer : MonoBehaviour
             //Debug.Log(_currentQuestionIndex);
             int points = ComonFunctions.GetScoreForLevel(_questionsCurrentLevel[_currentQuestionIndex].Score, buttonData.passCount, (ETypeLevel)buttonData.typeLevel);
             AddEarnedPoints(points);
+            NeedPlayAnimBar = true;
         }
 
         StartCoroutine(SetRightAnswerOnScreen(isRight));

@@ -2772,6 +2772,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1264576822}
+        m_TargetAssemblyTypeName: ControlAnimForBar, Assembly-CSharp
+        m_MethodName: CheckAndPlayAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &702357611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4547,6 +4559,7 @@ MonoBehaviour:
   _topMenu: {fileID: 1363761652}
   _textType: {fileID: 1125912458}
   _catImg: {fileID: 1893764612}
+  NeedPlayAnimBar: 0
 --- !u!4 &1244741632
 Transform:
   m_ObjectHideFlags: 0
@@ -4678,6 +4691,7 @@ GameObject:
   - component: {fileID: 1264576819}
   - component: {fileID: 1264576821}
   - component: {fileID: 1264576820}
+  - component: {fileID: 1264576822}
   m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
@@ -4747,6 +4761,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264576818}
   m_CullTransparentMesh: 1
+--- !u!114 &1264576822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264576818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aaaa8b3d3aee8845ab25e8a2e000b38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  otherScript: {fileID: 1244741631}
 --- !u!1 &1271853774
 GameObject:
   m_ObjectHideFlags: 0
@@ -4857,8 +4884,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 300}
+  m_AnchoredPosition: {x: 0, y: 5}
+  m_SizeDelta: {x: 300, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1286865629
 MonoBehaviour:
@@ -6733,7 +6760,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -15, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1721806315
@@ -8517,7 +8544,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 15, y: 0}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2134548222
