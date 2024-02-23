@@ -2278,13 +2278,61 @@ public class AlgorithmTestContriller : MonoBehaviour
 
     #endregion
 
-    public static Question GetQuestionFromAlgo(int topic, int level, int passCount)
+    public static Question GetRandomQuestionFromAlgo(int topic, int level, int passCount)
     {
         //Debug.Log(topic + "-" + level);
         int levelID = Settings.GetLevelFromButtonOnMapID(level);
         //Debug.Log(topic + "-" + levelID);
         List<AlgoInfo> listFull = GetAlgoInfoListForTopicAndLevel(topic, levelID);
         
+        System.Random random = new System.Random();
+        int index = random.Next(0, listFull.Count);
+        //Debug.Log(topic + "-" + listFull.Count);
+        AlgoInfo algoInfo = listFull[index];
+        string methodName = algoInfo.Title;
+        Type type = typeof(AlgorithmTestContriller);
+        MethodInfo info = type.GetMethod(methodName);
+        System.Object obj = info.Invoke(null, new object[] { topic, level, passCount });
+        return (Question)obj;
+    }
+
+    public static Question GetRandomTestQuestionFromAlgo(int topic, int level, int passCount)
+    {
+        //Debug.Log(topic + "-" + level);
+        int levelID = Settings.GetLevelFromButtonOnMapID(level);
+        //Debug.Log(topic + "-" + levelID);
+        List<AlgoInfo> listFull = GetAlgoInfoListForTopicAndLevel(topic, levelID);
+
+        for (int i = listFull.Count - 1; i >= 0; i--)
+        {
+            if (listFull[i].QuestionType != 1)
+                listFull.RemoveAt(i);
+        }
+
+        System.Random random = new System.Random();
+        int index = random.Next(0, listFull.Count);
+        //Debug.Log(topic + "-" + listFull.Count);
+        AlgoInfo algoInfo = listFull[index];
+        string methodName = algoInfo.Title;
+        Type type = typeof(AlgorithmTestContriller);
+        MethodInfo info = type.GetMethod(methodName);
+        System.Object obj = info.Invoke(null, new object[] { topic, level, passCount });
+        return (Question)obj;
+    }
+
+    public static Question GetRandomShelfTestQuestionFromAlgo(int topic, int level, int passCount)
+    {
+        //Debug.Log(topic + "-" + level);
+        int levelID = Settings.GetLevelFromButtonOnMapID(level);
+        //Debug.Log(topic + "-" + levelID);
+        List<AlgoInfo> listFull = GetAlgoInfoListForTopicAndLevel(topic, levelID);
+
+        for (int i = listFull.Count - 1; i >= 0; i--)
+        {
+            if (listFull[i].QuestionType != 3)
+                listFull.RemoveAt(i);
+        }
+
         System.Random random = new System.Random();
         int index = random.Next(0, listFull.Count);
         //Debug.Log(topic + "-" + listFull.Count);

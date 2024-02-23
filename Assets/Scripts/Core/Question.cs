@@ -240,21 +240,41 @@ public abstract class Question : Information
         List<Question> questionsTopic = GetQuestionListForTopic(buttonOnMapID);
         //UnityEngine.Debug.Log("levelID: " + levelID);
         int countQuiz = GetRequestCountQuestionsForTopic(topic);
+        Tuple<bool, QuestionType> typeQuiz = GetQuestionTypeByButtonNumber(topic, buttonOnMapID);
 
-        qList = GetQuestionListForLevelFromTopic(topic, questionsTopic, buttonOnMapID);
+        if(typeQuiz.Item1 == true)
+            qList = GetQuestionListForLevelFromTopic(topic, questionsTopic, buttonOnMapID);
+        else if (typeQuiz.Item2 == QuestionType.Test)
+            qList = GetQuestionOnlyTestListForLevelFromTopic(topic, questionsTopic, buttonOnMapID);
+        else if (typeQuiz.Item2 == QuestionType.ShelfTest)
+            qList = new List<Question>();
+        else
+            qList = GetQuestionOnlyTaskListForLevelFromTopic(topic, questionsTopic, buttonOnMapID);
 
-        if(qList.Count > countQuiz)
+        if (qList.Count > countQuiz)
         {
+            System.Random rand = new System.Random();
             while (qList.Count > countQuiz)
-                qList.RemoveAt(qList.Count-1);
+            {
+                qList.RemoveAt(rand.Next(qList.Count-1));
+            }
         }
         
         UnityEngine.Debug.Log("qList: " + qList.Count);
         //foreach (var item in qList)
         //    UnityEngine.Debug.Log(item.Score);
         //UnityEngine.Debug.Log(qList.Count);
+        int maxCount = 100;
         while (qList.Count < countQuiz)
+        {
             AddRandomQuestions(topic, qList, buttonOnMapID, passCount, countQuiz);
+            maxCount--;
+            if (maxCount < 0)
+            {
+                UnityEngine.Debug.Log("while endless break");
+                break;
+            }
+        }
         //UnityEngine.Debug.Log(qList.Count);
         foreach (var item in qList)
             item.TypeLevel = eTypeLevel;
@@ -264,90 +284,51 @@ public abstract class Question : Information
 
     private static int GetRequestCountQuestionsForTopic(int topic)
     {
-        if (topic <= 1)
-            return 2;
-        else if (topic <= 2)
-            return 3;
-        else if (topic <= 4)
-            return 4;
-        else if (topic <= 6)
-            return 5;
-        else if (topic <= 8)
-            return 6;
+        
+        if (topic <= 5)
+            return topic + 1;
         else
-            return 7;
-    } 
-
-    private static void AddRandomQuestions2(int topic, List<Question> qList, int levelID, int passCount)
-    {
-        qList.Insert(0, AlgorithmTestContriller.GetQuestionFromAlgo(topic, levelID, passCount));
+            return topic + 2;
+        //else if (topic <= 2)
+        //    return 4;
+        //else if (topic <= 4)
+        //    return 5;
+        //else if (topic <= 6)
+        //    return 6;
+        //else if (topic <= 7)
+        //    return 7;
+        //else if (topic <= 8)
+        //    return 8;
+        //else if (topic <= 9)
+        //    return 9;
+        //else
+        //    return 10;
     }
 
     private static void AddRandomQuestions(int topic, List<Question> qList, int levelID, int stepID, int countQuiz)
     {
-        if(qList.Count < countQuiz)
-            qList.Insert(0, AlgorithmTestContriller.Test_0_KeyWords(topic, levelID, stepID));
-        if (qList.Count < countQuiz)
-            qList.Insert(0, AlgorithmTestContriller.Test_1_KeyOperators(topic, levelID, stepID));
-        if (qList.Count < countQuiz)
-            qList.Insert(0, AlgorithmTestContriller.Test_2_KeyBuildIns(topic, levelID, stepID));
-        if (qList.Count < countQuiz)
-        {
-            //qList.Insert(0, AlgorithmTestContriller.Algo0_3(topic, levelID, stepID));
+        //UnityEngine.Debug.Log(levelID);
 
-            qList.Insert(0, AlgorithmTestContriller.GetQuestionFromAlgo(topic, levelID, stepID));
+        Tuple<bool, QuestionType> typeQuiz = GetQuestionTypeByButtonNumber(topic, levelID);
+        if (typeQuiz.Item1 == true || typeQuiz.Item2 == QuestionType.Test)
+        {
+            if (qList.Count < countQuiz)
+                qList.Insert(0, AlgorithmTestContriller.Test_0_KeyWords(topic, levelID, stepID));
+            if (qList.Count < countQuiz)
+                qList.Insert(0, AlgorithmTestContriller.Test_1_KeyOperators(topic, levelID, stepID));
+            if (qList.Count < countQuiz)
+                qList.Insert(0, AlgorithmTestContriller.Test_2_KeyBuildIns(topic, levelID, stepID));
+        }
+        if (qList.Count < countQuiz && (typeQuiz.Item1 == false || typeQuiz.Item2 != QuestionType.Test))
+            qList.Insert(0, AlgorithmTestContriller.GetRandomShelfTestQuestionFromAlgo(topic, levelID, stepID));
+        if (qList.Count < countQuiz && typeQuiz.Item1 == true)
+            qList.Insert(0, AlgorithmTestContriller.GetRandomQuestionFromAlgo(topic, levelID, stepID));
+        if (typeQuiz.Item1 == false && typeQuiz.Item2 == QuestionType.Test)
+        {
+            qList.Insert(0, AlgorithmTestContriller.GetRandomTestQuestionFromAlgo(topic, levelID, stepID));
         }
 
-
-        //System.Random random = new System.Random();
-        //int rand = random.Next(0, 10);
-        //switch (rand)
-        //{
-        //    case 0:
-        //        qList.Insert(0, AlgorithmTestContriller.Algo0(Settings.Current_Topic, levelID, stepID));
-        //        break;
-        //    case 1:
-        //        qList.Insert(0, AlgorithmTestContriller.Algo1(Settings.Current_Topic, levelID, stepID));
-        //        break;
-        //    case 2:
-        //        qList.Insert(0, AlgorithmTestContriller.Algo2(Settings.Current_Topic, levelID, stepID));
-        //        break;
-        //    case 3:
-        //        qList.Insert(0, AlgorithmTestContriller.Algo3(Settings.Current_Topic, levelID, stepID));
-        //        break;
-        //    case 4:
-        //        qList.Insert(0, AlgorithmTestContriller.Algo4(Settings.Current_Topic, levelID, stepID));
-        //        break;
-        //    case 5:
-        //        qList.Insert(0, AlgorithmTestContriller.Algo5(Settings.Current_Topic, levelID, stepID));
-        //        break;
-        //    case 6:
-        //        qList.Insert(0, AlgorithmTestContriller.Algo6(Settings.Current_Topic, levelID, stepID));
-        //        break;
-        //    case 7:
-        //        qList.Insert(0, AlgorithmTestContriller.Algo7(Settings.Current_Topic, levelID, stepID));
-        //        break;
-        //    case 8:
-        //        qList.Insert(0, AlgorithmTestContriller.Algo8(Settings.Current_Topic, levelID, stepID));
-        //        break;
-        //    case 9:
-        //        qList.Insert(0, AlgorithmTestContriller.Algo9(Settings.Current_Topic, levelID, stepID));
-        //        break;
-        //    default:
-        //        qList.Insert(0, AlgorithmTestContriller.Algo0(Settings.Current_Topic, levelID, stepID));
-        //        break;
-        //}
-
-        //qList.Insert(0, AlgorithmTestContriller.Algo0(Settings.Current_Topic, levelID, stepID));
-        //qList.Insert(0, AlgorithmTestContriller.Algo2(Settings.Current_Topic, levelID, stepID));
-        //qList.Insert(0, AlgorithmTestContriller.Algo3(Settings.Current_Topic, levelID, stepID));
-        //qList.Insert(0, AlgorithmTestContriller.Algo4(Settings.Current_Topic, levelID, stepID));
-        //qList.Insert(0, AlgorithmTestContriller.Algo5(Settings.Current_Topic, levelID, stepID));
-        //qList.Insert(0, AlgorithmTestContriller.Algo6(Settings.Current_Topic, levelID, stepID));
-        //qList.Insert(0, AlgorithmTestContriller.Algo7(Settings.Current_Topic, levelID, stepID));
-        //qList.Insert(0, AlgorithmTestContriller.Algo8(Settings.Current_Topic, levelID, stepID));
-        //qList.Insert(0, AlgorithmTestContriller.Algo9(Settings.Current_Topic, levelID, stepID));
-    } 
+    }
 
     private static List<Question> GetQuestionListForTopic(int buttonOnMapID)
     {
@@ -355,7 +336,7 @@ public abstract class Question : Information
         List<Question> qTopicList = new List<Question>();
         foreach (var q in QuestionsList)
         {
-            if (q.Topic <= topicID)
+            if (q.Topic <= topicID)// && q.Topic >= topicID - 2)
             {
                 //UnityEngine.Debug.Log(q.Title);
                 qTopicList.Add(q);
@@ -365,6 +346,143 @@ public abstract class Question : Information
         //UnityEngine.Debug.Log(qTopicList.Count);
         qTopicList = qTopicList.OrderBy(x => x.Topic).OrderBy(x => x.Level).ThenBy(x => x.Score).ToList();
         return qTopicList;
+    }
+
+    private static List<Question> GetQuestionOnlyTestListForLevelFromTopic(int topic, List<Question> qTopic, int levelID)
+    {
+        List<Question> list = new List<Question>();
+        List<Question> listTest = new List<Question>();
+
+        if (qTopic.Count <= 0)
+            return list;
+
+        int countInLevel = qTopic.Count * levelID / 12;
+        int countTest = countInLevel;
+        foreach (var q in qTopic)
+        {
+            if (q.QuestionType == QuestionType.Test && countTest > 0)
+            {
+                listTest.Add(q);
+                countTest--;
+            }
+            if (countTest <= 0)
+                break;
+        }
+       
+
+        int countLTest = listTest.Count;
+        int thirtyPercent = countLTest / 3;
+        int sixtyPercent = countLTest * 2 / 3;
+        List<Question> thirtyPercentTestList = listTest.GetRange(0, thirtyPercent);
+        List<Question> sixtyFivePercentTestList = listTest.GetRange(thirtyPercent, sixtyPercent - thirtyPercent);
+        List<Question> hundredPercentTestList = listTest.GetRange(sixtyPercent, countLTest - sixtyPercent);
+
+        System.Random rand = new System.Random();
+
+        //UnityEngine.Debug.Log(list.Count);
+        int indexRand;
+        int countToAdd = 2;
+        //if (topic < 2)
+        //    countToAdd = 2;
+        while (countToAdd > 0 && thirtyPercentTestList.Count > 0)
+        {
+            UnityEngine.Debug.Log(thirtyPercentTestList.Count);
+            indexRand = rand.Next(0, thirtyPercentTestList.Count);
+            list.Add(thirtyPercentTestList[indexRand]);
+            countToAdd--;
+        }
+        //UnityEngine.Debug.Log(list.Count);
+        countToAdd = 2;
+        //if (topic < 2)
+        //    countToAdd = 0;
+        while (countToAdd > 0)
+        {
+            indexRand = rand.Next(0, sixtyFivePercentTestList.Count);
+            list.Add(sixtyFivePercentTestList[indexRand]);
+            countToAdd--;
+        }
+
+        countToAdd = 2;
+        //if (topic < 2)
+        //    countToAdd = 0;
+        while (countToAdd > 0 && hundredPercentTestList.Count > 0)
+        {
+
+            indexRand = rand.Next(0, hundredPercentTestList.Count);
+            list.Add(hundredPercentTestList[indexRand]);
+            countToAdd--;
+        }
+        //UnityEngine.Debug.Log(list.Count);
+        return list;
+    }
+
+    private static List<Question> GetQuestionOnlyTaskListForLevelFromTopic(int topic, List<Question> qTopic, int levelID)
+    {
+        List<Question> list = new List<Question>();
+        List<Question> listTask = new List<Question>();
+
+        if (qTopic.Count <= 0)
+            return list;
+
+        int countInLevel = qTopic.Count * levelID / 12;
+        int countTest = countInLevel;
+
+        foreach (var q in qTopic)
+        {
+            if (q.QuestionType == QuestionType.Shelf && countTest > 0)
+            {
+                listTask.Add(q);
+                countTest--;
+            }
+            if (countTest <= 0)
+                break;
+        }
+
+        int countLTask = listTask.Count;
+        int thirtyPercent = countLTask / 3;
+        int sixtyPercent = countLTask * 2 / 3;
+        List<Question> thirtyPercentTaskList = listTask.GetRange(0, thirtyPercent);
+        List<Question> sixtyFivePercentTaskList = listTask.GetRange(thirtyPercent, sixtyPercent - thirtyPercent);
+        //List<Question> sixtyFivePercentTaskList = listTask.GetRange(0, sixtyPercent - thirtyPercent);
+        List<Question> hundredFivePercentTaskList = listTask.GetRange(sixtyPercent, countLTask - sixtyPercent);
+
+        System.Random rand = new System.Random();
+
+
+        Tuple<bool, QuestionType> typeQuiz = GetQuestionTypeByButtonNumber(topic, levelID);
+
+
+        //UnityEngine.Debug.Log(list.Count);
+        int indexRand;
+        int countToAdd = 2;
+
+        //    countToAdd = 0;
+        while (countToAdd > 0 && sixtyFivePercentTaskList.Count > 0 && thirtyPercentTaskList.Count > 0)
+        {
+            if (topic > 2)
+            {
+                indexRand = rand.Next(0, sixtyFivePercentTaskList.Count);
+                list.Add(sixtyFivePercentTaskList[indexRand]);
+            }
+            else
+            {
+                indexRand = rand.Next(0, thirtyPercentTaskList.Count);
+                list.Add(thirtyPercentTaskList[indexRand]);
+            }
+            countToAdd--;
+        }
+
+        countToAdd = 1;
+        if (topic < 2)
+            countToAdd = 0;
+        while (countToAdd > 0 && hundredFivePercentTaskList.Count > 0)
+        {
+            indexRand = rand.Next(0, hundredFivePercentTaskList.Count);
+            list.Add(hundredFivePercentTaskList[indexRand]);
+            countToAdd--;
+        }
+        //UnityEngine.Debug.Log(list.Count);
+        return list;
     }
 
     private static List<Question> GetQuestionListForLevelFromTopic(int topic, List<Question> qTopic, int levelID)
@@ -417,6 +535,11 @@ public abstract class Question : Information
         List<Question> hundredFivePercentTaskList = listTask.GetRange(sixtyPercent, countLTask - sixtyPercent);
 
         System.Random rand = new System.Random();
+
+
+        Tuple<bool, QuestionType> typeQuiz = GetQuestionTypeByButtonNumber(topic, levelID);
+
+
         //UnityEngine.Debug.Log(list.Count);
         int indexRand;
         int countToAdd = 1;
@@ -471,5 +594,20 @@ public abstract class Question : Information
         }
         //UnityEngine.Debug.Log(list.Count);
         return list;
+    }
+
+    private static Tuple<bool, QuestionType> GetQuestionTypeByButtonNumber(int topic, int levelID)
+    {
+        if (topic > 1)
+            levelID -= topic * 12;
+        if (levelID >= 10)
+            return new Tuple<bool, QuestionType>(true, QuestionType.Test);
+        else if (levelID == 1 || levelID == 2 || levelID == 3)
+            return new Tuple<bool, QuestionType>(false, QuestionType.Test);
+        else if (levelID == 5 || levelID == 6)
+            return new Tuple<bool, QuestionType>(false, QuestionType.ShelfTest);
+        else
+            return new Tuple<bool, QuestionType>(false, QuestionType.Shelf);
+
     }
 }

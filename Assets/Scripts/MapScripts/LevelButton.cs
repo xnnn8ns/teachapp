@@ -145,9 +145,9 @@ namespace Mkey
                     sliderFill.SetActive(true);
                 else
                     sliderFill.SetActive(false);
-                Debug.Log("Settings.Current_ButtonOnMapID: " + Settings.Current_ButtonOnMapID);
-                Debug.Log("Settings.Current_Topic: " + Settings.Current_Topic);
-                Debug.Log("topic: " + topic);
+                //Debug.Log("Settings.Current_ButtonOnMapID: " + Settings.Current_ButtonOnMapID);
+                //Debug.Log("Settings.Current_Topic: " + Settings.Current_Topic);
+                //Debug.Log("topic: " + topic);
                 if (active && !isPassed && passCount < 3 && topic == Settings.Current_Topic)
                     SetActivityForCurrentLevelParticles(true);
             }

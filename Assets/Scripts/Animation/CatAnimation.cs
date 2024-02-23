@@ -34,9 +34,10 @@ public class CatAnimation : MonoBehaviour
             Biome biome = biomes[i];
             LevelButton firstLevel = biome.levelButtons[0];
             ButtonData buttonData = DataLoader.GetLevelData(firstLevel.ID);
-            bool isFirstLevelCompleted = i == 0 || (firstLevels.Contains(firstLevel) && firstLevel.Interactable && buttonData != null && buttonData.passCount > 0);
+            bool isFirstLevelCompleted = (buttonData != null && firstLevels.Contains(firstLevel) && buttonData.passCount > 0);
 
             Animator[] anims = biome.GetComponentsInChildren<Animator>();
+            //Debug.Log("CheckIsNeedAnimate - isFirstLevelCompleted: " + isFirstLevelCompleted + "-" + buttonData.id);
 
             if (isFirstLevelCompleted)
             {

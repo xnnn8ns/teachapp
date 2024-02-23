@@ -5,6 +5,7 @@ a
 b
 c
 d
+f
 e
 x
 y
@@ -16,6 +17,7 @@ pos
 res
 dif
 rom
+nex
 cat
 dog
 log

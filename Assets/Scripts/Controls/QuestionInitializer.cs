@@ -82,8 +82,9 @@ public class QuestionInitializer : MonoBehaviour
         _currentQuestionIndex = 0;
         //Debug.Log(Settings.Current_ButtonOnMapID);
         ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
-        //Debug.Log(buttonData.id);
         
+        //Debug.Log(buttonData.id);
+
         if (buttonData != null)
         {
             _questionsCurrentLevel = Question.GetQuestionListForLevel(
@@ -91,6 +92,7 @@ public class QuestionInitializer : MonoBehaviour
                 Settings.Current_ButtonOnMapID,
                 buttonData.passCount,
                 (ETypeLevel)buttonData.typeLevel);
+            Settings.Current_Topic = buttonData.topic;
         }
     }
 
