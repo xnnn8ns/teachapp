@@ -362,6 +362,7 @@ namespace Mkey
                 // Если это последний уровень, переключаемся на WindowLastScene
                 if (clickIndex == LastLevel.lastLevelIndex)
                 {
+
                     SwitchToLastLevel();
                     return;
                 }
@@ -370,7 +371,7 @@ namespace Mkey
                     ClickPassButton(clickIndex, isMissionClicked);
                     return;
                 }
-                
+
             }
             ClickCurrentLevelButton(clickIndex, isMissionClicked);
         }

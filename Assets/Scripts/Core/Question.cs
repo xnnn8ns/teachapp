@@ -598,8 +598,10 @@ public abstract class Question : Information
 
     private static Tuple<bool, QuestionType> GetQuestionTypeByButtonNumber(int topic, int levelID)
     {
+        UnityEngine.Debug.Log("------topic: " + topic + "  --  levelID: " + levelID);
         if (topic > 1)
-            levelID -= topic * 12;
+            levelID -= (topic-1) * 12;
+        UnityEngine.Debug.Log("------topic: " + topic + "  --  levelID: " + levelID);
         if (levelID >= 10)
             return new Tuple<bool, QuestionType>(true, QuestionType.Test);
         else if (levelID == 1 || levelID == 2 || levelID == 3)

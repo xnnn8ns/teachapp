@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using System.IO;
 using TMPro;
 using System;
+using System.Globalization;
 
 public class GetCertificateFromServer : MonoBehaviour
 {
@@ -29,7 +30,11 @@ public class GetCertificateFromServer : MonoBehaviour
     private string GetWriteNewCertificate()
     {
         //string filePath = Application.dataPath + "/Resources/certificate/pdfpage.html";
-        TextAsset asset = (TextAsset)Resources.Load<TextAsset>("certificate/pdfpage");
+        TextAsset asset;
+        if (LangAsset.CurrentLangLocation != LangLocation.Ru)
+            asset = (TextAsset)Resources.Load<TextAsset>("certificate/pdfpage");
+        else
+            asset = (TextAsset)Resources.Load<TextAsset>("certificate/pdfpage-ru");
         List<string> lines = new List<string>(asset.text.Split('\n'));
         //List<string> linesUpdated = new List<string>();
         Debug.Log(lines.Count);
@@ -44,6 +49,23 @@ public class GetCertificateFromServer : MonoBehaviour
                 string[] strBlocksLast = strBlocks[1].Split("<");
                 newStr += nameInputField.text;
                 newStr += "<" + strBlocksLast[1] + ">";
+                updatedStr = newStr;
+                Debug.Log(updatedStr);
+            }
+            if (item.Contains("DateCertificate"))
+            {
+                string[] strBlocks = item.Split("<br>");
+                string newStr = strBlocks[0] + "<br>";
+                string[] strBlocksLast = strBlocks[1].Split("<");
+
+                DateTime now = DateTime.Now;
+                if (LangAsset.CurrentLangLocation != LangLocation.Ru)
+                    newStr += now.ToString("D", CultureInfo.CreateSpecificCulture("EN-us"));
+                else
+                    newStr += now.ToString("D", CultureInfo.CreateSpecificCulture("RU-ru"));
+
+                //newStr += DateTime.Today.ToLongDateString().Replace(DateTime.Now.DayOfWeek.ToString() + ", ", "");
+                newStr += "<" + strBlocksLast[1];// + ">";
                 updatedStr = newStr;
                 Debug.Log(updatedStr);
             }
