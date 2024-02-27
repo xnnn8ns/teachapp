@@ -15,11 +15,13 @@ public class RegisterUserData : MonoBehaviour
     [SerializeField]
     private TMP_InputField nameInputField;
     [SerializeField]
-    private GameObject errorWindow;
+    private GameObject errorWindow; // не используется (сообщение о том, что пользователь с таким именем уже существует)
     [SerializeField]
     private GameObject errorNullData; // Окно ошибки для пустых полей
     [SerializeField]
     private GameObject errorBadWords; // Окно ошибки для плохих слов
+    [SerializeField]
+    private GameObject errorEmail; // Окно ошибки для неверного формата электронной почты
     [SerializeField]
     private GameObject successRegistrationWindow; // Окно подтверждения регистрации
     [SerializeField]
@@ -57,7 +59,7 @@ public class RegisterUserData : MonoBehaviour
         // Проверяем, что все поля заполнены
         if (string.IsNullOrEmpty(nameInputField.text) || string.IsNullOrEmpty(usernameInputField.text) || string.IsNullOrEmpty(emailInputField.text) || string.IsNullOrEmpty(passwordInputField.text))
         {
-            ShowErrorNullData();
+            errorNullData.SetActive(true);
             return;
         }
 
@@ -67,17 +69,25 @@ public class RegisterUserData : MonoBehaviour
         string lowerCaseEmail = emailInputField.text.ToLower();
         if (bannedWords.Any(word => lowerCaseName.Contains(word)) || bannedWords.Any(word => lowerCaseUsername.Contains(word)) || bannedWords.Any(word => lowerCaseEmail.Contains(word)))
         {
-            ShowErrorBadWords();
+            errorBadWords.SetActive(true);
+            return;
+        }
+
+        // Проверяем, что в поле электронной почты присутствует символ "@"
+        if (!emailInputField.text.Contains("@"))
+        {
+            errorEmail.SetActive(true);
             return;
         }
 
         System.Random rand = new System.Random();
         int randID = rand.Next(1, 999999);
-         // в SetUserData сначала сохраняет ник, затем полное имя; Изменил порядок переменных
+        
+        // в SetUserData сначала сохраняет ник, затем полное имя; Изменил порядок переменных
         UserData.SetUserData(randID.ToString(), usernameInputField.text, nameInputField.text, emailInputField.text, Encrypt(passwordInputField.text), 1, 0, 0, 0);
 
         PlayerPrefs.Save();
-        ShowSuccessRegistrationWindow();
+        successRegistrationWindow.SetActive(true);
     }
 
     private string Encrypt(string str)
@@ -88,41 +98,6 @@ public class RegisterUserData : MonoBehaviour
             charArray[i] = (char)(charArray[i] ^ 129);
         }
         return new string(charArray);
-    }
-
-    public void ShowErrorWindow()
-    {
-        errorWindow.SetActive(true);
-    }
-
-    public void ShowErrorNullData()
-    {
-        errorNullData.SetActive(true);
-    }
-
-    public void ShowErrorBadWords()
-    {
-        errorBadWords.SetActive(true);
-    }
-
-    public void HideErrorWindow()
-    {
-        errorWindow.SetActive(false);
-    }
-
-    public void HideErrorNullData()
-    {
-        errorNullData.SetActive(false);
-    }
-
-    public void ShowSuccessRegistrationWindow()
-    {
-        successRegistrationWindow.SetActive(true);
-    }
-    
-    public void HideErrorBadWords()
-    {
-        errorBadWords.SetActive(false);
     }
 
     public void OnOkButtonClicked()

@@ -67,6 +67,7 @@ Registration;Регистрация;Registration;Registrierung;Registrazione
 ErrorMessage(Regs);Пользователь с таким именем пользователя или электронной почтой уже существует;A user with this username or email already exists;Ein Benutzer mit diesem Benutzernamen oder dieser E-Mail-Adresse ist bereits vorhanden;Un utente con questo nome utente o e-mail esiste già
 ErrorMessage(NullRegs);Все поля должны быть заполнены;All fields must be filled in;Alle Felder müssen ausgefüllt sein;Tutti i campi devono essere compilati
 ErrorMessageBadWords;Ввод содержит запрещенные слова;The input contains prohibited words;Die Eingabe enthält verbotene Wörter;L'input contiene parole proibite
+ErrorMessageEmail;Была введена некорректная электронная почта;An incorrect email was entered;Eine falsche E-Mail-Adresse wurde eingegeben;È stata inserita un'e-mail incorretta
 SuccessMessage;Поздравляем! Вы успешно зарегестрировались; Congratulations! You have successfully registered; Herzlichen Glückwunsch! Sie haben sich erfolgreich registriert; Congratulazioni! Ti sei registrato con successo
 TimeTask;Общее время занятия более 10 минут;Total time of the lesson is more than 10 minutes;Die Gesamtzeit der Lektion beträgt mehr als 10 Minuten;Il tempo totale della lezione è più di 10 minuti
 LevelTask;Пройти уровень из трех шагов;Pass the level of three steps;Bestehen Sie die Stufe von drei Schritten;Passa il livello di tre passaggi
@@ -94,3 +95,4 @@ News;Новости;News;Nachrichten;Notizie
 LoadMore;Загрузить еще...;Load more...;Mehr laden...;Carica di più...
 LoadPreviousNews;Загрузить предыдущие новости;Load previous news;Vorherige Nachrichten laden;Carica le notizie precedenti
 ChooseCourse;Выбрать курс;Choose a course;Wählen Sie einen Kurs;Scegli un corso
+CourseSelection;Выбор курса:;Course Selection:;Kurswahl:;Scelta del corso:

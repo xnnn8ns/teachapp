@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5086741416655532836}
   - component: {fileID: 643676469127896670}
   m_Layer: 0
-  m_Name: TopisCourse
+  m_Name: "Topi\u0441Course"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
