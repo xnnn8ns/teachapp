@@ -19,6 +19,8 @@ public class NameDataLoad : MonoBehaviour
     private GameObject flagParent;
     [SerializeField]
     private GameObject settengsButton;
+    [SerializeField]
+    private GameObject ChooseCourse;
 
 
     private void Start()
@@ -48,7 +50,14 @@ public class NameDataLoad : MonoBehaviour
     {
         flagParent.SetActive(!flagParent.activeSelf);
         if (flagParent.activeSelf)
+        {
             flagParent.GetComponent<ChangeLanguage>()?.LoadFlags();
+            ChooseCourse.SetActive(false); // Отключаем объект ChooseCourse, когда flagParent активен
+        }
+        else
+        {
+            ChooseCourse.SetActive(true); // Включаем объект ChooseCourse, когда flagParent неактивен
+        }
     }
 
     public void ClickAcount()
