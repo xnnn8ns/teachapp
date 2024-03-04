@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Board : MonoBehaviour
 {
@@ -11,9 +12,6 @@ public class Board : MonoBehaviour
     private int winscore = 0;
     private int losescore = 0;
     [SerializeField] private GameObject cardPrefab;
-    [SerializeField] private Button continueButton;
-    [SerializeField] private GameObject winPanel;
-    [SerializeField] private GameObject losePanel;
     public int size;
 
     void Start()
@@ -136,12 +134,11 @@ public class Board : MonoBehaviour
             card.ShowSuccess();
             card.Flip();
 
-            // Если игрок нашел все выигрышные карты, отображаем панель winPanel
+            // Если игрок нашел все выигрышные карты, переходим на сцену BonusSceneWin
             if (winscore == allCards.Count(c => c.HasStar))
             {
                 BlockAllCards();
-                continueButton.gameObject.SetActive(true);
-                winPanel.SetActive(true);
+                StartCoroutine(LoadSceneAfterDelay("BonusSceneWin", 1));
             }
         }
         else
@@ -151,12 +148,11 @@ public class Board : MonoBehaviour
             card.ShowFailure();
             card.Flip();
 
-            // Если очков проигрыша равняются размеру поля или больше, блокируем все карты и показываем сообщение
+            // Если очков проигрыша равняются размеру поля или больше, переходим на сцену BonusSceneLose
             if (losescore <= -size)
             {
                 BlockAllCards();
-                continueButton.gameObject.SetActive(true);
-                losePanel.SetActive(true);
+                StartCoroutine(LoadSceneAfterDelay("BonusSceneLose", 1));
             }
         }
     }
@@ -192,5 +188,11 @@ public class Board : MonoBehaviour
                 cards[i, j].UnblockCardInteraction();
             }
         }
+    }
+
+    private IEnumerator LoadSceneAfterDelay(string sceneName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(sceneName);
     }
 }

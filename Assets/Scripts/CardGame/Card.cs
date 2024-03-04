@@ -8,7 +8,8 @@ public class Card : MonoBehaviour
     private EventTrigger eventTrigger;
     public Sprite backSprite;
     public Sprite successSprite;
-    public Sprite failureSprite;
+    public Sprite[] failureSprites;
+    private Sprite chosenFailureSprite;
     public Image image;
     public bool HasStar { get; set; }
     public bool IsOpen { get; private set; }
@@ -23,6 +24,11 @@ public class Card : MonoBehaviour
         GetComponent<Button>().onClick.AddListener(OnButtonClick);
         eventTrigger = GetComponent<EventTrigger>();
         IsOpen = isFaceUp;
+
+        // Выбираем случайный спрайт из массива failureSprites при инициализации карты
+        int index = UnityEngine.Random.Range(0, failureSprites.Length);
+        chosenFailureSprite = failureSprites[index];
+
         UpdateCardAppearance();
         CanInteract = true;
     }
@@ -58,7 +64,15 @@ public class Card : MonoBehaviour
     {
         if (IsOpen)
         {
-            image.sprite = HasStar ? successSprite : failureSprite;
+            if (HasStar)
+            {
+                image.sprite = successSprite;
+            }
+            else
+            {
+                // Используем выбранный спрайт для проигрыша
+                image.sprite = chosenFailureSprite;
+            }
         }
         else
         {
