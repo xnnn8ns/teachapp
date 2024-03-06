@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Board : MonoBehaviour
 {
@@ -12,6 +13,14 @@ public class Board : MonoBehaviour
     private int winscore = 0;
     private int losescore = 0;
     [SerializeField] private GameObject cardPrefab;
+    [SerializeField] private GameObject winPanel;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private AudioClip winSound;
+    [SerializeField] private GameObject winCardPanel;
+    private int winningCardIndex;
+    private int pointsPerCat;
+    private int score = 0;
+    private Card winningCard;
     public int size;
 
     void Start()
@@ -85,6 +94,10 @@ public class Board : MonoBehaviour
         BlockAllCardsInteraction();
         yield return new WaitForSeconds(1);
 
+        // Отображаем выигрышную карту на панели
+        DisplayCardOnPanel(winningCard);
+        yield return new WaitForSeconds(4.25f);
+
         // Показываем все карты
         for (int i = 0; i < size; i++)
         {
@@ -131,14 +144,33 @@ public class Board : MonoBehaviour
         {
             // игрок угадал, начисляем очки
             winscore++;
+
+            // Если общее количество выигрышных карт меньше или равно 3, то даем от 20 до 50 баллов, если больше то от 15 до 40
+            int winningCardsCount = allCards.Count(c => c.HasStar);
+            pointsPerCat = winningCardsCount <= 3 ? Random.Range(20, 51) : Random.Range(15, 41);
+
+            score += pointsPerCat;
             card.ShowSuccess();
             card.Flip();
 
             // Если игрок нашел все выигрышные карты, переходим на сцену BonusSceneWin
-            if (winscore == allCards.Count(c => c.HasStar))
+            if (winscore == winningCardsCount)
             {
                 BlockAllCards();
-                StartCoroutine(LoadSceneAfterDelay("BonusSceneWin", 1));
+                winPanel.SetActive(true);
+                // Загружаем текущий счет из PlayerPrefs
+                int currentScore = PlayerPrefs.GetInt("Score", 0);
+                // Добавляем к текущему счету очки за эту игру
+                currentScore += score;
+                // Сохраняем обновленный счет обратно в PlayerPrefs
+                PlayerPrefs.SetInt("Score", currentScore);
+                scoreText.text = score.ToString();
+                AudioSource audioSource = FindObjectOfType<AudioSource>();
+                if (audioSource != null)
+                {
+                    audioSource.clip = winSound;
+                    audioSource.Play();
+                }
             }
         }
         else
@@ -194,5 +226,38 @@ public class Board : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(sceneName);
+    }
+
+    private void DisplayCardOnPanel(Card card)
+    {
+        // Проверяем, был ли инициализирован winCardPanel
+        if (winCardPanel != null)
+        {
+            // Активируем winCardPanel
+            winCardPanel.SetActive(true);
+
+            // Находим дочерний объект с именем "Image"
+            Transform imageTransform = winCardPanel.transform.Find("Image");
+
+            // Проверяем, нашли ли мы объект
+            if (imageTransform != null)
+            {
+                // // Получаем компонент Image этого объекта
+                // Image panelImage = imageTransform.GetComponent<Image>();
+                // panelImage.sprite = card.chosenSprite;
+
+            // Запускаем Coroutine для скрытия карты после задержки
+            StartCoroutine(HideCardAfterDelay(3));
+            }
+        }
+    }
+
+    private IEnumerator HideCardAfterDelay(float delay)
+    {
+        // Ждем указанное количество секунд
+        yield return new WaitForSeconds(delay);
+
+        // Скрываем winCardPanel
+        winCardPanel.SetActive(false);
     }
 }
