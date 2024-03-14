@@ -139,4 +139,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a2f248e890a28c647adbbc9e0a883229, type: 3}
   - {fileID: 21300000, guid: e6ef3db2326ab7748934760f2ac3ab11, type: 3}
   - {fileID: 21300000, guid: b1fcd4d3629b1fe45bde58c7920e6569, type: 3}
+  allSprites:
+  - {fileID: 21300000, guid: a2f248e890a28c647adbbc9e0a883229, type: 3}
+  - {fileID: 21300000, guid: e6ef3db2326ab7748934760f2ac3ab11, type: 3}
+  - {fileID: 21300000, guid: b1fcd4d3629b1fe45bde58c7920e6569, type: 3}
+  - {fileID: 21300000, guid: f4f07a1d09804614f85be9ce4813aca5, type: 3}
+  chosenFailureSprite: {fileID: 0}
   image: {fileID: 7547881353023086650}

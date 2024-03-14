@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class Card : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class Card : MonoBehaviour
     public Sprite backSprite;
     public Sprite successSprite;
     public Sprite[] failureSprites;
-    private Sprite chosenFailureSprite;
+    public Sprite[] allSprites;
+    public Sprite chosenFailureSprite;
     public Image image;
     public bool HasStar { get; set; }
     public bool IsOpen { get; private set; }
@@ -25,9 +27,18 @@ public class Card : MonoBehaviour
         eventTrigger = GetComponent<EventTrigger>();
         IsOpen = isFaceUp;
 
-        // Выбираем случайный спрайт из массива failureSprites при инициализации карты
-        int index = UnityEngine.Random.Range(0, failureSprites.Length);
-        chosenFailureSprite = failureSprites[index];
+        // Выбираем случайный спрайт из массива allSprites при инициализации карты
+        int index = UnityEngine.Random.Range(0, allSprites.Length);
+        successSprite = allSprites[index];
+
+        // Удаляем выбранный спрайт из массива
+        List<Sprite> tempList = new List<Sprite>(allSprites);
+        tempList.RemoveAt(index);
+        allSprites = tempList.ToArray();
+
+        // Выбираем случайный спрайт из оставшихся в массиве allSprites для проигрышной карты
+        index = UnityEngine.Random.Range(0, allSprites.Length);
+        chosenFailureSprite = allSprites[index];
 
         UpdateCardAppearance();
         CanInteract = true;

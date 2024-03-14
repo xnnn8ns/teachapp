@@ -17,11 +17,15 @@ public class Board : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private AudioClip winSound;
     [SerializeField] private GameObject winCardPanel;
+    [SerializeField] private Sprite[] allSprites;
     private int winningCardIndex;
     private int pointsPerCat;
     private int score = 0;
+    private Sprite winningSprite;
     private Card winningCard;
     public int size;
+
+#region basic methods
 
     void Start()
     {
@@ -65,7 +69,7 @@ public class Board : MonoBehaviour
                 cardObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
                 Card card = cardObject.GetComponent<Card>();
 
-                card.Initialize(false); // Инициализируем карты в закрытом состоянии и без звезды
+                card.Initialize(false); // Инициализируем карты в закрытом состоянии
                 card.OnCardSelected += CardSelected;
 
                 cards[i, j] = card;
@@ -79,10 +83,27 @@ public class Board : MonoBehaviour
         // Генерируем случайное число от 2 до size включительно
         int winningCardsCount = Random.Range(2, size + 1);
 
+        // Выбираем случайный спрайт из массива allSprites для всех выигрышных карт
+        int index = UnityEngine.Random.Range(0, allSprites.Length);
+        winningSprite = allSprites[index];
+
+        // Удаляем выбранный спрайт из массива
+        List<Sprite> tempList = new List<Sprite>(allSprites);
+        tempList.RemoveAt(index);
+        allSprites = tempList.ToArray();
+
         // Устанавливаем первые `winningCardsCount` карт как выигрышные
         for (int i = 0; i < winningCardsCount; i++)
         {
+            allCards[i].successSprite = winningSprite;
             allCards[i].HasStar = true;
+        }
+
+        // Выбираем спрайты для остальных карт
+        for (int i = winningCardsCount; i < allCards.Count; i++)
+        {
+            index = UnityEngine.Random.Range(0, allSprites.Length);
+            allCards[i].chosenFailureSprite = allSprites[index];
         }
 
         // Скрываем все карты после небольшой задержки
@@ -122,19 +143,28 @@ public class Board : MonoBehaviour
         UnblockAllCardsInteraction();
     }
 
-    public void ShowCards()
+    private void DisplayCardOnPanel(Card card)
     {
-        foreach (var card in cards)
+        // Проверяем, был ли инициализирован winCardPanel
+        if (winCardPanel != null)
         {
-            card.Flip();
-        }
-    }
+            // Активируем winCardPanel
+            winCardPanel.SetActive(true);
 
-    public void HideCards()
-    {
-        foreach (var card in cards)
-        {
-            card.Flip();
+            // Находим дочерний объект с именем "Image"
+            Transform imageTransform = winCardPanel.transform.Find("Image");
+
+            // Проверяем, нашли ли мы объект
+            if (imageTransform != null)
+            {
+                // Получаем компонент Image этого объекта
+                Image panelImage = imageTransform.GetComponent<Image>();
+                // Используем спрайт выигрышной карты
+                panelImage.sprite = winningSprite;
+
+            // Запускаем Coroutine для скрытия карты после задержки
+            StartCoroutine(HideCardAfterDelay(3));
+            }
         }
     }
 
@@ -142,10 +172,10 @@ public class Board : MonoBehaviour
     {
         if (card.HasStar)
         {
-            // игрок угадал, начисляем очки
+            // игрок угадал, начисляем очки победы
             winscore++;
 
-            // Если общее количество выигрышных карт меньше или равно 3, то даем от 20 до 50 баллов, если больше то от 15 до 40
+            // Если общее количество выигрышных карт меньше или равно 3, то даем от 20 до 50 баллов, если больше - от 15 до 40
             int winningCardsCount = allCards.Count(c => c.HasStar);
             pointsPerCat = winningCardsCount <= 3 ? Random.Range(20, 51) : Random.Range(15, 41);
 
@@ -153,7 +183,7 @@ public class Board : MonoBehaviour
             card.ShowSuccess();
             card.Flip();
 
-            // Если игрок нашел все выигрышные карты, переходим на сцену BonusSceneWin
+            // Если игрок нашел все выигрышные карты, активируем панель winPanel
             if (winscore == winningCardsCount)
             {
                 BlockAllCards();
@@ -175,7 +205,7 @@ public class Board : MonoBehaviour
         }
         else
         {
-            // игрок не угадал, можно уменьшить счет или ничего не делать
+            // игрок не угадал, -1 попытка
             losescore--;
             card.ShowFailure();
             card.Flip();
@@ -189,6 +219,8 @@ public class Board : MonoBehaviour
         }
     }
 
+#endregion
+#region helper methods
     private void BlockAllCards()
     {
         for (int i = 0; i < size; i++)
@@ -228,30 +260,6 @@ public class Board : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    private void DisplayCardOnPanel(Card card)
-    {
-        // Проверяем, был ли инициализирован winCardPanel
-        if (winCardPanel != null)
-        {
-            // Активируем winCardPanel
-            winCardPanel.SetActive(true);
-
-            // Находим дочерний объект с именем "Image"
-            Transform imageTransform = winCardPanel.transform.Find("Image");
-
-            // Проверяем, нашли ли мы объект
-            if (imageTransform != null)
-            {
-                // // Получаем компонент Image этого объекта
-                // Image panelImage = imageTransform.GetComponent<Image>();
-                // panelImage.sprite = card.chosenSprite;
-
-            // Запускаем Coroutine для скрытия карты после задержки
-            StartCoroutine(HideCardAfterDelay(3));
-            }
-        }
-    }
-
     private IEnumerator HideCardAfterDelay(float delay)
     {
         // Ждем указанное количество секунд
@@ -261,3 +269,4 @@ public class Board : MonoBehaviour
         winCardPanel.SetActive(false);
     }
 }
+#endregion
