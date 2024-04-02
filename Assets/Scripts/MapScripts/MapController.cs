@@ -371,6 +371,11 @@ namespace Mkey
                     ClickPassButton(clickIndex, isMissionClicked);
                     return;
                 }
+                if (buttonData.typeLevel == (int)ETypeLevel.additional)
+                {
+                    ClickAdditionalLevelButton(clickIndex, isMissionClicked);
+                    return;
+                }
 
             }
             ClickCurrentLevelButton(clickIndex, isMissionClicked);
@@ -398,6 +403,18 @@ namespace Mkey
                 PlayerPrefs.SetString("SceneToLoad", "QuestionAnswerTestCheckScene");
                 SceneManager.LoadScene("WindowScene", LoadSceneMode.Additive);
             }
+            Vibration.VibratePop();
+        }
+
+        private void ClickAdditionalLevelButton(int clickIndex, bool isMissionClicked = false)
+        {
+            Scene scene = SceneManager.GetSceneByName("BonusScene");
+            if (scene.isLoaded)
+                return;
+            Settings.Current_ButtonOnMapID = clickIndex;
+            Settings.IsMisionClicked = isMissionClicked;
+
+            SceneManager.LoadScene("BonusScene", LoadSceneMode.Additive);
             Vibration.VibratePop();
         }
 
