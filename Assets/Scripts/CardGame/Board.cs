@@ -23,12 +23,17 @@ public class Board : MonoBehaviour
     private int score = 0;
     private Sprite winningSprite;
     private Card winningCard;
-    public int size;
+    private int size;
 
 #region basic methods
 
     void Start()
     {
+        int currentTopic = Settings.Current_Topic;
+
+        // Устанавливаем size в соответствии с Current_Topic, но ограничиваем его минимальным и максимальным значениями
+        size = Mathf.Clamp(currentTopic, 3, 10);
+
         Initialize(size);
     }
 

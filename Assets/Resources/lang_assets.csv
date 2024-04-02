@@ -73,9 +73,9 @@ TimeTask;Общее время занятия более 10 минут;Total tim
 LevelTask;Пройти уровень из трех шагов;Pass the level of three steps;Bestehen Sie die Stufe von drei Schritten;Passa il livello di tre passaggi
 ScoreTask;Набрать 30 очков;Score 30 points;Punkte 30 Punkte;Punteggio 30 punti:
 Return;Вернуться к заданиям;Return to tasks;Zurück zu den Aufgaben;Ritorna ai compiti
+Result;Результаты:;Results:;Ergebnisse:;Risultati:
 Points;баллов;points;punkte;punti
 TryBetter;Нужно больше стараться!;We need to try harder!;Wir müssen uns mehr anstrengen!;Devi provare di più!
-Points;баллов;points;punkte;punti
 SelectIcon;Выбрать иконку;Select icon;Symbol auswählen;Seleziona icona
 PrivacyPolicy;Политика конфиденциальности;Privacy policy;Privacy policy;Privacy policy
 Soon;Скоро в обновлении;Coming soon in update;Bald im Update;Prossimamente in aggiornamento
@@ -96,3 +96,9 @@ LoadMore;Загрузить еще...;Load more...;Mehr laden...;Carica di più.
 LoadPreviousNews;Загрузить предыдущие новости;Load previous news;Vorherige Nachrichten laden;Carica le notizie precedenti
 ChooseCourse;Выбрать курс;Choose a course;Wählen Sie einen Kurs;Scegli un corso
 CourseSelection;Выбор курса:;Course Selection:;Kurswahl:;Scelta del corso:
+LetsPlay;Давай сыграем;Let's play;Lass uns spielen;Andiamo a giocare
+YouLose;Ты проиграл!;You lose!;Du verlierst!;Hai perso!
+YouWin;Ты выиграл!;You win!;Du gewinnst!;Hai vinto!
+WellDone;Молодец!;Well done!;Gut gemacht!;Ben fatto!
+PlayAgain;Сыграем еще?;Play again?;Nochmal spielen?;Ancora una volta?
+SearchCard;Найди все карты с таким изображением;Find all cards with this image;Finde alle Karten mit diesem Bild;Trova tutte le carte con questa immagine
