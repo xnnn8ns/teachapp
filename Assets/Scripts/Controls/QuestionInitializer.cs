@@ -873,67 +873,70 @@ public class QuestionInitializer : MonoBehaviour
     {
         if (_currentQuestionIndex >= _questionsCurrentLevel.Count)
         {
-            ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
-            int score = ComonFunctions.GetScoreForLevel(buttonData.score, buttonData.passCount, (ETypeLevel)buttonData.typeLevel);
-            PlayerPrefs.SetInt("AddedScore", score);
-            int totalScore = UserData.Score + score;
-            UserData.SetScore(totalScore);
-            int errorCount = PlayerPrefs.GetInt("ErrorCount", 0); ;
-            int starCount = 0;
-            Debug.Log("STAR______________");
-            Debug.Log(_secondsCountOnStart);
-            if(errorCount <= 0)
-                starCount = ComonFunctions.GetStarCountAfterLevelPass(_secondsCountOnStart, _secondsCountToLeft, buttonData.typeLevel);
-            Debug.Log(starCount);
-            Debug.Log(_secondsCountToLeft);
-            buttonData.passCount++;
-            if (buttonData.typeLevel == (int)ETypeLevel.simple)
-                buttonData.activeStarsCount += starCount;
-            else
-                buttonData.activeStarsCount = starCount;
-            if (buttonData.activeStarsCount > 3)
-                buttonData.activeStarsCount = 3;
+            //ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
+            //int score = ComonFunctions.GetScoreForLevel(buttonData.score, buttonData.passCount, (ETypeLevel)buttonData.typeLevel);
+            //PlayerPrefs.SetInt("AddedScore", score);
+            //int totalScore = UserData.Score + score;
+            //UserData.SetScore(totalScore);
+            //int errorCount = PlayerPrefs.GetInt("ErrorCount", 0); ;
+            //int starCount = 0;
+            //Debug.Log("STAR______________");
+            //Debug.Log(_secondsCountOnStart);
+            //if(errorCount <= 0)
+            //    starCount = ComonFunctions.GetStarCountAfterLevelPass(_secondsCountOnStart, _secondsCountToLeft, buttonData.typeLevel);
+            //Debug.Log(starCount);
+            //Debug.Log(_secondsCountToLeft);
+            //buttonData.passCount++;
+            //if (buttonData.typeLevel == (int)ETypeLevel.simple)
+            //    buttonData.activeStarsCount += starCount;
+            //else
+            //    buttonData.activeStarsCount = starCount;
+            //if (buttonData.activeStarsCount > 3)
+            //    buttonData.activeStarsCount = 3;
 
-            bool isPassed = false;
-            int currentLevel = Settings.Current_ButtonOnMapID;
+            //bool isPassed = false;
+            //int currentLevel = Settings.Current_ButtonOnMapID;
 
             PlayerPrefs.SetFloat("PassSeconds", _secondsCountToLeft);
             PlayerPrefs.SetInt("PassQuestionCount", GetQuestionCountCurrentQuestionList());
 
-            DataLoader.SaveLevelResults(currentLevel, buttonData.isActive, isPassed, buttonData.activeStarsCount, buttonData.passCount);
+            //DataLoader.SaveLevelResults(currentLevel, buttonData.isActive, isPassed, buttonData.activeStarsCount, buttonData.passCount);
 
-            if (buttonData.passCount >= buttonData.totalForPassCount)
-            {
-                Settings.Current_ButtonOnMapID++;
-                DataLoader.SaveCurrentLevel();
-                isPassed = true;
+            //if (buttonData.passCount >= buttonData.totalForPassCount)
+            //{
+            //    Settings.Current_ButtonOnMapID++;
+            //    DataLoader.SaveCurrentLevel();
+            //    isPassed = true;
 
-                // Получаем данные следующего уровня
-                ButtonData nextButtonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
+            //    // Получаем данные следующего уровня
+            //    ButtonData nextButtonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
 
-                // Если следующий уровень уже существует, но не активен, делаем его активным
-                if (nextButtonData != null && !nextButtonData.isActive)
-                {
-                    nextButtonData.isActive = true;
-                    DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, nextButtonData.isActive, nextButtonData.isPassed, nextButtonData.activeStarsCount, nextButtonData.passCount);
-                }
-                // Если следующего уровня еще не существует, создаем его и делаем активным
-                else if (nextButtonData == null)
-                {
-                    DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, true, false, 0, 0);
-                }
-            }
+            //    // Если следующий уровень уже существует, но не активен, делаем его активным
+            //    if (nextButtonData != null && !nextButtonData.isActive)
+            //    {
+            //        nextButtonData.isActive = true;
+            //        DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, nextButtonData.isActive, nextButtonData.isPassed, nextButtonData.activeStarsCount, nextButtonData.passCount);
+            //    }
+            //    // Если следующего уровня еще не существует, создаем его и делаем активным
+            //    else if (nextButtonData == null)
+            //    {
+            //        DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, true, false, 0, 0);
+            //    }
+            //}
 
-            if (isPassed && buttonData.activeStarsCount == 3 && buttonData.passCount == 3) // set next level = true -- isActive, to show on map
-            {
-                // Проверяем, был ли текущий уровень полностью пройден
-                DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, true, false, 0, 0);
-            }
-            
-            Debug.Log("UpdateUser: " + UserData.Score);
-            if (UserData.UserID != "")
-                StartCoroutine(ComonFunctions.Instance.UpdateUser(UserData.UserID, UserData.UserName, UserData.UserEmail, UserData.UserPassword, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID, UserData.Score));
-            PlayerPrefs.SetInt("ErrorCount", 0);
+            //if (isPassed && buttonData.activeStarsCount == 3 && buttonData.passCount == 3) // set next level = true -- isActive, to show on map
+            //{
+            //    // Проверяем, был ли текущий уровень полностью пройден
+            //    DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, true, false, 0, 0);
+            //}
+
+            //Debug.Log("UpdateUser: " + UserData.Score);
+            //if (UserData.UserID != "")
+            //    StartCoroutine(ComonFunctions.Instance.UpdateUser(UserData.UserID, UserData.UserName, UserData.UserEmail, UserData.UserPassword, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID, UserData.Score));
+            //PlayerPrefs.SetInt("ErrorCount", 0);
+
+            ComonFunctions.Instance.SetNextLevel(_secondsCountOnStart, _secondsCountToLeft);
+
             ActionLevelCompleted.Invoke();
         }
     }

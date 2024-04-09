@@ -414,7 +414,7 @@ namespace Mkey
             Settings.Current_ButtonOnMapID = clickIndex;
             Settings.IsMisionClicked = isMissionClicked;
 
-            SceneManager.LoadScene("BonusScene", LoadSceneMode.Additive);
+            SceneManager.LoadScene("BonusScene", LoadSceneMode.Single);
             Vibration.VibratePop();
         }
 

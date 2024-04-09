@@ -8,6 +8,8 @@ using TMPro;
 
 public class Board : MonoBehaviour
 {
+    public event System.Action ActionLevelCompleted;
+
     private List<Card> allCards;
     private Card[,] cards;
     private int winscore = 0;
@@ -191,6 +193,8 @@ public class Board : MonoBehaviour
             // Если игрок нашел все выигрышные карты, активируем панель winPanel
             if (winscore == winningCardsCount)
             {
+                PlayerPrefs.SetInt("ErrorCount", 0);
+                ComonFunctions.Instance.SetNextLevel(60, 30);
                 BlockAllCards();
                 winPanel.SetActive(true);
                 // Загружаем текущий счет из PlayerPrefs
@@ -199,6 +203,7 @@ public class Board : MonoBehaviour
                 currentScore += score;
                 // Сохраняем обновленный счет обратно в PlayerPrefs
                 PlayerPrefs.SetInt("Score", currentScore);
+                PlayerPrefs.SetInt("AddedScore", score);
                 scoreText.text = score.ToString();
                 AudioSource audioSource = FindObjectOfType<AudioSource>();
                 if (audioSource != null)
@@ -218,6 +223,8 @@ public class Board : MonoBehaviour
             // Если очков проигрыша равняются размеру поля или больше, переходим на сцену BonusSceneLose
             if (losescore <= -size)
             {
+                PlayerPrefs.SetInt("ErrorCount", losescore);
+                ComonFunctions.Instance.SetNextLevel(60, 30);
                 BlockAllCards();
                 StartCoroutine(LoadSceneAfterDelay("BonusSceneLose", 1));
             }
@@ -225,6 +232,7 @@ public class Board : MonoBehaviour
     }
 
 #endregion
+
 #region helper methods
     private void BlockAllCards()
     {
@@ -262,7 +270,7 @@ public class Board : MonoBehaviour
     private IEnumerator LoadSceneAfterDelay(string sceneName, float delay)
     {
         yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneName,LoadSceneMode.Single);
     }
 
     private IEnumerator HideCardAfterDelay(float delay)
@@ -272,6 +280,68 @@ public class Board : MonoBehaviour
 
         // Скрываем winCardPanel
         winCardPanel.SetActive(false);
+    }
+
+    private void SetNextLevel()
+    {
+        //ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
+        //int score = ComonFunctions.GetScoreForLevel(buttonData.score, buttonData.passCount, (ETypeLevel)buttonData.typeLevel);
+        //UserData.SetScore(PlayerPrefs.GetInt("Score", 0));
+        //int errorCount = PlayerPrefs.GetInt("ErrorCount", 0);
+        //int starCount = 0;
+        //starCount = ComonFunctions.GetStarCountAfterLevelPass(120, 60, buttonData.typeLevel);
+        //buttonData.passCount++;
+        //if (buttonData.typeLevel == (int)ETypeLevel.simple)
+        //    buttonData.activeStarsCount += starCount;
+        //else
+        //    buttonData.activeStarsCount = starCount;
+        //if (buttonData.activeStarsCount > 3)
+        //    buttonData.activeStarsCount = 3;
+
+        //bool isPassed = false;
+        //int currentLevel = Settings.Current_ButtonOnMapID;
+
+        //PlayerPrefs.SetFloat("PassSeconds", 0);
+        //PlayerPrefs.SetInt("PassQuestionCount", 1);
+
+        //DataLoader.SaveLevelResults(currentLevel, buttonData.isActive, isPassed, buttonData.activeStarsCount, buttonData.passCount);
+
+        //if (buttonData.passCount >= buttonData.totalForPassCount)
+        //{
+        //    Settings.Current_ButtonOnMapID++;
+        //    DataLoader.SaveCurrentLevel();
+        //    isPassed = true;
+
+        //    // Получаем данные следующего уровня
+        //    ButtonData nextButtonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
+
+        //    // Если следующий уровень уже существует, но не активен, делаем его активным
+        //    if (nextButtonData != null && !nextButtonData.isActive)
+        //    {
+        //        nextButtonData.isActive = true;
+        //        DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, nextButtonData.isActive, nextButtonData.isPassed, nextButtonData.activeStarsCount, nextButtonData.passCount);
+        //    }
+        //    // Если следующего уровня еще не существует, создаем его и делаем активным
+        //    else if (nextButtonData == null)
+        //    {
+        //        DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, true, false, 0, 0);
+        //    }
+        //}
+
+        //if (isPassed && buttonData.activeStarsCount == 3 && buttonData.passCount == 3) // set next level = true -- isActive, to show on map
+        //{
+        //    // Проверяем, был ли текущий уровень полностью пройден
+        //    DataLoader.SaveLevelResults(Settings.Current_ButtonOnMapID, true, false, 0, 0);
+        //}
+
+        //Debug.Log("UpdateUser: " + UserData.Score);
+        //if (UserData.UserID != "")
+        //    StartCoroutine(ComonFunctions.Instance.UpdateUser(UserData.UserID, UserData.UserName, UserData.UserEmail, UserData.UserPassword, UserData.UserAvatarID, UserData.IsByVK, UserData.VKID, UserData.Score));
+        //PlayerPrefs.SetInt("ErrorCount", 0);
+        //ActionLevelCompleted.Invoke();
+
+        //ComonFunctions.Instance.SetNextLevel(60, 30);
+
     }
 }
 #endregion
