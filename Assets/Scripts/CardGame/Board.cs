@@ -17,6 +17,7 @@ public class Board : MonoBehaviour
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject winPanel;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private Text timerText;
     [SerializeField] private AudioClip winSound;
     [SerializeField] private GameObject winCardPanel;
     [SerializeField] private Sprite[] allSprites;
@@ -26,16 +27,42 @@ public class Board : MonoBehaviour
     private Sprite winningSprite;
     private Card winningCard;
     private int size;
+    private int currentTopic;
+    private int timerDuration;
+    private bool gameWin = false;
+    private bool gameLose = false;
 
 #region basic methods
 
     void Start()
     {
-        int currentTopic = Settings.Current_Topic;
-
-        // Устанавливаем size в соответствии с Current_Topic, но ограничиваем его минимальным и максимальным значениями
-        size = Mathf.Clamp(currentTopic, 3, 10);
-
+        currentTopic = Settings.Current_Topic;
+    
+        // Устанавливаем size и timerDuration в соответствии с Current_Topic
+        int[] sizes = { 3, 3, 4, 5 };
+        int[] timerDurations = { 10, 15, 20, 25, 30 };
+    
+        if (currentTopic >= 0 && currentTopic <= 4)
+        {
+            size = sizes[currentTopic];
+        }
+        else
+        {
+            size = Mathf.RoundToInt(currentTopic / 1.2f);
+        }
+    
+        if (currentTopic >= 0 && currentTopic <= 9)
+        {
+            timerDuration = timerDurations[currentTopic / 3];
+        }
+        else
+        {
+            timerDuration = 60;
+        }
+    
+        // Обновляем текст таймера
+        timerText.text = string.Format("{0:D2}:{1:D2}", timerDuration / 60, timerDuration % 60);
+    
         Initialize(size);
     }
 
@@ -89,30 +116,66 @@ public class Board : MonoBehaviour
 
         // Генерируем случайное число от 2 до size включительно
         int winningCardsCount = Random.Range(2, size + 1);
-
-        // Выбираем случайный спрайт из массива allSprites для всех выигрышных карт
-        int index = UnityEngine.Random.Range(0, allSprites.Length);
-        winningSprite = allSprites[index];
-
-        // Удаляем выбранный спрайт из массива
-        List<Sprite> tempList = new List<Sprite>(allSprites);
-        tempList.RemoveAt(index);
-        allSprites = tempList.ToArray();
-
-        // Устанавливаем первые `winningCardsCount` карт как выигрышные
-        for (int i = 0; i < winningCardsCount; i++)
+        
+        if (currentTopic >= 0 && currentTopic <= 4)
         {
-            allCards[i].successSprite = winningSprite;
-            allCards[i].HasStar = true;
-        }
-
-        // Выбираем спрайты для остальных карт
-        for (int i = winningCardsCount; i < allCards.Count; i++)
-        {
+            // Выбираем спрайт с индексом 3 из массива allSprites для всех проигрышных карт
+            int index = 3;
+            Sprite failureSprite = allSprites[index];
+        
+            // Удаляем выбранный спрайт из массива
+            List<Sprite> tempList = new List<Sprite>(allSprites);
+            tempList.RemoveAt(index);
+            allSprites = tempList.ToArray();
+        
+            // Устанавливаем спрайт для всех проигрышных карт
+            for (int i = winningCardsCount; i < allCards.Count; i++)
+            {
+                allCards[i].chosenFailureSprite = failureSprite;
+            }
+        
+            // Выбираем случайный спрайт из массива allSprites для всех выигрышных карт
             index = UnityEngine.Random.Range(0, allSprites.Length);
-            allCards[i].chosenFailureSprite = allSprites[index];
+            winningSprite = allSprites[index];
+        
+            // Удаляем выбранный спрайт из массива
+            tempList = new List<Sprite>(allSprites);
+            tempList.RemoveAt(index);
+            allSprites = tempList.ToArray();
+        
+            // Устанавливаем первые `winningCardsCount` карт как выигрышные
+            for (int i = 0; i < winningCardsCount; i++)
+            {
+                allCards[i].successSprite = winningSprite;
+                allCards[i].HasStar = true;
+            }
         }
-
+        else
+        {
+            // Выбираем случайный спрайт из массива allSprites для всех выигрышных карт
+            int index = UnityEngine.Random.Range(0, allSprites.Length);
+            winningSprite = allSprites[index];
+        
+            // Удаляем выбранный спрайт из массива
+            List<Sprite> tempList = new List<Sprite>(allSprites);
+            tempList.RemoveAt(index);
+            allSprites = tempList.ToArray();
+        
+            // Устанавливаем первые `winningCardsCount` карт как выигрышные
+            for (int i = 0; i < winningCardsCount; i++)
+            {
+                allCards[i].successSprite = winningSprite;
+                allCards[i].HasStar = true;
+            }
+        
+            // Выбираем спрайты для остальных карт
+            for (int i = winningCardsCount; i < allCards.Count; i++)
+            {
+                index = UnityEngine.Random.Range(0, allSprites.Length);
+                allCards[i].chosenFailureSprite = allSprites[index];
+            }
+        }
+        
         // Скрываем все карты после небольшой задержки
         StartCoroutine(ShowAndHideCards());
     }
@@ -148,6 +211,9 @@ public class Board : MonoBehaviour
 
         // Разблокируем все карты
         UnblockAllCardsInteraction();
+
+        // Запускаем таймер
+        StartCoroutine(StartTimerAfterCardsShown());
     }
 
     private void DisplayCardOnPanel(Card card)
@@ -193,6 +259,7 @@ public class Board : MonoBehaviour
             // Если игрок нашел все выигрышные карты, активируем панель winPanel
             if (winscore == winningCardsCount)
             {
+                gameWin = true;
                 PlayerPrefs.SetInt("ErrorCount", 0);
                 ComonFunctions.Instance.SetNextLevel(60, 30);
                 BlockAllCards();
@@ -223,6 +290,7 @@ public class Board : MonoBehaviour
             // Если очков проигрыша равняются размеру поля или больше, переходим на сцену BonusSceneLose
             if (losescore <= -size)
             {
+                gameLose = true;
                 PlayerPrefs.SetInt("ErrorCount", losescore);
                 ComonFunctions.Instance.SetNextLevel(60, 30);
                 BlockAllCards();
@@ -342,6 +410,31 @@ public class Board : MonoBehaviour
 
         //ComonFunctions.Instance.SetNextLevel(60, 30);
 
+    }
+
+    private IEnumerator StartTimerAfterCardsShown()
+    {
+        while (timerDuration >= 0)
+        {
+            // Если игрок нашел все карты или проиграл, прерываем цикл
+            if (gameWin || gameLose)
+            {
+                break;
+            }
+
+            // Обновляем текст таймера
+            timerText.text = string.Format("{0:D2}:{1:D2}", timerDuration / 60, timerDuration % 60);
+
+            yield return new WaitForSeconds(1);
+
+            timerDuration--;
+        }
+
+        // Код, который будет выполняться после истечения времени таймера
+        PlayerPrefs.SetInt("ErrorCount", losescore);
+        ComonFunctions.Instance.SetNextLevel(60, 30);
+        BlockAllCards();
+        StartCoroutine(LoadSceneAfterDelay("BonusSceneLose", 1));
     }
 }
 #endregion
