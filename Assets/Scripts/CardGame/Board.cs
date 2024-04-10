@@ -183,7 +183,6 @@ public class Board : MonoBehaviour
     private IEnumerator ShowAndHideCards()
     {
         BlockAllCardsInteraction();
-        yield return new WaitForSeconds(1);
 
         // Отображаем выигрышную карту на панели
         DisplayCardOnPanel(winningCard);

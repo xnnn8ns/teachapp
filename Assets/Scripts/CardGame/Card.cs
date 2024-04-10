@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Card : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Card : MonoBehaviour
     public bool HasStar { get; set; }
     public bool IsOpen { get; private set; }
     public bool CanInteract { get; set; } = true;
+    private bool previousIsOpen;
 
     // Событие, которое вызывается, когда карта выбрана
     public event Action<Card> OnCardSelected;
@@ -71,24 +73,39 @@ public class Card : MonoBehaviour
         UpdateCardAppearance();
     }
 
-    private void UpdateCardAppearance()
+    private IEnumerator ChangeSpriteAfterDelay(float delay)
     {
+        yield return new WaitForSeconds(delay);
+    
         if (IsOpen)
         {
-            if (HasStar)
-            {
-                image.sprite = successSprite;
-            }
-            else
-            {
-                // Используем выбранный спрайт для проигрыша
-                image.sprite = chosenFailureSprite;
-            }
+            image.sprite = HasStar ? successSprite : chosenFailureSprite;
         }
         else
         {
             image.sprite = backSprite;
         }
+    }
+    
+    private void UpdateCardAppearance()
+    {
+        Animator animator = GetComponent<Animator>();
+        
+        if (IsOpen != previousIsOpen)
+        {
+            if (IsOpen)
+            {
+                animator.Play("FlipCardUpAnimation");
+            }
+            else
+            {
+                animator.Play("FlipCardDownAnimation");
+            }
+    
+            StartCoroutine(ChangeSpriteAfterDelay(0.364f));
+        }
+    
+        previousIsOpen = IsOpen;
     }
 
     public void Block()
