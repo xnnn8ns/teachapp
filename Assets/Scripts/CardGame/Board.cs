@@ -23,7 +23,7 @@ public class Board : MonoBehaviour
     [SerializeField] private Sprite[] allSprites;
     private int winningCardIndex;
     private int pointsPerCat;
-    private int score = 0;
+    //private int score = 0;
     private Sprite winningSprite;
     private Card winningCard;
     private int size;
@@ -252,7 +252,7 @@ public class Board : MonoBehaviour
             int winningCardsCount = allCards.Count(c => c.HasStar);
             pointsPerCat = winningCardsCount <= 3 ? Random.Range(20, 51) : Random.Range(15, 41);
 
-            score += pointsPerCat;
+            //score += pointsPerCat;
             card.ShowSuccess();
             card.Flip();
 
@@ -266,6 +266,10 @@ public class Board : MonoBehaviour
                 winPanel.SetActive(true);
                 // Загружаем текущий счет из PlayerPrefs
                 int currentScore = PlayerPrefs.GetInt("Score", 0);
+
+                ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
+                int score = buttonData.score;
+
                 // Добавляем к текущему счету очки за эту игру
                 currentScore += score;
                 // Сохраняем обновленный счет обратно в PlayerPrefs
@@ -418,23 +422,27 @@ public class Board : MonoBehaviour
         {
             // Если игрок нашел все карты или проиграл, прерываем цикл
             if (gameWin || gameLose)
-            {
-                break;
-            }
+                yield break;
 
             // Обновляем текст таймера
             timerText.text = string.Format("{0:D2}:{1:D2}", timerDuration / 60, timerDuration % 60);
 
             yield return new WaitForSeconds(1);
 
+            if (gameWin || gameLose)
+                yield break;
+
             timerDuration--;
         }
 
         // Код, который будет выполняться после истечения времени таймера
-        PlayerPrefs.SetInt("ErrorCount", losescore);
-        ComonFunctions.Instance.SetNextLevel(60, 30);
-        BlockAllCards();
-        StartCoroutine(LoadSceneAfterDelay("BonusSceneLose", 1));
+        if (!gameWin && !gameLose)
+        {
+            PlayerPrefs.SetInt("ErrorCount", losescore);
+            ComonFunctions.Instance.SetNextLevel(60, 30);
+            BlockAllCards();
+            StartCoroutine(LoadSceneAfterDelay("BonusSceneLose", 1));
+        }
     }
 }
 #endregion
