@@ -20,6 +20,8 @@ public class Board : MonoBehaviour
     [SerializeField] private Text timerText;
     [SerializeField] private AudioClip winSound;
     [SerializeField] private GameObject winCardPanel;
+    [SerializeField] private GameObject rememberButton;
+    [SerializeField] private GameObject timerObject;
     [SerializeField] private Sprite[] allSprites;
     private int winningCardIndex;
     private int pointsPerCat;
@@ -31,6 +33,9 @@ public class Board : MonoBehaviour
     private int timerDuration;
     private bool gameWin = false;
     private bool gameLose = false;
+
+    private bool isRememberButtonPressed = false;
+    private bool areCardsShown = false;
 
 #region basic methods
 
@@ -197,7 +202,10 @@ public class Board : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(3);
+        areCardsShown = true; // Устанавливаем флаг, что все карты показаны
+
+        // Ждем, пока пользователь не нажмет кнопку "Я запомнил"
+        yield return new WaitUntil(() => isRememberButtonPressed);
 
         // Скрываем все карты
         for (int i = 0; i < size; i++)
@@ -207,6 +215,8 @@ public class Board : MonoBehaviour
                 cards[i, j].Flip();
             }
         }
+
+        areCardsShown = false; // Устанавливаем флаг, что все карты скрыты
 
         // Разблокируем все карты
         UnblockAllCardsInteraction();
@@ -305,6 +315,15 @@ public class Board : MonoBehaviour
 #endregion
 
 #region helper methods
+    public void RememberButtonPressed()
+    {
+        if (!areCardsShown) return; // Если карты еще не показаны, не обрабатываем нажатие кнопки
+
+        isRememberButtonPressed = true;
+        timerObject.SetActive(true); // включаем объект таймер
+        rememberButton.SetActive(false); // скрываем кнопку "Запомнил"
+    }
+
     private void BlockAllCards()
     {
         for (int i = 0; i < size; i++)

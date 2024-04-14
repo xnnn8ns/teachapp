@@ -9,11 +9,12 @@ public class LastScene : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject newWindow;
     [SerializeField] private GameObject alreadyRequestedWindow;
+    [SerializeField] private GameObject errorWindow;
     [SerializeField] private Button requestCertButton;
     [SerializeField] private Button certLinkButton;
-    [SerializeField] private GameObject errorWindow;
     [SerializeField] private GetCertificateFromServer certificateFromServer;
     [SerializeField] private TextMeshProUGUI buttonName;
+    [SerializeField] private TMP_InputField userNameInputField;
     private bool hasRequestedCertificate = false;
 
     
@@ -59,21 +60,6 @@ public class LastScene : MonoBehaviour
             Color c = panel.GetComponent<Image>().color;
             c.a = f;
             panel.GetComponent<Image>().color = c;
-            yield return new WaitForSeconds(0.1f);
-        }
-        yield return new WaitForSeconds(0.2f);
-        foreach (Transform child in panel.transform)
-        {
-            // подгрузка текста из Data файла
-            child.gameObject.SetActive(true);
-            if (child.name == "FIO")
-            {
-                var textComponent = child.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-                if (textComponent != null)
-                {
-                    textComponent.text = UserData.UserFullName;
-                }
-            }
         }
     }
 
@@ -85,13 +71,19 @@ public class LastScene : MonoBehaviour
 
     public void AllCorrectClick()
     {
-        Debug.Log("AllCorrectClick");
-        if (string.IsNullOrEmpty(UserData.UserFullName))
+        // Получите новые данные пользователя из полей ввода
+        string newUserName = userNameInputField.text;
+    
+        // Проверьте, были ли введены новые данные
+        if (string.IsNullOrEmpty(newUserName))
         {
             errorWindow.SetActive(true); // активируем окно ошибки
             return;
         }
-
+    
+        // Обновите данные пользователя
+        UserData.UserFullName = newUserName;
+    
         hasRequestedCertificate = true;
         StartCoroutine(AllCorrectClickCoroutine());
         certificateFromServer.GetHtmlFile(CertificateReady);
