@@ -354,16 +354,17 @@ namespace Mkey
                 Debug.Log("ClickLevelButton-passCount: " + buttonData.passCount);
                 Debug.Log("ClickLevelButton-totalForPassCount: " + buttonData.totalForPassCount);
                 Debug.Log("ClickLevelButton-typeLevel: " + buttonData.typeLevel);
-                if (!buttonData.isActive)
-                {
-                    ClickFutureButton();
-                    return;
-                }
+                //clickIndex = LastLevel.lastLevelIndex;
                 // Если это последний уровень, переключаемся на WindowLastScene
                 if (clickIndex == LastLevel.lastLevelIndex)
                 {
 
                     SwitchToLastLevel();
+                    return;
+                }
+                if (!buttonData.isActive)
+                {
+                    ClickFutureButton();
                     return;
                 }
                 if (buttonData.isPassed)
