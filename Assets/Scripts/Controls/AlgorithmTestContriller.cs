@@ -289,7 +289,7 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static void ImportKeyComparison()
     {
         GetKeyComparison().Clear();
-        var dataset = Resources.Load<TextAsset>("keys/keywords_comparison");
+        var dataset = Resources.Load<TextAsset>("keys/keywords_build_in_for_test/keywords_comparison");
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
@@ -301,7 +301,7 @@ public class AlgorithmTestContriller : MonoBehaviour
     private static void ImportKeyLogic()
     {
         GetKeyLogic().Clear();
-        var dataset = Resources.Load<TextAsset>("keys/keywords_logic");
+        var dataset = Resources.Load<TextAsset>("keys/keywords_build_in_for_test/keywords_logic");
         var splitDataset = dataset.text.Split(new char[] { '\n' });
         for (var i = 0; i < splitDataset.Length; i++)
         {
