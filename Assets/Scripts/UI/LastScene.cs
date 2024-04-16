@@ -15,6 +15,9 @@ public class LastScene : MonoBehaviour
     [SerializeField] private GetCertificateFromServer certificateFromServer;
     [SerializeField] private TextMeshProUGUI buttonName;
     [SerializeField] private TMP_InputField userNameInputField;
+    [SerializeField] private TextMeshProUGUI previewFIO;
+    [SerializeField] private Button confirmButton;
+    [SerializeField] private Button AllCorrectButton;
     private bool hasRequestedCertificate = false;
 
     
@@ -55,7 +58,7 @@ public class LastScene : MonoBehaviour
     {
         yield return new WaitForSeconds(0.25f);
         // плавное появление панели
-        for (float f = 0f; f <= 1f; f += 0.1f)
+        for (float f = 0f; f <= 1f; f += 0.2f)
         {
             Color c = panel.GetComponent<Image>().color;
             c.a = f;
@@ -83,7 +86,19 @@ public class LastScene : MonoBehaviour
     
         // Обновите данные пользователя
         UserData.UserFullName = newUserName;
-    
+
+        // Обновляем текст предпросмотра
+        previewFIO.text = newUserName;
+
+        // Активируем кнопку "Вы уверены?"
+        confirmButton.gameObject.SetActive(true);
+
+        // Отключаем изначальную кнопку
+        AllCorrectButton.gameObject.SetActive(false);
+    }
+
+    public void ConfirmClick()
+    {
         hasRequestedCertificate = true;
         StartCoroutine(AllCorrectClickCoroutine());
         certificateFromServer.GetHtmlFile(CertificateReady);

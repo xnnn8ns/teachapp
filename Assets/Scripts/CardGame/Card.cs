@@ -14,6 +14,9 @@ public class Card : MonoBehaviour
     public Sprite[] allSprites;
     public Sprite chosenFailureSprite;
     public Image image;
+    public AudioClip flipSound;
+    public AudioSource audioSource;
+    private static int playingSoundsCount = 0;
     public bool HasStar { get; set; }
     public bool IsOpen { get; private set; }
     public bool CanInteract { get; set; } = true;
@@ -21,6 +24,11 @@ public class Card : MonoBehaviour
 
     // Событие, которое вызывается, когда карта выбрана
     public event Action<Card> OnCardSelected;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public void Initialize(bool hasStar, bool isFaceUp = false)
     {
@@ -59,6 +67,20 @@ public class Card : MonoBehaviour
     {
         IsOpen = !IsOpen;
         UpdateCardAppearance();
+
+        // Воспроизведите звук переворачивания карты, только если воспроизводится менее двух звуков
+        if (playingSoundsCount < 2)
+        {
+            playingSoundsCount++;
+            StartCoroutine(PlayFlipSound());
+        }
+    }
+
+    private IEnumerator PlayFlipSound()
+    {
+        audioSource.PlayOneShot(flipSound);
+        yield return new WaitForSeconds(flipSound.length);
+        playingSoundsCount--;
     }
 
     public void ShowSuccess()

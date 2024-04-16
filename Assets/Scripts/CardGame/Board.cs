@@ -18,10 +18,13 @@ public class Board : MonoBehaviour
     [SerializeField] private GameObject winPanel;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private Text timerText;
-    [SerializeField] private AudioClip winSound;
     [SerializeField] private GameObject winCardPanel;
     [SerializeField] private GameObject rememberButton;
     [SerializeField] private GameObject timerObject;
+    [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip winSound2;
+    [SerializeField] private AudioClip loseSound;
+    [SerializeField] private Animator animator;
     [SerializeField] private Sprite[] allSprites;
     private int winningCardIndex;
     private int pointsPerCat;
@@ -31,6 +34,7 @@ public class Board : MonoBehaviour
     private int size;
     private int currentTopic;
     private int timerDuration;
+    private AudioSource audioSource;
     private bool gameWin = false;
     private bool gameLose = false;
 
@@ -67,6 +71,8 @@ public class Board : MonoBehaviour
     
         // Обновляем текст таймера
         timerText.text = string.Format("{0:D2}:{1:D2}", timerDuration / 60, timerDuration % 60);
+
+        audioSource = GetComponent<AudioSource>();
     
         Initialize(size);
     }
@@ -272,25 +278,12 @@ public class Board : MonoBehaviour
                 PlayerPrefs.SetInt("ErrorCount", 0);
                 ComonFunctions.Instance.SetNextLevel(60, 30);
                 BlockAllCards();
-                winPanel.SetActive(true);
-                // Загружаем текущий счет из PlayerPrefs
-                int currentScore = PlayerPrefs.GetInt("Score", 0);
 
-                ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
-                int score = buttonData.score;
+                // Воспроизводим звук победы и активируем систему частиц
+                audioSource.clip = winSound;
+                audioSource.Play();
 
-                // Добавляем к текущему счету очки за эту игру
-                currentScore += score;
-                // Сохраняем обновленный счет обратно в PlayerPrefs
-                PlayerPrefs.SetInt("Score", currentScore);
-                PlayerPrefs.SetInt("AddedScore", score);
-                scoreText.text = score.ToString();
-                AudioSource audioSource = FindObjectOfType<AudioSource>();
-                if (audioSource != null)
-                {
-                    audioSource.clip = winSound;
-                    audioSource.Play();
-                }
+                StartCoroutine(WinCoroutine());
             }
         }
         else
@@ -307,7 +300,12 @@ public class Board : MonoBehaviour
                 PlayerPrefs.SetInt("ErrorCount", losescore);
                 ComonFunctions.Instance.SetNextLevel(60, 30);
                 BlockAllCards();
-                StartCoroutine(LoadSceneAfterDelay("BonusSceneLose", 1));
+
+                // Воспроизводим звук проигрыша
+                audioSource.clip = loseSound;
+                audioSource.Play();
+
+                StartCoroutine(LoadSceneAfterDelay("BonusSceneLose", 2.5f));
             }
         }
     }
@@ -361,6 +359,34 @@ public class Board : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(sceneName,LoadSceneMode.Single);
+    }
+
+    IEnumerator WinCoroutine()
+    {
+       // Ждем 2 секунды
+        yield return new WaitForSeconds(2f);
+
+        winPanel.SetActive(true);
+
+        audioSource.clip = winSound2;
+        audioSource.Play();
+
+        // Запускаем анимацию
+        animator.speed = 0.85f;
+        animator.Play("Anim2");
+
+        // Загружаем текущий счет из PlayerPrefs
+        int currentScore = PlayerPrefs.GetInt("Score", 0);
+
+        ButtonData buttonData = DataLoader.GetLevelData(Settings.Current_ButtonOnMapID);
+        int score = buttonData.score;
+
+        // Добавляем к текущему счету очки за эту игру
+        currentScore += score;
+        // Сохраняем обновленный счет обратно в PlayerPrefs
+        PlayerPrefs.SetInt("Score", currentScore);
+        PlayerPrefs.SetInt("AddedScore", score);
+        scoreText.text = score.ToString();
     }
 
     private IEnumerator HideCardAfterDelay(float delay)
