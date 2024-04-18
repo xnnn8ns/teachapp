@@ -409,14 +409,22 @@ namespace Mkey
 
         private void ClickAdditionalLevelButton(int clickIndex, bool isMissionClicked = false)
         {
-            Scene scene = SceneManager.GetSceneByName("BonusScene");
-            if (scene.isLoaded)
-                return;
-            Settings.Current_ButtonOnMapID = clickIndex;
-            Settings.IsMisionClicked = isMissionClicked;
+            ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
+            if (buttonData != null)
+            {
+                // Определите имя сцены на основе четности номера темы
+                string sceneName = (buttonData.topic % 2 == 0) ? "BonusScene2" : "BonusScene";
 
-            SceneManager.LoadScene("BonusScene", LoadSceneMode.Single);
-            Vibration.VibratePop();
+                Scene scene = SceneManager.GetSceneByName(sceneName);
+                if (scene.isLoaded)
+                    return;
+
+                Settings.Current_ButtonOnMapID = clickIndex;
+                Settings.IsMisionClicked = isMissionClicked;
+
+                SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+                Vibration.VibratePop();
+            }
         }
 
         private void ClickPassButton(int clickIndex, bool isMissionClicked = false)
