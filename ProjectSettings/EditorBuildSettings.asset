@@ -83,4 +83,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/QuizScenes/BonusScene.unity
     guid: ecc64a0a3b3cc594db552413d1471897
+  - enabled: 1
+    path: Assets/Scenes/QuizScenes/BonusScene2.unity
+    guid: 629855237a1a85747a9b67ada89cb82c
   m_configObjects: {}
