@@ -1,0 +1,236 @@
+[
+    {
+        "id": 1,
+        "fullLine": "x = 0;\nprint(x)",
+        "rectangles": ["x = 0;", "\nprint", "(x)"],
+        "bugIndex": [0]
+    },
+    {
+        "id": 2,
+        "fullLine": "for i in range(n, n):\n\tprint(i)",
+        "rectangles": ["for i", "in", "range(n, n):", "\n \tprint", "(i)"],
+        "bugIndex": [2, 3]
+    },
+    {
+        "id": 3,
+        "fullLine": "if x > 5:\n \tprint('Greater than 5')",
+        "rectangles": ["if", "x > 5:", "\n \tprint", "('>5')"],
+        "bugIndex": []
+    },
+    {
+        "id": 4,
+        "fullLine": "while x > 0:\n \tx -= 1",
+        "rectangles": ["while", "x > 0:", "\n \tx ", "-= 1"],
+        "bugIndex": []
+    },
+    {
+        "id": 5,
+        "fullLine": "def hello():\n\treturn 'Hello, world!'",
+        "rectangles": ["def ", "hello():", "\n \treturn ", "'Hello, world!'"],
+        "bugIndex": []
+    },
+    {
+        "id": 6,
+        "fullLine": "for i in n:\n\tprint(i)",
+        "rectangles": ["for i", "in n:", "\n \tprint", "(i)"],
+        "bugIndex": [1]
+    },
+    {
+        "id": 7,
+        "fullLine": "x = 5\nif x = 10:\n\tprint('x')",
+        "rectangles": ["x = 5", "\nif", "x = 10:", "\n \tprint", "('x')"],
+        "bugIndex": [2]
+    },
+    {
+        "id": 8,
+        "fullLine": "while x > 0\n\tx - 1",
+        "rectangles": ["while", "x > 0", "\n \tx ", "- 1"],
+        "bugIndex": [3]
+    },
+    {
+        "id": 9,
+        "fullLine": "def hi():\n\treturn 'Hi!'",
+        "rectangles": ["def ", "hi():", "\n \treturn ", "'Hi!'"],
+        "bugIndex": []
+    },
+    {
+        "id": 10,
+        "fullLine": "y = 'Hello'\nprint(y[5])",
+        "rectangles": ["y = 'Hello'", "\nprint", "(y[5])"],
+        "bugIndex": [2]
+    },
+    {
+        "id": 11,
+        "fullLine": "list = [1, 2, 3]\nprint(list[3])",
+        "rectangles": ["list = [1, 2, 3]", "\nprint", "(list[3])"],
+        "bugIndex": [2]
+    },
+    {
+        "id": 12,
+        "fullLine": "dict = {'a': 1}\nprint(dict['b'])",
+        "rectangles": ["dict = {'a': 1}", "\nprint", "(dict['b'])"],
+        "bugIndex": [2]
+    },
+    {
+        "id": 13,
+        "fullLine": "x = 10\ny = 0\nz = x / y",
+        "rectangles": ["x = 10", "\ny = 0", "\nz = x / y"],
+        "bugIndex": [2]
+    },
+    {
+        "id": 14,
+        "fullLine": "import math\nprint(math.sqrt(-1))",
+        "rectangles": ["import math", "\nprint", "(math.sqrt(-1))"],
+        "bugIndex": [2]
+    },
+    {
+        "id": 15,
+        "fullLine": "x = '10'\ny = 5\nz = x + y",
+        "rectangles": ["x = '10'", "\ny = 5", "\nz = x + y"],
+        "bugIndex": [2]
+    },
+    {
+        "id": 16,
+        "fullLine": "x = 5\nif x > 5:\n\tprint('x')",
+        "rectangles": ["x = 5", "\nif", "x > 5:", "\n \tprint", "('x')"],
+        "bugIndex": []
+    },
+    {
+        "id": 17,
+        "fullLine": "for i in range(5):\n\tprint(i)",
+        "rectangles": ["for i", "in range(5):", "\n \tprint", "(i)"],
+        "bugIndex": []
+    },
+    {
+        "id": 18,
+        "fullLine": "x = 10\ny = 2\nz = x % y",
+        "rectangles": ["x = 10", "\ny = 2", "\nz = x % y"],
+        "bugIndex": []
+    },
+    {
+        "id": 19,
+        "fullLine": "list = [1, 2, 3]\nprint(list[1])",
+        "rectangles": ["list = [1, 2, 3]", "\nprint", "(list[1])"],
+        "bugIndex": []
+    },
+    {
+        "id": 20,
+        "fullLine": "dict = {'a': 1}\nprint(dict['a'])",
+        "rectangles": ["dict = {'a': 1}", "\nprint", "(dict['a'])"],
+        "bugIndex": []
+    },
+    {
+        "id": 21,
+        "fullLine": "for i in n\n\tprint(i)",
+        "rectangles": ["for i", "in n", "\n \tprint", "(i)"],
+        "bugIndex": [1, 2]
+    },
+    {
+        "id": 22,
+        "fullLine": "x = 5\nif x = 10\n\tprint('x')",
+        "rectangles": ["x = 5", "\nif", "x = 10", "\n \tprint", "('x')"],
+        "bugIndex": [2, 3]
+    },
+    {
+        "id": 23,
+        "fullLine": "while x > 0\n\tx - 1",
+        "rectangles": ["while", "x > 0", "\n \tx ", "- 1"],
+        "bugIndex": [1, 3]
+    },
+    {
+        "id": 24,
+        "fullLine": "def hi()\n\treturn 'Hi!'",
+        "rectangles": ["def ", "hi()", "\n \treturn ", "'Hi!'"],
+        "bugIndex": [1, 2]
+    },
+    {
+        "id": 25,
+        "fullLine": "y = 'Hello'\nprint(y[5])",
+        "rectangles": ["y = 'Hello'", "\nprint", "(y[5])"],
+        "bugIndex": [2, 3]
+    },
+    {
+        "id": 26,
+        "fullLine": "list = [1, 2, 3]\nprint(list[3])",
+        "rectangles": ["list = [1, 2, 3]", "\nprint", "(list[3])"],
+        "bugIndex": [2, 3]
+    },
+    {
+        "id": 27,
+        "fullLine": "dict = {'a': 1}\nprint(dict['b'])",
+        "rectangles": ["dict = {'a': 1}", "\nprint", "(dict['b'])"],
+        "bugIndex": [2, 3]
+    },
+    {
+        "id": 28,
+        "fullLine": "x = 10\ny = 0\nz = x / y",
+        "rectangles": ["x = 10", "\ny = 0", "\nz = x / y"],
+        "bugIndex": [1, 2, 3]
+    },
+    {
+        "id": 29,
+        "fullLine": "import math\nprint(math.sqrt(-1))",
+        "rectangles": ["import math", "\nprint", "(math.sqrt(-1))"],
+        "bugIndex": [2, 3]
+    },
+    {
+        "id": 30,
+        "fullLine": "x = '10'\ny = 5\nz = x + y",
+        "rectangles": ["x = '10'", "\ny = 5", "\nz = x + y"],
+        "bugIndex": [1, 2, 3]
+    },
+    {
+        "id": 31,
+        "fullLine": "x = 10\nprint(x)",
+        "rectangles": ["x = 10", "\nprint", "(x)"],
+        "bugIndex": []
+    },
+    {
+        "id": 32,
+        "fullLine": "for i in range(5):\n\tprint(i)",
+        "rectangles": ["for i", "in range(5):", "\n \tprint", "(i)"],
+        "bugIndex": []
+    },
+    {
+        "id": 33,
+        "fullLine": "list = [1, 2, 3]\nprint(list[3])",
+        "rectangles": ["list = [1, 2, 3]", "\nprint", "(list[3])"],
+        "bugIndex": [2]
+    },
+    {
+        "id": 34,
+        "fullLine": "dict = {'a': 1}\nprint(dict['b'])",
+        "rectangles": ["dict = {'a': 1}", "\nprint", "(dict['b'])"],
+        "bugIndex": [2]
+    },
+    {
+        "id": 35,
+        "fullLine": "x = 10\ny = 0\nz = x / y",
+        "rectangles": ["x = 10", "\ny = 0", "\nz = x / y"],
+        "bugIndex": [2]
+    },
+    {
+        "id": 36,
+        "fullLine": "import math\nprint(math.sqrt(-1))",
+        "rectangles": ["import math", "\nprint", "(math.sqrt(-1))"],
+        "bugIndex": [2]
+    },
+    {
+        "id": 37,
+        "fullLine": "x = '10'\ny = 5\nz = x + y",
+        "rectangles": ["x = '10'", "\ny = 5", "\nz = x + y"],
+        "bugIndex": [2]
+    },
+    {
+        "id": 38,
+        "fullLine": "x = 5\nif x = 10:\n\tprint('x')",
+        "rectangles": ["x = 5", "\nif", "x = 10:", "\n \tprint", "('x')"],
+        "bugIndex": [2]
+    },
+    {
+        "id": 39,
+        "fullLine": "for i in range(5):\n\tprint(i)",
+        "rectangles": ["for i", "in range(5):", "\n \tprint", "(i)"],
+        "bugIndex": []
+    }
+]

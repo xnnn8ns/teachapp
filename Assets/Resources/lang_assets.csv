@@ -75,6 +75,7 @@ ScoreTask;Набрать 30 очков;Score 30 points;Punkte 30 Punkte;Punteggi
 Return;Вернуться к заданиям;Return to tasks;Zurück zu den Aufgaben;Ritorna ai compiti
 Result;Результаты:;Results:;Ergebnisse:;Risultati:
 Points;баллов;points;punkte;punti
+ConvertPoints;Конвертированные очки:;Converted points:;Konvertierte Punkte:;Punti convertiti:
 TryBetter;Нужно больше стараться!;We need to try harder!;Wir müssen uns mehr anstrengen!;Devi provare di più!
 SelectIcon;Выбрать иконку;Select icon;Symbol auswählen;Seleziona icona
 PrivacyPolicy;Политика конфиденциальности;Privacy policy;Privacy policy;Privacy policy
@@ -99,6 +100,7 @@ CourseSelection;Выбор курса:;Course Selection:;Kurswahl:;Scelta del co
 LetsPlay;Давай сыграем;Let's play;Lass uns spielen;Andiamo a giocare
 YouLose;Ты проиграл!;You lose!;Du verlierst!;Hai perso!
 YouWin;Ты выиграл!;You win!;Du gewinnst!;Hai vinto!
+YouCool;Ты мега-крутой !;You are mega-cool!;Du bist mega-cool!;Sei mega-cool!
 WellDone;Молодец!;Well done!;Gut gemacht!;Ben fatto!
 PlayAgain;Сыграем еще?;Play again?;Nochmal spielen?;Ancora una volta?
 SearchCard;Найди все карты с таким изображением;Find all cards with this image;Finde alle Karten mit diesem Bild;Trova tutte le carte con questa immagine
@@ -109,3 +111,4 @@ YourFIO;Ваше ФИО;Your full name;Ihr vollständiger Name;Il tuo nome compl
 WhatLook;Сертификат будет иметь следующий вид:;The certificate will look like this:;Das Zertifikat wird wie folgt aussehen:;Il certificato avrà questo aspetto:
 Issued;Сертификат выдан:;Certificate issued:;Zertifikat ausgestellt:;Certificato rilasciato:
 MoveCat;Доберитесь за минимальное количество ходов до кубка;Get to the cup in the minimum number of moves;Kommen Sie mit der minimalen Anzahl von Zügen zum Pokal;Arriva alla tazza con il minimo numero di mosse
+Confirm;Подтвердить;Confirm;Bestätigen;Confermare
