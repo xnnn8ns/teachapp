@@ -5,8 +5,10 @@ using UnityEngine;
 public class Player_Controller : MonoBehaviour {
 
     Rigidbody2D Rigid;
+    [SerializeField] private GameObject ClickAnythingPanel;
     [SerializeField] private float Movement_Speed = 10f;
     private float Movement = 0;
+    private bool gameStarted = false;
     [SerializeField] private float Max_Movement_Speed = 10f;
     private Vector3 Player_LocalScale;
 
@@ -16,10 +18,27 @@ public class Player_Controller : MonoBehaviour {
     {
         Rigid = GetComponent<Rigidbody2D>();
         Player_LocalScale = transform.localScale;
+
+        // Замораживаем движение и сбрасываем скорость
+        Rigid.constraints = RigidbodyConstraints2D.FreezePosition;
+        Rigid.velocity = Vector2.zero;
+
+        Rigid.gravityScale = 0;
     }
     
     void Update () 
     {
+        // Если игра еще не началась и игрок нажал кнопку
+        if (!gameStarted && Input.anyKeyDown)
+        {
+            // Включаем гравитацию, размораживаем движение и начинаем игру
+            Destroy(ClickAnythingPanel);
+            Rigid.gravityScale = 2.5f;
+            Rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+            gameStarted = true;
+        }
+
+        // Если игра началась
         if (Input.GetMouseButton(0) || Input.touchCount > 0) // Проверяем, нажата ли левая кнопка мыши или есть ли касание на экране
         {
             Vector3 position;

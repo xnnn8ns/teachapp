@@ -183,7 +183,7 @@ public class MoveCatGame : MonoBehaviour
 
         // Запускаем анимацию
         animator.speed = 0.85f;
-        animator.Play("Anim2");
+        animator.Play("Anim5");
 
         // Загружаем текущий счет из PlayerPrefs
         int currentScore = PlayerPrefs.GetInt("Score", 0);

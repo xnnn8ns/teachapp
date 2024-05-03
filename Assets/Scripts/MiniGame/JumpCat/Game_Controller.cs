@@ -1,17 +1,25 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
+using UnityEngine.SceneManagement;
 
 public class Game_Controller : MonoBehaviour {
 
     [SerializeField] private GameObject winPanel;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip winGameSound;
+    [SerializeField] private AudioClip loseSound;
+    [SerializeField] private Sprite YouWinSprite;
     [SerializeField] private Animator animator;
     public AudioSource audioSource;
+    public AudioSource audioSourceWin;
     private GameObject Player;
 
     private float Max_Height = 0;
+    private const int MaxScore = 20000;
     public TextMeshProUGUI Txt_Score;
 
     private int Score;
@@ -20,27 +28,48 @@ public class Game_Controller : MonoBehaviour {
     private Vector3 Camera_Pos;
 
     private bool Game_Over = false;
+    private bool platformsSpawned = true;
+    private bool gameEnding = false;
+    private bool controlEnabled = false;
 
     public TextMeshProUGUI Txt_GameOverScore;
+    private Platform_Generator platformGenerator;
 
-	void Awake () 
+    void Awake () 
     {
         Player = GameObject.Find("Cat");
+        if (Player == null)
+        {
+            Debug.LogError("Player not found");
+            return;
+        }
 
-        // инициализируем границы
+        platformGenerator = GetComponent<Platform_Generator>();
+        if (platformGenerator == null)
+        {
+            Debug.LogError("Platform_Generator not found");
+            return;
+        }
+
         Camera_Pos = Camera.main.transform.position;
-        Top_Left = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
-	}
+        Top_Left = Camera.main.ScreenToWorldPoint(Vector3.zero);
+
+        StartCoroutine(EnableControlAfterDelay(1.0f));
+    }
 	
-	void FixedUpdate () 
+    void FixedUpdate () 
     {
-        if(!Game_Over)
+        if(!Game_Over && controlEnabled)
         {
             // Высчитываем максимальную высоту
             if (Player.transform.position.y > Max_Height)
             {
                 Max_Height = Player.transform.position.y;
             }
+
+            // Обновляем счет
+            Score = (int)(Max_Height * 50);
+            Txt_Score.text = Score.ToString();
 
             // проверяем проигрыш (путем высоты)
             if (Player.transform.position.y - Camera.main.transform.position.y < Get_DestroyDistance())
@@ -52,14 +81,22 @@ public class Game_Controller : MonoBehaviour {
                 StartCoroutine(Set_GameOver());
                 Game_Over = true;
             }
-        }
-	}
 
-    void OnGUI()
-    {
-        // Устанавливаем счет
-        Score = (int)(Max_Height * 50);
-        Txt_Score.text = Score.ToString();
+            // Проверяем, достиг ли игрок максимального количества очков
+            if (Score >= MaxScore && platformsSpawned)
+            {
+                // Останавливаем спавн платформ
+                platformGenerator.Generate_Platform(1);
+                platformGenerator.ShouldSpawnPlatforms = false;
+                platformsSpawned = false;
+            }
+
+            if (TopPlatform.gameNeedEnd && !gameEnding)
+            {
+                gameEnding = true;
+                StartCoroutine(DelayedGameOver());
+            }
+        }
     }
 
     public bool Get_GameOver()
@@ -72,15 +109,51 @@ public class Game_Controller : MonoBehaviour {
         return Camera_Pos.y + Top_Left.y;
     }
 
+    IEnumerator DelayedGameOver()
+    {
+        Rigidbody2D playerRigidbody = Player.GetComponent<Rigidbody2D>();
+        playerRigidbody.velocity = Vector2.zero;
+        playerRigidbody.gravityScale = 0;
+        playerRigidbody.isKinematic = true;
+    
+        // Проигрываем звук победы
+        audioSourceWin.PlayOneShot(winGameSound);
+    
+        yield return new WaitForSeconds(1.5f);
+        
+        Game_Over = true;
+        StartCoroutine(Set_GameOver());
+    }
+
     IEnumerator Set_GameOver()
     {
         GameObject Background_Canvas = GameObject.Find("Background_Canvas");
         yield return new WaitForSeconds(1.5f);
 
+        if (Score < MaxScore * 0.3f) // Если игрок набрал меньше 30% от максимального счета
+        {
+            PlayerPrefs.SetInt("ErrorCount", Convert.ToInt32(Score / 1000));
+            ComonFunctions.Instance.SetNextLevel(60, 30);
+
+            // Воспроизводим звук проигрыша
+            audioSourceWin.PlayOneShot(loseSound);
+
+            StartCoroutine(LoadSceneAfterDelay("BonusSceneLose", 2f));
+
+            yield break;
+        }
+
         // Включаем все объекты в Background_Canvas
         foreach (Transform child in Background_Canvas.transform)
         {
             child.gameObject.SetActive(true);
+        }
+
+        // Если игрок достиг самого высокого счета, меняем спрайт объекта Game_Over
+        if (gameEnding)
+        {
+            GameObject Game_Over = GameObject.Find("Game_Over");
+            Game_Over.GetComponent<Image>().sprite = YouWinSprite;
         }
 
         Txt_GameOverScore.text = Score.ToString();
@@ -89,6 +162,12 @@ public class Game_Controller : MonoBehaviour {
 
     public void StartWin() {
         StartCoroutine(WinCoroutine());
+    }
+
+    private IEnumerator LoadSceneAfterDelay(string sceneName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(sceneName,LoadSceneMode.Single);
     }
 
     IEnumerator WinCoroutine()
@@ -106,7 +185,7 @@ public class Game_Controller : MonoBehaviour {
 
         // Запускаем анимацию
         animator.speed = 0.85f;
-        animator.Play("Anim2");
+        animator.Play("Anim6");
 
         // Загружаем текущий счет из PlayerPrefs
         int currentScore = PlayerPrefs.GetInt("Score", 0);
@@ -121,6 +200,22 @@ public class Game_Controller : MonoBehaviour {
         PlayerPrefs.SetInt("Score", currentScore);
         PlayerPrefs.SetInt("AddedScore", score);
         scoreText.text = score.ToString();
+    }
+
+    IEnumerator EnableControlAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        controlEnabled = true;
+    }
+
+    public int GetScore()
+    {
+        return Score;
+    }
+
+    public int GetMaxScore()
+    {
+        return MaxScore;
     }
 
     private void SetNextLevel()

@@ -412,16 +412,37 @@ namespace Mkey
             ButtonData buttonData = DataLoader.GetLevelData(clickIndex);
             if (buttonData != null)
             {
-                // Определите имя сцены на основе четности номера темы
-                string sceneName = (buttonData.topic % 2 == 0) ? "BonusScene2" : "BonusScene";
-
+                // Получаем текущую мини-игру из PlayerPrefs
+                int currentMiniGame = PlayerPrefs.GetInt("CurrentMiniGame", 0);
+        
+                // Определите имя сцены на основе остатка от деления номера темы на 3
+                string sceneName;
+                switch (currentMiniGame % 3)
+                {
+                    case 0:
+                        sceneName = "CardGameScene";
+                        break;
+                    case 1:
+                        sceneName = "JumpCatGame";
+                        break;
+                    case 2:
+                        sceneName = "MoveCatScene";
+                        break;
+                    default:
+                        return;
+                }
+        
                 Scene scene = SceneManager.GetSceneByName(sceneName);
                 if (scene.isLoaded)
                     return;
-
+        
                 Settings.Current_ButtonOnMapID = clickIndex;
                 Settings.IsMisionClicked = isMissionClicked;
-
+        
+                // Увеличиваем currentMiniGame перед загрузкой сцены и сохраняем его в PlayerPrefs
+                currentMiniGame++;
+                PlayerPrefs.SetInt("CurrentMiniGame", currentMiniGame);
+        
                 SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
                 Vibration.VibratePop();
             }

@@ -81,9 +81,12 @@ EditorBuildSettings:
     path: Assets/Scenes/QuizScenes/BonusSceneWin.unity
     guid: d7f336b7ba66cc541854b2c45b1cecba
   - enabled: 1
-    path: Assets/Scenes/QuizScenes/BonusScene.unity
+    path: Assets/Scenes/QuizScenes/Game/CardGameScene.unity
     guid: ecc64a0a3b3cc594db552413d1471897
   - enabled: 1
-    path: Assets/Scenes/QuizScenes/BonusScene2.unity
+    path: Assets/Scenes/QuizScenes/Game/MoveCatScene.unity
     guid: 629855237a1a85747a9b67ada89cb82c
+  - enabled: 1
+    path: Assets/Scenes/QuizScenes/Game/JumpCatGame.unity
+    guid: c2c2692432b95fa439455f8ff7ddc14c
   m_configObjects: {}

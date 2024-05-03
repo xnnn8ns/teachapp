@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Platform_Generator : MonoBehaviour {
 
     public GameObject Platform_Green;
+    public GameObject TopPlatformPrefab;
     public GameObject Platform_Blue;
     public GameObject Platform_White;
     public GameObject Platform_Brown;
@@ -15,10 +17,14 @@ public class Platform_Generator : MonoBehaviour {
 
     private GameObject Platform;
     private GameObject Random_Object;
-
-    public float Current_Y = 0;
     float Offset;
     Vector3 Top_Left;
+    private Game_Controller gameController;
+    private GameObject highestPlatform;
+    private GameObject topPlatform;
+
+    public float Current_Y = 0;
+    public bool ShouldSpawnPlatforms = true;
 
 	void Start () 
     {
@@ -26,16 +32,19 @@ public class Platform_Generator : MonoBehaviour {
         Top_Left = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
         Offset = 1.2f;
 
+        gameController = GetComponent<Game_Controller>();
+
         // Создаем 10 платформ
         Generate_Platform(10);
-	}
-	
-	void Update () {
-		
 	}
 
     public void Generate_Platform(int Num)
     {
+        if (!ShouldSpawnPlatforms)
+        {
+            return;
+        }
+
         for (int i = 0; i < Num; i++)
         {
             // Высчитываем x, y платформ
@@ -71,29 +80,49 @@ public class Platform_Generator : MonoBehaviour {
                 // Создаем доп. объекты (пружинка, пропеллер, батут)
                 int Rand_Object = Random.Range(1, 40);
 
-                if (Rand_Object == 4) // пружинка
+                // Проверяем, находится ли счет игрока в диапазоне от MaxScore - 4000 до MaxScore
+                if (!(gameController.GetScore() >= gameController.GetMaxScore() - 4000 && gameController.GetScore() <= gameController.GetMaxScore()))
                 {
-                    Vector3 Spring_Pos = new Vector3(Platform_Pos.x + 0.5f, Platform_Pos.y + 0.27f, 0);
-                    Random_Object = Instantiate(Spring, Spring_Pos, Quaternion.identity);
-                    
-                    // Устанавливаем объект в родителя
-                    Random_Object.transform.parent = Platform.transform;
-                }
-                else if (Rand_Object == 7) // Батут
-                {
-                    Vector3 Trampoline_Pos = new Vector3(Platform_Pos.x + 0.13f, Platform_Pos.y + 0.25f, 0);
-                    Random_Object = Instantiate(Trampoline, Trampoline_Pos, Quaternion.identity);
+                    if (Rand_Object == 4) // пружинка
+                    {
+                        Vector3 Spring_Pos = new Vector3(Platform_Pos.x + 0.5f, Platform_Pos.y + 0.27f, 0);
+                        Random_Object = Instantiate(Spring, Spring_Pos, Quaternion.identity);
+                        
+                        // Устанавливаем объект в родителя
+                        Random_Object.transform.parent = Platform.transform;
+                    }
+                    else if (Rand_Object == 7) // Батут
+                    {
+                        Vector3 Trampoline_Pos = new Vector3(Platform_Pos.x + 0.13f, Platform_Pos.y + 0.25f, 0);
+                        Random_Object = Instantiate(Trampoline, Trampoline_Pos, Quaternion.identity);
 
-                    Random_Object.transform.parent = Platform.transform;
-                }
-                else if (Rand_Object == 15) // Пропеллер
-                {
-                    Vector3 Propeller_Pos = new Vector3(Platform_Pos.x + 0.13f, Platform_Pos.y + 0.15f, 0);
-                    Random_Object = Instantiate(Propeller, Propeller_Pos, Quaternion.identity);
+                        Random_Object.transform.parent = Platform.transform;
+                    }
+                    else if (Rand_Object == 15) // Пропеллер
+                    {
+                        Vector3 Propeller_Pos = new Vector3(Platform_Pos.x + 0.13f, Platform_Pos.y + 0.15f, 0);
+                        Random_Object = Instantiate(Propeller, Propeller_Pos, Quaternion.identity);
 
-                    Random_Object.transform.parent = Platform.transform;
+                        Random_Object.transform.parent = Platform.transform;
+                    }
                 }
             }
+
+            // Обновляем highestPlatform, если текущая платформа выше
+            if (highestPlatform == null || Platform.transform.position.y > highestPlatform.transform.position.y)
+            {
+                highestPlatform = Platform;
+            }
+        }
+
+        // Если игрок достиг MaxScore, создаем самую верхнюю платформу из префаба
+        if (gameController.GetScore() >= gameController.GetMaxScore())
+        {
+            float Dist_Y = Random.Range(2f, 5f);
+        
+            // Создаем новую платформу из префаба
+            Vector3 topPlatformPosition = highestPlatform.transform.position + new Vector3(0, Dist_Y, 0);
+            topPlatform = Instantiate(TopPlatformPrefab, topPlatformPosition, Quaternion.identity);
         }
     }
 }
