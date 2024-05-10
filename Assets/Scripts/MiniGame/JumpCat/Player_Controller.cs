@@ -6,6 +6,7 @@ public class Player_Controller : MonoBehaviour {
 
     Rigidbody2D Rigid;
     [SerializeField] private GameObject ClickAnythingPanel;
+    [SerializeField] private GameObject WhatDoPanel;
     [SerializeField] private float Movement_Speed = 10f;
     private float Movement = 0;
     private bool gameStarted = false;
@@ -28,8 +29,15 @@ public class Player_Controller : MonoBehaviour {
     
     void Update () 
     {
-        // Если игра еще не началась и игрок нажал кнопку
-        if (!gameStarted && Input.anyKeyDown)
+        // Если игра еще не началась, объект с объяснением активен и игрок нажал что-либо
+        if (!gameStarted && WhatDoPanel.activeInHierarchy && Input.anyKeyDown)
+        {
+            // Игнорируем все остальные действия
+            return;
+        }
+
+        // Если игра еще не началась, объект с объяснением не активен и игрок нажал что-либо
+        if (!gameStarted && !WhatDoPanel.activeInHierarchy &&Input.anyKeyDown)
         {
             // Включаем гравитацию, размораживаем движение и начинаем игру
             Destroy(ClickAnythingPanel);

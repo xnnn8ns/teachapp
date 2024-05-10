@@ -33,9 +33,6 @@ public class Platform_Generator : MonoBehaviour {
         Offset = 1.2f;
 
         gameController = GetComponent<Game_Controller>();
-
-        // Создаем 10 платформ
-        Generate_Platform(10);
 	}
 
     public void Generate_Platform(int Num)
