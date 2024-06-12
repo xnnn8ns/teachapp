@@ -11,6 +11,8 @@ public class WindowScript : MonoBehaviour
     [SerializeField]
     private Slider _slider;
     [SerializeField]
+    private DotsSlider _dotsSlider; // ссылка на скрипт DotsSlider
+    [SerializeField]
     private TextMeshProUGUI _textHeader;
     [SerializeField]
     private TextMeshProUGUI _textHeaderValue;
@@ -74,6 +76,9 @@ public class WindowScript : MonoBehaviour
 
         if(_slider != null)
             _slider.value = (buttonData.passCount + 1.2f )/3.0f;
+
+        if (_dotsSlider != null)
+            _dotsSlider.UpdateDots(buttonData.passCount);
     }
 
     private IEnumerator SetHeaders()
