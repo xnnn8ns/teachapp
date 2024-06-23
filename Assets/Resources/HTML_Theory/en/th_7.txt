@@ -1,0 +1,37 @@
+Sometimes, depending on the input data, what the program will do next will depend. For this, <b><color=#add8e6ff>conditional constructs</color></b> are used.
+
+<b><color=#ffff00ff><size=55>Construction:</size></color></b>
+<b>if Condition:</b>
+    <b><color=#add8e6ff>Instruction Block 1</color></b>
+<b>else:</b>
+    <b><color=#add8e6ff>Instruction Block 2</color></b>
+
+<b><color=#add8e6ff>Instruction Block 1</color></b> will be executed if the <b>Condition</b> is true. If the <b>Condition</b> is false, <b><color=#add8e6ff>Instruction Block 2</color></b> will be executed.
+The word <b>else</b> and the subsequent block may be missing in the conditional instruction.
+
+<b><color=#ffff00ff><size=55>Example:</size></color></b>
+<b><color=#add8e6ff>y = int(input())
+if y < 0:
+    y = -x
+print(y)</color></b>
+
+<b><color=#add8e6ff>To highlight the instruction block</color></b> related to the <b>if</b> or <b>else</b> instruction in Python, <b>indents</b> are used. All instructions that belong
+to one block must have the same indent, that is, <b>the same number of spaces</b> at the beginning of the line.
+It is <color=#add8e6ff><b>recommended</color></b> to use an indent of <b>4 spaces</b> and it is <b><color=#add8e6ff>not recommended</color></b> to use the <b>tab character</b> as an indent.
+
+Sometimes there are more than one <b>condition</b> that needs to be checked at a time, for this <b><color=#add8e6ff>nested constructs</color></b> are used.
+We get <b>nested branching</b> - after one fork in the course of program execution, another fork appears.
+
+<b><color=#ffff00ff><size=55>Example:</size></color></b>
+x = int(input())
+y = int(input())
+if x > 0:
+    if y > 0:               <color=#add8e6ff><b># x > 0, y > 0</b></color>
+        print("+ and +")
+    else:                   <color=#add8e6ff><b># x > 0, y < 0</b></color>
+        print("+ -")
+else:
+    if y > 0:               <color=#add8e6ff><b># x < 0, y > 0</b></color>
+        print("- +")
+    else:                   <color=#add8e6ff><b># x < 0, y < 0</b></color>
+        print("- -")

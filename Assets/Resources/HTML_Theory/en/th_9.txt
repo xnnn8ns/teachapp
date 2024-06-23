@@ -1,0 +1,25 @@
+<b><color=#ffff00ff><size=55>Another type of loops</size></color></b> is represented by the <b><color=#add8e6ff>for</color></b> construct. This loop <b>runs</b> through a set of values, <b>places</b> each value in a variable, and then in the loop we <b>can</b> <b>perform various actions</b> with this variable.
+
+<b><color=#ffff00ff><size=55>Construction:</size></color></b>
+<b><color=#add8e6ff>for variable in set_of_values:
+    instructions</color></b>
+
+After the keyword <b><color=#add8e6ff>for</color></b> comes the <b>name of the variable</b> into which the values will be placed. Then after the operator <b><color=#add8e6ff>in</color></b> a <b>set of values</b> and a <b>colon</b> are specified.
+
+And from the <b>next line</b> is located the <b><color=#add8e6ff>block of instructions</color></b> of the loop, which should also have <b>indents</b> from the beginning of the loop. When executing the loop, Python <b>sequentially gets</b> all the values from the set and <b>passes</b> them to the variable.
+
+When all the values from the set <b>have been iterated</b>, the loop <b>completes</b> its work.
+As a <b><color=#add8e6ff>set of values</color></b>, for example, you can consider a <b>string</b>, which essentially represents a set of characters.
+
+<b><color=#ffff00ff><size=55>Example:</size></color></b>
+<b><color=#add8e6ff>mes = "Hello"
+ 
+for c in mes:
+    print(c)</color></b>
+
+<b><color=#ffff00ff><size=55>Result:</size></color></b>
+<b><color=#add8e6ff>H
+e
+l
+l
+o</color></b>

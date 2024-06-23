@@ -1,0 +1,17 @@
+Gli <color=#ffff00ff><b><size=55>operatori aritmetici</size></b></color> includono: <color=#add8e6ff><b>addizione (+), sottrazione (-), moltiplicazione (*), divisione (/) </b></color>.
+
+<color=#ffff00ff><b><size=55>Esempio:</size></b></color>
+<color=#add8e6ff><b>addizione = 7+3</b></color>
+il valore della variabile addizione sarà 10
+
+<color=#add8e6ff><b>sottrazione = 8-6</b></color>
+il valore della variabile sottrazione sarà 2
+
+<color=#add8e6ff><b>moltiplicazione = 4*2</b></color>
+il valore della variabile moltiplicazione sarà 8
+
+<color=#add8e6ff><b>divisione = 9/3</b></color>
+il valore della variabile divisione sarà 3
+
+Per la divisione, è importante ricordare che il tipo di dati della variabile in cui viene registrato il risultato della divisione deve essere 
+<color=#ffff00ff><b><size=55>tipo di dati</size></b></color> <color=#add8e6ff><b>float</b></color> (numero con virgola mobile).

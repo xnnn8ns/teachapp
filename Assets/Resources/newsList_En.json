@@ -1,0 +1,110 @@
+{
+    "version": 0,
+    "news": [
+        {
+            "id": "1",
+            "title": "First news",
+            "text": "This is the text of the first news",
+            "image": "image1.png",
+            "icon": null
+        },
+        {
+            "id": "2",
+            "title": "Second news",
+            "text": "This is the text of the second news",
+            "image": null,
+            "icon": "icon2.png"
+        },
+        {
+            "id": "3",
+            "title": "Third news",
+            "text": "This is the text of the third news",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "4",
+            "title": "Fourth news",
+            "text": "This is the text of the fourth news",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "5",
+            "title": "Fifth news",
+            "text": "This is the text of the fifth news",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "6",
+            "title": "Sixth news",
+            "text": "This is the text of the sixth news",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "7",
+            "title": "Seventh news",
+            "text": "This is the text of the seventh news",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "8",
+            "title": "Eighth news",
+            "text": "This is the text of the eighth news",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "9",
+            "title": "Ninth news",
+            "text": "This is the text of the ninth news",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "10",
+            "title": "Tenth news",
+            "text": "This is the text of the tenth news",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "11",
+            "title": "Eleventh news",
+            "text": "This is the text of the eleventh news",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "12",
+            "title": "Twelfth news",
+            "text": "This is the text of the twelfth news",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "13",
+            "title": "Thirteenth news",
+            "text": "This is the text of the thirteenth news",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "14",
+            "title": "Fourteenth news",
+            "text": "This is the text of the fourteenth news",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "15",
+            "title": "Fifteenth news",
+            "text": "This is the text of the fifteenth news",
+            "image": null,
+            "icon": null
+        }
+    ]
+}

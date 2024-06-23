@@ -1,0 +1,18 @@
+<b><color=#ffff00ff><size=55>Loops</size></color></b> allow you to perform a certain action depending on the compliance with a certain <b>condition</b>. In the Python language, there are the following <b><color=#add8e6ff>types of loops:</color></b>
+<b><color=#ffff00ff><size=55>while, for</size></color></b>
+
+After the keyword <b>while</b>, a condition is specified, and as long as this expression returns the value <b>True</b>, the block of instructions that follows will be executed.
+
+<b><color=#ffff00ff><size=55>Construction:</size></color></b>
+<b>while conditional_expression:
+   instructions</b>
+
+<b><color=#ffff00ff><size=55>Example:</size></color></b>
+<color=#add8e6ff><b>num = 0
+while num < 3:
+    print("num = {num}")
+    num += 1
+print("program completed")</b></color>
+
+In this case, the <b>while</b> loop will be executed as long as the variable <b>num</b> is less than 3 and will be executed <b>3 times</b>.
+<color=#add8e6ff><b>It is necessary to remember</b></color> about 4 indents to the left of the calculations inside the loop.

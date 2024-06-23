@@ -1,0 +1,189 @@
+using System.Collections;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class WindowsMessageScript : MonoBehaviour
+{
+    [SerializeField]
+    private TextMeshProUGUI _textHeader;
+    [SerializeField]
+    private TextMeshProUGUI _textMessage;
+    [SerializeField]
+    private TextMeshProUGUI _textValue;
+    [SerializeField]
+    private TextMeshProUGUI _textValueHeader;
+    [SerializeField]
+    private TextMeshProUGUI _textValueHeaderAddition;
+    [SerializeField]
+    private TextMeshProUGUI _textButtonOKHeader;
+    [SerializeField]
+    private AudioSource _audioScore;
+    [SerializeField]
+    private AudioSource _clickAudio;
+    [SerializeField]
+    private bool _isErrorExistsForm = false;
+    [SerializeField]
+    private bool _isLevelBlockedForm = false;
+    [SerializeField]
+    private bool _isTimeExpiredForm = false;
+
+    [SerializeField]
+    private AudioSource _audioFanFars;
+    [SerializeField]
+    private bool _needFillData = true;
+    [SerializeField]
+    private bool _needUnloadCurrentScene = false;
+    [SerializeField]
+    
+
+    private string _sceneToLoad = "";
+    private int _targetScore = 0;
+
+    private void Start()
+    {
+        _sceneToLoad = PlayerPrefs.GetString("SceneToLoad");
+        if(_needFillData)
+            FillWindowData();
+        SetHeaders();
+    }
+
+    private void FillWindowData()
+    {
+        if (_textValue)
+        {
+            _targetScore = PlayerPrefs.GetInt("AddedScore", 0);
+            StartCoroutine(ArisePonts(_targetScore));
+        }
+        if (_textMessage)
+        {
+            _textMessage.text = PlayerPrefs.GetString("MessageForWindow", "");
+        }
+    }
+
+    public void ClickOK()
+    {
+        //_clickAudio?.Play();
+        
+        StopAllCoroutines();
+        Settings.IsModalWindowOpened = false;
+        if (UserData.SoundEnabled)
+        {
+            if (_audioScore)
+                _audioScore?.Stop();
+            if (_audioFanFars)
+                _audioFanFars?.Stop();
+        }
+        if (_textValue)
+            _textValue.text = _targetScore.ToString();
+        if (!_needUnloadCurrentScene)
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                if (SceneManager.GetSceneAt(i).name == "WindowRepeatErrorScene" || SceneManager.GetSceneAt(i).name == "WindowSimpliMessageScene" || SceneManager.GetSceneAt(i).name == "WindowMessageScene" || SceneManager.GetSceneAt(i).name == "WindowTimerStopScene")
+                {
+                    SceneManager.LoadScene(_sceneToLoad, LoadSceneMode.Single);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            //SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Single);
+            for (int i = SceneManager.sceneCount - 1; i >= 1; i--)
+            {
+                Scene scene = SceneManager.GetSceneAt(i);
+                if (scene.name != "DontDestroyOnLoad")
+                {
+                    SceneManager.UnloadSceneAsync(scene);
+                    Debug.Log("UnloadSceneAsync");
+                }
+            }
+        }
+        if (UserData.VibrationEnabled)
+        {
+            Vibration.VibratePop();
+        }
+
+    }
+
+    private IEnumerator ArisePonts(int targetValue)
+    {
+        int count = 0;
+        _audioScore?.Play();
+        int deltaStep = 1;
+        if (targetValue < 25)
+            deltaStep = 1;
+        else if (targetValue < 50)
+            deltaStep = 2;
+        else if (targetValue < 80)
+            deltaStep = 3;
+        else if (targetValue < 150)
+            deltaStep = 4;
+        else if (targetValue < 250)
+            deltaStep = 5;
+        else if (targetValue < 500)
+            deltaStep = 10;
+        else if (targetValue < 1000)
+            deltaStep = 20;
+        else
+            deltaStep = 100;
+        while (count < targetValue)
+        {
+            _textValue.text = count.ToString();
+            yield return new WaitForSeconds(0.02f);
+            count += deltaStep;
+            if (count > targetValue)
+                count = targetValue;
+        }
+        _textValue.text = _targetScore.ToString();
+        _audioScore?.Stop();
+
+        if (_audioFanFars) {
+            _audioFanFars?.Play();
+        }
+        yield return new WaitForSeconds(2f);
+        if(_audioFanFars != null)
+            _audioFanFars?.GetComponent<ParticleSystem>()?.Stop();
+        yield return new WaitForSeconds(1f);
+        if (_audioFanFars != null)
+            _audioFanFars?.Stop();
+        yield break;
+    }
+
+    private void SetHeaders()
+    {
+        if (_textHeader)
+        {
+            if (_isErrorExistsForm)
+                _textHeader.text = LangAsset.GetValueByKey("HaveIncorrectAnswers");
+            else if (_isTimeExpiredForm)
+                _textHeader.text = LangAsset.GetValueByKey("TimeIsUp");
+            else
+                _textHeader.text = LangAsset.GetValueByKey("TestPassed");
+        }
+        if(!_isErrorExistsForm && _textValueHeader)
+            _textValueHeader.text = LangAsset.GetValueByKey("PointsReceived");
+        if (_textValueHeaderAddition)
+        {
+            if (_isErrorExistsForm)
+                _textValueHeaderAddition.text = LangAsset.GetValueByKey("TryBetter");
+            else
+                _textValueHeaderAddition.text = LangAsset.GetValueByKey("Points");
+        }
+        if (_isErrorExistsForm)
+            _textMessage.text = LangAsset.GetValueByKey("TryAgain");
+        else if (_isLevelBlockedForm)
+        {
+            string x = LangAsset.GetValueByKey("LevelBlocked").Replace("|||", System.Environment.NewLine);
+            _textMessage.text = x;
+        }else if(_isTimeExpiredForm)
+            _textMessage.text = LangAsset.GetValueByKey("TaskFailed");
+
+        if (_isLevelBlockedForm)
+            _textButtonOKHeader.text = LangAsset.GetValueByKey("Close");
+        else
+            _textButtonOKHeader.text = LangAsset.GetValueByKey("Continue");
+
+    }
+}

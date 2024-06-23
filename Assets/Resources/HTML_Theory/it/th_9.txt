@@ -1,0 +1,24 @@
+<b><color=#ffff00ff><size=55>Un altro tipo di ciclo</size></color></b> è rappresentato dalla struttura <b><color=#add8e6ff>for</color></b>. Questo ciclo <b>scorre</b> un insieme di valori, <b>inserisce</b> ogni valore in una variabile, e poi nel ciclo possiamo <b>eseguire varie operazioni</b> con questa variabile.
+
+<b><color=#ffff00ff><size=55>Struttura:</size></color></b>
+<b><color=#add8e6ff>for variabile in insieme_di_valori:
+    istruzioni</color></b>
+
+Dopo la parola chiave <b><color=#add8e6ff>for</color></b> viene il <b>nome della variabile</b> in cui verranno inseriti i valori. Poi, dopo l'operatore <b><color=#add8e6ff>in</color></b>, viene specificato l'<b>insieme di valori</b> e il <b>due punti</b>.
+
+E dalla <b>riga successiva</b> si trova il <b><color=#add8e6ff>blocco di istruzioni</color></b> del ciclo, che deve anche avere <b>indentazioni</b> dall'inizio del ciclo. Quando il ciclo viene eseguito, Python <b>ottiene sequenzialmente</b> tutti i valori dall'insieme e <b>li passa</b> alla variabile.
+
+Quando tutti i valori dell'insieme <b>saranno esauriti</b>, il ciclo <b>termina</b> il suo lavoro.
+Come <b><color=#add8e6ff>insieme di valori</color></b>, ad esempio, si può considerare una <b>stringa</b>, che in sostanza rappresenta un insieme di caratteri.
+
+<b><color=#ffff00ff><size=55>Esempio:</size></color></b>
+<b><color=#add8e6ff>mes = "Ciao"
+ 
+for c in mes:
+    print(c)</color></b>
+
+<b><color=#ffff00ff><size=55>Risultato:</size></color></b>
+<b><color=#add8e6ff>C
+i
+a
+o</color></b>

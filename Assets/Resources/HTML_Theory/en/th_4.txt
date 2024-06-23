@@ -1,0 +1,20 @@
+Sometimes there is a <b><color=#ffff00ff><size=55>need in the program for comparison</size></color></b> of one with another, to understand what the program will do next or which variable to take.
+
+<b><color=#ffff00ff><size=55>Conditional expressions are divided into</size></color></b><b><color=#add8e6ff> comparison operators and logical operators.</color></b>
+
+Comparison operators <b><color=#add8e6ff>always return True or False values</color></b>
+
+<b><color=#ffff00ff><size=55>Comparison operators:</size></color></b>
+<b><color=#add8e6ff>==</color></b> Returns True if both operands are equal. Otherwise, it returns False.
+<b><color=#add8e6ff>!=</color></b> Returns True if both operands are NOT equal. Otherwise, it returns False.
+<b><color=#add8e6ff>> (more than)</color></b> Returns True if the first operand is greater than the second.
+<b><color=#add8e6ff>< (less than)</color></b> Returns True if the first operand is less than the second.
+<b><color=#add8e6ff>>= (greater than or equal to)</color></b> Returns True if the first operand is greater than or equal to the second.
+<b><color=#add8e6ff><= (less than or equal to)</color></b> Returns True if the first operand is less than or equal to the second.
+
+<b><color=#ffff00ff><size=55>Example:</size></color></b>
+a = 3
+b = 7
+res = a == b <b><color=#add8e6ff> # save the result of the operation in a variable </color></b>
+print(res) <b><color=#add8e6ff> # False - 4 is not equal to 5 </color></b>
+print(a != b) <b><color=#add8e6ff> # True</color></b>

@@ -1,0 +1,35 @@
+class;parola chiave per la definizione di classe;7
+from;classe di importazione dal Modulo;8
+or;è un operatore logico per eseguire uno dei due valori: or;5
+globale;impostazione di una variabile al di fuori dell'ambito corrente;8
+def;parola chiave utilizzata per definire una funzione;6
+if;Istruzione per scrivere un blocco di codice condizionale;7
+and;operatore booleano per eseguire due valori: e;5
+import;Importazione di moduli e classi nel programma corrente;9
+while;eseguire il blocco fino a quando l'espressione è vera;8
+lambda;utilizzato per creare espressioni lambda;8
+for;iterare sugli elementi della sequenza;9
+not;operazione logica not: Non;5
+False;valore per operatore binario: false;1
+True;valore per operatore binario: True;1
+None;nessun tipo di oggetto definito;5
+continue;Continua l'esecuzione del ciclo successivo in for E while.;8
+pass;saltare l'esecuzione del codice;9
+raise;creare eccezioni nel programma;9
+del;eliminazione di oggetti, variabili, elenchi, ecc.;6
+return;nella funzione return value;6
+as;fornire un nome per l'importazione;6
+elif;viene utilizzato insieme all'istruzione if per l'operazione "else if";7
+in;Verifica la presenza di un valore nell'Array;5
+try;gestione delle eccezioni;7
+assert;inserimento di asserzioni di debug;7
+else;utilizzato con condizioni if-elif quando nessuna delle condizioni è vera;7
+is;verifica se due variabili fanno riferimento allo stesso oggetto;5
+async;utilizzato nella funzione couroutine, con modulo I / O e await;8
+with;wrapper di esecuzione del blocco con metodi, quando si implementano le funzioni enter ed exit;8
+except;gestione delle eccezioni nel blocco try;7
+finally;utilizzato con try-except. Il codice in questo blocco viene eseguito in qualsiasi condizione;5
+nonlocal;accesso a variabili definite al di fuori dell'ambito;6
+yield;restituire i valori dalla funzione uno per uno;8
+break;interrompe l'esecuzione del ciclo for E while;8
+await;elaborazione asincrona di blocchi di codice;8

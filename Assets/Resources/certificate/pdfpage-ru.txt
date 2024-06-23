@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Page</title>
+
+    <style>
+        @page{margin: 0;}
+        body{
+            margin-bottom:0!important;
+        }
+        * {
+            page-break-after: avoid;
+        }
+        img{ max-width: none!important; }
+    </style>
+</head>
+<body style="height: 100%; margin: 0; padding: 0; font-family: 'Arial', sans-serif; box-sizing: border-box; color: #1b3057;">
+    <!-- <main class="main-container" style="width: 1123px; height: 794px; position: relative;"> -->
+        <!-- <table style="width: 1123px; height: 794px; border: none; border-collapse: collapse;"></table> -->
+        <table style="width: 1123px; height: 794px; padding-top: 150px; border-collapse: collapse;">
+            <tr>
+                <td style="width: 340px;">
+                    <img class="decoration decoration--one" src="http://sg12ngec.beget.tech/webCert/cert/decoration1.jpg" style="width: 318px; top: 0; left: 0; z-index: 1;">
+                </td>
+                <td width="460px" style="text-align: center;">
+                    
+                </td>
+                <td style="width: 323px" valign="top" align="right">
+                    <img class="decoration decoration--two" src="http://sg12ngec.beget.tech/webCert/cert/decoration2.jpg" style="width: 323px; top: 0; right: 0; z-index: 1;">
+                </td>
+            </tr>
+            <tr>
+                <td width="100%" colspan="3">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="text-align: center;">
+                                <h1 class="title" style="width: 100%; font-size: 36px; text-transform: uppercase; text-align: center;">Сертификат</h1> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="45px"></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">
+                                <div class="subtitle" style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.2em;">Выдан</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="130px" align="center">
+                                <p style="font-size: 20px; letter-spacing: 0.2em;">Title</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">
+                                <p class="text" tyle="font-size: 18px; line-height: 120%; letter-spacing: -0.015em;">за прохождение курса по Основам синтаксиса Python в Академии Система в размере 108 часов.<br>DateCertificate</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style="margin-top: 70px; margin-right: auto; margin-left: auto; text-align: center; border: none; border-collapse: collapse;">
+                                    <tr width="568px" align="center">
+                                        <td width="268px" style="width: 268px; border-top: 5px solid #bbe3e1;">
+                                            <div class="signature-container" style="width: 268px; padding-top: 13px; display: inline-block;">
+                                                <div class="name" style="font-size: 14px; font-weight: bold; line-height: 120%;">Терещенко Сергей Николаевич</div>
+                                                <div class="post" style="font-size: 14px; font-style: italic; line-height: 120%;">Директор академии</div>
+                                            </div>
+                                        </td>
+                                        <td width="32px"></td>
+                                        <td style="width: 268px; border-top: 5px solid #bbe3e1;">
+                                            <div class="signature-container" style="width: 268px; margin-left: 32px; padding-top: 13px; display: inline-block; ">
+                                                <div class="name" style="font-size: 14px; font-weight: bold; line-height: 120%;">Степанов Андрей Александрович</div>
+                                                <div class="post" style="font-size: 14px; font-style: italic; line-height: 120%;">Заместитель директора</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">
+                                
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- <div class="inner" style="width: 100%; margin-top: -50px; margin-bottom: -100px; position: relative; z-index: 3; text-align: center;">
+                        
+                        
+            
+                        
+                        
+                        
+                    </div> -->
+                </td>
+            </tr>
+            <tr>
+                <td><img class="decoration decoration--four" src="http://sg12ngec.beget.tech/webCert/cert/decoration4.jpg" style="width: 240px; bottom: 0; left: 0; z-index: 1;"></td>
+                <td width="460px" align="center">
+                    <div class="copyright" style="margin-top: 94px; font-size: 12px; font-weight: bold; letter-spacing: -0.01em; color: black;">Академия Система</div>
+                </td>
+                <td><img class="decoration decoration--three" src="http://sg12ngec.beget.tech/webCert/cert/decoration3.jpg" style="width: 340px; bottom: 0; right: 0; z-index: 1;"></td>
+            </tr>
+        </table>
+    <!-- </main> -->
+</body>
+</html>

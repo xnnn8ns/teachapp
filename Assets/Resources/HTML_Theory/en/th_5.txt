@@ -1,0 +1,38 @@
+<color=#ffff00ff><b><size=55>Python has the following logical operators:</size></b></color>
+<color=#add8e6ff><b>and</b></color>(logical multiplication),<color=#add8e6ff><b>or</b></color>(logical addition),<color=#add8e6ff><b>not</b></color>(logical negation).
+
+<color=#add8e6ff><b>and</b></color>:
+This operator returns the value <b>TRUE</b> only if all variables have the value <b>TRUE</b>.
+If at least one of the variables is <b>FALSE</b>, then the value will be <b>FALSE</b>.
+
+<color=#ffff00ff><b><size=55>Example:</size></b></color>
+age = 23
+weight = 50
+result = age > 21 and weight == 50
+print(result) <color=#add8e6ff><b> # True</b></color>
+
+In this case, the <color=#add8e6ff><b>and</b></color> operator compares the results of two expressions: <color=#add8e6ff><b>age > 21</b></color> <color=#add8e6ff><b>weight == 50</b></color>. And if both of these expressions return <b>True</b>,
+then the <color=#add8e6ff><b>and</b></color> operator also returns <b>True</b> (formally, the value of the last operand is returned).
+
+<color=#add8e6ff><b>or</b></color>:
+This operator returns the value <b>TRUE</b> if at least one variable has the value <b>TRUE</b>.
+If all of the variables are <b>FALSE</b>, then only then the value will be <b>FALSE</b>.
+
+<color=#ffff00ff><b><size=55>Example:</size></b></color>
+age = 25
+Married = False
+res = age > 21 or Married
+print(res) <color=#add8e6ff><b> # True, as the expression age > 21</b></color>
+
+<color=#add8e6ff><b>not</b></color>
+Returns <b>True</b> if the expression is <b>False</b> and, conversely, returns <b>False</b> if the value is <b>True</b>
+
+<color=#ffff00ff><b><size=55>Example:</size></b></color>
+age = 25
+Married = False
+print(not age > 21) <color=#add8e6ff><b> # False </b></color>
+print(not Married) <color=#add8e6ff><b> # True </b></color>
+print(not 5) <color=#add8e6ff><b> # False </b></color>
+print(not 0) <color=#add8e6ff><b> # True</b></color>
+
+<color=#ffff00ff><b><size=55>0 is equivalent to False, 1 is equivalent to True</size></b></color>

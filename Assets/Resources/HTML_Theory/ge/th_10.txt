@@ -1,0 +1,40 @@
+<b><color=#ffff00ff><size=55>Einige Schleifen</size></color></b> können andere Schleifen enthalten.
+
+<b><color=#ffff00ff><size=55>Beispiel:</size></color></b>
+<b><color=#add8e6ff>i = 1
+j = 1
+while i < 10:
+    while j < 10:
+        print(i * j, end="\t")
+        j += 1
+    print("\n")
+    j = 1
+    i += 1</color></b>
+
+Die äußere Schleife <b><color=#add8e6ff>while i < 10:</color></b> wird <b>9 mal</b> ausgeführt, bis die Variable i <b>gleich 10</b> ist. Innerhalb dieser Schleife wird die innere Schleife <b><color=#add8e6ff>while j < 10:</color></b> ausgeführt.
+Die innere Schleife wird ebenfalls <b>9 mal</b> ausgeführt, bis die Variable j gleich 10 ist. Dabei werden alle 9 Iterationen der inneren Schleife <b>innerhalb</b> einer Iteration der äußeren Schleife ausgeführt.
+
+In <b><color=#add8e6ff>jeder Iteration</color></b> der inneren Schleife wird das Produkt der Zahlen i und j <b>auf der Konsole ausgegeben</b>. Dann wird der Wert der Variable j <b>um eins erhöht</b>. Wenn die innere Schleife <b>beendet</b> ist,
+wird der Wert der Variable j <b>auf 1 zurückgesetzt</b>, der Wert der Variable i wird <b>um eins erhöht</b> und es geht zur <b><color=#add8e6ff>nächsten Iteration</color></b> der äußeren Schleife. Und alles wiederholt sich, bis die Variable i <b>gleich 10</b> ist.
+
+Dementsprechend wird die innere Schleife <b>insgesamt 81 mal</b> für alle Iterationen der äußeren Schleife ausgeführt. Am Ende erhalten wir die folgende <b>Konsolenausgabe</b> - Multiplikationstabelle.
+
+<b><color=#ffff00ff><size=55>Ausstieg aus der Schleife break und continue</size></color></b>
+Zur Steuerung der Schleife können wir die speziellen Operatoren <b><color=#add8e6ff>break</color></b> und <b><color=#add8e6ff>continue</color></b> verwenden. Der Operator <b><color=#add8e6ff>break</color></b> führt zum <b>Ausstieg aus der Schleife</b>. Der Operator <b><color=#add8e6ff>continue</color></b> führt zum <b>Übergang</b> zur nächsten Iteration der Schleife.
+
+Der Operator <b><color=#add8e6ff>break</color></b> kann verwendet werden, wenn in der Schleife Bedingungen entstehen, die <b>unvereinbar</b> mit ihrer weiteren Ausführung sind.
+
+<b><color=#ffff00ff><size=55>Beispiel:</size></color></b>
+number = 0
+while number < 5:
+    number += 1
+    if number == 3 :    <b><color=#add8e6ff># wenn number = 3, verlassen wir die Schleife</color></b>
+        break
+    print(f"number = {number}")
+
+Hier überprüft die Schleife <b><color=#add8e6ff>while</color></b> die Bedingung <b><color=#add8e6ff>number < 5</color></b>. Und solange <b><color=#add8e6ff>number</color></b> nicht gleich 5 ist, wird angenommen, dass der Wert von <b><color=#add8e6ff>number</color></b> auf der Konsole ausgegeben wird. Aber innerhalb der Schleife wird auch eine andere Bedingung überprüft: <b><color=#add8e6ff>if number == 3</color></b>. 
+Das heißt, wenn der Wert von <b><color=#add8e6ff>number</color></b> gleich 3 ist, verlassen wir die Schleife mit dem Operator <b><color=#add8e6ff>break</color></b>. Und am Ende erhalten wir die folgende Konsolenausgabe:
+
+<b><color=#ffff00ff><size=55>Ergebnis:</size></color></b>
+<b><color=#add8e6ff>number = 1
+number = 2</color></b>

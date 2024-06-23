@@ -1,0 +1,36 @@
+{
+    "users": [
+        {
+            "name": "User1",
+            "score": 16
+        },
+        {
+            "name": "User2",
+            "score": 25
+        },
+        {
+            "name": "User3",
+            "score": 30
+        },
+        {
+            "name": "User4",
+            "score": 40
+        },
+        {
+            "name": "User5",
+            "score": 50
+        },
+        {
+            "name": "User6",
+            "score": 60
+        },
+        {
+            "name": "User7",
+            "score": 70
+        },
+        {
+            "name": "User8",
+            "score": 80
+        }
+    ]
+}

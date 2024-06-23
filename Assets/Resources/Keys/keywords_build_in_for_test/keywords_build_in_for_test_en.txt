@@ -1,0 +1,35 @@
+print();output function (print);1
+range();sequence of numbers, from 0 to N;2
+dir();list of object names;5
+divmod();quotient and remainder of the division of two numbers;3
+enumerate();generates tuples of two elements;5
+format();formatting (for example, strings);4
+globals();global names (in the form of a dictionary);4
+locals();local names (in the form of a dictionary);4
+help();will call the built-in help;2
+input();user input of a line;2
+open();opening a file and returning its object;6
+type();return the object type;2
+str();conversion to a string;2
+int();conversion to a number;2
+float();conversion to a floating point number;2
+complex();conversion to a complex number;3
+bool();conversion to Boolean type;2
+tuple();conversion to a tuple;3
+dict();conversion to a dictionary;3
+list();conversion to a list;3
+set();conversion to a set;3
+slice();creating a slice;6
+bin();converting an integer to a binary string;6
+hex();converting an integer to a hexadecimal string;7
+oct();converting an integer to an octal string;7
+pow();exponentiating a number;3
+abs();returning the modulus of a number;3
+round();rounding to the specified number of decimal places;3
+len();output the number of elements in the object;4
+min();output the minimum element of the sequence;3
+max();output the maximum element of the sequence;3
+sorted();return a new sorted list;7
+sum();output the sum sequence elements;3
+next();return of the next iterator element;5
+chr();return of a character by numeric representation;2

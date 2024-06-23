@@ -1,0 +1,54 @@
+{
+    "theoryList": [
+        {
+            "id": 1,
+            "title": "Abschnitt 1",
+            "description": "Variablen und Daten"
+        },
+        {
+            "id": 2,
+            "title": "Abschnitt 2",
+            "description": "Datentypen"
+        },
+        {
+            "id": 3,
+            "title": "Abschnitt 3",
+            "description": "Arithmetische Operatoren"
+        },
+        {
+            "id": 4,
+            "title": "Abschnitt 4",
+            "description": "Vergleichsoperatoren"
+        },
+        {
+            "id": 5,
+            "title": "Abschnitt 5",
+            "description": "Logische Operatoren"
+        },
+        {
+            "id": 6,
+            "title": "Abschnitt 6",
+            "description": "Dateneingabe und -ausgabe"
+        },
+        {
+            "id": 7,
+            "title": "Abschnitt 7",
+            "description": "Bedingungen"
+        },
+        {
+            "id": 8,
+            "title": "Abschnitt 8",
+            "description": "While Schleife"
+        },
+        {
+            "id": 9,
+            "title": "Abschnitt 9",
+            "description": "For Schleife"
+        },
+        {
+            "id": 10,
+            "title": "Abschnitt 10",
+            "description": "Verschachtelte Schleifen"
+        }
+    ]
+}

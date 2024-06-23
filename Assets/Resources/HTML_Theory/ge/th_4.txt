@@ -1,0 +1,20 @@
+Manchmal gibt es eine <b><color=#ffff00ff><size=55>Notwendigkeit im Programm zum Vergleich</size></color></b> von einem mit einem anderen, um zu verstehen, was das Programm als nächstes tun wird oder welche Variable zu nehmen.
+
+<b><color=#ffff00ff><size=55>Bedingungsausdrücke sind unterteilt in</size></color></b><b><color=#add8e6ff> Vergleichsoperatoren und logische Operatoren.</color></b>
+
+Vergleichsoperatoren <b><color=#add8e6ff>geben immer die Werte True oder False zurück</color></b>
+
+<b><color=#ffff00ff><size=55>Vergleichsoperatoren:</size></color></b>
+<b><color=#add8e6ff>==</color></b> Gibt True zurück, wenn beide Operanden gleich sind. Andernfalls gibt es False zurück.
+<b><color=#add8e6ff>!=</color></b> Gibt True zurück, wenn beide Operanden NICHT gleich sind. Andernfalls gibt es False zurück.
+<b><color=#add8e6ff>> (mehr als)</color></b> Gibt True zurück, wenn der erste Operand größer als der zweite ist.
+<b><color=#add8e6ff>< (weniger als)</color></b> Gibt True zurück, wenn der erste Operand kleiner als der zweite ist.
+<b><color=#add8e6ff>>= (größer oder gleich)</color></b> Gibt True zurück, wenn der erste Operand größer oder gleich dem zweiten ist.
+<b><color=#add8e6ff><= (weniger oder gleich)</color></b> Gibt True zurück, wenn der erste Operand kleiner oder gleich dem zweiten ist.
+
+<b><color=#ffff00ff><size=55>Beispiel:</size></color></b>
+a = 3
+b = 7
+res = a == b <b><color=#add8e6ff> # speichern Sie das Ergebnis der Operation in einer Variablen </color></b>
+print(res) <b><color=#add8e6ff> # False - 4 ist nicht gleich 5 </color></b>
+print(a != b) <b><color=#add8e6ff> # True</color></b>

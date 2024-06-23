@@ -1,0 +1,27 @@
+After running the program, you always want to see the result, what happened there
+<color=#ffff00ff><b><size=55>Output</size></b></color> allows you to see, use, pass on the result of the program's work.
+
+<color=#add8e6ff><b>Print() output function</b></color>
+This function displays on the screen what is <b>in brackets</b>. You can specify specific variables, their number can be different
+
+<color=#ffff00ff><b><size=55>Example:</size></b></color>
+<color=#add8e6ff><b>print(574.4)</b></color> we will see 574.4 on the screen
+<color=#add8e6ff><b>print("a=", 7)</b></color> we will see "a=", 7 on the screen
+<color=#add8e6ff><b>print("hello" + " " + "world")</b></color> We will see on the screen: hello world
+<color=#add8e6ff><b>print("Hello \n World")</b></color> On the screen, the word Hello World will be written one under the other
+<color=#add8e6ff><b>print(6+5)</b></color> Will output 11
+
+<color=#ffff00ff><b><size=55>Function arguments</size></b></color> (what's in brackets) are separated by commas. In the output, instead of commas, values are separated by a space.
+
+<color=#add8e6ff><b>Input() input function</b></color>
+When this function is called, the program stops its execution and waits for the user to enter something.
+After pressing Enter, the <color=#add8e6ff><b>input()</b></color> function will take the entered text and pass it to the program.
+The entered value <b>can be assigned</b> to a variable.
+
+<color=#ffff00ff><b><size=55>Example:</size></b></color>
+a = input()
+User_name = input('Your name: ')<color=#add8e6ff><b> #The prompt "Your name" will appear on the screen</b></color>
+summa = int(input("How much does it cost? ")) <color=#add8e6ff><b>#conversion of the entered string to an integer</b></color>
+
+All data entered from the keyboard is considered <color=#add8e6ff><b>data type str</b></color>, even if you enter a number. In order to use it for calculation later,
+they <b>are converted</b> into numbers.

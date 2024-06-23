@@ -1,0 +1,18 @@
+[
+    {
+        "id": 0,
+        "name": "Федя",
+        "username": "exampleUser",
+        "email": "example@email.com",
+        "password": "examplePassword",
+        "levelsCompleted": 0,
+        "score": 0,
+        "rank": 0,
+        "startTime": "1704565848",
+        "initialLevelsCompleted": 0,
+        "initialScore": 0,
+        "lastUpdateDate": "2024-01-07",
+        "elapsedTime": "0",
+        "lastUserPosition": -1
+    }
+]

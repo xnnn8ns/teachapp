@@ -1,0 +1,33 @@
+{
+    "version": 0,
+    "news": [
+        {
+            "id": "1",
+            "title": "Erste Nachricht",
+            "text": "Dies ist der Text der ersten Nachricht",
+            "image": "image1.png",
+            "icon": null
+        },
+        {
+            "id": "2",
+            "title": "Zweite Nachricht",
+            "text": "Dies ist der Text der zweiten Nachricht",
+            "image": null,
+            "icon": "icon2.png"
+        },
+        {
+            "id": "3",
+            "title": "Dritte Nachricht",
+            "text": "Dies ist der Text der dritten Nachricht",
+            "image": null,
+            "icon": null
+        },
+        {
+            "id": "4",
+            "title": "Vierte Nachricht",
+            "text": "Dies ist der Text der vierten Nachricht",
+            "image": null,
+            "icon": null
+        }
+    ]
+}

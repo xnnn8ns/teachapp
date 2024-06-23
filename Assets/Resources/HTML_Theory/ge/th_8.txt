@@ -1,0 +1,18 @@
+<b><color=#ffff00ff><size=55>Schleifen</size></color></b> ermöglichen es, eine bestimmte Aktion in Abhängigkeit von der Einhaltung einer bestimmten <b>Bedingung</b> auszuführen. In der Python-Sprache gibt es folgende <b><color=#add8e6ff>Arten von Schleifen:</color></b>
+<b><color=#ffff00ff><size=55>while, for</size></color></b>
+
+Nach dem Schlüsselwort <b>while</b> wird eine Bedingung angegeben, und solange dieser Ausdruck den Wert <b>True</b> zurückgibt, wird der Anweisungsblock ausgeführt, der danach kommt.
+
+<b><color=#ffff00ff><size=55>Konstruktion:</size></color></b>
+<b>while bedingter Ausdruck:
+   Anweisungen</b>
+
+<b><color=#ffff00ff><size=55>Beispiel:</size></color></b>
+<color=#add8e6ff><b>num = 0
+while num < 3:
+    print("num = {num}")
+    num += 1
+print("Programm beendet")</b></color>
+
+In diesem Fall wird die <b>while</b>-Schleife ausgeführt, solange die Variable <b>num</b> kleiner als 3 ist und <b>3 Mal</b> ausgeführt wird.
+<color=#add8e6ff><b>Es ist wichtig zu beachten</b></color>, dass die Berechnungen innerhalb der Schleife 4 Einrückungen von links haben sollten.

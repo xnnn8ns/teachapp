@@ -1,0 +1,13 @@
+<color=#ffff00ff><b><size=55>Tipi di dati</size></b></color> sono necessari per determinare esattamente quale tipo di informazione può essere memorizzata nel contenitore.
+Per numeri, testo e altre cose, vengono utilizzati diversi tipi di dati.
+
+Per <color=#add8e6ff><b><size=55>numeri interi</size></b></color> viene utilizzato il tipo di dati <color=#ffff00ff><b><size=55>int</size></b></color> (165).
+Per <color=#add8e6ff><b><size=55>numeri con virgola mobile</size></b></color> viene utilizzato il tipo di dati <color=#ffff00ff><b><size=55>float</size></b></color> (187.756).
+Per <color=#add8e6ff><b><size=55>testo</size></b></color> viene utilizzato il tipo di dati <color=#ffff00ff><b><size=55>str</size></b></color> ("Latte").
+Per <color=#add8e6ff><b><size=55>collezioni di elementi</size></b></color> viene utilizzato il tipo di dati <color=#ffff00ff><b><size=55>list</size></b></color> (["mela", "pera", "arancia"] )
+
+Se immaginiamo che le variabili siano scatole chiuse con oggetti al loro interno, allora i tipi di dati sono come adesivi sulle scatole che indicano cosa contengono.
+
+<color=#ffff00ff><b><size=55>Esempio:</size></b></color>
+<color=#add8e6ff><b>int x=14</b></color>
+<color=#add8e6ff><b>str a</b></color>

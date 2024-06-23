@@ -1,0 +1,37 @@
+Manchmal hängt es von den eingegebenen Daten ab, was das Programm als nächstes ausführen wird. Dafür werden <b><color=#add8e6ff>bedingte Anweisungen</color></b> verwendet.
+
+<b><color=#ffff00ff><size=55>Konstruktion:</size></color></b>
+<b>if Bedingung:</b>
+    <b><color=#add8e6ff>Anweisungsblock 1</color></b>
+<b>else:</b>
+    <b><color=#add8e6ff>Anweisungsblock 2</color></b>
+
+<b><color=#add8e6ff>Anweisungsblock 1</color></b> wird ausgeführt, wenn die <b>Bedingung</b> wahr ist. Wenn die <b>Bedingung</b> falsch ist, wird <b><color=#add8e6ff>Anweisungsblock 2</color></b> ausgeführt.
+In der bedingten Anweisung kann das Wort <b>else</b> und der folgende Block fehlen.
+
+<b><color=#ffff00ff><size=55>Beispiel:</size></color></b>
+<b><color=#add8e6ff>y = int(input())
+if y < 0:
+    y = -x
+print(y)</color></b>
+
+<b><color=#add8e6ff>Zur Hervorhebung des Anweisungsblocks</color></b>, der sich auf die Anweisung <b>if</b> oder <b>else</b> bezieht, werden in Python <b>Einzüge</b> verwendet. Alle Anweisungen, die sich
+auf einen Block beziehen, müssen den gleichen Einzug haben, d.h. <b>die gleiche Anzahl von Leerzeichen</b> am Anfang der Zeile.
+Es wird <color=#add8e6ff><b>empfohlen</color></b>, einen Einzug von <b>4 Leerzeichen</b> zu verwenden und es wird <b><color=#add8e6ff>nicht empfohlen</color></b>, das <b>Tabulatorzeichen</b> als Einzug zu verwenden.
+
+Manchmal gibt es mehr als eine <b>Bedingung</b>, die auf einmal überprüft werden muss, dafür werden <b><color=#add8e6ff>verschachtelte Konstruktionen</color></b> verwendet.
+Wir erhalten <b>verschachtelte Verzweigungen</b> - nach einer Verzweigung im Verlauf der Programmausführung erscheint eine weitere Verzweigung.
+
+<b><color=#ffff00ff><size=55>Beispiel:</size></color></b>
+x = int(input())
+y = int(input())
+if x > 0:
+    if y > 0:               <color=#add8e6ff><b># x > 0, y > 0</b></color>
+        print("+ und +")
+    else:        <color=#add8e6ff><b># x > 0, y < 0</b></color>
+        print("+ -")
+else:
+    if y > 0:               <color=#add8e6ff><b># x < 0, y > 0</b></color>
+        print("- +")
+    else:                   <color=#add8e6ff><b># x < 0, y < 0</b></color>
+        print("- -")

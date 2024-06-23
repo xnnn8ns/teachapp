@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TouchDetector : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class TouchDetector : MonoBehaviour
     public event Action<Vector2> StartTouchArise;
     public event Action<Vector2> StopTouchArise;
     public event Action<Vector2> HoldTouchArise;
+
+    public TextMeshProUGUI text;
+    public ScrollRect scroll;
 
     private void Update()
     {
@@ -32,6 +37,10 @@ public class TouchDetector : MonoBehaviour
                 HoldTouch();
             }
         }
+        //if (Input.touchCount > 1)
+        //{
+        //    Debug.Log(Vector2.Distance(Input.GetTouch(0).position, Input.GetTouch(1).position));
+        //}
     }
 
     private void StartTouch()
@@ -40,7 +49,8 @@ public class TouchDetector : MonoBehaviour
         _firstTouchPosition = _holdTouchPosition = touchPosition;
         StartTouchArise?.Invoke(touchPosition);
         LastUserActionTime = Time.timeSinceLevelLoad;
-
+        if (text)
+            text.text = touchPosition.ToString();
     }
 
     private void OnMouseDown()
@@ -49,7 +59,8 @@ public class TouchDetector : MonoBehaviour
         _firstTouchPosition = _holdTouchPosition = touchPosition;
         StartTouchArise?.Invoke(touchPosition);
         LastUserActionTime = Time.timeSinceLevelLoad;
-
+        if (text)
+            text.text = touchPosition.ToString();
     }
 
     private void StopTouch()
@@ -73,6 +84,11 @@ public class TouchDetector : MonoBehaviour
         _firstTouchPosition = _holdTouchPosition;
         HoldTouchArise?.Invoke(_holdTouchPosition);
         LastUserActionTime = Time.timeSinceLevelLoad;
+        if (text)
+            text.text = _holdTouchPosition.ToString();
+        if (scroll)
+            scroll.verticalNormalizedPosition = scroll.verticalNormalizedPosition - touchOffset.y / 50000f;
+
     }
 
     private void OnMouseDrag()
@@ -86,5 +102,7 @@ public class TouchDetector : MonoBehaviour
         _firstTouchPosition = _holdTouchPosition;
         HoldTouchArise?.Invoke(_holdTouchPosition);
         LastUserActionTime = Time.timeSinceLevelLoad;
+        if(text)
+            text.text = _holdTouchPosition.ToString();
     }
 }

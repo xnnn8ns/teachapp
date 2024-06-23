@@ -1,0 +1,16 @@
+<color=#ffff00ff><b><size=55>Data types</size></b></color> are needed in order to determine exactly what information can be stored in the container.
+Different data types are used for numbers, text, and others.
+
+For <color=#add8e6ff><b><size=55>integers</size></b></color> the data type is <color=#ffff00ff><b><size=55>int</size></b></color> (165).
+
+For <color=#add8e6ff><b><size=55>floating point numbers</size></b></color> the data type is <color=#ffff00ff><b><size=55>float</size></b></color> (187.756).
+
+For <color=#add8e6ff><b><size=55>text</size></b></color> the data type is  <color=#ffff00ff><b><size=55>str</size></b></color> ("Milk").
+
+For <color=#add8e6ff><b><size=55>collection of items</size></b></color> the data type is <color=#ffff00ff><b><size=55>list</size></b></color> (["apple", "pear", "orange"] )
+
+If imagine that variables are closed boxes with things, then the data type is like stickers on the boxes that say what is there. 
+
+<color=#ffff00ff><b><size=55>Example:</size></b></color>
+<color=#add8e6ff><b>int x=14</b></color>
+<color=#add8e6ff><b>str a</b></color>

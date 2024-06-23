@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class Theory :  Information
 {
-    private List<string> _textList = new List<string>();
+    public static List<Theory> TheoryList = new List<Theory>();
 
-    public void SetTextList(List<string> textList)
+    private int _id = 0;
+    private string _description = "";
+
+    public int ID
     {
-        _textList = textList;
+        get
+        {
+            return _id;
+        }
+        set
+        {
+            _id = value;
+        }
     }
 
-    public List<string> GetTextList()
+    public string Description
     {
-        return _textList;
+        get
+        {
+            return _description;
+        }
+        set
+        {
+            _description = value;
+        }
     }
+
 }

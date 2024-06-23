@@ -1,0 +1,38 @@
+<color=#ffff00ff><b><size=55>В Python имеются следующие логические операторы:</size></b></color>
+<color=#add8e6ff><b>and</b></color>(логическое умножение),<color=#add8e6ff><b>or</b></color>(логическое сложение),<color=#add8e6ff><b>not</b></color>(логическое отрицание).
+
+<color=#add8e6ff><b>and(и)</b></color>:
+Этот оператор возвращает значение <b>TRUE</b> только если все переменные имеют значение <b>TRUE</b>. 
+Если хотя бы одна из переменных будет <b>FALSE</b> , то и значение будет <b>FALSE</b>.
+
+<color=#ffff00ff><b><size=55>Пример:</size></b></color>
+age = 23
+weight = 50
+result = age > 21 and weight == 50
+print(result) <color=#add8e6ff><b> # True</b></color>
+
+В данном случае оператор <color=#add8e6ff><b>and</b></color> сравнивает результаты двух выражений: <color=#add8e6ff><b>age > 21</b></color> <color=#add8e6ff><b>weight == 50</b></color>. И если оба этих выражений возвращают <b>True</b>,
+то оператор <color=#add8e6ff><b>and</b></color> также возвращает <b>True</b> (формально возвращается значение последнего операнда).
+
+<color=#add8e6ff><b>or(или)</b></color>:
+Этот оператор возвращает значение <b>TRUE</b> если хотя бы одна переменная имеет значение <b>TRUE</b>. 
+Если все из переменных будет <b>FALSE</b> , то только тогда значение будет <b>FALSE</b>.
+
+<color=#ffff00ff><b><size=55>Пример:</size></b></color>
+age = 25
+Married = False
+res = age > 21 or Married
+print(res) <color=#add8e6ff><b> # True, так как выражение age > 21</b></color>
+
+<color=#add8e6ff><b>not(не)</b></color>
+Возвращает <b>True</b>, если выражение равно <b>False</b> и, наоборот, возвращает <b>False</b>, если значение <b>True</b>
+
+<color=#ffff00ff><b><size=55>Пример:</size></b></color>
+age = 25
+Married = False
+print(not age > 21) <color=#add8e6ff><b> # False </b></color>
+print(not Married) <color=#add8e6ff><b> # True </b></color>
+print(not 5) <color=#add8e6ff><b> # False </b></color>
+print(not 0) <color=#add8e6ff><b> # True</b></color>
+
+<color=#ffff00ff><b><size=55>0 эквивалент False, 1 эквивалентна True</size></b></color>

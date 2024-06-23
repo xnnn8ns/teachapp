@@ -1,0 +1,40 @@
+<b><color=#ffff00ff><size=55>Alcuni cicli</size></color></b> possono contenere altri cicli al loro interno.
+
+<b><color=#ffff00ff><size=55>Esempio:</size></color></b>
+<b><color=#add8e6ff>i = 1
+j = 1
+while i < 10:
+    while j < 10:
+        print(i * j, end="\t")
+        j += 1
+    print("\n")
+    j = 1
+    i += 1</color></b>
+
+Il ciclo esterno <b><color=#add8e6ff>while i < 10:</color></b> viene eseguito <b>9 volte</b> fino a quando la variabile i non diventa <b>uguale a 10</b>. All'interno di questo ciclo viene eseguito il ciclo interno <b><color=#add8e6ff>while j < 10:</color></b>.
+Il ciclo interno viene anche eseguito <b>9 volte</b> fino a quando la variabile j non diventa uguale a 10. Inoltre, tutte le 9 iterazioni del ciclo interno vengono eseguite nell'ambito di una singola iterazione del ciclo esterno.
+
+In <b><color=#add8e6ff>ogni iterazione</color></b> del ciclo interno, il prodotto dei numeri i e j viene stampato sulla console. Poi il valore della variabile j viene <b>incrementato</b> di uno. Quando il ciclo interno ha <b>finito</b> il suo lavoro,
+il valore della variabile j viene <b>resettato</b> a 1, il valore della variabile i viene <b>incrementato</b> di uno e si passa alla <b><color=#add8e6ff>prossima iterazione</color></b> del ciclo esterno. E tutto si ripete fino a quando la variabile i non diventa uguale a 10.
+
+Di conseguenza, il ciclo interno verrà eseguito <b>un totale di 81 volte</b> per tutte le iterazioni del ciclo esterno. Alla fine otterremo il seguente <b>output</b> sulla console - tabella di moltiplicazione.
+
+<b><color=#ffff00ff><size=55>Uscita dal ciclo break e continue</size></color></b>
+Per controllare il ciclo possiamo utilizzare gli operatori speciali <b><color=#add8e6ff>break</color></b> e <b><color=#add8e6ff>continue</color></b>. L'operatore <b><color=#add8e6ff>break</color></b> esegue l'<b>uscita dal ciclo</b>. Mentre l'operatore <b><color=#add8e6ff>continue</color></b> esegue il <b>passaggio</b> alla prossima iterazione del ciclo.
+
+L'operatore <b><color=#add8e6ff>break</color></b> può essere utilizzato se nel ciclo si verificano condizioni che sono <b>incompatibili</b> con la sua ulteriore esecuzione.
+
+<b><color=#ffff00ff><size=55>Esempio:</size></color></b>
+numero = 0
+while numero < 5:
+    numero += 1
+    if numero == 3 :    <b><color=#add8e6ff># se numero = 3, usciamo dal ciclo</color></b>
+        break
+    print(f"numero = {numero}")
+
+Qui il ciclo <b><color=#add8e6ff>while</color></b> controlla la condizione <b><color=#add8e6ff>numero < 5</color></b>. E finché <b><color=#add8e6ff>numero</color></b> non è uguale a 5, si suppone che il valore di <b><color=#add8e6ff>numero</color></b> venga stampato sulla console. Tuttavia, all'interno del ciclo viene anche controllata un'altra condizione: <b><color=#add8e6ff>if numero == 3</color></b>.
+Cioè, se il valore di <b><color=#add8e6ff>numero</color></b> è uguale a 3, allora usciamo dal ciclo con l'operatore <b><color=#add8e6ff>break</color></b>. E alla fine otteniamo il seguente output sulla console:
+
+<b><color=#ffff00ff><size=55>Risultato:</size></color></b>
+<b><color=#add8e6ff>numero = 1
+numero = 2</color></b>

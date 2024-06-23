@@ -1,0 +1,116 @@
+Key;Ru;En;Ge;It
+Enter;Вход;Log in;Einloggen;Accedi
+Exit;Выйти;Log out;Ausloggen;Esci
+Edit;Изменить;Edit;Bearbeiten;Modifica
+Buy;Купить;Buy;Kaufen;Acquista
+Saved;Сохранено;Saved;Gespeichert;Salvato
+Select;Выбрать;Select;Auswählen;Seleziona
+MainMenu;Главное меню;Main Menu;Hauptmenü;Menu principale
+Value;Объем;Value;Wert;Valore
+Demo;Демо-режим;Demo;Demo;Demo
+Close;Закрыть;Close;Schließen;Chiudi
+Source;Источник;Source;Quelle;Fonte
+Unselect;Убрать выделение;Unselect;Abwählen;Deseleziona
+Back;Назад;Back;Zurück;Indietro
+PerfectDone;Все верно!;Perfect done!!;Perfekt gemacht!!;Fatto perfettamente!!
+DoneErrors;Есть ошибки!;Done with errors!;Fehler gemacht!;Fatto con errori!
+Save;Сохранить;Save;Speichern;Salva
+UserName;Ваша позиция;Your position;Ihre Position;La tua posizione
+Blocks;Блоков: ;Blocks: ;Blöcke: ;Blocchi: 
+Theory;Теория;Theory;Theorie;Teoria
+PythonBasic;Введение в Python;Introduction to Python;Einführung in Python;Introduzione a Python
+Loading;ЗАГРУЗКА;LOADING;LADEN;CARICO
+QuizInTest;Вопросов:;Questions:;Fragen:;Domande:
+PointsInTest;Баллов в тесте:;Points in the test:;Punkte im Test:;Punti nel test:
+TimeInTest;Время:;Time:;Zeit:;Tempo:
+StartTest;Данные о тесте;Test info;Testinformationen;Informazioni sul test
+PassingTest;Прохождение теста;Test results;Testergebnisse;Risultati del test
+Start;Начать;Start;Start;Inizia
+Cancel;Отмена;Cancel;Stornieren;Annulla
+TestPassed;Тест пройден;Test passed;Test bestanden;Test superato
+PointsReceived;Получено баллов:;Points received:;Erhaltene Punkte:;Punti ricevuti:
+Continue;Продолжить;Continue;Fortsetzen;Continua
+HaveIncorrectAnswers;Есть неверные ответы;Have incorrect answers;Haben falsche Antworten;Hai risposte sbagliate
+TryAgain;Попробуйте еще раз;Try again;Versuchen Sie es erneut;Prova ancora
+LevelBlocked;Данный уровень|||пока не доступен;This level is not|||yet available
+LevelBlocked;Данный уровень|||пока не доступен;This level is not|||yet available;Dieses Level ist noch nicht verfügbar;Questo livello non è ancora disponibile
+TimeIsUp;Время закончилось;Time is up;Die Zeit ist abgelaufen;Il tempo è scaduto
+TaskFailed;Задание не пройдено;Task failed;Aufgabe nicht bestanden;Compito fallito
+StopTask;Прекратить задание?;Stop the task?;Aufgabe stoppen?;Fermare il compito?
+Yes;Да;Yes;Ja;Si
+No;Нет;No;Nein;No
+Check;Проверить;Check;Überprüfen;Controlla
+WhatResultAfterCode;Какой результат будет после выполнения следующего кода:;What result after executing the code below:;Welches Ergebnis nach Ausführung des folgenden Codes:;Quale risultato dopo l'esecuzione del codice sottostante:
+Section;Раздел;Section;Abschnitt;Sezione
+Continue;Продолжить;Continue;Fortsetzen;Continua
+Subject;Тема;Subject;Thema;Soggetto
+Topic1;Переменные;Subject 1: <b>Variables</b>;Thema 1: <b>Variablen</b>;Argomento 1: <b>Variabili</b>
+Topic2;Переменные;Topic1;Thema1;Argomento1
+Topic3;Переменные;Topic1;Thema1;Argomento1
+Topic4;Переменные;Topic1;Thema1;Argomento1
+Topic5;Переменные;Topic1;Thema1;Argomento1
+Topic6;Переменные;Topic1;Thema1;Argomento1
+Topic7;Переменные;Topic1;Thema1;Argomento1
+Topic8;Переменные;Topic1;Thema1;Argomento1
+Topic9;Переменные;Topic1;Thema1;Argomento1
+Topic10;Переменные;Topic1;Thema1;Argomento1
+Step;этап из;step from;Schritt von;passo da
+Settings;Настройки;Settings;Einstellungen;Impostazioni
+Name;ФИО;Full name;Vollständiger Name;Nome completo
+Nickname;Ник (максимум 25);Nickname (max 25);Nickname (max 25);Soprannome (max 25)
+Email;Электронная почта;Email;Email;E-mail
+Password;Пароль;Password;Passwort;Parola d'ordine
+PersonalPage;Личная страница;Personal page;Persönliche Seite;Pagina personale
+TheorySection;Справочник раздела;Theory by section;Theorie nach Abschnitt;Teoria per sezione
+DayTask;Задание дня;Day task;Tagesaufgabe;Compito del giorno
+Registration;Регистрация;Registration;Registrierung;Registrazione
+ErrorMessage(Regs);Пользователь с таким именем пользователя или электронной почтой уже существует;A user with this username or email already exists;Ein Benutzer mit diesem Benutzernamen oder dieser E-Mail-Adresse ist bereits vorhanden;Un utente con questo nome utente o e-mail esiste già
+ErrorMessage(NullRegs);Все поля должны быть заполнены;All fields must be filled in;Alle Felder müssen ausgefüllt sein;Tutti i campi devono essere compilati
+ErrorMessageBadWords;Ввод содержит запрещенные слова;The input contains prohibited words;Die Eingabe enthält verbotene Wörter;L'input contiene parole proibite
+ErrorMessageEmail;Была введена некорректная электронная почта;An incorrect email was entered;Eine falsche E-Mail-Adresse wurde eingegeben;È stata inserita un'e-mail incorretta
+SuccessMessage;Поздравляем! Вы успешно зарегестрировались; Congratulations! You have successfully registered; Herzlichen Glückwunsch! Sie haben sich erfolgreich registriert; Congratulazioni! Ti sei registrato con successo
+TimeTask;Общее время занятия более 10 минут;Total time of the lesson is more than 10 minutes;Die Gesamtzeit der Lektion beträgt mehr als 10 Minuten;Il tempo totale della lezione è più di 10 minuti
+LevelTask;Пройти уровень из трех шагов;Pass the level of three steps;Bestehen Sie die Stufe von drei Schritten;Passa il livello di tre passaggi
+ScoreTask;Набрать 30 очков;Score 30 points;Punkte 30 Punkte;Punteggio 30 punti:
+Return;Вернуться к заданиям;Return to tasks;Zurück zu den Aufgaben;Ritorna ai compiti
+Result;Результаты:;Results:;Ergebnisse:;Risultati:
+Points;баллов;points;punkte;punti
+ConvertPoints;Конвертированные очки:;Converted points:;Konvertierte Punkte:;Punti convertiti:
+TryBetter;Нужно больше стараться!;We need to try harder!;Wir müssen uns mehr anstrengen!;Devi provare di più!
+SelectIcon;Выбрать иконку;Select icon;Symbol auswählen;Seleziona icona
+PrivacyPolicy;Политика конфиденциальности;Privacy policy;Privacy policy;Privacy policy
+Soon;Скоро в обновлении;Coming soon in update;Bald im Update;Prossimamente in aggiornamento
+CreateAccount;Создать аккаунт;Create account;Konto erstellen;Crea account
+DeleteAccount;Удалить аккаунт;Delete account;Konto löschen;Elimina account
+Congratulation;Поздравляем с прохождением курса!;Congratulations on passing the course!;Herzlichen Glückwunsch zum Bestehen des Kurses!;Congratulazioni per aver superato il corso!
+RequestCert;Запросить сертификат;Request a certificate;Zertifikat anfordern;Richiedi un certificato
+CheckPersonalData;Проверьте ваши персональные данные;Check your personal data;Überprüfen Sie Ihre persönlichen Daten;Controlla i tuoi dati personali
+AllCorrect;Все верно!;All correct!;Alles richtig!;Tutto corretto!
+NeedCorrect;Исправить;Need to correct;Muss korrigiert werden;Deve essere corretto
+WaitLetter;Все отлично! Ожидайте письмо с сертификатом в ближайшее время!;All right! Wait for a letter with a certificate soon!;Alles klar! Warten Sie bald auf einen Brief mit einem Zertifikat!;Va bene! Aspetta presto una lettera con un certificato!
+WrongLetter;Ошибка! Вы уже запрашивали сертификат, ожидайте;Error! You have already requested a certificate, wait;Fehler! Sie haben bereits ein Zertifikat angefordert, warten Sie;Errore! Hai già richiesto un certificato, aspetta
+RefPDF;Ссылка на сертификат;Link to the certificate;Verweis auf das Zertifikat;Collegamento al Certificato
+Reward;Получить награду;Get a reward;Belohnung erhalten;Ricevi una ricompensa
+AllTaskComplete;Вы уже выполнили все сегодняшние задания! Ожидайте новые;You have already completed all today's tasks! Wait for new ones;Sie haben bereits alle heutigen Aufgaben erledigt! Warten Sie auf neue;Hai già completato tutti i compiti di oggi! Aspetta nuovi
+News;Новости;News;Nachrichten;Notizie
+LoadMore;Загрузить еще...;Load more...;Mehr laden...;Carica di più...
+LoadPreviousNews;Загрузить предыдущие новости;Load previous news;Vorherige Nachrichten laden;Carica le notizie precedenti
+ChooseCourse;Выбрать курс;Choose a course;Wählen Sie einen Kurs;Scegli un corso
+CourseSelection;Выбор курса:;Course Selection:;Kurswahl:;Scelta del corso:
+LetsPlay;Давай сыграем;Let's play;Lass uns spielen;Andiamo a giocare
+YouLose;Ты проиграл!;You lose!;Du verlierst!;Hai perso!
+YouWin;Ты выиграл!;You win!;Du gewinnst!;Hai vinto!
+YouCool;Ты мега-крутой !;You are mega-cool!;Du bist mega-cool!;Sei mega-cool!
+WellDone;Молодец!;Well done!;Gut gemacht!;Ben fatto!
+PlayAgain;Сыграем еще?;Play again?;Nochmal spielen?;Ancora una volta?
+SearchCard;Найди все карты с таким изображением;Find all cards with this image;Finde alle Karten mit diesem Bild;Trova tutte le carte con questa immagine
+Timer;Таймер :;Timer :;Timer :;Timer :
+Remember;Запомнил;Remembered;Erinnert;Ricordato
+InputFIO;Введите свое ФИО, для получения сертификата;Enter your full name to get a certificate;Geben Sie Ihren vollständigen Namen ein, um ein Zertifikat zu erhalten;Inserisci il tuo nome completo per ottenere un certificato
+YourFIO;Ваше ФИО;Your full name;Ihr vollständiger Name;Il tuo nome completo
+WhatLook;Сертификат будет иметь следующий вид:;The certificate will look like this:;Das Zertifikat wird wie folgt aussehen:;Il certificato avrà questo aspetto:
+Issued;Сертификат выдан:;Certificate issued:;Zertifikat ausgestellt:;Certificato rilasciato:
+MoveCat;Доберитесь за минимальное количество ходов до кубка;Get to the cup in the minimum number of moves;Kommen Sie mit der minimalen Anzahl von Zügen zum Pokal;Arriva alla tazza con il minimo numero di mosse
+Confirm;Подтвердить;Confirm;Bestätigen;Confermare
+ClickAnything;Нажмите что-то, чтобы начать;Click something to start;Klicken Sie auf etwas, um zu beginnen;Clicca su qualcosa per iniziare
+JumpCat;Доберись до самой высокой платформы, не упав вниз;Get to the highest platform without falling down;Kommen Sie zur höchsten Plattform, ohne herunterzufallen;Arriva alla piattaforma più alta senza cadere

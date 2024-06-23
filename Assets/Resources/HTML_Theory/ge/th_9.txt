@@ -1,0 +1,25 @@
+<b><color=#ffff00ff><size=55>Ein anderer Typ von Schleifen</size></color></b> wird durch die Konstruktion <b><color=#add8e6ff>for</color></b> dargestellt. Diese Schleife <b>durchläuft</b> eine Reihe von Werten, <b>legt</b> jeden Wert in eine Variable und dann können wir in der Schleife mit dieser Variable <b>verschiedene Aktionen durchführen</b>.
+
+<b><color=#ffff00ff><size=55>Konstruktion:</size></color></b>
+<b><color=#add8e6ff>for Variable in Wertesatz:
+    Anweisungen</color></b>
+
+Nach dem Schlüsselwort <b><color=#add8e6ff>for</color></b> folgt der <b>Name der Variable</b>, in die die Werte gelegt werden. Dann wird nach dem Operator <b><color=#add8e6ff>in</color></b> der <b>Satz von Werten</b> und ein <b>Doppelpunkt</b> angegeben.
+
+Ab der <b>nächsten Zeile</b> befindet sich der <b><color=#add8e6ff>Anweisungsblock</color></b> der Schleife, der ebenfalls <b>Einzüge</b> vom Anfang der Schleife haben sollte. Bei der Ausführung der Schleife erhält Python <b>sequenziell</b> alle Werte aus dem Satz und <b>übergibt</b> sie an die Variable.
+
+Wenn alle Werte aus dem Satz <b>durchlaufen</b> sind, beendet die Schleife ihre Arbeit.
+Als <b><color=#add8e6ff>Satz von Werten</color></b> kann man beispielsweise eine <b>Zeichenkette</b> betrachten, die im Grunde genommen einen Satz von Zeichen darstellt.
+
+<b><color=#ffff00ff><size=55>Beispiel:</size></color></b>
+<b><color=#add8e6ff>mes = "Hallo"
+ 
+for c in mes:
+    print(c)</color></b>
+
+<b><color=#ffff00ff><size=55>Ergebnis:</size></color></b>
+<b><color=#add8e6ff>H
+a
+l
+l
+o</color></b>

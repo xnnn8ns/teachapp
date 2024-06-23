@@ -9,9 +9,6 @@ public class TextAnimation : MonoBehaviour
     [SerializeField]
     private Text _textType;
 
-    [SerializeField]
-    private Button _clickFinishButton;
-
     private string _textCash;
 
     private Coroutine _coroutineType = null;
@@ -32,18 +29,39 @@ public class TextAnimation : MonoBehaviour
         _coroutineType = StartCoroutine(TypeText());
     }
 
-    private IEnumerator TypeText()
+    public void ShowFullText(string text, Action result)
     {
-        foreach (char c in _textCash)
-        {
-            _textType.text += c;
-            yield return new WaitForSeconds(0.0725f);
-        }
-        _resultCurrentType?.Invoke();
-        _clickFinishButton.gameObject.SetActive(false);
+        _textCash = text;
+        _resultCurrentType = result;
+        _textType.text = text;
+        //_coroutineType = StartCoroutine(TypeText());
     }
 
-    public void ClickButtonFinishReadindByUser()
+    private IEnumerator TypeText()
+    {
+        _textType.text = "<color=#F8DDFA>" + _textCash + "</color>";
+        yield return new WaitForSeconds(0.1f);
+        string str = "";
+        int countStr = 0;
+        foreach (char c in _textCash)
+        {
+            str += c;
+            string colorStr = "<color=#000000>" + str + "</color>";
+            string colorReminderStr = "";
+            if (str.Length < _textCash.Length)
+            {
+                string reminderStr = _textCash.Substring(countStr+1);
+                colorReminderStr = "<color=#F8DDFA>" + reminderStr + "</color>";
+            }
+            _textType.text = colorStr + colorReminderStr;
+            countStr++;
+            yield return new WaitForSeconds(0.015f);
+        }
+        _resultCurrentType?.Invoke();
+        //_clickFinishButton?.gameObject.SetActive(false);
+    }
+
+    public void ClickButtonFinishReadingByUser()
     {
         try
         {
@@ -56,6 +74,6 @@ public class TextAnimation : MonoBehaviour
         }
         _textType.text = _textCash;
         _resultCurrentType?.Invoke();
-        _clickFinishButton.gameObject.SetActive(false);
+        //_clickFinishButton?.gameObject?.SetActive(false);
     }
 }

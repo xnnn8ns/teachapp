@@ -1,0 +1,54 @@
+{
+    "theoryList": [
+        {
+            "id": 1,
+            "title": "Section 1",
+            "description": "Variables and data"
+        },
+        {
+            "id": 2,
+            "title": "Section 2",
+            "description": "Data types"
+        },
+        {
+            "id": 3,
+            "title": "Section 3",
+            "description": "Arithmetic operators"
+        },
+        {
+            "id": 4,
+            "title": "Section 4",
+            "description": "Comparison Operators"
+        },
+        {
+            "id": 5,
+            "title": "Section 5",
+            "description": "Logical operators"
+        },
+        {
+            "id": 6,
+            "title": "Section 6",
+            "description": "Data input and output"
+        },
+        {
+            "id": 7,
+            "title": "Section 7",
+            "description": "Conditions"
+        },
+        {
+            "id": 8,
+            "title": "Section 8",
+            "description": "While loop"
+        },
+        {
+            "id": 9,
+            "title": "Section 9",
+            "description": "For loop"
+        },
+        {
+            "id": 10,
+            "title": "Section 10",
+            "description": "Nested loops"
+        }
+    ]
+}

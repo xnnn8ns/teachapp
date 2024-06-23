@@ -1,0 +1,35 @@
+class;the keyword for defining a class;7
+from;Importing a class from a module;8
+or;A logical operator to execute one of two values: or;5
+global;Setting a variable outside the current scope;8
+def;Keyword used to define a function;6
+if;Operator for writing a block of conditional code;7
+and;A logical operator for executing two values: and;5
+import;Import modules and classes into the current program;9
+while;Executing the block until the expression becomes true;8
+lambda;Used to create lambda expressions;8
+for;Iterating through the elements of the sequence;9
+not;Logical operation not: not;5
+False;Value for the binary operator: false;1
+True;Value for the binary operator: true;1
+None;Object type is not defined;5
+continue;Continues execution of the next cycle in for and while.;8
+pass;Skipping code execution;9
+raise;Creating exceptions in the program;9
+del;Deleting objects, variables, lists, etc.;6
+return;In the return value function;6
+as;Providing a name for import;6
+elif;Used together with the if operator for the "else if" operation;7
+in;Checks for the presence of a value in the array;5
+try;Exception handling;7
+assert;Inserting debugging statements;7
+else;Used with if-elif conditions when none of the conditions is true;7
+is;Checking whether two variables refer to the same object;5
+async;Used in the couroutine function, with the I/O module and await;8
+with;Wrapping the execution of the block with methods, when implementing the enter and exit functions;8
+except;Exception handling in the try block;7
+finally;Used with try-except. The code in this block is executed under any conditions;5
+nonlocal;Access to variables defined outside the scope;6
+yield;Return values from the function one by one;8
+break;Stops the execution of the for and while loop;8
+await;Asynchronous processing of code blocks;8

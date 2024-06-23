@@ -1,0 +1,212 @@
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections;
+using TMPro;
+
+public class LastScene : MonoBehaviour
+{
+    [SerializeField] private GameObject panel;
+    [SerializeField] private GameObject newWindow;
+    [SerializeField] private GameObject alreadyRequestedWindow;
+    [SerializeField] private GameObject errorWindow;
+    [SerializeField] private Button requestCertButton;
+    [SerializeField] private Button certLinkButton;
+    [SerializeField] private GetCertificateFromServer certificateFromServer;
+    [SerializeField] private TextMeshProUGUI buttonName;
+    [SerializeField] private TMP_InputField userNameInputField;
+    [SerializeField] private TextMeshProUGUI previewFIO;
+    [SerializeField] private Button confirmButton;
+    [SerializeField] private Button AllCorrectButton;
+    private bool hasRequestedCertificate = false;
+
+    
+    private void Start()
+    {
+        if (PlayerPrefs.GetInt("HasRequestedCertificate", 0) == 1)
+        {
+            requestCertButton.gameObject.SetActive(false);
+            certLinkButton.gameObject.SetActive(true);
+            string url = PlayerPrefs.GetString("Certificate1", "");
+            if (url.Length > 8)
+            {
+                buttonName.text = LangAsset.GetValueByKey("RefPDF");
+                certLinkButton.onClick.AddListener(() => Application.OpenURL(url));
+            }
+        }
+    }
+
+    public void RequestCertClick()
+    {
+        if (hasRequestedCertificate)
+        {
+            alreadyRequestedWindow.SetActive(true);
+            StartCoroutine(HideAlreadyRequestedWindow());
+        }
+        else
+        {
+            // делаем panel полностью прозрачным
+            Color c = panel.GetComponent<Image>().color;
+            c.a = 0f;
+            panel.GetComponent<Image>().color = c;
+            panel.SetActive(true);
+            StartCoroutine(ShowPanel());
+        }
+    }
+
+    IEnumerator ShowPanel()
+    {
+        yield return new WaitForSeconds(0.25f);
+        // плавное появление панели
+        for (float f = 0f; f <= 1f; f += 0.2f)
+        {
+            Color c = panel.GetComponent<Image>().color;
+            c.a = f;
+            panel.GetComponent<Image>().color = c;
+        }
+    }
+
+    IEnumerator HideAlreadyRequestedWindow()
+    {
+        yield return new WaitForSeconds(2f); // задержка перед деактивацией окна
+        alreadyRequestedWindow.SetActive(false);
+    }
+
+    public void AllCorrectClick()
+    {
+        // Получите новые данные пользователя из полей ввода
+        string newUserName = userNameInputField.text;
+    
+        // Проверьте, были ли введены новые данные
+        if (string.IsNullOrEmpty(newUserName))
+        {
+            errorWindow.SetActive(true); // активируем окно ошибки
+            return;
+        }
+    
+        // Обновите данные пользователя
+        UserData.UserFullName = newUserName;
+
+        // Обновляем текст предпросмотра
+        previewFIO.text = newUserName;
+
+        // Активируем кнопку "Вы уверены?"
+        confirmButton.gameObject.SetActive(true);
+
+        // Отключаем изначальную кнопку
+        AllCorrectButton.gameObject.SetActive(false);
+    }
+
+    public void ConfirmClick()
+    {
+        hasRequestedCertificate = true;
+        StartCoroutine(AllCorrectClickCoroutine());
+        certificateFromServer.GetHtmlFile(CertificateReady);
+        Debug.Log("GetHtmlFile");
+        // код для обработки запроса пользователя на сертификат
+    }
+
+    IEnumerator AllCorrectClickCoroutine()
+    {
+        StartCoroutine(HidePanel());
+
+        yield return new WaitForSeconds(2f); // задержка перед деактивацией панели и активацией newWindow
+
+        // делаем newWindow полностью прозрачным
+        Color c = newWindow.GetComponent<Image>().color;
+        c.a = 0f;
+        newWindow.GetComponent<Image>().color = c;
+
+        newWindow.SetActive(true); // активируем newWindow
+        StartCoroutine(ShowAndHideWindow());
+    }
+
+    IEnumerator HidePanel()
+    {
+        // делаем неактивными все дочерние объекты панели
+        foreach (Transform child in panel.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        yield return new WaitForSeconds(0.1f);
+
+        // плавное исчезновение панели
+        for (float f = 1f; f >= 0; f -= 0.1f)
+        {
+            Color c = panel.GetComponent<Image>().color;
+            c.a = f;
+            panel.GetComponent<Image>().color = c;
+            yield return new WaitForSeconds(0.1f);
+        }
+        panel.SetActive(false); // деактивируем объект panel
+    }
+
+    IEnumerator ShowAndHideWindow()
+    {
+        // плавное появление окна
+        for (float f = 0f; f <= 1; f += 0.1f)
+        {
+            Color c = newWindow.GetComponent<Image>().color;
+            c.a = f;
+            newWindow.GetComponent<Image>().color = c;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+        // делаем активными все дочерние объекты нового окна
+        foreach (Transform child in newWindow.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+
+        // ждем 2 секунды
+        yield return new WaitForSeconds(2);
+
+        // делаем неактивными все дочерние объекты нового окна
+        foreach (Transform child in newWindow.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        // плавное исчезновение окна
+        for (float f = 1f; f >= 0; f -= 0.1f)
+        {
+            Color c = newWindow.GetComponent<Image>().color;
+            c.a = f;
+            newWindow.GetComponent<Image>().color = c;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        newWindow.SetActive(false); // деактивируем объект newWindow
+    }
+
+    void OnApplicationQuit()
+    {
+        if (hasRequestedCertificate)
+        {
+            PlayerPrefs.SetInt("HasRequestedCertificate", 1);
+        }
+    }
+
+    public void CloseErrorWindow()
+    {
+        errorWindow.SetActive(false);
+    }
+
+    public void CertificateReady()
+    {
+        PlayerPrefs.SetInt("HasRequestedCertificate", 1);
+        hasRequestedCertificate = true;
+        requestCertButton.gameObject.SetActive(false);
+        certLinkButton.gameObject.SetActive(true);
+        string url = PlayerPrefs.GetString("Certificate1", "");
+        if (url.Length > 8)
+        {
+            buttonName.text = LangAsset.GetValueByKey("RefPDF");
+            certLinkButton.onClick.AddListener(() => Application.OpenURL(url));
+        }
+    }
+}

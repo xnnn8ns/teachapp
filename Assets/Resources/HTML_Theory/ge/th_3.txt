@@ -1,0 +1,17 @@
+<color=#ffff00ff><b><size=55>Arithmetische Operatoren</size></b></color> umfassen: <color=#add8e6ff><b>Addition (+), Subtraktion (-), Multiplikation (*), Division (/)</b></color>.
+
+<color=#ffff00ff><b><Größe=55>Beispiel:</Größe></b></Farbe>
+<color=#add8e6ff><b>Addition= 7+3</b></Farbe> 
+der Wert der Addition ist 10
+
+<color=#add8e6ff><b>Subtraktion= 8-6</b></Farbe> 
+der Wert der Subtraktion ist 2
+
+<color=#add8e6ff><b>Multiplikation = 4*2</b></color> 
+der Wert der Multiplikation ist 8
+
+<color=#add8e6ff><b>Teilung = 9/3</b></Farbe> 
+der Wert der Teilung ist 3
+
+Bei der Division ist zu beachten, dass der Datentyp der Variablen, in die das Ergebnis der Division geschrieben wird, sein muss
+<color=#ffff00ff><b><size=55>Datentyp</size></b></color> <color=#add8e6ff><b>float</b></color> (Gleitkommazahl).
